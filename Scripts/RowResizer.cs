@@ -18,7 +18,7 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public MedalSortLogic MedalSortLogic;
 
     private float minYValue = 500; // TODO don't allow change if this is met
-    private float maxYValue = 1500;
+    private float maxYValue = 3000;
     private float prevYValue;
     private bool firstPass;
     private float comparePreviousRowY = 0.0f;
@@ -151,7 +151,6 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             // Move the top down to keep up with the rest of the stretch
             if (compareNextRowY >= maxYValue)
             {
-                
                 foreach (var l in NextRows)
                 {
                     l.position = new Vector3(l.position.x, l.position.y + mouseDelta);
@@ -163,12 +162,7 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             foreach (var medal in medals.Value)
             {
-                //print(medal.name);
-                //print("BEFORE:");
-                //print(medal.name + " " + medal.gameObject.transform.position);
-                MedalPositionLogic.SetMedalHolderPosition(medal.gameObject, float.Parse(medal.name), medals.Key);
-                //print("AFTER:");
-                //print(medal.name + " " + medal.gameObject.transform.position);
+                MedalPositionLogic.UpateMedalHolderPosition(medal.gameObject);
             }
         }
 

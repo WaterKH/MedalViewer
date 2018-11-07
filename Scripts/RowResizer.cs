@@ -90,6 +90,14 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             return;
         // DO SOMETHING HERE
 
+        foreach (var medals in Medals)
+        {
+            foreach (var medal in medals.Value)
+            {
+                MedalPositionLogic.UpateMedalHolderPosition(medal.gameObject);
+            }
+        }
+
         var mouseDelta = Input.mousePosition.y - prevYValue;
 
         if (prevYValue == 0.0f)
@@ -158,13 +166,7 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
         }
 
-        foreach (var medals in Medals)
-        {
-            foreach (var medal in medals.Value)
-            {
-                MedalPositionLogic.UpateMedalHolderPosition(medal.gameObject);
-            }
-        }
+        
 
         //MedalLogicManager.SetupMedalsByTierAndMult(MedalSortLogic.medals_by_tier);
 
@@ -176,7 +178,7 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void UpdateMedals()
     {
         var next = NextRows.FirstOrDefault();
-        var prev = PreviousRows.FirstOrDefault();
+        var prev = PreviousRows.LastOrDefault();
 
         if (next == null)
         {

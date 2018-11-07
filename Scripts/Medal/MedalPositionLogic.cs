@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -142,4 +144,16 @@ public class MedalPositionLogic : MonoBehaviour {
 
 		Content.sizeDelta = new Vector2 (finalSizeX, finalSizeY);
 	}
+
+    public void UpateMedalHolderPosition(GameObject medalHolder)
+    {
+        var multiplier = float.Parse(medalHolder.name);
+        var lower = GameObject.Find(((int) multiplier).ToString()).transform.position.y;
+        var upper = GameObject.Find((((int) multiplier) + 1).ToString()).transform.position.y;
+
+        var percentage = multiplier - (int) multiplier;
+        var position = (upper - lower) * percentage;
+
+        medalHolder.transform.position = new Vector3(medalHolder.transform.position.x, lower + position);
+    }
 }

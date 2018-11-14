@@ -7,7 +7,9 @@ public class SettingsManager : MonoBehaviour {
 
 	public MedalCreator medalCreator;
 	public MedalSortLogic Sorter;
-	public CanvasGroup FilterGroup;
+    public MedalLogicManager LogicManager;
+
+    public CanvasGroup FilterGroup;
 
 	public ToggleFilterLogic TierFilter;
 	public ToggleFilterLogic PSM_URFilter;
@@ -58,9 +60,15 @@ public class SettingsManager : MonoBehaviour {
 	{
 		this.UpdateSettings();
 		// TODO Setup a class with all settings... May be easier to handle
-		Sorter.SortManager(medalCreator.medals, this);
+	    Globals.MultiplierFilter = this.MultiplierFilter;
+	    Globals.TierFilter = this.TierFilter;
+	    Globals.PSM_URFilter = this.PSM_URFilter;
+	    Globals.StarFilter = this.StarFilter;
 
-		CloseFilter();
+        Sorter.SortManager(medalCreator.medals);
+	    LogicManager.SetupMedalsByTierAndMult(Sorter.medals_by_tier);
+
+        CloseFilter();
 	}
 
 	public void CancelChanges()
@@ -114,7 +122,7 @@ public class SettingsManager : MonoBehaviour {
 
 		MultiplierFilter.SliderParent.isOn = false;
 		MultiplierFilter.Min.value = 30;
-		MultiplierFilter.Max.value = -77;
+		MultiplierFilter.Max.value = -55;
 		MultiplierFilter.MinValueChanged();
 		MultiplierFilter.MaxValueChanged();
 

@@ -26,8 +26,25 @@ public class MedalPositionLogic : MonoBehaviour {
 	{
 		vert_children.Clear();
 		hori_children.Clear();
+	    foreach (var child in VerticalParent.GetComponentsInChildren<Transform>())
+	    {
+	        if (child.name != "Vertical (Y)")
+	        {
+	            child.SetParent(VerticalTempParent.transform);
+	        }
+	    }
+	    foreach (var child in HorizontalParent.GetComponentsInChildren<Transform>())
+	    {
+	        if (child.name != "Horizontal (X)")
+	        {
+	            child.SetParent(HorizontalTempParent.transform);
+	        }
+	    }
 
-		foreach(var child in VerticalTempParent.GetComponentsInChildren<RectTransform>())
+	    Console.WriteLine("Vertical: " + VerticalParent.GetComponentsInChildren<Transform>().Length);
+	    Console.WriteLine("Horizontal: " + HorizontalParent.GetComponentsInChildren<Transform>().Length);
+
+        foreach (var child in VerticalTempParent.GetComponentsInChildren<RectTransform>())
 		{
 			
 			if(child.name != "Vertical_TEMP (Y)")
@@ -37,7 +54,6 @@ public class MedalPositionLogic : MonoBehaviour {
 				{
 					child.SetParent(VerticalParent.transform);
 				}
-				
 			}
 		}
 

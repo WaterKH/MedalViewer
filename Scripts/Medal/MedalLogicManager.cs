@@ -10,7 +10,7 @@ public class MedalLogicManager : MonoBehaviour {
 	public MedalCreator medalCreator;
 	public MedalPositionLogic medalPositionLogic;
 	public MedalSortLogic sortMedals;
-	public SettingsManager settings;
+	//public SettingsManager settings;
 
 	public List<GameObject> parents;
 	//public Dictionary<GameObject, int> medalChildrenHolders = new Dictionary<GameObject, int>();
@@ -23,7 +23,7 @@ public class MedalLogicManager : MonoBehaviour {
 	void Start () 
 	{
 		//TODO We can just grab two from the vertical to get the difference and then just multiply by our guilt
-		sortMedals.SortManager(medalCreator.medals, settings);
+		sortMedals.SortManager(medalCreator.medals);
 
 		// DEFAULT
 		SetupMedalsByTierAndMult(sortMedals.medals_by_tier);

@@ -608,6 +608,8 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
         isDisplaying = false;
         elapsedTime = 0.0f;
 
+        TraitManager.HideToolBox();
+
         //Reset();
     }
 

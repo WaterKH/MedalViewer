@@ -11,6 +11,7 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public List<Transform> PreviousRows;
     public List<Transform> NextRows;
     public bool ChangingRowSize;
+    public bool SettingsChanged;
 
     public Dictionary<int, List<RectTransform>> Medals = new Dictionary<int, List<RectTransform>>();
     public MedalPositionLogic MedalPositionLogic;
@@ -20,10 +21,9 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private float minYValue = 500; // TODO don't allow change if this is met
     private float maxYValue = 3000;
     private float prevYValue;
-    private bool firstPass;
     private float comparePreviousRowY = 0.0f;
     private float compareNextRowY = 0.0f;
-
+    
     // Use this for initialization
     void Start()
     {
@@ -81,7 +81,7 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     void Update()
     {
-        if (!firstPass)
+        if (SettingsChanged)
         {
             UpdateMedals();
         }
@@ -97,7 +97,7 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 MedalPositionLogic.UpateMedalHolderPosition(medal.gameObject);
             }
         }
-
+        
         var mouseDelta = Input.mousePosition.y - prevYValue;
 
         if (prevYValue == 0.0f)
@@ -165,13 +165,10 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 }
             }
         }
-
         
-
         //MedalLogicManager.SetupMedalsByTierAndMult(MedalSortLogic.medals_by_tier);
 
-        //MedalPositionLogic.UpdateContent();
-
+        MedalPositionLogic.UpdateContent();
         prevYValue = transform.position.y;
     }
 
@@ -203,7 +200,7 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
             if (currTierParent.GetComponentsInChildren<RectTransform>().Length > 0)
             {
-                firstPass = true;
+                SettingsChanged = false;
             }
 
             foreach (var child in currTierParent.GetComponentsInChildren<RectTransform>())
@@ -221,6 +218,14 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
                     Medals[tier].Add(child);
                 }
+            }
+        }
+
+        foreach (var medals in Medals)
+        {
+            foreach (var medal in medals.Value)
+            {
+                MedalPositionLogic.UpateMedalHolderPosition(medal.gameObject);
             }
         }
     }

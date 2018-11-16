@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,38 +13,56 @@ public class MedalPositionLogic : MonoBehaviour {
 	public GameObject HorizontalParent;
 	public GameObject VerticalTempParent;
 	public GameObject HorizontalTempParent;
-
+    
 	public GameObject Placeholder;
 	public RectTransform Content;
+    public GameObject ContentTempParent;
+    public GameObject[] ContentChildren;
 
-	public Dictionary<int, RectTransform> vert_children = new Dictionary<int, RectTransform>();
+    public Dictionary<int, RectTransform> vert_children = new Dictionary<int, RectTransform>();
 	public Dictionary<int, RectTransform> hori_children = new Dictionary<int, RectTransform>();
 
-	private float yValueConstant = 500;
+    public List<Vector3> VerticalPositions = new List<Vector3>();
+    public List<Vector3> HorizontalPositions = new List<Vector3>();
+
+    private float yValueConstant = 500;
 	private int xValueConstant = 2500;
+    private Vector2 initialSizeDelta;
+
+    public void Awake()
+    {
+        SetInitialPositions();
+
+        initialSizeDelta = new Vector2(Content.sizeDelta.x, Content.sizeDelta.y);
+    }
+    
+    public void SetInitialPositions()
+    {
+        foreach (var child in VerticalTempParent.GetComponentsInChildren<RectTransform>())
+        {
+            if (child.name != "Vertical_TEMP (Y)")
+            {
+                VerticalPositions.Add(child.position);
+            }
+        }
+
+        foreach (var child in HorizontalTempParent.GetComponentsInChildren<RectTransform>())
+        {
+            if (child.name != "Horizontal_TEMP (X)")
+            {
+                HorizontalPositions.Add(child.position);
+            }
+        }
+    }
 
 	public void Initialize()
 	{
-		vert_children.Clear();
-		hori_children.Clear();
-	    foreach (var child in VerticalParent.GetComponentsInChildren<Transform>())
-	    {
-	        if (child.name != "Vertical (Y)")
-	        {
-	            child.SetParent(VerticalTempParent.transform);
-	        }
-	    }
-	    foreach (var child in HorizontalParent.GetComponentsInChildren<Transform>())
-	    {
-	        if (child.name != "Horizontal (X)")
-	        {
-	            child.SetParent(HorizontalTempParent.transform);
-	        }
-	    }
+        ResetContent();
+        
+	    //print("Vertical: " + VerticalParent.GetComponentsInChildren<Transform>().Length);
+	    //print("Horizontal: " + HorizontalParent.GetComponentsInChildren<Transform>().Length);
 
-	    Console.WriteLine("Vertical: " + VerticalParent.GetComponentsInChildren<Transform>().Length);
-	    Console.WriteLine("Horizontal: " + HorizontalParent.GetComponentsInChildren<Transform>().Length);
-
+        // Setting up the Y rows
         foreach (var child in VerticalTempParent.GetComponentsInChildren<RectTransform>())
 		{
 			
@@ -57,6 +76,7 @@ public class MedalPositionLogic : MonoBehaviour {
 			}
 		}
 
+        // Setting up the X columns
 		foreach(var child in HorizontalTempParent.GetComponentsInChildren<RectTransform>())
 		{
 			if(child.name != "Horizontal_TEMP (X)")
@@ -68,9 +88,10 @@ public class MedalPositionLogic : MonoBehaviour {
 			}
 		}
 
-		var initialPos = Placeholder.GetComponent<RectTransform>().anchoredPosition;
-		var yValue = initialPos.y;
-		var xValue = initialPos.x;
+		//var initialPos = Placeholder.GetComponent<RectTransform>().position;
+        //print("Initial Pos: " + initialPos);
+		var yValue = 0.0f;
+		var xValue = 0.0f;
 		var tempHolder = VerticalParent.GetComponentsInChildren<RectTransform>();
 
 		for(int i = tempHolder.Length - 1; i >= 0; --i)
@@ -78,8 +99,9 @@ public class MedalPositionLogic : MonoBehaviour {
 			if(tempHolder[i].name != "Vertical (Y)")
 			{
 				vert_children.Add(int.Parse(tempHolder[i].name), tempHolder[i]);
-                //print(tempHolder[i].transform.position);
-				tempHolder[i].position = new Vector2(initialPos.x, yValue + yValueConstant);
+                //print(tempHolder[i].name + " " + tempHolder[i].position);
+				tempHolder[i].position = new Vector2(0.0f, yValue + yValueConstant);
+                //print(i + " " + tempHolder[i].position);
 				tempHolder[i].GetComponent<Text>().enabled = true;
 				yValue += yValueConstant;
 			}
@@ -90,18 +112,23 @@ public class MedalPositionLogic : MonoBehaviour {
 			if(x.name != "Horizontal (X)")
 			{
 				hori_children.Add(int.Parse(x.name), x);
-				x.position = new Vector2(xValue + xValueConstant, initialPos.y);
+				x.position = new Vector2(xValue + xValueConstant, 0.0f);
 				x.GetComponent<Text>().enabled = true;
 				xValue += xValueConstant;
 			}
 		}
 
-		UpdateContent();
+	    UpdateContent();
 	}
 
 	public void SetMedalHolderPosition(GameObject medalHolder, float guiltFloat, int tier)
 	{
-		var X_index = tier;
+	    if (tier - 1 < 0)
+	    {
+            medalHolder.SetActive(false);
+	        return;
+	    }
+	    var X_index = tier;
 		var Y = guiltFloat;
 
 		var Y_index = (int)Y;
@@ -112,8 +139,8 @@ public class MedalPositionLogic : MonoBehaviour {
 		{
 			if(Y_index <= Mathf.Abs(Globals.MultiplierFilter.Max.value) && Y_index >= Globals.MultiplierFilter.Min.value)
 			{
-				var Y_transform = vert_children[Y_index].transform.position;
-				var X_transform = hori_children[X_index].transform.position;
+				var Y_transform = vert_children[Y_index].position;
+				var X_transform = hori_children[X_index].position;
 
                 //print(Y_index + " " + vert_children[Y_index].transform.position);
 
@@ -122,12 +149,15 @@ public class MedalPositionLogic : MonoBehaviour {
 
                 if (Y_index + 1 < vert_children.Count)
 			    {
-			        next_Y = vert_children[Y_index + 1].transform.position.y - Y_transform.y;
+                    print("test");
+			        next_Y = vert_children[Y_index + 1].position.y - Y_transform.y;
+                    print(vert_children[Y_index + 1].name + " " + next_Y);
 			    }
                 //print(next_Y + " " + Y_after_decimal + " " +  Y_transform.y);
 			    new_transform = new Vector3(X_transform.x, Y_transform.y + (next_Y * Y_after_decimal));
                 
-                medalHolder.transform.position = new_transform;
+                medalHolder.GetComponent<RectTransform>().position = new_transform;
+			    medalHolder.SetActive(true);
             }
 			else
 			{
@@ -136,30 +166,102 @@ public class MedalPositionLogic : MonoBehaviour {
 		}
 	}
 
-	// http://answers.unity.com/answers/1302142/view.html
-	public void UpdateContent()
+    public void ResetContent()
+    {
+        Content.sizeDelta = initialSizeDelta;
+        Content.localScale = new Vector3(1f, 1f, 1f);
+        //print(Content.sizeDelta);
+        vert_children.Clear();
+        hori_children.Clear();
+        foreach (var child in VerticalParent.GetComponentsInChildren<Transform>())
+        {
+            if (child.name != "Vertical (Y)")
+            {
+                child.SetParent(VerticalTempParent.transform);
+                child.position = VerticalPositions[int.Parse(child.name) - 1];
+            }
+        }
+        foreach (var child in HorizontalParent.GetComponentsInChildren<Transform>())
+        {
+            if (child.name != "Horizontal (X)")
+            {
+                child.SetParent(HorizontalTempParent.transform);
+                child.position = HorizontalPositions[int.Parse(child.name) - 1];
+            }
+        }
+    }
+
+    // http://answers.unity.com/answers/1302142/view.html
+    public void UpdateContent()
 	{
-		float yMin = 0.0f;
+	    
+        //print("BEFORE: " + Content.sizeDelta);
+        float yMin = 0.0f;
 		float yMax = 0.0f;
 		float xMin = 0.0f;
 		float xMax = 0.0f;
 
-		foreach (var child in VerticalParent.GetComponentsInChildren<RectTransform>())
+		foreach (var kv in vert_children)
 		{
-			yMin = Mathf.Min (yMin, child.offsetMin.y);
-			yMax = Mathf.Max (yMax, child.offsetMax.y);
-		}
-		foreach (var child in HorizontalParent.GetComponentsInChildren<RectTransform>()) 
+		    var child = kv.Value;
+
+		    if (child.name != "Vertical (Y)")
+		    {
+
+		        //if (yMin > child.offsetMin.y)
+		        //{
+		        //    print("Ymin: " + child.name + " " + child.offsetMin.y);
+		        //}
+		        //else if (yMax < child.offsetMax.y)
+		        //{
+		        //    print("Ymax: " + child.name + " " + child.offsetMax.y);
+		        //}
+                //foreach (var subchild in child.GetComponentsInChildren<RectTransform>())
+                //{
+                yMin = Mathf.Min(yMin, child.offsetMin.y);
+		        yMax = Mathf.Max(yMax, child.offsetMax.y);
+		        child.GetComponent<RowResizer>().SettingsChanged = true;
+		    }
+        }
+		foreach (var kv in hori_children)
 		{
-			xMin = Mathf.Min (xMin, child.offsetMin.x);
-			xMax = Mathf.Max (xMax, child.offsetMax.x);
+		    var child = kv.Value;
+
+		    if (child.name != "Horizontal (X)")
+		    {
+		        //if (xMin > child.offsetMin.x)
+		        //{
+		        //    print("Xmin: " + child.name + " " + child.offsetMin.x);
+		        //}
+		        //else if (xMax < child.offsetMax.x)
+		        //{
+		        //    print("Xmax: " + child.name + " " + child.offsetMax.x);
+		        //}
+
+		        //foreach (var subchild in child.GetComponentsInChildren<RectTransform>())
+		        //{
+		        xMin = Mathf.Min(xMin, child.offsetMin.x);
+		        xMax = Mathf.Max(xMax, child.offsetMax.x);
+		        //}
+		    }
 		}
 
 		float finalSizeY = yMax - yMin;
 		float finalSizeX = xMax - xMin;
 
-		Content.sizeDelta = new Vector2 (finalSizeX, finalSizeY);
-	}
+	    //foreach (var child in ContentChildren)
+	    //{
+	    //    child.transform.SetParent(ContentTempParent.transform);
+	    //}
+
+        Content.sizeDelta = new Vector2 (finalSizeX, finalSizeY);
+        Content.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+	    //print("AFTER: " + Content.sizeDelta);
+	    //foreach (var child in ContentChildren)
+	    //{
+	    //    child.transform.SetParent(Content.transform);
+	    //}
+    }
 
     public void UpateMedalHolderPosition(GameObject medalHolder)
     {

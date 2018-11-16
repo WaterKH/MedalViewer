@@ -17,25 +17,34 @@ public class Parser {
 	{
 		float guilt_float = 0.0f;
 
-		if(medal.Star == 6 || medal.Star == 7)
-		{
-			if(medal.GuiltMultiplier.Length != 0)
-			{
-				if(medal.GuiltMultiplier.Split('-').Length == 1)
-				{
-					if(medal.GuiltMultiplier.Substring(1).Length > 1)
-					{
-						guilt_float = float.Parse(float.Parse(medal.GuiltMultiplier.Substring(1)).ToString("0.0"));
-					}
-				}
-				else
-				{
-					guilt_float = float.Parse(float.Parse(medal.GuiltMultiplier.Split('-')[1]).ToString("0.0"));
-				}
-			}
-		}
+	    try
+	    {   
+	        if (medal.Star == 6 || medal.Star == 7)
+	        {
+	            if (medal.GuiltMultiplier.Length != 0)
+	            {
 
-		return guilt_float;
+	                if (medal.GuiltMultiplier.Split('-').Length == 1)
+	                {
+	                    if (medal.GuiltMultiplier.Substring(1).Length > 1)
+	                    {
+	                        guilt_float = float.Parse(float.Parse(medal.GuiltMultiplier.Substring(1)).ToString("0.0"));
+	                    }
+	                }
+	                else
+	                {
+	                    guilt_float = float.Parse(float.Parse(medal.GuiltMultiplier.Split('-')[1]).ToString("0.0"));
+	                }
+	            }
+	        }
+	    }
+	    catch (Exception e)
+	    {
+            Console.WriteLine("Potentially no guilt");
+	        Console.WriteLine(e);
+	    }
+
+	    return guilt_float;
 	}
 
 	public Dictionary<int, MedalAbility> ParseAbilityDescription(TextAsset MedalData)
@@ -165,7 +174,7 @@ public class Parser {
             float.TryParse(mult[i].Replace("x", ""), out parsedMult[i]);
         }
 
-        Debug.Log(parsedMult[0] + " " + tierMultiplier[tier] + " " + (spATKBonus / 100.0f) + " " + parsedMult[0] * (tierMultiplier[tier] + (spATKBonus / 100.0f)));
+        //Debug.Log(parsedMult[0] + " " + tierMultiplier[tier] + " " + (spATKBonus / 100.0f) + " " + parsedMult[0] * (tierMultiplier[tier] + (spATKBonus / 100.0f)));
 
         return $"x{Math.Round(parsedMult[0] * (1.0f + tierMultiplier[tier] + (spATKBonus / 100.0f)), 2)}" +
             $"{(parsedMult[1] != 0.0f ? $" ~ {Math.Round(parsedMult[1] * (1.0f + tierMultiplier[tier] + (spATKBonus / 100)), 2)}" : string.Empty)}";

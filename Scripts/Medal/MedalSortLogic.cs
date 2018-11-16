@@ -17,7 +17,7 @@ public class MedalSortLogic : MonoBehaviour {
 		    medals_by_tier.Clear();
 
             var medalByTier = Globals.MedalsTable.Where(x => Globals.TierFilter.ToggleChildrenActivated.Contains(x.Tier));
-		    var list = medalByTier.ToList();
+		    //var list = medalByTier.ToList();
             var medalByMultAndTier = medalByTier.ToList().Where(x => CompareGuilt(x)).OrderBy(x => x.Tier);
 
             foreach (var medal in medalByMultAndTier)

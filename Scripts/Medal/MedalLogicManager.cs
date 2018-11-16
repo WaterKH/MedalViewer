@@ -13,6 +13,9 @@ public class MedalLogicManager : MonoBehaviour {
 	//public SettingsManager settings;
 
 	public List<GameObject> parents;
+
+    // Use this to access all medals - Key: tier - Key: multiplier - Value: Parent Holder for Medals
+    public Dictionary<int, Dictionary<float, GameObject>> AllMedalDisplayObjects; 
 	//public Dictionary<GameObject, int> medalChildrenHolders = new Dictionary<GameObject, int>();
 
 	private Parser parser = new Parser();
@@ -20,13 +23,69 @@ public class MedalLogicManager : MonoBehaviour {
 	private static bool stopped;
 	private static bool firstPass;
 
-	void Start () 
+	void Start ()
 	{
-		//TODO We can just grab two from the vertical to get the difference and then just multiply by our guilt
-		sortMedals.SortManager(medalCreator.medals);
+	    Initialize();
+
+        //TODO We can just grab two from the vertical to get the difference and then just multiply by our guilt
+        sortMedals.SortManager(medalCreator.medals);
 
 		// DEFAULT
 		SetupMedalsByTierAndMult(sortMedals.medals_by_tier);
+    }
+
+    public void Initialize()
+    {
+        AllMedalDisplayObjects = new Dictionary<int, Dictionary<float, GameObject>>();
+
+        foreach (var kv in medalCreator.medals)
+        {
+            var medal = kv.Value;
+            
+            var medalGameObject = Instantiate(Resources.Load("Medal") as GameObject);
+            var medalImage = medal.ImageURL;
+            
+            var guiltFloat = parser.ParseGuilt(medal); // TODO Do we need this parser anymore? Or just check for null/ 0.0f?
+            var tier = medal.Tier;
+            
+            //NAME
+            medalGameObject.name = medal.Name;
+            //IMAGE
+            SetMedalImage(medal, medalGameObject, medalImage);
+            //MedalDisplay.cs Updating
+            medalGameObject.GetComponent<MedalDisplay>().MapVariables(medal);
+
+            if (!AllMedalDisplayObjects.ContainsKey(tier))
+            {
+                AllMedalDisplayObjects.Add(tier, new Dictionary<float, GameObject>());
+            }
+
+            if (!AllMedalDisplayObjects[tier].ContainsKey(guiltFloat))
+            {
+                var tempObject = Instantiate(Resources.Load("MedalDisplay") as GameObject);
+                if (tier - 1 >= 0)
+                {
+                    tempObject.transform.SetParent(parents[tier - 1].transform);
+                }
+                else
+                {
+                    // TODO Add a non tier-based system in future update
+                }
+                tempObject.name = guiltFloat.ToString();
+
+                AllMedalDisplayObjects[tier].Add(guiltFloat, tempObject);
+            }
+            
+            medalGameObject.transform.SetParent(AllMedalDisplayObjects[tier][guiltFloat].transform);
+        }
+
+        foreach (var kv in AllMedalDisplayObjects)
+        {
+            foreach (var kv2 in kv.Value)
+            {
+                kv2.Value.SetActive(false);
+            }
+        }
     }
 
 	// TODO Allow this to be for every thing, not just tier/ mult
@@ -34,74 +93,20 @@ public class MedalLogicManager : MonoBehaviour {
 	public void SetupMedalsByTierAndMult(Dictionary<int, List<Medal>> tier_medals)
 	{
 	    medalPositionLogic.Initialize();
-	    
-	    //var previous_medal_img = "";
-        //var previousMedalName = "";
-
-        foreach (var tiers in tier_medals)
-		{
-			var medalsToQuery = tiers.Value;
-			if(tiers.Key == 0)
-				continue;
-
-            var medal_dict = new Dictionary<float, List<GameObject>>();
-			foreach(var medal in medalsToQuery)
-			{
-				var medal_object = Instantiate(Resources.Load("Medal") as GameObject);
-				var medal_img = medal.ImageURL;
-
-                //if(medal_img == "NULL" && medal.Name == previousMedalName)
-				//{
-				//	print(medal_img + " " + previous_medal_img);
-				//	medal_img = previous_medal_img;
-                //}
-
-				var guilt_float = parser.ParseGuilt(medal);
-
-				if(!medal_dict.ContainsKey(guilt_float))
-				{
-					medal_dict.Add(guilt_float, new List<GameObject>());
-				}
-				medal_dict[guilt_float].Add(medal_object);
-
-				//NAME
-				medal_object.name = medal.Name;
-
-				//IMAGE
-				SetMedalImage(medal, medal_object, medal_img);
-
-				//MedalDisplay.cs Updating
-				medal_object.GetComponent<MedalDisplay>().MapVariables(medal);//, MedalData);
-
-				//previous_medal_img = medal_img;
-                //previousMedalName = medal.Name;
-     		}
-
-//			foreach(var kv in medal_dict)
-//				foreach(var kv2 in kv.Value)
-//					print(kv.Key + " " + kv2.name);
-
-			//DEFAULT POSITION (By tier (X - [4 - 8]) and multiplier (Y - [> 30]))
-			//int medal_position_counter = 0;
-			foreach(var medals in medal_dict.OrderByDescending(x => x.Key))
-			{
-				var tempObject = Instantiate(Resources.Load("MedalDisplay") as GameObject);
-				tempObject.transform.SetParent(parents[tiers.Key - 1].transform);
-				tempObject.name = medals.Key.ToString();// + "_" + tiers.Key + "_" + medal_position_counter;
-
-				foreach(var medal_object in medals.Value)
-				{
-					medal_object.transform.SetParent(tempObject.transform);
-					//medalHolders.Add(tempObject);
-				}
-				//++medal_position_counter;
-
-				medalPositionLogic.SetMedalHolderPosition(tempObject, medals.Key, tiers.Key);
-
-				MedalCycleLogic.Instance.medalChildrenHolders.Add(tempObject, 0);
-			}
-		}
-	}
+        //print("Initialized".ToUpper());
+        foreach (var kv in AllMedalDisplayObjects)
+        {
+            //print("TIER: " + kv.Key);
+            foreach (var kv2 in kv.Value)
+            {
+                //print("GUILT: " + kv2.Key);
+                //print("NAME: " + kv2.Value.name);
+                //print("POSITION (BEFORE): " + kv2.Value.transform.position);
+                medalPositionLogic.SetMedalHolderPosition(kv2.Value, kv2.Key, kv.Key);
+                //print("POSITION (AFTER): " + kv2.Value.transform.position);
+            }
+        }
+    }
 
 	public void SetMedalImage(Medal medal_item, GameObject medal_object, string prevImg)
 	{	

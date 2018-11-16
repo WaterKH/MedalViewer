@@ -23,8 +23,8 @@ public class UIMovement : MonoBehaviour {
 
 	void Start()
 	{
-		max = 0.75243f;
-		min = 0.1675405f;
+		max = 1.0f;
+		min = 0.15f;
 
 		Content.transform.localScale = Vector3.one * min;
 		//Content.transform.position = new Vector2(-406.9875f, -57241.6f);

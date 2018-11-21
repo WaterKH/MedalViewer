@@ -63,29 +63,20 @@ public class MedalPositionLogic : MonoBehaviour {
 	    //print("Horizontal: " + HorizontalParent.GetComponentsInChildren<Transform>().Length);
 
         // Setting up the Y rows
-        foreach (var child in VerticalTempParent.GetComponentsInChildren<RectTransform>())
+        foreach (var child in VerticalTempParent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Vertical_TEMP (Y)" &&
+                                                                                                     int.Parse(x.name) >= Globals.MultiplierFilter.Min.value &&
+                                                                                                     int.Parse(x.name) <= Mathf.Abs(Globals.MultiplierFilter.Max.value))
+                                                                                         .OrderByDescending(x => int.Parse(x.name)))
 		{
-			
-			if(child.name != "Vertical_TEMP (Y)")
-			{
-				if(int.Parse(child.name) >= Globals.MultiplierFilter.Min.value &&
-					int.Parse(child.name) <= Mathf.Abs(Globals.MultiplierFilter.Max.value))
-				{
-					child.SetParent(VerticalParent.transform);
-				}
-			}
+		    child.SetParent(VerticalParent.transform);	
 		}
 
         // Setting up the X columns
-		foreach(var child in HorizontalTempParent.GetComponentsInChildren<RectTransform>())
+		foreach(var child in HorizontalTempParent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Horizontal_TEMP (X)" &&
+		                                                                                              !Globals.TierFilter.ToggleChildren[int.Parse(x.name) - 1].isOn)
+		                                                                                  .OrderBy(x => int.Parse(x.name)))
 		{
-			if(child.name != "Horizontal_TEMP (X)")
-			{
-				if(!Globals.TierFilter.ToggleChildren[int.Parse(child.name) - 1].isOn)
-				{
-					child.SetParent(HorizontalParent.transform);
-				}
-			}
+			child.SetParent(HorizontalParent.transform);
 		}
 
 		//var initialPos = Placeholder.GetComponent<RectTransform>().position;
@@ -139,6 +130,10 @@ public class MedalPositionLogic : MonoBehaviour {
 		{
 			if(Y_index <= Mathf.Abs(Globals.MultiplierFilter.Max.value) && Y_index >= Globals.MultiplierFilter.Min.value)
 			{
+			    print(Y_index);
+			    if (!vert_children.ContainsKey(Y_index) || !hori_children.ContainsKey(X_index))
+			        return;
+
 				var Y_transform = vert_children[Y_index].position;
 				var X_transform = hori_children[X_index].position;
 

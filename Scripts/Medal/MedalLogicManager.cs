@@ -86,6 +86,14 @@ public class MedalLogicManager : MonoBehaviour {
                 kv2.Value.SetActive(false);
             }
         }
+
+        foreach (var kv in AllMedalDisplayObjects)
+        {
+            foreach (var kv2 in kv.Value)
+            {
+
+            }
+        }
     }
 
 	// TODO Allow this to be for every thing, not just tier/ mult

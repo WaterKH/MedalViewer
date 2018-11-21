@@ -24,7 +24,7 @@ public class UIMovement : MonoBehaviour {
 	void Start()
 	{
 		max = 1.0f;
-		min = 0.15f;
+		min = 0.08f;
 
 		Content.transform.localScale = Vector3.one * min;
 		//Content.transform.position = new Vector2(-406.9875f, -57241.6f);
@@ -37,7 +37,7 @@ public class UIMovement : MonoBehaviour {
 		//Content.transform.position = Background.transform.position;
 		//Background.transform.localScale = Content.transform.localScale;
         
-		float zoomValue = Input.GetAxis("Mouse ScrollWheel") * 1.5f;
+		float zoomValue = Input.GetAxis("Mouse ScrollWheel") * 3.5f;
  
 		if (zoomValue != 0)
 		{

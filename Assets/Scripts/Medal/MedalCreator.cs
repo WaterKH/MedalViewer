@@ -30,13 +30,16 @@ public class MedalCreator : MonoBehaviour {
 		medalAbilityImages = parser.ParseAbilityDescription(MedalTruncatedData);
 
 #if UNITY_EDITOR
+        print(Application.streamingAssetsPath);
         var dbPath = string.Format(@"Assets/StreamingAssets/{0}", databaseName);
+	    connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadOnly);
 #else
         // check if file exists in Application.persistentDataPath
-        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
+        var filepath = string.Format("{0}/{1}", Application.streamingAssetsPath, "/" + databaseName);
+        connection = new SQLiteConnection(filepath, SQLiteOpenFlags.ReadOnly);
 #endif
 
-        connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadOnly);
+
         Globals.MedalsTable = connection.Table<Medal>();
 
         foreach(var medal in Globals.MedalsTable)

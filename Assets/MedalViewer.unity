@@ -246,6 +246,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -1012,6 +1013,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -1284,6 +1286,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -1426,6 +1429,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -1948,6 +1952,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -3051,81 +3056,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 212934549}
   m_CullTransparentMesh: 0
---- !u!1 &215052841
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 215052842}
-  - component: {fileID: 215052844}
-  - component: {fileID: 215052843}
-  m_Layer: 5
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &215052842
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 215052841}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1310432917}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &215052843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 215052841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 0
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 
---- !u!222 &215052844
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 215052841}
-  m_CullTransparentMesh: 0
 --- !u!114 &221137682 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114499368522305902, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
@@ -3403,6 +3333,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -3441,81 +3372,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.63604736, y: 2.16214}
   m_SizeDelta: {x: 0.11999512, y: 0.79696655}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &265229748
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 265229749}
-  - component: {fileID: 265229751}
-  - component: {fileID: 265229750}
-  m_Layer: 5
-  m_Name: Placeholder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &265229749
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 265229748}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1310432917}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &265229750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 265229748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 2
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 2000
---- !u!222 &265229751
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 265229748}
-  m_CullTransparentMesh: 0
 --- !u!1 &266063470
 GameObject:
   m_ObjectHideFlags: 0
@@ -3649,6 +3505,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -4249,6 +4106,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -4385,6 +4243,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -5329,10 +5188,10 @@ RectTransform:
   m_Father: {fileID: 1420426166}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.018661974, y: 0.11552677}
+  m_AnchorMax: {x: 0.981324, y: 0.92300004}
+  m_AnchoredPosition: {x: -0.0015258789, y: -0.07869911}
+  m_SizeDelta: {x: -1.5909996, y: -0.1573999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &349801274
 MonoBehaviour:
@@ -5903,6 +5762,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -6059,6 +5919,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -6195,6 +6056,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -6865,7 +6727,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 391373021}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -8664,6 +8526,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -9183,6 +9046,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -9441,7 +9305,7 @@ RectTransform:
   - {fileID: 1151322711}
   - {fileID: 1310432917}
   m_Father: {fileID: 1077086982}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.020847136, y: 0.43031472}
   m_AnchorMax: {x: 0.39869428, y: 0.5403287}
@@ -9963,6 +9827,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -10335,6 +10200,81 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 553635585}
+  m_CullTransparentMesh: 0
+--- !u!1 &554539972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 554539973}
+  - component: {fileID: 554539975}
+  - component: {fileID: 554539974}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &554539973
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 554539972}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1310432917}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.024159292, y: 0.10942919}
+  m_AnchorMax: {x: 0.9597345, y: 0.8358562}
+  m_AnchoredPosition: {x: 1, y: 0.48224}
+  m_SizeDelta: {x: 1.0399933, y: 0.4714203}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &554539974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 554539972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &554539975
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 554539972}
   m_CullTransparentMesh: 0
 --- !u!1 &563025031
 GameObject:
@@ -10918,6 +10858,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -11624,6 +11565,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -11841,6 +11783,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -12135,7 +12078,7 @@ Prefab:
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.19946861
+      value: 0.19946957
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 2}
@@ -12497,7 +12440,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736045328}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -12555,10 +12498,10 @@ RectTransform:
   m_Father: {fileID: 1622097348}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.032, y: 0.16613811}
+  m_AnchorMax: {x: 0.9760001, y: 0.8338618}
+  m_AnchoredPosition: {x: 0.189991, y: 0.3199997}
+  m_SizeDelta: {x: -0.059999943, y: 0.1500001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &742224690
 MonoBehaviour:
@@ -13007,6 +12950,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -13285,6 +13229,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -13594,6 +13539,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -13920,6 +13866,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -14566,6 +14513,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -15180,10 +15128,10 @@ RectTransform:
   m_Father: {fileID: 1077086982}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.020847136, y: 0.59717834}
-  m_AnchorMax: {x: 0.25423568, y: 0.97065747}
-  m_AnchoredPosition: {x: 0.27001953, y: 0}
-  m_SizeDelta: {x: -0.2000122, y: 0.27799988}
+  m_AnchorMin: {x: 0.020847136, y: 0.55913913}
+  m_AnchorMax: {x: 0.218351, y: 0.9685696}
+  m_AnchoredPosition: {x: 0.3999939, y: 0.5}
+  m_SizeDelta: {x: 0.69999695, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &844798546
 MonoBehaviour:
@@ -15197,7 +15145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -15247,7 +15195,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: c53930f5f516748ab98a37d04016b4a0, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -15742,10 +15690,10 @@ RectTransform:
   m_Father: {fileID: 1151322711}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.024159292, y: 0.10942919}
+  m_AnchorMax: {x: 0.9758407, y: 0.8358562}
+  m_AnchoredPosition: {x: 0.0000076293945, y: 0}
+  m_SizeDelta: {x: 0.63999987, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &864684840
 MonoBehaviour:
@@ -16042,6 +15990,81 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224687201772828742, guid: abfdce7499e334a789c27ed23a8ff225,
     type: 2}
   m_PrefabInternal: {fileID: 881372604}
+--- !u!1 &883853757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 883853758}
+  - component: {fileID: 883853760}
+  - component: {fileID: 883853759}
+  m_Layer: 5
+  m_Name: Placeholder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &883853758
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 883853757}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1310432917}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.024159292, y: 0.10942919}
+  m_AnchorMax: {x: 0.9758407, y: 0.8358562}
+  m_AnchoredPosition: {x: 0.32001114, y: 0.4822402}
+  m_SizeDelta: {x: 0.6399994, y: 0.4714203}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &883853759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 883853757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 2
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 1000
+--- !u!222 &883853760
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 883853757}
+  m_CullTransparentMesh: 0
 --- !u!1 &883979175
 GameObject:
   m_ObjectHideFlags: 0
@@ -16140,10 +16163,10 @@ RectTransform:
   m_Father: {fileID: 1151322711}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.024159292, y: 0.10942919}
+  m_AnchorMax: {x: 0.9597345, y: 0.8358562}
+  m_AnchoredPosition: {x: 0.20003128, y: 0}
+  m_SizeDelta: {x: 1.04, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &885876654
 MonoBehaviour:
@@ -16660,6 +16683,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -17430,10 +17454,10 @@ RectTransform:
   m_Father: {fileID: 1349101127}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.42763418, y: 0}
+  m_AnchorMin: {x: 0.42763418, y: 0.14866123}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.31001282, y: 1.5999908}
-  m_SizeDelta: {x: 0.62012, y: -3.2}
+  m_AnchoredPosition: {x: 0.31001282, y: 0.099990845}
+  m_SizeDelta: {x: 0.62012, y: -0.20000005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &917334502
 MonoBehaviour:
@@ -18607,6 +18631,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -20455,6 +20480,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -20532,8 +20558,8 @@ RectTransform:
   m_Children:
   - {fileID: 551998075}
   - {fileID: 178348717}
-  - {fileID: 1211501166}
   - {fileID: 513669598}
+  - {fileID: 1211501166}
   - {fileID: 111103177}
   - {fileID: 941393267}
   - {fileID: 1670644571}
@@ -21025,6 +21051,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -21117,10 +21144,10 @@ RectTransform:
   m_Father: {fileID: 724712988}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.018637348, y: 0.18016928}
+  m_AnchorMax: {x: 0.98600006, y: 0.8198307}
+  m_AnchoredPosition: {x: -0.29100037, y: -0.31001997}
+  m_SizeDelta: {x: 0.2800002, y: 0.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1121149623
 MonoBehaviour:
@@ -21331,6 +21358,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -21500,6 +21528,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -21544,7 +21573,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1128394934}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -21931,6 +21960,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -22123,7 +22153,7 @@ Prefab:
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.19948006
+      value: 0.1994791
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 2}
@@ -22331,10 +22361,10 @@ RectTransform:
   m_Father: {fileID: 1434400986}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.024167776, y: 0.16700001}
+  m_AnchorMax: {x: 0.984, y: 0.83300006}
+  m_AnchoredPosition: {x: -0.09000015, y: 0.19000006}
+  m_SizeDelta: {x: -0.40999985, y: 0.42999983}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1152454131
 MonoBehaviour:
@@ -23358,7 +23388,7 @@ RectTransform:
   - {fileID: 2009932468}
   - {fileID: 380974427}
   m_Father: {fileID: 1077086982}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.020847136, y: 0.28332868}
   m_AnchorMax: {x: 0.39869428, y: 0.39732867}
@@ -24061,6 +24091,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -24464,10 +24495,10 @@ RectTransform:
   m_Father: {fileID: 1622097348}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.032, y: 0.16613811}
+  m_AnchorMax: {x: 0.9760001, y: 0.8338618}
+  m_AnchoredPosition: {x: 0.18999863, y: 0.3199997}
+  m_SizeDelta: {x: -0.059999943, y: 0.1500001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1294509648
 MonoBehaviour:
@@ -24762,8 +24793,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 265229749}
-  - {fileID: 215052842}
+  - {fileID: 883853758}
+  - {fileID: 554539973}
   m_Father: {fileID: 513669598}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24808,8 +24839,8 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1310432919}
-  m_TextComponent: {fileID: 215052843}
-  m_Placeholder: {fileID: 265229750}
+  m_TextComponent: {fileID: 554539974}
+  m_Placeholder: {fileID: 883853759}
   m_ContentType: 0
   m_InputType: 0
   m_AsteriskChar: 42
@@ -25002,6 +25033,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -25206,6 +25238,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -25544,10 +25577,10 @@ RectTransform:
   m_Father: {fileID: 380974427}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.024168413, y: 0.16742244}
+  m_AnchorMax: {x: 0.97583157, y: 0.8884224}
+  m_AnchoredPosition: {x: -0.16999817, y: 0.009999752}
+  m_SizeDelta: {x: 0.42000008, y: -0.6199999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1342881105
 MonoBehaviour:
@@ -26241,6 +26274,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -26743,6 +26777,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -27473,6 +27508,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -28029,6 +28065,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -28581,6 +28618,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -29107,6 +29145,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -29302,6 +29341,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -29723,10 +29763,10 @@ RectTransform:
   m_Father: {fileID: 917334501}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.014, y: 0.117784865}
+  m_AnchorMax: {x: 0.9813627, y: 0.8233227}
+  m_AnchoredPosition: {x: -0.069999695, y: 0.19000006}
+  m_SizeDelta: {x: 0.2800002, y: 0.7199998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1542843211
 MonoBehaviour:
@@ -30716,6 +30756,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -30887,6 +30928,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -31158,6 +31200,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -31718,6 +31761,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -31854,6 +31898,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -32059,6 +32104,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -32263,6 +32309,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -32399,6 +32446,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -32438,10 +32486,10 @@ RectTransform:
   m_Father: {fileID: 724712988}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.018637348, y: 0.18016928}
+  m_AnchorMax: {x: 0.98600006, y: 0.8198307}
+  m_AnchoredPosition: {x: -0.30999756, y: -0.30999994}
+  m_SizeDelta: {x: 0.2800002, y: 0.9699998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1781603261
 MonoBehaviour:
@@ -32732,10 +32780,10 @@ RectTransform:
   m_Father: {fileID: 380974427}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.024168413, y: 0.16742244}
+  m_AnchorMax: {x: 0.97583157, y: 0.8884224}
+  m_AnchoredPosition: {x: -0.16999817, y: 0.010509968}
+  m_SizeDelta: {x: 0.42000008, y: -0.6209998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1794967358
 MonoBehaviour:
@@ -32985,6 +33033,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -33373,6 +33422,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -33984,10 +34034,10 @@ RectTransform:
   m_Father: {fileID: 2009932468}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.03222455, y: 0.11274546}
+  m_AnchorMax: {x: 0.95971924, y: 0.83088183}
+  m_AnchoredPosition: {x: 0.16001129, y: 0.3299899}
+  m_SizeDelta: {x: 0.40999985, y: -0.6199999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1886270636
 MonoBehaviour:
@@ -34162,6 +34212,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -34195,10 +34246,10 @@ RectTransform:
   m_Father: {fileID: 917334501}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.014, y: 0.117784865}
+  m_AnchorMax: {x: 0.9813627, y: 0.8233227}
+  m_AnchoredPosition: {x: -0.07002258, y: 0.19001007}
+  m_SizeDelta: {x: 0.24209976, y: 0.7199998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1891836224
 MonoBehaviour:
@@ -34484,10 +34535,10 @@ RectTransform:
   m_Father: {fileID: 2009932468}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.03222455, y: 0.11274546}
+  m_AnchorMax: {x: 0.95971924, y: 0.83088183}
+  m_AnchoredPosition: {x: 0.15999985, y: 0.32999992}
+  m_SizeDelta: {x: 0.40999985, y: -0.6199999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1915226494
 MonoBehaviour:
@@ -34871,6 +34922,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -35355,6 +35407,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -35434,7 +35487,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1957281334}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -36243,6 +36296,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}
@@ -36276,10 +36330,10 @@ RectTransform:
   m_Father: {fileID: 1420426166}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.018661974, y: 0.11552677}
+  m_AnchorMax: {x: 0.981324, y: 0.92300004}
+  m_AnchoredPosition: {x: 0, y: -0.07722092}
+  m_SizeDelta: {x: -1.6000004, y: -0.16600037}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2001557807
 MonoBehaviour:
@@ -37580,7 +37634,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2079320619}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -37781,10 +37835,10 @@ RectTransform:
   m_Father: {fileID: 1434400986}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.024167776, y: 0.16700001}
+  m_AnchorMax: {x: 0.984, y: 0.83300006}
+  m_AnchoredPosition: {x: -0.089969635, y: 0.19000006}
+  m_SizeDelta: {x: -0.40999985, y: 0.42999983}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2087956725
 MonoBehaviour:
@@ -38008,10 +38062,10 @@ RectTransform:
   m_Father: {fileID: 1045746548}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.024, y: 0.163}
+  m_AnchorMax: {x: 0.9758322, y: 0.837}
+  m_AnchoredPosition: {x: -0.27000046, y: 0.05000019}
+  m_SizeDelta: {x: -0.78999996, y: 0.15999985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2102235726
 MonoBehaviour:
@@ -38570,10 +38624,10 @@ RectTransform:
   m_Father: {fileID: 1045746548}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchorMin: {x: 0.024, y: 0.163}
+  m_AnchorMax: {x: 0.9758322, y: 0.837}
+  m_AnchoredPosition: {x: -0.28041077, y: 0.049981117}
+  m_SizeDelta: {x: -0.76919985, y: 0.16359997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2134435910
 MonoBehaviour:
@@ -38788,6 +38842,7 @@ MonoBehaviour:
   PreviousRows: []
   NextRows: []
   ChangingRowSize: 0
+  SettingsChanged: 0
   MedalPositionLogic: {fileID: 0}
   MedalLogicManager: {fileID: 0}
   MedalSortLogic: {fileID: 0}

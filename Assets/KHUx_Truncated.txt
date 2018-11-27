@@ -1,0 +1,779 @@
+19:PenceA,STR: Raise;Normal;1;2 attacks
+20:PenceA,STR: Raise;Normal;1;2 attacks
+21:PenceA,STR: Raise;Normal;1;2 attacks
+22:PenceA,STR: Raise;Normal;1;2 attacks
+23:PenceA,STR: Raise;Normal;1;2 attacks
+24:PenceA,STR: Raise;Normal;1;2 attacks
+1018:PenceA,STR: Raise;Normal;1;2 attacks
+49:HaynerA,STR: Raise;Normal;1;2 attacks
+50:HaynerA,STR: Raise;Normal;1;2 attacks
+51:HaynerA,STR: Raise;Normal;1;2 attacks
+52:HaynerA,STR: Raise;Normal;1;2 attacks
+53:HaynerA,STR: Raise;Normal;1;2 attacks
+54:HaynerA,STR: Raise;Normal;1;2 attacks
+1033:HaynerA,STR: Raise;Normal;1;2 attacks
+79:OletteA,STR: Raise;Normal;1;2 attacks
+80:OletteA,STR: Raise;Normal;1;2 attacks
+81:OletteA,STR: Raise;Normal;1;2 attacks
+82:OletteA,STR: Raise;Normal;1;2 attacks
+83:OletteA,STR: Raise;Normal;1;2 attacks
+84:OletteA,STR: Raise;Normal;1;2 attacks
+1048:OletteA,STR: Raise;Normal;1;2 attacks
+103:Bambi,DEF: Raise;Magic;1;1 turn
+104:Bambi,DEF: Raise;Magic;1;1 turn
+105:Bambi,DEF: Raise;Magic;1;1 turn
+106:Bambi,DEF: Raise;Magic;1;1 turn
+1024:Bambi,DEF: Raise;Magic;1;1 turn
+107:Simba,INFL: Posion
+108:Simba,INFL: Posion
+109:Simba,INFL: Posion
+110:Simba,INFL: Posion
+1060:Simba,INFL: Posion
+123:Dr.JumbaJookiba,DEF: Raise;Power;1;1 turn
+124:Dr.JumbaJookiba,DEF: Raise;Power;1;1 turn
+125:Dr.JumbaJookiba,DEF: Raise;Power;1;1 turn
+126:Dr.JumbaJookiba,DEF: Raise;Power;1;1 turn
+1039:Dr.JumbaJookiba,DEF: Raise;Power;1;1 turn
+127:Tifa,INFL: Sleep
+128:Tifa,INFL: Sleep
+129:Tifa,INFL: Sleep
+130:Tifa,INFL: Sleep
+1064:Tifa,INFL: Sleep
+147:Dumbo,DEF: Raise;Speed;1;1 turn
+148:Dumbo,DEF: Raise;Speed;1;1 turn
+149:Dumbo,DEF: Raise;Speed;1;1 turn
+150:Dumbo,DEF: Raise;Speed;1;1 turn
+1054:Dumbo,DEF: Raise;Speed;1;1 turn
+151:KHYuffie,INFL: Paralysis
+152:KHYuffie,INFL: Paralysis
+153:KHYuffie,INFL: Paralysis
+154:KHYuffie,INFL: Paralysis
+1068:KHYuffie,INFL: Paralysis
+167:Beast,INFL: No Defense
+168:Beast,INFL: No Defense
+169:Beast,INFL: No Defense
+170:Beast,INFL: No Defense
+1072:Beast,INFL: No Defense
+171:KHIICloud,INFL: More Turns
+172:KHIICloud,INFL: More Turns
+173:KHIICloud,INFL: More Turns
+174:KHIICloud,INFL: More Turns
+1061:KHIICloud,INFL: More Turns
+175:ValorFormSora,INFL: Posion
+176:ValorFormSora,INFL: Posion
+177:ValorFormSora,INFL: Posion
+178:ValorFormSora,INFL: Posion
+1063:ValorFormSora,INFL: Posion
+179:DiZ,STR: Raise;Normal;1;1 turn
+180:DiZ,STR: Raise;Normal;1;1 turn
+181:DiZ,STR: Raise;Normal;1;1 turn
+182:DiZ,STR: Raise;Normal;1;1 turn
+1029:DiZ,STR: Raise;Normal;1;1 turn
+191:KHIIYuffie,INFL: No Defense
+192:KHIIYuffie,INFL: No Defense
+193:KHIIYuffie,INFL: No Defense
+194:KHIIYuffie,INFL: No Defense
+1074:KHIIYuffie,INFL: No Defense
+195:PeterPan,INFL: Sleep
+196:PeterPan,INFL: Sleep
+197:PeterPan,INFL: Sleep
+198:PeterPan,INFL: Sleep
+1067:PeterPan,INFL: Sleep
+199:KHIIAerith,STR: Raise;Normal;1;1 turn
+200:KHIIAerith,STR: Raise;Normal;1;1 turn
+201:KHIIAerith,STR: Raise;Normal;1;1 turn
+202:KHIIAerith,STR: Raise;Normal;1;1 turn
+1044:KHIIAerith,STR: Raise;Normal;1;1 turn
+215:Vivi,STR: Raise;Normal;1;1 turn
+216:Vivi,STR: Raise;Normal;1;1 turn
+217:Vivi,STR: Raise;Normal;1;1 turn
+218:Vivi,STR: Raise;Normal;1;1 turn
+1059:Vivi,STR: Raise;Normal;1;1 turn
+256:KHCloud,INFL: Higher HP
+257:KHCloud,INFL: Higher HP
+258:KHCloud,INFL: Higher HP
+259:KHCloud,INFL: Higher HP
+1025:KHCloud,INFL: Higher HP
+282:Phil,STR: Raise;Power;1;1 turn
+283:Phil,STR: Raise;Power;1;1 turn
+284:Phil,STR: Raise;Power;1;1 turn
+285:Phil,STR: Raise;Power;1;1 turn
+1023:Phil,STR: Raise;Power;1;1 turn
+286:WhiteRabbit,STR: Raise;Speed;1;1 turn
+287:WhiteRabbit,STR: Raise;Speed;1;1 turn
+288:WhiteRabbit,STR: Raise;Speed;1;1 turn
+289:WhiteRabbit,STR: Raise;Speed;1;1 turn
+1038:WhiteRabbit,STR: Raise;Speed;1;1 turn
+290:KHAerith,STR: Raise;Magic;1;1 turn
+291:KHAerith,STR: Raise;Magic;1;1 turn
+292:KHAerith,STR: Raise;Magic;1;1 turn
+293:KHAerith,STR: Raise;Magic;1;1 turn
+1053:KHAerith,STR: Raise;Magic;1;1 turn
+294:KHIILeonB,INFL: Higher HP
+295:KHIILeonB,INFL: Higher HP
+296:KHIILeonB,INFL: Higher HP
+297:KHIILeonB,INFL: Higher HP
+1062:KHIILeonB,INFL: Higher HP
+302:Genie,INFL: Paralysis
+303:Genie,INFL: Paralysis
+304:Genie,INFL: Paralysis
+305:Genie,INFL: Paralysis
+1071:Genie,INFL: Paralysis
+306:JudyHopps,STR: Raise;Normal;1;1 turn
+1159:JudyHopps,STR: Raise;Normal;1;1 turn
+307:NickWilde,STR: Raise;Normal;1;1 turn
+1160:NickWilde,STR: Raise;Normal;1;1 turn
+309:TimelessRiverMickey,INFL: No Defense
+310:TimelessRiverMickey,INFL: No Defense
+1091:TimelessRiverMickey,INFL: No Defense
+313:Aladdin,INFL: Higher HP
+314:Aladdin,INFL: Higher HP
+1084:Aladdin,INFL: Higher HP
+315:KHIIKairi,STR: Raise;Speed;2;1 turn
+316:KHIIKairi,STR: Raise;Speed;2;1 turn
+1093:KHIIKairi,STR: Raise;Speed;2;1 turn
+317:KHCoMBlackCoatRiku,INFL: No Defense
+318:KHCoMBlackCoatRiku,INFL: No Defense
+1081:KHCoMBlackCoatRiku,INFL: No Defense
+319:FinalFormSora,INFL: Higher HP
+320:FinalFormSora,INFL: Higher HP
+1085:FinalFormSora,INFL: Higher HP
+321:Zack,INFL: Higher HP
+322:Zack,INFL: Higher HP
+1083:Zack,INFL: Higher HP
+329:SevenDwarfs,STR: Raise;Power-Speed-Magic;1;2 attacks
+330:SevenDwarfs,STR: Raise;Power-Speed-Magic;1;2 attacks
+331:SevenDwarfs,STR: Raise;Power-Speed-Magic;1;2 attacks
+332:SevenDwarfs,STR: Raise;Power-Speed-Magic;1;2 attacks
+333:SevenDwarfs,STR: Raise;Power-Speed-Magic;1;2 attacks
+334:SevenDwarfs,STR: Raise;Power-Speed-Magic;1;2 attacks
+1089:SevenDwarfs,STR: Raise;Power-Speed-Magic;1;2 attacks
+340:Pinocchio,DEF: Raise;Normal;1;1 turn
+1094:Pinocchio,DEF: Raise;Normal;1;1 turn
+349:Hag,INFL: Paralysis
+350:Hag,INFL: Paralysis
+351:Hag,INFL: Paralysis
+352:Hag,INFL: Paralysis
+1097:Hag,INFL: Paralysis
+386:TheCrone,INFL: Paralysis
+387:TheCrone,INFL: Paralysis
+388:TheCrone,INFL: Paralysis
+389:TheCrone,INFL: Paralysis
+1170:TheCrone,INFL: Paralysis
+353:Sephiroth,INFL: SPAttacks
+1098:Sephiroth,INFL: SPAttacks & STR: Raise;Reverse;3;1 turn
+356:Pain&amp;Panic,INFL: Higher HP
+357:Pain&amp;Panic,INFL: Higher HP
+1103:Pain&amp;Panic,INFL: Higher HP
+360:IllustratedSora&amp;Pals,INFL: Higher HP
+1149:IllustratedSora&amp;Pals,INFL: Higher HP & STR: Raise;Upright;3;1 turn
+367:VexenA,INFL: Paralysis
+368:VexenA,INFL: Paralysis
+1114:VexenA,INFL: Paralysis
+391:Pooh&amp;Piglet,STR: Raise;Normal;2;1 turn
+1110:Pooh&amp;Piglet,STR: Raise;Upright-Normal;3-2;1 turn
+392:Sora&amp;Donald&amp;GoofyA,DEF: Lower;Power-Speed-Magic;1;1 turn
+1120:Sora&amp;Donald&amp;GoofyA,STR: Raise;Upright;3;1 turn & DEF: Lower;Power-Speed-Magic;1;1 turn
+399:DemyxA,INFL: Higher Higher HP
+400:DemyxA,INFL: Higher Higher HP
+1126:DemyxA,INFL: Higher HP
+401:LuxordA,INFL: Higher HP
+402:LuxordA,INFL: Higher HP
+1127:LuxordA,INFL: Higher HP
+405:KHKairi,STR: Raise;Normal;2;2 attacks
+406:KHKairi,STR: Raise;Normal;2;2 attacks
+1079:KHKairi,STR: Raise;Normal;2;2 attacks
+413:IllustratedCloud,DEF: Lower;Power;1;1 turn
+1105:IllustratedCloud,STR: Raise;Upright;3;1 turn & DEF: Lower;Power;1;1 turn
+419:PlayingCard,INFL: Higher HP
+420:PlayingCard,INFL: Higher HP
+421:PlayingCard,INFL: Higher HP
+422:PlayingCard,INFL: Higher HP
+423:PlayingCard,INFL: Higher HP
+424:PlayingCard,INFL: Higher HP
+1121:PlayingCard,INFL: Higher HP
+429:Megara,DEF: Lower;Normal;1;1 turn
+430:Megara,DEF: Lower;Normal;1;1 turn
+1086:Megara,DEF: Lower;Normal;1;1 turn
+431:Jasmine,STR: Lower;Normal;1;1 turn
+432:Jasmine,STR: Lower;Normal;1;1 turn
+1088:Jasmine,STR: Lower;Normal;1;1 turn
+433:Cinderella,DEF: Lower;Speed;1;1 turn
+434:Cinderella,DEF: Lower;Speed;1;1 turn
+435:SPRoxas,INFL: Gauges Used
+1082:SPRoxas,STR: Raise;Reverse;3;1 turn & INFL: Gauge Used
+1155:RoxasSPVer,STR: Raise;Reverse;3;1 turn
+436:SPAxel,INFL: Higher HP
+1116:SPAxel,STR: Raise;Reverse;3;1 turn & INFL: Higher HP
+437:SPXion,INFL: Defense Sap
+1128:SPXion,STR: Raise;Reverse;3;2 turns & INFL: Defense Sap
+438:Judy&amp;Nick,STR: Raise;Normal;1;1 turn & DEF: Raise;Normal;1;1 turn
+439:Judy&amp;Nick,STR: Raise;Normal;1;1 turn & DEF: Raise;Normal;1;1 turn
+1211:Judy&amp;Nick,STR: Raise;Normal;1;1 turn & DEF: Raise;Normal;1;1 turn
+442:TimelessRiverGoofy,DEF: Lower;Power-Speed-Magic;1;1 attack
+443:TimelessRiverGoofy,DEF: Lower;Power-Speed-Magic;1;1 attack
+444:TimelessRiverSora,DEF: Lower;Power-Speed-Magic;1;1 attack
+445:TimelessRiverSora,DEF: Lower;Power-Speed-Magic;1;1 attack
+446:TimelessRiverDonald,DEF: Lower;Power-Speed-Magic;1;1 attack
+447:TimelessRiverDonald,DEF: Lower;Power-Speed-Magic;1;1 attack
+448:IllustratedSoraA,STR: Raise;Power;2;1 turn
+1133:IllustratedSoraA,STR: Raise;Upright-Power;3-2;1 turn
+449:IllustratedRikuA,STR: Raise;Speed;2;1 turn
+1144:IllustratedRikuA,STR: Raise;Upright-Speed;3-2;1 turn
+450:Roxas&amp;Axel&amp;Xion,STR: Raise;Normal;1;1 turn
+1129:Roxas&amp;Axel&amp;Xion,STR: Raise;Reverse;3;1 turn & STR: Raise;Normal;1;1 turn & DEF: Raise;Normal;1;1 turn
+451:WinniethePoohA,STR: Raise;Normal;2;1 turn
+452:WinniethePoohA,STR: Raise;Normal;2;1 turn
+453:Owl,DEF: Lower;Normal;1;1 turn
+454:Owl,DEF: Lower;Normal;1;1 turn
+1142:Owl,DEF: Lower;Normal;1;1 turn
+455:Piglet,STR: Raise;Normal;2;1 turn
+456:Piglet,STR: Raise;Normal;2;1 turn
+458:Mowgli&amp;Baloo,STR: Raise;Normal;1;1 turn
+459:Mowgli&amp;Pals,STR: Raise;Normal;1;1 turn
+1206:Mowgli&amp;Pals,STR: Raise;Normal;1;1 turn
+460:IllustratedTerraA,STR: Raise;Magic;2;1 turn
+1165:IllustratedTerraA,STR: Raise;Upright;3;1 turn & STR: Raise;Magic;2;1 turn
+461:IllustratedVentus,DEF: Lower;Speed;1;1 turn
+1153:IllustratedVentus,STR: Raise;Upright;3;1 turn & DEF: Lower;Speed;1;1 turn
+464:RockTitan,INFL: Higher HP
+465:RockTitan,INFL: Higher HP
+470:IllustratedAquaA,DEF: Lower;Magic;1;1 turn
+1138:IllustratedAquaA,STR: Raise;Upright;3;1 turn & DEF: Lower;Magic;1;1 turn
+471:Lumière,DEF: Lower;Power;1;1 turn
+472:Lumière,DEF: Lower;Power;1;1 turn
+475:Cogsworth,STR: Raise;Magic;2;1 turn
+476:Cogsworth,STR: Raise;Magic;2;1 turn
+477:Behemoth,INFL: Lux
+478:Behemoth,INFL: Lux
+479:Terra&amp;Ventus&amp;Aqua,INFL: Higher HP
+483:XemnasA,INFL: SPAttacks
+484:XemnasA,INFL: SPAttacks
+1134:XemnasA,INFL: SPAttacks
+485:AxelA,INFL: Higher HP
+486:AxelA,INFL: Higher HP
+1135:AxelA,INFL: Higher HP
+487:RoxasA,INFL: Defense Sap
+488:RoxasA,INFL: Defense Sap
+1136:RoxasA,INFL: Defense Sap
+489:IllustratedAnsem,DEF: Lower;Normal;2;1 turn
+1148:IllustratedAnsem,STR: Raise;Reverse;3;1 turn & DEF: Lower;Normal;2;1 turn & INFL: Higher HP
+1158:BossMarluxia,STR: Raise;Reverse;3;1 turn
+491:HalloweenGoofyA,DEF: Lower;Power-Speed-Magic;1;1 attack
+492:HalloweenGoofyA,DEF: Lower;Power-Speed-Magic;1;1 attack
+1076:HalloweenGoofyA,DEF: Lower;Power-Speed-Magic;1;1 attack
+493:HalloweenSoraA,DEF: Lower;Power-Speed-Magic;1;1 attack
+494:HalloweenSoraA,DEF: Lower;Power-Speed-Magic;1;1 attack
+495:HalloweenSoraA,DEF: Lower;Power-Speed-Magic;1;1 attack
+496:HalloweenSoraA,DEF: Lower;Power-Speed-Magic;1;1 attack
+1078:HalloweenSoraA,DEF: Lower;Power-Speed-Magic;1;1 attack
+497:UniformKairi,STR: Raise;Normal;3;2 attacks
+498:UniformKairi,STR: Raise;Normal;3;2 attacks
+499:UniformSelphie,STR: Raise;Normal;3;2 attacks
+500:UniformSelphie,STR: Raise;Normal;3;2 attacks
+1151:UniformSelphie,STR: Raise;Normal;3;2 attacks
+501:AnsemtheWise,STR: Raise;Normal;3;2 attacks
+502:AnsemtheWise,STR: Raise;Normal;3;2 attacks
+505:HalloweenDonaldA,DEF: Lower;Power-Speed-Magic;1;1 attack
+506:HalloweenDonaldA,DEF: Lower;Power-Speed-Magic;1;1 attack
+1077:HalloweenDonaldA,DEF: Lower;Power-Speed-Magic;1;1 attack
+507:Crocodile,STR: Raise;Power;2;1 turn
+508:Crocodile,STR: Raise;Power;2;1 turn
+511:Mr.Smee,DEF: Lower;Normal;1;1 turn
+512:Mr.Smee,DEF: Lower;Normal;1;1 turn
+1172:IllustratedSephiroth,STR: Raise;Reverse;3;1 turn
+516:Jack&amp;Sally,STR: Raise;Power-Speed-Magic;1;2 turns & DEF: Lower;Power-Speed-Magic;1;2 turns
+666:Jack&amp;Sally,STR: Raise;Power-Speed-Magic;1;2 turns & DEF: Lower;Power-Speed-Magic;1;2 turns
+523:IllustratedKairi,STR: Raise;Normal;3;1 turn & HEAL: Greatly
+1178:IllustratedKairi,STR: Raise;Normal-Upright;3;1 turn & HEAL: Greatly
+524:Sora&amp;Riku&amp;Kairi,INFL: Higher HP
+533:IllustratedKingMickey,STR: Raise;Power-Speed-Magic;1;2 turn & INFL: Higher HP
+1182:IllustratedKingMickey,STR: Raise;Upright;3;2 turns & STR: Raise;Power-Speed-Magic;1;2 turns & INFL: Higher HP
+534:Beat&amp;Rhyme,INFL: Lux
+535:Beat&amp;Rhyme,INFL: Lux
+536:Neku&amp;Shiki&amp;Joshua,INFL: Lux
+539:MarluxiaB,INFL: Enemy Deaths
+540:MarluxiaB,INFL: Enemy Deaths
+1248:MarluxiaB,INFL: Enemy Deaths
+547:Pete,INFL: Full Gauges
+548:Pete,INFL: Full Gauges
+549:MaleficentA,STR: Raise;Power-Speed-Magic;1;2 turns & INFL: Full Gauges
+550:HDSora,STR: Raise;Power-Speed-Magic;1;2 turns & INFL: Higher HP
+1187:HDSora,STR: Raise;Upright;3;2 turns & STR: Raise;Power-Speed-Magic;1;2 turns & INFL: Higher HP
+551:HDRiku,STR: Raise;Power;2;1 turn & INFL: Enemy Deaths
+1191:HDRiku,STR: Raise;Upright;3;1 turn & STR: Raise;Power;2;1 turn & INFL: Enemy Deaths
+552:HDKingMickey,INFL: Lux
+553:Moana,STR: Raise;Magic;3;3 attacks
+1305:Moana,STR: Raise;Magic;3;1 turn & GAUGE: 6
+1393:Moana,STR: Raise;Magic;3;1 turn & GAUGE: 6
+554:Maui,STR: Raise;Power;3;3 attacks
+1306:Maui,STR: Raise;Power;3;1 turn & GAUGE: 6
+892:Maui,STR: Raise;Power;3;1 turn & GAUGE: 6
+1394:Maui,STR: Raise;Power;3;1 turn & GAUGE: 6
+555:ChristmasSora,STR: Raise;Normal;1;1 turn & DEF: Raise;Normal;1;1 turn
+556:ChristmasSora,STR: Raise;Normal;1;1 turn & DEF: Raise;Normal;1;1 turn
+1106:ChristmasSora,STR: Raise;Normal;1;1 turn & DEF: Raise;Normal;1;1 turn
+557:Terra,INFL: Lower HP
+558:Terra,INFL: Lower HP
+559:Ventus,INFL: Lower HP
+560:Ventus,INFL: Lower HP
+561:Aqua,INFL: Lower HP
+562:Aqua,INFL: Lower HP
+563:IllustratedXemnas,STR: Raise;Speed;2;1 turn& INFL: Enemy Deaths
+1195:IllustratedXemnas,STR: Raise;Reverse;3;1 turn & STR: Raise;Speed;2;1 turn & INFL: Enemy Deaths
+564:IllustratedXion,DEF: Lower;Normal;1;1 turn & INFL: Lux
+1200:IllustratedXion,STR: Raise;Reverse;3;1 turn & DEF: Lower;Normal;1;1 turn & INFL: Lux
+565:LarxeneB,INFL: Full Gauges
+566:LarxeneB,INFL: Full Gauges
+1258:LarxeneB,INFL: Full Gauges
+567:HDAxel,DEF: Lower;Normal;1;1 turn & INFL: Full Gauges
+1205:HDAxel,STR: Raise;Reverse;3;1 turn & DEF: Lower;Normal;1;1 turn & INFL: Full Gauges
+568:CasualRoxas,DEF: Lower;Speed;2;1 turn
+1210:CasualRoxas,STR: Raise;Upright;3;1 turn & DEF: Lower;Speed;2;1 turn
+569:KeyArt#2,GAUGE: 7
+1216:KeyArt#2,STR: Raise;Upright;3;1 turn & GAUGE: 7
+570:Jafar,INFL: Higher Slot
+571:Jafar,INFL: Higher Slot
+572:Jafar-Genie,INFL: Higher Slot
+579:ClassicDonald,INFL: Higher HP
+580:ClassicDonald,INFL: Higher HP
+1179:ClassicDonald,INFL: Higher HP
+581:Sebastian,STR: Raise;Normal;3;1 turn
+582:Sebastian,STR: Raise;Normal;3;1 turn
+1202:Sebastian,STR: Raise;Normal-Upright;3;1 turn
+583:Ariel&amp;Flounder,STR: Raise;Normal;3;1 turn
+584:AtlanticaGoofy,INFL: Previous Gauge
+585:AtlanticaGoofy,INFL: Previous Gauge
+586:AtlanticaSora,INFL: Previous Gauge
+587:AtlanticaSora,INFL: Previous Gauge
+588:AtlanticaDonald,INFL: Next Gauge
+589:AtlanticaDonald,INFL: Next Gauge
+590:WORLDOFFFCloud,STR: Raise;Power-Speed-Magic;1;2 turns
+1269:WORLDOFFFCloud,STR: Raise;Upright;3;3 turns & STR: Raise;Power-Speed-Magic;1;3 turns
+722:CloudWOFFVer,STR: Raise;Power-Speed-Magic;1;3 turns
+1354:CloudWOFFVer,STR: Raise;Upright;3;3 turns & STR: Raise;Power-Speed-Magic;1;3 turns
+591:WORLDOFFFSquall,DEF: Lower;Power-Speed-Magic;1;2 turns
+1270:WORLDOFFFSquall,STR: Raise;Upright;3;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+723:SquallWOFFVer,DEF: Lower;Power-Speed-Magic;1;3 turns
+1355:SquallWOFFVer,STR: Raise;Upright;3;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+592:WORLDOFFFLightning,STR: Raise;Power-Speed-Magic;1;2 turns
+1271:WORLDOFFFLightning,STR: Raise;Upright;3;3 turns & STR: Raise;Power-Speed-Magic;1;3 turns
+724:LightningWOFFVer,STR: Raise;Power-Speed-Magic;1;3 turns
+1356:LightningWOFFVer,STR: Raise;Upright;3;3 turns & STR: Raise;Power-Speed-Magic;1;3 turns
+593:WORLDOFFFSephiroth,DEF: Lower;Power-Speed-Magic;1;2 turns
+1272:WORLDOFFFSephiroth,STR: Raise;Reverse;3;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+725:SephirothWOFFVer,DEF: Lower;Power-Speed-Magic;1;2 turns
+1357:SephirothWOFFVer,STR: Raise;Reverse;3;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+594:WORLDOFFFYuna,STR: Raise;Power-Speed-Magic;1;2 turns
+1273:WORLDOFFFYuna,STR: Raise;Upright;3;3 turns & STR: Raise;Power-Speed-Magic;1;3 turns
+726:YunaWOFFVer,STR: Raise;Power-Speed-Magic;1;3 turns
+1358:YunaWOFFVer,STR: Raise;Upright;3;3 turns & STR: Raise;Power-Speed-Magic;1;3 turns
+595:Tama,DEF: Lower;Power-Speed-Magic;1;2 turns
+1274:Tama,STR: Raise;Upright;3;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+727:Tama,DEF: Lower;Power-Speed-Magic;1;3 turns
+1359:Tama,STR: Raise;Upright;3;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+596:WORLDOFFFSora,STR: Raise;Power-Speed-Magic;1;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+1275:WORLDOFFFSora,STR: Raise;Upright;3;3 turns & STR: Raise;Power-Speed-Magic;1;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+728:SoraWOFFVer,STR: Raise;Power-Speed-Magic;1;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+1360:SoraWOFFVer,STR: Raise;Upright;3;3 turns & STR: Raise;Power-Speed-Magic;1;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+597:XemnasB,DEF: Lower;Power-Speed-Magic;1;1 turn
+598:XemnasB,DEF: Lower;Power-Speed-Magic;1;1 tur
+600:Alice&amp;CheshireCat,DEF: Raise;Magic;2;1 turn & HEAL: Moderately
+601:Alice&amp;CheshireCat,DEF: Raise;Magic;2;1 turn & HEAL: Moderately
+608:KeyArt#1,DEF: Lower;Magic;2;1 turn
+1215:KeyArt#1,STR: Raise;Upright;3;1 turn & DEF: Lower;Magic;2;1 turn
+609:IllustratedSoraB,STR: Raise;Speed;2;2 turns
+1217:IllustratedSoraB,STR: Raise;Upright;3;2 turns & STR: Raise;Speed;2;2 turns
+610:YoungSora,STR: Raise;Speed;1;1 turn & DEF: Raise;Magic;1;1 turn
+611:YoungSora,STR: Raise;Speed;1;1 turn & DEF: Raise;Magic;1;1 turn
+612:YoungRiku,STR: Raise;Power;1;1 turn & DEF: Speed;Magic;1;1 turn
+613:YoungRiku,STR: Raise;Power;1;1 turn & DEF: Speed;Magic;1;1 turn
+614:YoungKairi,STR: Raise;Power-Speed-Magic;1;1 turn & DEF: Speed;Power-Speed-Magic;1;1 turn
+615:YoungKairi,STR: Raise;Power-Speed-Magic;1;1 turn & DEF: Speed;Power-Speed-Magic;1;1 turn
+616:IllustratedRikuB,STR: Raise;Power;2;2 turns
+1223:IllustratedRikuB,STR: Raise;Upright;3;2 turns & STR: Raise;Power;2;2 turns
+1218:YoungKingMickeyA,STR: Raise;Upright;3;1 turn
+620:KeyArt#3,DEF: Lower;Normal;1;1 turn & INFL: Higher HP
+622:KHCoMSora&amp;Riku,INFL: Bigger Party
+1226:KHCoMSora&amp;Riku,STR: Raise;Upright;3;1 turn & INFL: Bigger Party
+627:TheShark,STR: Raise;Power;3;1 turn
+628:TheShark,STR: Raise;Power;3;1 turn
+629:Flotsam&amp;Jetsam,STR: Lower;Normal;1;1 turn
+630:Flotsam&amp;Jetsam,STR: Lower;Normal;1;1 turn
+631:HDUrsula,STR: Raise;Magic;3;1 turn
+632:XigbarB,DEF: Lower;Normal;2;1 attack
+633:XigbarB,DEF: Lower;Normal;2;1 attack
+1292:XigbarB,DEF: Lower;Normal;2;1 attack
+636:KeyArt#4,STR: Raise;Power-Speed-Magic;1;2 turns & INFL: Higher HP
+637:IllustratedLeon,STR: Raise;Power;1;1 turn & DEF: Lower;Power;1;1 turn
+638:Xehanort&amp;Vanitas,STR: Raise;Speed;1;1 turn & DEF: Lower;Speed;1;1 turn
+639:HDRoxas,DEF: Lower;Power;2;1 turn
+642:Neoshadow,INFL: More Skills
+643:Neoshadow,INFL: More Skills
+1240:Neoshadow,INFL: More Skills
+646:HDBeast,STR: Raise;Power;3;1 turn
+1323:HDBeast,STR: Raise;Upright-Power;3;1 turn & DEF: Lower;Power;2;1 turn & INFL: Higher HP
+921:BeastHDVer,STR: Raise;Power;3;1 turn & DEF: Lower;Power;2;1 turn & INFL: Higher HP
+1416:BeastHDVer,STR: Raise;Upright-Power;3;1 turn & DEF: Lower;Power;2;1 turn & INFL: Higher HP
+647:XaldinB,INFL: Slot 5
+648:XaldinB,INFL: Slot 5
+1307:XaldinB,INFL: Slot 5
+649:IllustratedBelle&amp;Beast,STR: Raise;Normal;3;1 turn & ESUNA
+1326:IllustratedBelle&amp;Beast,STR: Raise;Normal;3;1 turn & ESUNA
+925:Belle&amp;BeastIllustratedVer,STR: Raise;Normal;4;1 turn & ESUNA
+1420:Belle&amp;BeastIllustratedVer,STR: Raise;Normal;4;1 turn & ESUNA
+650:PoohBear,DEF: Raise;Speed;2;1 turn & HEAL: Moderately
+651:PoohBear,DEF: Raise;Speed;2;1 turn & HEAL: Moderately
+604:PoohHoneyVer,DEF: Raise;Speed;2;1 turn & HEAL: Moderately
+605:PoohHoneyVer,DEF: Raise;Speed;2;1 turn & HEAL: Moderately
+606:PoohHoneyVer,DEF: Raise;Speed;2;1 turn & HEAL: Moderately
+607:PoohHoneyVer,DEF: Raise;Speed;2;1 turn & HEAL: Moderately
+608:PoohHoneyVer,DEF: Raise;Speed;2;1 turn & HEAL: Moderately
+609:PoohHoneyVer,DEF: Raise;Speed;2;1 turn & HEAL: Moderately
+657:DarkRiku,DEF: Lower;Normal;1;2 turns & INFL: Higher Slot
+1257:DarkRiku,STR: Raise;Reverse;3;2 turns & DEF: Raise;Speed;2;1 turn & HEAL: Moderately
+658:WorldofChaos,STR: Raise;Magic;2;2 turns
+1262:WorldofChaos,STR: Raise;Reverse;3;2 turns & STR: Raise;Magic;2;2 turns
+660:IllustratedKHIIKairi,STR: Raise;Power-Speed-Magic;1;1 turn & DEF: Lower;Power-Speed-Magic;1;1 turn & GAUGE: 10 & HEAL: Greatly & INFL: Fixed
+1252:IllustratedKHIIKairi,STR: Raise;Upright;3;1 turn & STR: Raise;Power-Speed-Magic;1;1 turn & DEF: Lower;Power-Speed-Magic;1;1 turn & GAUGE: 10 & HEAL: Greatly & INFL: Fixed
+661:IllustratedKHIISora,DEF: Lower;Normal;1;2 turns & INFL: Lower Slot
+664:Monstro,DEF: Raise;Power-Speed-Magic;1;1 turn
+665:Monstro,DEF: Raise;Power-Speed-Magic;1;1 turn
+666:KeyArt#5,STR: Raise;Normal;3;1 turn
+1256:KeyArt#5,STR: Raise;Upright-Normal;3;1 turn
+667:Cinderella&amp;Jaq,STR: Raise;Power-Speed-Magic;1;2 turns & DEF: Raise;Power-Speed-Magic;1;2 turns & HEAL: Slightly
+668:Cinderella&amp;Jaq,STR: Raise;Power-Speed-Magic;1;2 turns & DEF: Raise;Power-Speed-Magic;1;2 turns & HEAL: Slightly
+1245:Cinderella&amp;Jaq,STR: Raise;Upright;3;2 turns & STR: Raise;Power-Speed-Magic;1;2 turns & DEF: Raise;Power-Speed-Magic;1;2 turns & HEAL: Slightly
+669:SPCinderella,STR: Raise;Power-Speed-Magic;1;2 turns & DEF: Raise;Power-Speed-Magic;1;2 turns & HEAL: Greatly
+671:VexenB,DEF: Raise;Speed-Magic;1;4 turns & HEAL: Moderately & INFL: Turns
+672:VexenB,DEF: Raise;Speed-Magic;1;4 turns & HEAL: Moderately & INFL: Turns
+1317:VexenB,DEF: Raise;Speed-Magic;1;4 turns & HEAL: Moderately & INFL: Turns 
+674:IllustratedRoxas,STR: Raise;Speed;3;1 turn & INFL: Full Gauges
+1263:HDNaminé,STR: Raise;Upright;3;1 turn
+676:Ansem,INFL: No Defense
+677:Ansem,INFL: No Defense
+678:Lucifer,STR: Raise;Normal;2;1 turn & DEF: Lower;Normal;2;1 turn
+679:Lucifer,STR: Raise;Normal;2;1 turn & DEF: Lower;Normal;2;1 turn
+680:LadyTremaine,STR: Lower;Normal;1;2 turns
+681:LadyTremaine&amp;Daughters,STR: Lower;Normal;1;2 turns
+1261:LadyTremaine&amp;Daughters,STR: Lower;Normal;1;2 turns
+683:PlutoB,DEF: Raise;Power;2;1 turn & HEAL: Moderately
+684:PlutoB,DEF: Raise;Power;2;1 turn & HEAL: Moderately
+685:Mickey&amp;MinnieMouse,DEF: Lower;Normal;2;1 turn & INFL: Slot 3
+686:KeyArt#7,DEF: Lower;Normal;1;2 turns & INFL: Lower Slot
+687:KeyArt#6,STR: Raise;Power;3;1 turn & INFL: Full Gauges
+688:Aladdin&amp;Abu,STR: Raise;Power-Speed;2;1 turn
+689:Aladdin&amp;Abu,STR: Raise;Power-Speed;2;1 turn
+690:Aladdin&amp;Genie,STR: Raise;Power-Magic;2;2 turns
+691:LexaeusB,INFL: Higher Slot
+692:LexaeusB,INFL: Higher Slot
+1330:LexaeusB,INFL: Higher Slot
+693:Neku,STR: Raise;Normal;3;3 attacks & ESUNA
+694:Neku,STR: Raise;Normal;3;3 attacks & ESUNA
+695:Shiki,STR: Raise;Normal;3;3 attacks & ESUNA
+696:Shiki,STR: Raise;Normal;3;3 attacks & ESUNA
+697:Joshua,STR: Raise;Normal;3;3 attacks & ESUNA
+698:Joshua,STR: Raise;Normal;3;3 attacks & ESUNA
+699:KH0.2Aqua,DEF: Lower;Magic;2;2 turns & INFL: Higher HP
+700:KH0.2KingMickeyA,DEF: Lower;Power;2;2 turns & INFL: Higher HP
+701:KeyArt#8,STR: Raise;Magic;2;1 turn & DEF: Lower;Magic;2;1 turn & INFL: Lower Slot
+702:KH0.2Terra&amp;Ventus,STR: Raise;Power-Speed;2;2 turns
+862:Terra&amp;VentusKH0.2Ver,STR: Raise;Power-Speed;2;2 turns
+703:KHIICloud[EX],STR: Raise;Power;3;1 turn & DEF: Lower;Power;3;1 turn & INFL: Higher HP
+1288:KHIICloud[EX],STR: Raise;Upright-Power;3;1 turn & DEF: Lower;Power;3;1 turn & INFL: Higher HP
+704:KeyArt#9,DEF: Lower;Speed;2;2 turns & INFL: Higher HP
+705:OrchestraSora,DEF: Raise;Power-Speed-Magic;1;2 turns & HEAL: Moderately
+1304:OrchestraSora,DEF: Raise;Power-Speed-Magic;1;2 turns & HEAL: Moderately
+706:Donald&amp;Daisy,STR: Raise;Speed-Magic;2;1 turn
+707:Donald&amp;Daisy,STR: Raise;Speed-Magic;2;1 turn
+708:IllustratedDonaldA,DEF: Lower;Normal;2;1 turn & INFL: Slot 4
+709:ZexionB,STR: Raise;Normal;1;1 turn & INFL: More Skills
+710:ZexionB,STR: Raise;Normal;1;1 turn & INFL: More Skills
+1339:ZexionB,STR: Raise;Normal;1;1 turn & INFL: More Skills
+1298:KeyArt"Sky",STR: Raise;Upright;3;1 turn
+1299:KeyArt"Bonds",STR: Raise;Upright;3;1 turn
+1300:KeyArt"Beginning",STR: Raise;Upright;3;1 turn
+714:Maleficent(Dragon),DEF: Lower;Normal;2;1 turn & INFL: Exchange HP
+715:Terra-Xehanort,STR: Raise;Magic;3;1 turn & INFL: Full Gauges
+1290:Terra-Xehanort,STR: Raise;Reverse-Magic;3;1 turn & INFL: Full Gauges
+716:VanitasRemnant,STR: Raise;Normal;3;1 turn & INFL: Lower Slot
+717:AxelArt[EX],STR: Raise;Speed;3;1 turn & DEF: Lower;Speed;3;1 turn & INFL: Higher HP
+718:IllustratedVivi,STR: Raise;Normal-Power-Speed-Magic;3;3 & GAUGE: 5
+719:KH0.2Riku,STR: Raise;Normal-Power;2;2 turns & INFL: Higher HP
+1311:KH0.2Riku,STR: Raise;Upright;3;2 turns & STR: Raise;Normal-Power;2;2 turns & INFL: Higher HP
+1294:SPVanitas,STR: Raise;Reverse;3;1 turn & GAUGE: 3
+721:IllustratedTerraB,STR: Raise;Power;3;1 turn & DEF: Lower;Normal;1;1 turn
+1293:IllustratedTerraB,STR: Raise;Upright-Power;3;1 turn & DEF: Lower;Normal;1;1 turn
+722:ArmoredVentus,STR: Raise;Normal;3;1 turn & INFL: Lower Slot
+723:SaïxB,INFL: Full Gauges
+724:SaïxB,INFL: Full Gauges
+1352:SaïxB,INFL: Full Gauges
+725:KHIIISora[EX],STR: Raise;Speed;2;1 turn & DEF: Lower;Speed;2;1 turn & INFL: Higher HP
+1354:KHIIISora[EX],STR: Raise;Upright-Speed;3;1 turn & DEF: Lower;Speed;3;1 turn & INFL: Higher HP
+964:SoraKHIIIVer【EX】,STR: Raise;Speed;3;1 turn & DEF: Lower;Speed;3;1 turn & INFL: Higher HP
+1449:SoraKHIIIVer【EX】,STR: Raise;Upright-Speed;3;1 turn & DEF: Lower;Speed;3;1 turn & INFL: Higher HP
+726:KH0.2Kairi,STR: Raise;Normal;6;1 turn & STR: Raise;Power-Speed-Magic;1;1 turn & DEF: Lower;Normal-Power-Speed-Magic;1;1 turn & HEAL: Significantly
+1314:KH0.2Kairi,STR: Raise;Upright;3;1 turn & STR: Raise;Normal;6;1 turn & STR: Raise;Power-Speed-Magic;1;1 turn & DEF: Lower;Normal-Power-Speed-Magic;1;1 turn & HEAL: Significantly
+727:Chernabog,DEF: Lower;Normal;3;1 attack
+728:PenceB,DEF: Raise;Speed;1;2 turns & HEAL: Slightly
+729:PenceB,DEF: Raise;Speed;1;2 turns & HEAL: Slightly
+730:HaynerB,DEF: Raise;Magic;1;2 turns & HEAL: Slightly
+731:HaynerB,DEF: Raise;Magic;1;2 turns & HEAL: Slightly
+732:OletteB,DEF: Raise;Power;1;2 turns & HEAL: Slightly
+733:OletteB,DEF: Raise;Power;1;2 turns & HEAL: Slightly
+735:Hayner&amp;Pence&amp;Olette,DEF: Raise;Normal-Power-Speed-Magic;1;2 turns & HEAL: Moderately
+1351:Hayner&amp;Pence&amp;Olette,DEF: Raise;Normal-Power-Speed-Magic;1;2 turns & HEAL: Moderately
+736:HDVentus,DEF: Lower;Normal;2;1 turn & INFL: SPAttacks
+737:SPAnsem,STR: Raise;Normal;1;3 turns & INFL: Higher Slot
+738:HDWisdomFormSora,DEF: Lower;Normal;2;1 turn & INFL: SPAttacks
+739:SoraArt[EX],STR: Raise;Magic;3;1 turn & DEF: Lower;Magic;3;1 turn & INFL: Higher HP
+740:KeyArt#10,STR: Raise;Power-Speed-Magic;1;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns & INFL: Higher HP
+743:SPSora,DEF: Lower;Normal;2;1 turn & INFL: Slot 4
+744:AxelB,STR: Raise;Power;3;1 turn & INFL: Lower Slot
+745:AxelB,STR: Raise;Power;3;1 turn & INFL: Lower Slot
+1370:AxelB,STR: Raise;Power;3;1 turn & INFL: Lower Slot
+746:WinniethePoohB,DEF: Raise;Speed;1;3 turns
+747:WinniethePoohB,DEF: Raise;Speed;1;3 turns
+748:Tigger,DEF: Raise;Magic;1;3 turns
+749:Tigger,DEF: Raise;Magic;1;3 turns
+750:Rabbit,DEF: Raise;Power;1;3 turns
+751:Rabbit,DEF: Raise;Power;1;3 turns
+752:Pooh&amp;Tigger&amp;Rabbit,DEF: Raise;Power-Speed-Magic;1;3 turns
+753:WORLDOFFFLann,STR: Raise;Power-Speed-Magic;1;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+1327:WORLDOFFFLann,STR: Raise;Upright;3;3 turns & STR: Raise;Power-Speed-Magic;1;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+754:WORLDOFFFReynn,STR: Raise;Power-Speed-Magic;1;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+1328:WORLDOFFFReynn,STR: Raise;Upright;3;3 turns & STR: Raise;Power-Speed-Magic;1;3 turns & DEF: Lower;Power-Speed-Magic;1;3 turns
+755:Ventus-Vanitas,DEF: Lower;Speed;4;1 turn & INFL: Slot 5
+1318:Ventus-Vanitas,STR: Raise;Reverse;3;1 turn & DEF: Lower;Speed;4;1 turn & INFL: Slot 5
+756:LordoftheDead,DEF: Lower;Power;4;1 turn & INFL: Slot 4
+1316:LordoftheDead,STR: Raise;Reverse;3;1 turn & DEF: Lower;Power;4;1 turn & INFL: Slot 4
+757:Sephiroth[EX],STR: Raise;Normal;1;1 turn & STR: Raise;Power;5;1 turn & DEF: Lower;Normal;1;1 turn & DEF: Lower;Power;3;1 turn & INFL: Higher HP
+1325:Sephiroth[EX],STR: Raise;Reverse;3;1 turn & STR: Raise;Normal;1;1 turn & STR: Raise;Power;5;1 turn & DEF: Lower;Normal;1;1 turn & DEF: Lower;Power;3;1 turn & INFL: Higher HP
+758:Tifa&amp;Aerith,STR: Raise;Normal;2;1 turn & DEF: Lower;Normal;2;1 turn & INFL: Lower Slot
+759:KeyArt#11,STR: Raise;Normal;3;1 turn & DEF: Lower;Power-Speed-Magic;2;1 turn & GAUGE: 3
+760:TsumTsumPooh&amp;Pals,DEF: Lower;Normal;1;1 turn
+761:TsumTsumMickey&amp;Minnie,DEF: Lower;Normal;1;1 turn
+762:TsumTsumMickey&amp;Pals,DEF: Lower;Normal;1;1 turn
+763:TsumTsumSora&amp;Riku,DEF: Lower;Normal;2;2 turns
+764:ManinBlack,HEAL: Greatly & INFL: Fixed
+1291:ManinBlack,STR: Raise;Reverse;3;1 turn & ESUNA & INFL: Fixed & HEAL: Greatly
+765:DemyxB,INFL: Higher HP
+766:DemyxB,INFL: Higher HP
+1220:DemyxB,INFL: Higher HP
+767:RoxasArt[EX],STR: Raise;Normal;1;1 turn & STR: Raise;Speed;5;1 turn & DEF: Lower;Normal;1;1 turn & DEF: Lower;Speed;3;1 turn & INFL: Higher HP
+1334:RoxasArt[EX],STR: Raise;Upright;3;1 turn & STR: Raise;Normal;1;1 turn & STR: Raise;Speed;5;1 turn & DEF: Lower;Normal;1;1 turn & DEF: Lower;Speed;3;1 turn & INFL: Higher HP
+1331:HDXion,STR: Raise;Reverse;3;1 turn
+769:IllustratedPrideLandsSora,STR: Raise;Normal-Power-Speed-Magic;3;1 turn & GAUGE: 4
+770:LingeringWill,STR: Raise;Speed;5;1 turn
+1324:LingeringWill,STR: Raise;Upright;3;1 turn & STR: Raise;Speed;5;1 turn
+772:KH0.2Sora,DEF: Lower;Normal;1;1 turn & DEF: Lower;Magic;3;1 turn & INFL: Higher Slot
+773:KH0.2KingMickeyB,DEF: Lower;Normal;1;1 turn & DEF: Lower;Power-Speed-Magic;3;1 turn
+774:KH0.2Donald&amp;Goofy,STR: Raise;Magic;3;1 turn & DEF: Lower;Normal;1;1 turn
+775:FinalBossXion,DEF: Lower;Normal;2;2 turns & INFL: Full Gauges
+1342:FinalBossXion,STR: Raise;Reverse;3;2 turns & DEF: Lower;Normal;2;2 turns & INFL: Full Gauges
+776:HDXion[EX],STR: Raise;Normal;1;1 turn & STR: Raise;Magic;5;1 turn & DEF: Lower;Normal;1;1 turn & DEF: Lower;Magic;3;1 turn & INFL: Higher HP
+777:King'sRoar,DEF: Lower;Normal;1;2 turns & DEF: Raise;Power;2;2 turns & INFL: Higher Slot
+778:HDValorFormSora,STR: Raise;Power;3;2 turns & INFL: Bigger Party
+779:HDMasterFormSora,STR: Raise;Speed;3;2 turns & INFL: Bigger Party
+780:HDLimitFormSora,STR: Raise;Magic;3;2 turns & INFL: Bigger Party
+1348:HDAntiformSora,STR: Raise;Upright;3;1 turn
+782:IllustratedDonaldB,STR: Raise;Magic;5;1 turn
+783:IllustratedGoofy,STR: Raise;Power;5;1 turn
+1335:IllustratedGoofy,STR: Raise;Upright;3;1 turn & STR: Raise;Power;5;1 turn
+786:Aqua&amp;Stitch,STR: Raise;Normal-Power-Speed-Magic;1;3 turns & GAUGE: 4 & INFL: SPAttacks
+1233:Aqua&amp;Stitch,STR: Raise;Normal-Power-Speed-Magic;1;3 turns & GAUGE: 4 & INFL: SPAttacks
+787:HalloweenGoofyC,STR: Raise;Power;1;1 turn & ESUNA & HEAL: Slightly
+788:HalloweenGoofyC,STR: Raise;Power;1;1 turn & ESUNA & HEAL: Slightly
+789:HalloweenSoraC,STR: Raise;Speed;1;1 turn & ESUNA & HEAL: Slightly
+790:HalloweenSoraC,STR: Raise;Speed;1;1 turn & ESUNA & HEAL: Slightly
+791:HalloweenDonaldC,STR: Raise;Magic;1;1 turn & ESUNA & HEAL: Slightly
+792:HalloweenDonaldC,STR: Raise;Magic;1;1 turn & ESUNA & HEAL: Slightly
+793:Sora&amp;Donald&amp;GoofyC,STR: Raise;Power-Speed-Magic;1;1 turn & ESUNA & HEAL: Moderately
+1389:Sora&amp;Donald&amp;GoofyC,STR: Raise;Power-Speed-Magic;1;1 turn & ESUNA & HEAL: Moderately
+794:RikuArt[EX],DEF: Lower;Normal-Power;4;1 turn & INFL: Higher HP
+795:IllustratedAquaB,DEF: Lower;Normal;2;2 turns & INFL: Higher HP
+1353:IllustratedAquaB,STR: Raise;Upright;3;2 turns & DEF: Lower;Normal;2;2 turns & INFL: Higher HP
+796:IllustratedNeku,STR: Raise;Speed;4;2 turns & INFL: Gauges Used
+797:TheWorldEndswithYouArt,STR: Raise;Power-Speed-Magic;1;1 turn & DEF: Lower;Power-Speed-Magic;1;1 turn & INFL: Fixed & GAUGE: 7 & ESUNA
+798:IllustratedKairi[EX],STR: Raise;Upright;2;1 turn & STR: Raise;Normal;7;1 turn & STR: Raise;Power-Speed-Magic;6;1 turn & DEF: Lower;Normal;3;1 turn & DEF: Lower;Power-Speed-Magic;4;1 turn & COUNT: +1 & HEAL: Significantly & GAUGE: 5
+1382:IllustratedKairi[EX],STR: Raise;Upright;5;1 turn & STR: Raise;Normal;7;1 turn & STR: Raise;Power-Speed-Magic;6;1 turn & DEF: Lower;Normal;3;1 turn & DEF: Lower;Power-Speed-Magic;4;1 turn & COUNT: +1 & HEAL: Significantly & GAUGE: 5
+799:IllustratedAuron,INFL: Fixed
+1369:IllustratedAuron,STR: Raise;Upright;3;1 turn & INFL: Fixed
+800:IllustratedKHIISora&amp;Riku[EX],DEF: Lower;Normal-Speed;4;1 turn & INFL: Higher HP
+802:ToonKHIIKingMickey,STR: Raise;Power;3;1 turn & COUNT: +1 & INFL: Lower Slot
+803:ToonVentus,STR: Raise;Speed;3;1 turn & COUNT: +1 & INFL: Lower Slot
+804:ToonAqua,STR: Raise;Magic;3;1 turn & COUNT: +1 & INFL: Lower Slot
+805:ToonRiku,STR: Raise;Power;3;1 turn & COUNT: +1 & INFL: Higher Slot
+806:ToonRoxas,STR: Raise;Speed;3;1 turn & COUNT: +1 & INFL: Higher Slot
+807:ToonXion,STR: Raise;Magic;3;1 turn & COUNT: +1 & INFL: Higher Slot
+808:ToonSora,STR: Raise;Power-Speed-Magic;3;2 turns & COUNT: +1 & INFL: Higher HP
+809:Sora&amp;Neku,STR: Raise;Norma;2;1 turn & DEF: Lower;Normal;2;1 turn & INFL: Lower Slot & GAUGE: 2
+810:IllustratedMarluxia[EX],DEF: Lower;Normal-Magic;4;1 turn & INFL: Higher HP
+989:MarluxiaIllustratedVer【EX】,DEF: Lower;Normal-Magic;4;1 turn & INFL: Higher HP
+812:HDIra[EX],STR: Raise;Upright;1;2 turns & DEF: Lower;Power-Speed-Magic;7;2 turns & DEF: Lower;Normal;2;2 turns & INFL: 1 Enemy & COUNT: 0
+1384:HDIra[EX],STR: Raise;Upright;4;2 turns & DEF: Lower;Power-Speed-Magic;7;2 turns & DEF: Lower;Normal;2;2 turns & INFL: 1 Enemy & COUNT: 0
+813:HDInvi[EX],STR: Raise;Magic;7;2 turns & DEF: Lower;Magic;7;2 turns & DEF: Lower;Normal;2;2 turns & INFL: 1 Enemy & COUNT: 0
+814:HDAced[EX],STR: Raise;Power;7;2 turns & DEF: Lower;Power;7;2 turns & DEF: Lower;Normal;2;2 turns & INFL: 1 Enemy & COUNT: 0
+815:HDGula[EX],STR: Raise;Speed;7;2 turns & DEF: Lower;Speed;7;2 turns & DEF: Lower;Normal;2;2 turns & INFL: 1 Enemy & COUNT: 0
+816:HDAva[EX],DEF: Raise;Power-Speed-Magic;2;2 turns & DEF: Lower;Power-Speed-Magic;7;2 turns & DEF: Lower;Normal;2;2 turns & INFL: 1 Enemy & COUNT: 0
+817:KeyArt#12,STR: Raise;Normal;2;2 turns & STR: Raise;Power-Speed-Magic;1;2 turns & DEF: Raise;Power-Speed-Magic;1;2 turns & ESUNA & INFL: Smaller Slot
+818:Ariel,STR: Raise;Normal;6;1 turn & DEF: Lower;Normal;1;1 turn & GAUGE: 5
+819:DualWieldRoxas[EX],STR: Raise;Reverse;2;2 turns & STR: Raise;Power;7;2 turns & DEF: Lower;Normal;2;2 turns & DEF: Lower;Power;2;2 turns & INFL: Higher HP
+820:RoxasB,DEF: Lower;Speed;2;1 turn & INFL: 1 Enemy
+821:RoxasB,DEF: Lower;Speed;2;1 turn & INFL: 1 Enemy
+1386:RoxasB,DEF: Lower;Speed;2;1 turn & INFL: 1 Enemy
+822:HDLarxene,DEF: Lower;Normal;3;1 attack & INFL: Gauges Used
+1381:HDVanitas,STR: Raise;Reverse;3;1 turn
+824:HDZexion,STR: Raise;Power-Speed-Magic;4;2 turns & DEF: Raise;Power-Speed-Magic;2;2 turns & STR: Lower;Normal;1;2 turns & DEF: Lower;Normal;1;2 turns & INFL: Full Gauges
+825:HDFinalFormSora,STR: Raise;Upright;1;1 turn & DEF: Lower;Normal;3;1 turn & INFL: Slot 5
+826:358/2DaysBlackCoatRiku,STR: Raise;Upright;1;1 turn & DEF: Lower;Normal;3;1 turn & INFL: Slot 3
+827:ValorGenie,STR: Raise;Magic;7;1 turn & GAUGE: 4
+829:XionB,DEF: Lower;Magic;2;1 turn & INFL: 1 Enemy
+830:XionB,DEF: Lower;Magic;2;1 turn & INFL: 1 Enemy
+1387:XionB,DEF: Lower;Magic;2;1 turn & INFL: 1 Enemy
+831:HDKingMickey[EX],STR: Raise;Upright;2;2 turns & DEF: Lower;Normal;2;2 turns
+1399:HDKingMickey[EX],STR: Raise;Upright;5;2 turns & DEF: Lower;Normal;2;2 turns
+833:IllustratedXion[EX],STR: Raise;Reverse;2;1 turn & STR: Raise;Normal;7;1 turn & STR: Raise;Power-Speed-Magic;6;1 turn & DEF: Lower;Normal;3;1 turn & DEF: Lower;Power-Speed-Magic;4;1 turn & COUNT: +1 & HEAL: Significantly & GAUGE: 5
+1400:IllustratedXion[EX],STR: Raise;Reverse;5;1 turn & STR: Raise;Normal;7;1 turn & STR: Raise;Power-Speed-Magic;6;1 turn & DEF: Lower;Normal;3;1 turn & DEF: Lower;Power-Speed-Magic;4;1 turn & COUNT: +1 & HEAL: Significantly & GAUGE: 5
+954:Pongo,GAUGE: 4
+955:Perdita,GAUGE: 4
+956:101Dalmatians,GAUGE: 4
+1276:101Dalmatians,GAUGE: 4
+957:HDKHIILeon,STR: Raise;Upright;1;1 turn & DEF: Lower;Normal;3;1 turn & INFL: Slot 6
+958:HDPete,STR: Raise;Reverse;1;1 turn & DEF: Lower;Normal;3;1 turn & INFL: Higher Slot
+1398:HDPete,STR: Raise;Reverse;4;1 turn & DEF: Lower;Normal;3;1 turn & INFL: Higher Slot
+959:HerculesB,STR: Raise;Power;7;1 turn & GAUGE: 4
+1383:HerculesB,STR: Raise;Upright;3;1 turn & STR: Raise;Power;7;1 turn & GAUGE: 4
+1012:HerculesB,STR: Raise;Power;7;1 turn & GAUGE: 4
+1479:HerculesB,STR: Raise;Upright;3;1 turn & STR: Raise;Power;7;1 turn & GAUGE: 4
+960:IllustratedAtlanticaSora,DEF: Lower;Normal;1;1 turn & DEF: Lower;Power-Speed-Magic;3;1 turn
+984:SoraATIllustratedVer,DEF: Lower;Normal;1;1 turn & DEF: Lower;Power-Speed-Magic;3;1 turn
+961:IllustratedHalloweenDonald,GAUGE: 3
+962:KeyArt#14,STR: Raise;Upright;1;1 turn & DEF: Raise;Power-Speed-Magic;2;1 turn & HEAL: Greatly
+963:IllustratedHalloweenGoofy,GAUGE: 3
+964:MasterXehanort[EX],STR: Raise;Reverse;2;2 turns & STR: Raise;Magic;7;2 turns & DEF: Lower;Normal-Magic;2;2 turns & INFL: Higher HP
+965:LaunchpadMcQuack,STR: Raise;Normal-Power-Speed-Magic;7;3 attacks & DEF: Lower;Normal;7;3 attacks
+966:HueyDewey&amp;Louie,STR: Raise;Normal-Power-Speed-Magic;7;3 attacks & DEF: Lower;Normal;7;3 attacks
+967:WebbyVanderquack,STR: Raise;Normal-Power-Speed-Magic;7;3 attacks & DEF: Lower;Normal;7;3 attacks
+968:ScroogeMcDuck,STR: Raise;Upright;2;1 turn & STR: Raise;Normal-Power-Speed-Magic;7;1 turn & DEF: Lower;Normal-Power-Speed-Magic;7;1 turn & COUNT: +5 & GAUGE: 7
+969:ChickenLittle,STR: Lower;Normal;2;1 turn & COUNT: +1 & HEAL: Moderately & GAUGE: 4
+970:HDAxel[EX],STR: Raise;Reverse;2;2 turns & STR: Raise;Speed;7;2 turns & DEF: Lower;Normal-Speed;2;2 turns & INFL: Higher HP
+1408:KHIINaminé,STR: Raise;Upright;3;1 turn
+972:HDSora&amp;Kairi[EX],STR: Raise;Upright;3;2 turns & INFL: 1 Enemy & COUNT: Reset & HEAL: Moderately & GAUGE: 3
+1407:HDSora&amp;Kairi[EX],STR: Raise;Upright;6;2 turns & INFL: 1 Enemy & COUNT: Reset & HEAL: Moderately & GAUGE: 3
+973:ToonSora&amp;Pals,STR: Raise;Upright;1;3 turns & DEF: Lower;Normal;1;3 turns & COUNT: +1 & HEAL: Moderately & GAUGE: 4
+974:Aladdin&amp;MagicCarpet,GAUGE: 3
+975:KHIIIKingMickey[EX],STR: Raise;Upright-Reverse;1;1 turn & STR: Raise;Power;7;1 turn & DEF: Lower;Power;3;1 turn & INFL: Higher HP
+1419:KHIIIKingMickey[EX],STR: Raise;Upright;4;1 turn & STR: Raise;Revere;1;1 turn & STR: Raise;Power;7;1 turn & DEF: Lower;Power;3;1 turn & INFL: Higher HP
+976:HDTerra[EX],SPBONUS: +30% & INFL: 1 Enemy
+977:HDAqua[EX],SPBONUS: +30% & INFL: 1 Enemy
+978:HDVentus[EX],SPBONUS: +30% & INFL: 1 Enemy
+1410:HDVentus[EX],STR: Raise;Upright;3;1 turn & SPBONUS: +30% & INFL: 1 Enemy
+979:Tyro,STR: Raise;Normal;5;1 turn & SPBONUS: +15% & INFL: 1 Enemy
+980:Dr.Mog,STR: Raise;Normal;5;1 turn & SPBONUS: +15% & INFL: 1 Enemy
+981:Elarra,STR: Raise;Normal;5;1 turn & SPBONUS: +15% & INFL: 1 Enemy
+982:FFRKTerra,STR: Raise;Normal;7;1 turn & DEF: Lower;Upright;2;1 turn & SPBONUS: +30% & INFL: 1 Enemy & COUNT: +2
+5765:FFRKTerra,STR: Raise;Normal;7;1 turn & STR: Raise;Upright;3;1 turn & DEF: Lower;Upright;2;1 turn & SPBONUS: +30% & INFL: 1 Enemy & COUNT: +2
+983:FFRKWarriorofLight,STR: Raise;Normal;7;1 turn & DEF: Lower;Upright;2;1 turn & SPBONUS: +30% & INFL: 1 Enemy & COUNT: +2
+1425:FFRKWarriorofLight,STR: Raise;Normal;7;1 turn & STR: Raise;Upright;3;1 & DEF: Lower;Upright;2;1 turn & SPBONUS: +30% & INFL: 1 Enemy & COUNT: +2
+985:IllustratedKHRiku[EX],DEF: Lower;Upright;2;1 turn & DEF: Lower;Magic;7;1 turn & INFL: Higher HP
+1415:IllustratedKHRiku[EX],STR: Raise;Upright;3;1 turn & DEF: Lower;Upright;2;1 turn & DEF: Lower;Magic;7;1 turn & INFL: Higher HP
+986:TheWorldEndswithYouArt2,STR: Raise;Upright;1;2 turns & INFL: Lux
+987:ToonSantaRoxas,STR: Raise;Upright;1;1 turn & STR: Raise;Power-Speed-Magic;7;1 turn & COUNT: 0 & GAUGE: 3
+988:Flash,STR: Lower;Normal;1;1
+989:Flash,STR: Lower;Normal;1;1
+1212:Flash,STR: Lower;Normal;1;1
+990:KingTriton,STR: Raise;Upright;1;1 turn & GAUGE: 3
+991:Sephiroth[EX+],DEF: Lower;Reverse;2;1 turn & DEF: Lower;Power;7;1 turn & INFL: Higher HP
+1426:Sephiroth[EX+],STR: Raise;Reverse;3;1 turn & DEF: Lower;Reverse;2;1 turn & DEF: Lower;Power;7;1 turn & INFL: Higher HP
+992:KHIICloud[EX+],DEF: Lower;Upright;2;1 turn & DEF: Lower;Power;7;1 turn & INFL: Higher HP
+993:KeyArt#15,STR: Raise;Upright;1;1 turn & STR: Raise;Normal-Power-Speed-Magic;3;1 turn & ESUNA & GAUGE: 3
+994:HDVanitas[EX+],DEF: Lower;Reverse;2;1 turn & DEF: Lower;Magic;7;1 turn & INFL: Higher HP
+996:Vexen[+],STR: Raise;Reverse;1;2 turns & DEF: Raise;Normal;1;2 turns & DEF: Raise;Speed-Magic;3;2 turns & STR: Lower;Normal;2;2 turns & INFL: More Turns & HEAL: Moderately
+1432:Vexen[+],STR: Raise;Reverse;4;2 turns & DEF: Raise;Normal;1;2 turns & DEF: Raise;Speed-Magic;3;2 turns & STR: Lower;Normal;2;2 turns & INFL: More Turns & HEAL: Moderately
+997:KeyArt#16[EX+],DEF: Lower;Upright;2;1 turn & DEF: Lower;Speed;7;1 turn & INFL: Higher HP
+1433:KeyArt#16[EX+],STR: Raise;Upright;3;1 turn & DEF: Lower;Upright;2;1 turn & DEF: Lower;Speed;7;1 turn & INFL: Higher HP
+998:HDArmorofEraqus,STR: Raise;Upright;1;2 turns & INFL: Lux
+999:Scar,STR: Raise;Reverse;1;1 turn & GAUGE: 3
+1056:Scar,STR: Raise;Reverse;1;1 turn & GAUGE: 3
+1000:Yuna&amp;Rikku&amp;Paine,STR: Raise;Upright;1;2 turns & INFL: Lux
+1001:HDZack,STR: Raise;Upright;1;1 turn & STR: Raise;Speed;4;1 turn & DEF: Lower;Upright;1;1 turn & DEF: Lower;Normal-Upright;1;1 turn & INFL: Higher Slot
+5781:HDRikuReplica,STR: Raise;Reverse;3;1 turn
+1003:YoungKingMickeyB,STR: Raise;Normal-Power;7;1 turn & STR: Raise;Upright;3;1 turn & GAUGE: Use All & INFL: Gauges Used
+1434:YoungKingMickeyB,STR: Raise;Normal-Power;7;1 turn & STR: Raise;Upright;6;1 turn & GAUGE: Use All & INFL: Gauges Used
+1004:MasterXehanort[EX+],DEF: Lower;Reverse;2;1 turn & DEF: Lower;Speed;7;1 turn & INFL: Higher HP
+1073:MasterXehanort【EXRevision】,DEF: Lower;Reverse;2;1 turn & DEF: Lower;Speed;7;1 turn & INFL: Higher HP
+1006:StainedGlass#1[EX+],STR: Raise;Normal-Upright-Magic;7;1 turn & DEF: Lower;Normal;4;1 turn & DEF: Lower;Magic;7;1 turn & SPBONUS: +40% & INFL: Lower Slot
+1435:StainedGlass#1[EX+],STR: Raise;Normal-Upright-Magic;7;1 turn & DEF: Lower;Normal;4;1 turn & DEF: Lower;Magic;7;1 turn & SPBONUS: +40% & INFL: Lower Slot
+1007:StainedGlass#2[EX+],STR: Raise;Normal-Reverse-Magic;7;1 turn & DEF: Lower;Normal;4;1 turn & DEF: Lower;Magic;7;1 turn & SPBONUS: +40% & INFL: Lower Slot
+1436:StainedGlass#2[EX+],STR: Raise;Normal-Reverse-Magic;7;1 turn & DEF: Lower;Normal;4;1 turn & DEF: Lower;Magic;7;1 turn & SPBONUS: +40% & INFL: Lower Slot
+1008:StainedGlass#3[EX+],STR: Raise;Normal-Upright-Power;7;1 turn & DEF: Lower;Normal;4;1 turn & DEF: Lower;Power;7;1 turn & SPBONUS: +40% & INFL: Smaller Slot
+1009:StainedGlass#4[EX+],STR: Raise;Normal-Reverse-Power;7;1 turn & DEF: Lower;Normal;4;1 turn & DEF: Lower;Power;7;1 turn & SPBONUS: +40% & INFL: Smaller Slot
+1010:StainedGlass#5[EX+],STR: Raise;Normal-Upright-Speed;7;1 turn & DEF: Lower;Normal;4;1 turn & DEF: Lower;Speed;7;1 turn & SPBONUS: +40% & INFL: Smaller Slot
+1011:StainedGlass#6[EX+],STR: Raise;Normal-Reverse-Speed;7;1 turn & DEF: Lower;Normal;4;1 turn & DEF: Lower;Speed;7;1 turn & SPBONUS: +40% & INFL: Smaller Slot
+1012:IllustratedDiZ,STR: Raise;Upright;1;1 turn & GAUGE: 3
+1013:Lexaeus[+],STR: Raise;Reverse;5;1 attack & DEF: Lower;Reverse;5;1 turn & COUNT: +3 & INFL: Higher Slot
+1442:Lexaeus[+],STR: Raise;Reverse;7;1 attack & DEF: Lower;Reverse;5;1 turn & COUNT: +3 & INFL: Higher Slot
+1014:ToonAxel&amp;Pluto,STR: Raise;Normal-Power;4;2 turns & STR: Raise;Reverse;1;2 turns & GAUGE: 3 & INFL: SPAttacks
+1455:Prime-IllustratedAxel,STR: Raise;Power;7;1 turn & DEF: Lower;Reverse-Power;7;1 turn & DEF: Lower;Normal;4;1 turn & SPBONUS: +40% & GAUGE: 3
+1456:Prime-IllustratedAxel,STR: Raise;Reverse;3;1 turn & STR: Raise;Power;7;1 turn & DEF: Lower;Reverse-Power;7;1 turn & DEF: Lower;Normal;4;1 turn & SPBONUS: +40% & GAUGE: 3
+1458:BeagleBoys,STR: Raise;Reverse;3;1 turn
+1460:LionPete,STR: Raise;Reverse;3;1 turn
+1461:ToonSora&amp;Goofy,STR: Raise;Normal;7;1 turn & STR: Raise;Upright;3;1 turn & INFL: 1 Enemy & ESUNA
+1462:ToonSora&amp;Goofy,STR: Raise;Normal;7;1 turn & STR: Raise;Upright;3;1 turn & INFL: 1 Enemy & ESUNA
+1463:Zexion[+],DEF: Raise;Normal-Power-Speed-Magic;2;2 turns & STR: Lower;Normal;3;2 turns & INFL: Fixed
+1464:Zexion[+],STR: Raise;Reverse;3;2 turns & DEF: Raise;Normal-Power-Speed-Magic;2;2 turns & STR: Lower;Normal;3;2 turns & INFL: Fixed
+1465:Prime-KeyArt#17,STR: Raise;Magic;4;1 turn & SPBONUS: +40% & DEF: Lower;Normal-Upright-Magic;4;1 turn & DAMAGE+: 1 enemy or 0 parts
+1466:Prime-KeyArt#17,STR: Raise;Upright;3;1 turn & STR: Raise;Magic;4;1 turn & SPBONUS: +60% & DEF: Lower;Normal-Upright-Magic;4;1 turn & DAMAGE+: 1 enemy or 0 parts
+1467:KHIIKairi[EX+],STR: Raise;Upright-Power-Speed-Magic;7;1 turn & DEF: Lower;Upright-Power-Speed-Magic;7;1 turn & STR: Lower;Power-Speed-Magic;2;1 turn & SPBONUS: +80% & COUNT: +1 & HEAL: Max & GAUGE: 10 & ESUNA
+1468:KHIIKairi[EX+],STR: Raise;Upright-Power-Speed-Magic;7;1 turn & DEF: Lower;Upright-Power-Speed-Magic;7;1 turn & STR: Lower;Power-Speed-Magic;2;1 turn & SPBONUS: +80% & COUNT: +1 & HEAL: Max & GAUGE: 10 & ESUNA
+1469:MusketeerPete,STR: Raise;Reverse;3;1 turn & STR: Raise;Power;7;1 turn & GAUGE: Use All & INFL: More Gauges
+1470:MusketeerPete,STR: Raise;Reverse;6;1 turn & STR: Raise;Power;7;1 turn & GAUGE: Use All & INFL: More Gauges
+1471:Prime-BuzzLightyear,STR: Raise;Power;4;1 turn & SPBONUS: +40% & DEF: Lower;Normal-Upright-Power;4;1 turn & DAMAGE+: 1 enemy or 0 parts
+1472:Prime-BuzzLightyear,STR: Raise;Upright;3;1 turn & STR: Raise;Power;4;1 turn & SPBONUS: +60% & DEF: Lower;Normal-Upright-Power;4;1 turn & DAMAGE+: 1 enemy or 0 parts
+1473:Prime-Woody,STR: Raise;Speed;4;1 turn & SPBONUS: +40% & DEF: Lower;Normal-Upright-Speed;4;1 turn & DAMAGE+: 1 enemy or 0 parts
+1474:Prime-Woody,STR: Raise;Upright;3;1 turn & STR: Raise;Speed;4;1 turn & SPBONUS: +60% & DEF: Lower;Normal-Upright-Speed;4;1 turn & DAMAGE+: 1 enemy or 0 parts
+1475:Jessie,DEF: Lower;Upright-Reverse;1;1 turn & GAUGE: 3
+1476:Jessie,DEF: Lower;Upright-Reverse;1;1 turn & GAUGE: 3
+1477:Xion[EX+],STR: Raise;Reverse-Power-Speed-Magic;7;1 turn & DEF: Lower;Reverse-Power-Speed-Magic;7;1 turn & STR: Lower;Power-Speed-Magic;2;1 turn & SPBONUS: +80% & COUNT: +1 & HEAL: Max & GAUGE: 10 & ESUNA
+1478:Xion[EX+],STR: Raise;Reverse-Power-Speed-Magic;7;1 turn & DEF: Lower;Reverse-Power-Speed-Magic;7;1 turn & STR: Lower;Power-Speed-Magic;2;1 turn & SPBONUS: +80% & COUNT: +1 & HEAL: Max & GAUGE: 10 & ESUNA
+1479:Prime-KHIIRiku&amp;Mickey,STR: Raise;Normal;7;2 turns & STR: Raise;Speed;4;2 turns & DEF: Lower;Upright-Speed;3;2 turns & DEF: Lower;Normal;4;2 turns & SPBONUS: +40% & INFL: Higher HP
+1480:Prime-KHIIRiku&amp;Mickey,STR: Raise;Upright;3;2 turns & STR: Raise;Normal;7;2 turns & STR: Raise;Speed;4;2 turns & DEF: Lower;Upright-Speed;3;2 turns & DEF: Lower;Normal;4;2 turns & SPBONUS: +60% & INFL: Higher HP
+1481:IllustratedInvisible,STR: Raise;Normal;7;1 turn & STR: Raise;Reverse;3;1 turn & DEF: Lower;Normal;7;1 turn & INFL: 1 Enemy
+1482:IllustratedInvisible,STR: Raise;Normal;7;1 turn & STR: Raise;Reverse;3;1 turn & DEF: Lower;Normal;7;1 turn & INFL: 1 Enemy
+1483:Saïx[+],STR: Raise;Normal-Reverse;7;3 turns & DEF: PlayerLower;Power-Speed-Magic;2;3 turns
+1484:Saïx[+],STR: Raise;Normal-Reverse;7;3 turns & DEF: PlayerLower;Power-Speed-Magic;2;3 turns
+1486:Phantom,STR: Raise;Reverse;3;1 turn
+1487:Miguel,HEAL: Moderately & GAUGE: 3
+1488:Miguel,HEAL: Moderately & GAUGE: 3
+1489:Miguel&amp;Héctor,DEF: Raise;Power-Speed-Magic;1;1 turn
+1490:Miguel&amp;Héctor,DEF: Raise;Power-Speed-Magic;1;1 turn
+1491:Prime-Lea&amp;Isa,STR: Raise;Power;7;1 turn & DEF: Lower;Upright-Power;7;1 turn & DEF: Lower;Normal;4;1 turn & SPBONUS: +40% & GAUGE: 3
+1492:Prime-Lea&amp;Isa,STR: Raise;Upright;3;1 turn & STR: Raise;Power;7;1 turn & DEF: Lower;Upright-Power;7;1 turn & DEF: Lower;Normal;4;1 turn & SPBONUS: +60% & GAUGE: 3
+1493:Prime-YoungXehanort,STR: Raise;Normal;7;2 turns & STR: Raise;Speed;4;2 turns & DEF: Lower;Reverse-Speed;3;2 turns & DEF: Lower;Normal;4;1 turn & SPBONUS: +40% & INFL: Higher HP
+1494:Prime-YoungXehanort,STR: Raise;Reverse;3;2 turns & STR: Raise;Normal;7;2 turns & STR: Raise;Speed;4;2 turns & DEF: Lower;Reverse-Speed;3;2 turns & DEF: Lower;Normal;4;1 turn & SPBONUS: +40% & INFL: Higher HP
+1495:Miguel&amp;Dante,DEF: Lower;Upright-Power-Speed-Magic;7;1 turn & COUNT: +6
+1496:Miguel&amp;Dante,DEF: Lower;Upright-Power-Speed-Magic;7;1 turn & COUNT: +6
+1498:Sora&amp;Simba,STR: Raise;Upright;3;1 turn
+1499:Prime-IllustratedRoxas,STR: Raise;Magic;7;1 turn & SPBONUS: +60% & DEF: Lower;Reverse-Magic;7;1 turn & DEF: Lower;Normal;5;1 turn & GAUGE: 3 & DAMAGE+: 1 enemy or 0 parts & COUNT: 0
+1500:Prime-IllustratedRoxas,STR: Raise;Reverse;3;1 turn & STR: Raise;Magic;7;1 turn & SPBONUS: +80% & DEF: Lower;Reverse-Magic;7;1 turn & DEF: Lower;Normal;5;1 turn & GAUGE: 3 & DAMAGE+: 1 enemy or 0 parts & COUNT: 0
+1501:Prime-Mr.Incredible,SPBONUS: +70% & DAMAGE+: Party & COUNT: +3
+1502:Prime-Mr.Incredible,STR: Raise;Upright;3;1 turn & SPBONUS: +90% & DAMAGE+: Party & COUNT: +3
+1503:Prime-Mrs.Incredible,STR: Lower;Normal;7;1 turn & STR: Lower;Power-Speed-Magic;2;1 turn & DAMAGE+: Party & COUNT: +1
+1504:Prime-Mrs.Incredible,STR: Raise;Upright;3;1 turn & SPBONUS: +20% & STR: Lower;Normal;7;1 turn & STR: Lower;Power-Speed-Magic;2;1 turn & DAMAGE+: Party & COUNT: +1
+1505:Prime-Violet,DEF: Raise;Normal;3;4 turns & DEF: Raise;Power-Speed-Magic;4;4 turns & DAMAGE+: Party & COUNT: +1
+1506:Prime-Violet,STR: Raise;Upright-Normal;3;4 turns & DEF: Raise;Power-Speed-Magic;4;4 turns & SPBONUS: +20% & DAMAGE+: Party & COUNT: +1
+1507:Prime-Dash,STR: Raise;Upright;5;3 attacks & STR: Raise;Normal-Power-Speed-Magic;7;3 attacks & DEF: Lower;Upright;4;3 attacks & DEF: Lower;Normal-Power-Speed-Magic;7;3 attacks & DAMAGE+: Party & COUNT: +2
+1508:Prime-Dash,STR: Raise;Normal-Upright-Power-Speed-Magic;7;3 attacks & SPBONUS: +20% & DEF: Lower;Upright;4;3attacks & DEF: Lower;Normal-Power-Speed-Magic;7;3 attacks & DAMAGE+: Party & COUNT: +2
+1510:Bob&amp;Jack-Jack,STR: Raise;Upright;3;1 turn
+1511:Prime-Roxas&amp;Xion,STR: Raise;Speed;7;1 turn & SPBONUS: +60% & DEF: Lower;Reverse-Speed;7;1 turn & DEF: Lower;Normal;5;1 turn & GAUGE: 3 & DAMAGE+: 1 enemy or 0 parts & COUNT: 0
+1512:Prime-Roxas&amp;Xion,STR: Raise;Reverse;3;1 turn & STR: Raise;Speed;7;1 turn & SPBONUS: +80% & DEF: Lower;Reverse-Speed;7;1 turn & DEF: Lower;Normal;5;1 turn & GAUGE: 3 & DAMAGE+: 1 enemy or 0 parts & COUNT: 0
+1513:TheIncredibles2,ESUNA & HEAL: Greatly & GAUGE: 8 & INFL: Fixed
+1514:TheIncredibles2,ESUNA & HEAL: Greatly & GAUGE: 8 & INFL: Fixed
+1515:Axel[+],STR: Raise;Reverse;5;2 turns & STR: Raise;Power;7;2 turns & SPBONUS: +90% & DEF: Raise;Reverse;4;2 turns & DEF: Raise;Power;7;2 turns & INFL: Higher Slot & COUNT: 0
+1516:Axel[+],STR: Raise;Reverse;5;2 turns & STR: Raise;Power;7;2 turns & SPBONUS: +90% & DEF: Raise;Reverse;4;2 turns & DEF: Raise;Power;7;2 turns & INFL: Higher Slot & COUNT: 0
+1517:Prime-RikuVSRoxas,STR: Raise;Magic;7;1 turn & SPBONUS: +60% & DEF: Lower;Upright-Magic;7;1 turn & DEF: Lower;Normal;5;1 turn & GAUGE: 3 & DAMAGE+: 1 enemy or 0 parts & COUNT: 0
+1518:Prime-RikuVSRoxas,STR: Raise;Upright;3;1 turn & STR: Raise;Magic;7;1 turn & SPBONUS: +80% & DEF: Lower;Upright-Magic;7;1 turn & DEF: Lower;Normal;5;1 turn & GAUGE: 3 & DAMAGE+: 1 enemy or 0 parts & COUNT: 0
+1519:Naminé[EX+],STR: Raise;Normal-Upright-Power-Speed-Magic;7;3 turns & DEF: Raise;Normal;2;3 turns & DEF: Raise;Power-Speed-Magic;3;3 turns & SPBONUS: +90% & COUNT: +5 & INFL: Fixed & NEXTMEDAL: Group Attack
+1520:Naminé[EX+],STR: Raise;Normal-Upright-Power-Speed-Magic;7;3 turns & DEF: Raise;Normal;2;3 turns & DEF: Raise;Power-Speed-Magic;3;3 turns & SPBONUS: +90% & COUNT: +5 & INFL: Fixed & NEXTMEDAL: Group Attack
+1522:IllustratedDusk,STR: Raise;Reverse;3;1 turn

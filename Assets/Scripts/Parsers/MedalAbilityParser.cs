@@ -8,7 +8,7 @@ public class MedalAbilityParser : MonoBehaviour
 
     public Regex dealMultipleRegex = new Regex("Deals (\\d+) [\\w+\\s*]? hits");
     public Regex dealOneRegex = new Regex("Deals an? [\\w+\\s*] hit");
-    public Regex raiseLowerRegex = new Regex(@"^(?:Lowers|Raises)(?: target(?:s')?(?:'s)?)? (\w+\W?\w+ (?:by \d+ tier\w? )?&*\s?)*for \d+ (?:turn(?:s)?|attack(?:s))");
+    public Regex raiseLowerRegex = new Regex(@"^(?:Lowers|Raises)(?: target(?:s')?(?:'s)?)? ((\w+\W?\w+)? (\w+) (?:by (\d+) tier(?:s)? )+&*\s?)*for \d+ (?:turn(?:s)?|attack(?:s))");
     public Regex lowerRegex = new Regex(@"Lowers targets' (\w+) by (\d+) tiers for (\d+) (\w+)");
     public Regex updatedRaiseLowerRegex = new Regex(@"(\d+) (\w+): ([.+,*]+)");
     public Regex innerUpdatedRaiseLowerRegex = new Regex("(\\w)[ target\\w+]? (\\w+) by (\\d+)");

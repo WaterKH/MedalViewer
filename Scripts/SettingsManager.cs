@@ -59,13 +59,13 @@ public class SettingsManager : MonoBehaviour {
 	public void AcceptChanges()
 	{
 		this.UpdateSettings();
-		// TODO Setup a class with all settings... May be easier to handle
+
 	    Globals.MultiplierFilter = this.MultiplierFilter;
 	    Globals.TierFilter = this.TierFilter;
 	    Globals.PSM_URFilter = this.PSM_URFilter;
 	    Globals.StarFilter = this.StarFilter;
 
-        Sorter.SortManager(medalCreator.medals);
+        Sorter.SortManager(Globals.Medals);
 	    LogicManager.SetupMedalsByTierAndMult(Sorter.medals_by_tier);
 
         CloseFilter();

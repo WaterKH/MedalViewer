@@ -26,7 +26,7 @@ public class MedalDisplay : MonoBehaviour
     public int Gauge;
     public string GuiltMultiplier;
     public int Tier;
-    public float SubslotMultiplier;
+    public string SubslotMultiplier;
 
 	public string Effect;
     public string Effect_Description;

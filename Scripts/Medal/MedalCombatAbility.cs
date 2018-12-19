@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class MedalCombatAbility {
 
-	public string Direction = "";
-	public string Attribute = "";
-	public string Tier = "";
-	public string Amount = "";
+	public string Direction { get; set; }
+	public string Attribute { get; set; }
+	public string Tier { get; set; }
+	public string Amount { get; set; } // Turn(s)/ Attack(s)
+
+    public MedalCombatAbility() { }
 
 	public MedalCombatAbility(string[] ability)
 	{

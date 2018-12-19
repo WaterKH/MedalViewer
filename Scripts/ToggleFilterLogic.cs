@@ -32,7 +32,7 @@ public class ToggleFilterLogic : MonoBehaviour {
 
             if(!ToggleChildren[i - 1].isOn)
             {
-                ToggleChildrenActivated.Add(i);
+                ToggleChildrenActivated.Add(i);   
             }
 		}
 	}
@@ -51,14 +51,16 @@ public class ToggleFilterLogic : MonoBehaviour {
 			foreach(var item in ToggleChildren)
 			{
 				item.isOn = true;
-			}
+			    item.interactable = false;
+            }
 		}
 		else
 		{
 			foreach(var item in ToggleChildren)
 			{
 				item.isOn = false;
-			}
+			    item.interactable = true;
+            }
 		}
 	}
 }

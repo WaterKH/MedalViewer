@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class UIMovement : MonoBehaviour {
 
 	#region public vars
-	public GameObject Content;
-	//public GameObject Background;
-	public Camera uiCamera;
+	public Camera MainCamera;
+    public MedalPositionLogic MedalPositionLogic;
+    //public GameObject Background;
 
 	public GameObject YRows;
 	#endregion
@@ -21,14 +21,18 @@ public class UIMovement : MonoBehaviour {
 	private bool isSearchDisplay;
 	#endregion
 
-	void Start()
+	void Awake()
 	{
-		max = 1.0f;
-		min = 0.08f;
+		//max = 1.0f;
+		//min = 0.08f;
 
-		Content.transform.localScale = Vector3.one * min;
-		//Content.transform.position = new Vector2(-406.9875f, -57241.6f);
-		//Background.transform.position = Content.transform.position;
+	    min = -800;
+	    max = -5000;
+
+	    MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, -1800);
+	    //Content.transform.localScale = Vector3.one * min;
+	    //Content.transform.position = new Vector2(-406.9875f, -57241.6f);
+	    //Background.transform.position = Content.transform.position;
 	}
 
 	// Update is called once per frame
@@ -37,25 +41,29 @@ public class UIMovement : MonoBehaviour {
 		//Content.transform.position = Background.transform.position;
 		//Background.transform.localScale = Content.transform.localScale;
         
-		float zoomValue = Input.GetAxis("Mouse ScrollWheel") * 3.5f;
+		float zoomValue = Input.GetAxis("Mouse ScrollWheel") * 20000;
  
 		if (zoomValue != 0)
 		{
-			if(Content.transform.localScale.x >= min && Content.transform.localScale.x <= max)
-			{
-				Content.transform.localScale += Vector3.one * zoomValue * Time.deltaTime / 2;
-				Content.transform.position -= Vector3.one * zoomValue * Time.deltaTime / 2;
+            if (Mathf.Abs(MainCamera.transform.position.z) >= Mathf.Abs(min) && Mathf.Abs(MainCamera.transform.position.z) <= Mathf.Abs(max))
+            {
+                //Content.transform.localScale += Vector3.one * zoomValue * Time.deltaTime / 2;
+                //Content.transform.position -= Vector3.one * zoomValue * Time.deltaTime / 2;
+                MainCamera.transform.position += new Vector3(0, 0, zoomValue * Time.deltaTime);
 
-				if(Content.transform.localScale.x >= max)
-				{
-					Content.transform.localScale = Vector3.one * max;
-				}
-				else if(Content.transform.localScale.x <= min)
-				{
-					Content.transform.localScale = Vector3.one * min;
-				}
-			}
-		}
+
+                if (Mathf.Abs(MainCamera.transform.position.z) <= Mathf.Abs(min))
+                {
+                    MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, min);
+                }
+                else if (Mathf.Abs(MainCamera.transform.position.z) >= Mathf.Abs(max))
+                {
+                    MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, max);
+                }
+
+                //MedalPositionLogic.UpdateContent();
+            }
+        }
 	}
 
 	public void ChangeYRowSize(Scrollbar scroller)

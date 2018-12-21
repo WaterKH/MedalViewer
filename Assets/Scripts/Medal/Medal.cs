@@ -29,8 +29,9 @@ public class Medal {
     public string BaseMultiplier { get; set; }
     public string MaxMultiplier { get; set; }
     public string GuiltMultiplier { get; set; }
-    public float SubslotMultiplier { get; set; }
+    public string SubslotMultiplier { get; set; }
     public int Tier { get; set; }
+    public string SupernovaDescription { get; set; }
 
     public string Effect { get; set; }
     public string Effect_Description { get; set; }

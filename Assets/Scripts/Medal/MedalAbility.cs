@@ -5,21 +5,24 @@ using UnityEngine.UI;
 
 public class MedalAbility {
 
-	public int ID = 0;
+	//public int ID = 0;
 	public List<MedalCombatAbility> STR = new List<MedalCombatAbility>();
 	public List<MedalCombatAbility> DEF = new List<MedalCombatAbility>();
+    public string DEAL = "";
 	public string INFL = "";
 	public string HEAL = "";
 	public string GAUGE = "";
 	public bool ESUNA = false;
+    public bool ENEMYESUNA = false;
 	public string COUNT = "";
 	public string SPBONUS = "";
 	public string DAMAGE = "";
 	public string NEXTMEDAL = "";
+    public string COPYDIRECTION = "";
 
 	// Key: STR/DEF - Key: Raise/Lower/LowerPlayer - Value: Images
 	public Dictionary<string, Dictionary<string, List<Texture2D>>> CombatImages;
-	public Dictionary<string, Texture2D> MiscImages;
+    public Dictionary<string, Texture2D> MiscImages;
 
 	public void SetUpDisplayAbility()
 	{
@@ -67,7 +70,13 @@ public class MedalAbility {
 			MiscImages["COUNT"] = count_image;
 		}
 
-		if(DAMAGE != "")
+	    if (SPBONUS != "")
+	    {
+	        var spbonus_image = Resources.Load(ImagePaths.MiscPaths["SPBONUS"][SPBONUS]) as Texture2D;
+	        MiscImages["SPBONUS"] = spbonus_image;
+	    }
+
+        if (DAMAGE != "")
 		{
 			var dam_image = Resources.Load(ImagePaths.MiscPaths["DAMAGE+"][DAMAGE]) as Texture2D;
 			MiscImages["DAMAGE+"] = dam_image;
@@ -82,25 +91,28 @@ public class MedalAbility {
 
 	public void InitImages()
 	{
-		CombatImages = new Dictionary<string, Dictionary<string, List<Texture2D>>>();
-
-		CombatImages.Add("STR", new Dictionary<string, List<Texture2D>>());
-		CombatImages["STR"].Add("Raise", new List<Texture2D>());
-		CombatImages["STR"].Add("Lower", new List<Texture2D>());
+        CombatImages = new Dictionary<string, Dictionary<string, List<Texture2D>>>
+        {
+            { "STR", new Dictionary<string, List<Texture2D>>() }
+        };
+        CombatImages["STR"].Add("Raises", new List<Texture2D>());
+		CombatImages["STR"].Add("Lowers", new List<Texture2D>());
 
 		CombatImages.Add("DEF", new Dictionary<string, List<Texture2D>>());
-		CombatImages["DEF"].Add("Raise", new List<Texture2D>());
-		CombatImages["DEF"].Add("Lower", new List<Texture2D>());
-		CombatImages["DEF"].Add("PlayerLower", new List<Texture2D>());
-
-		MiscImages = new Dictionary<string, Texture2D>();
-
-		MiscImages.Add("INFL", null);
-		MiscImages.Add("HEAL", null);
-		MiscImages.Add("GAUGE", null);
-		MiscImages.Add("ESUNA", null);
-		MiscImages.Add("COUNT", null);
-		MiscImages.Add("DAMAGE+", null);
-		MiscImages.Add("NEXTMEDAL", null);
-	}
+		CombatImages["DEF"].Add("Raises", new List<Texture2D>());
+		CombatImages["DEF"].Add("Lowers", new List<Texture2D>());
+		CombatImages["DEF"].Add("PlayerLowers", new List<Texture2D>()); // TODO Redesign backend to account for player
+        
+        MiscImages = new Dictionary<string, Texture2D>
+        {
+            { "INFL", null },
+            { "HEAL", null },
+            { "GAUGE", null },
+            { "ESUNA", null },
+            { "COUNT", null },
+            { "DAMAGE+", null },
+            { "NEXTMEDAL", null },
+            { "SPBONUS", null }
+        };
+    }
 }

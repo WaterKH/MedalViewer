@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MedalPositionLogic : MonoBehaviour {
+public class MedalPositionLogic : MonoBehaviour
+{
+
+    public MedalLogicManager MedalLogicManager;
 
 	public GameObject main_parent;
 	public GameObject VerticalParent;
@@ -29,6 +33,9 @@ public class MedalPositionLogic : MonoBehaviour {
 	private int xValueConstant = 2500;
     private Vector2 initialSizeDelta;
     private Vector3 initialPosition;
+    private Parser parser = new Parser();
+
+    private Regex OnlyDigits = new Regex(@"^\d+\.");
 
     public void Awake()
     {
@@ -36,6 +43,22 @@ public class MedalPositionLogic : MonoBehaviour {
 
         initialSizeDelta = new Vector2(Content.sizeDelta.x, Content.sizeDelta.y);
         initialPosition = new Vector3(Content.position.x, Content.position.y, Content.position.z);
+    }
+
+    public void AssignMedals(GameObject medalGameObject)
+    {
+        var medal = medalGameObject.GetComponent<MedalDisplay>();
+        var guiltFloat = parser.ParseGuilt(medal.GuiltMultiplier);
+
+        medalGameObject.transform.SetParent(MedalLogicManager.AllMedalDisplayObjects[medal.Tier][guiltFloat].GetComponentsInChildren<Transform>().First(x => x.name == "Content").transform);
+    }
+
+    public void AssignMedalHolders(GameObject medalHolder)
+    {
+        var guiltFloat = float.Parse(medalHolder.name);
+        var guiltIndex = (int) guiltFloat - 1;
+
+        medalHolder.transform.SetParent(MedalLogicManager.parents[guiltIndex].transform);
     }
     
     public void SetInitialPositions()
@@ -56,21 +79,40 @@ public class MedalPositionLogic : MonoBehaviour {
             }
         }
     }
-
-	public void Initialize()
+    
+    public void Initialize()
 	{
         ResetContent();
-        
-        // Setting up the Y rows
-	    VerticalTempParent.GetComponentsInChildren<RectTransform>()
-	        .Where(x => x.name != "Vertical_TEMP (Y)" &&
-	                    int.Parse(x.name) >= Globals.MultiplierFilter.Min.value &&
-	                    int.Parse(x.name) <= Mathf.Abs(Globals.MultiplierFilter.Max.value))
-	        .OrderByDescending(x => int.Parse(x.name))
-	        .ToList()
-	        .ForEach(x => x.SetParent(VerticalParent.transform));
-        
 
+	    var tempChildren = new List<RectTransform>();
+
+        // Setting up the Y rows
+	    foreach(var child in VerticalTempParent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Vertical_TEMP (Y)"))
+	    {
+	        
+            if (OnlyDigits.Match(child.name).Success)
+	        {
+                AssignMedalHolders(child.gameObject);
+	        }
+            else if(child.name.Length == 2 || child.name.Length == 1)
+	        {
+	            if (int.Parse(child.name) >= Globals.MultiplierFilter.Min.value &&
+	                int.Parse(child.name) <= Mathf.Abs(Globals.MultiplierFilter.Max.value))
+	            {
+                    tempChildren.Add(child);
+	            }
+	        }
+	        else if(child.name != "Content" && child.name != "Scrollbar Horizontal" && child.name != "Sliding Area" && child.name != "Handle") // TODO Maybe just add a tag to medals: Medal - And just check for that
+	        {
+	            AssignMedals(child.gameObject);
+	        }
+        }
+
+	    foreach (var child in tempChildren.OrderByDescending(x => int.Parse(x.name)))
+	    {
+	        child.SetParent(VerticalParent.transform);
+        }
+	    
 	    // Setting up the X columns
 	    HorizontalTempParent.GetComponentsInChildren<RectTransform>()
 	        .Where(x => x.name != "Horizontal_TEMP (X)" &&
@@ -85,8 +127,11 @@ public class MedalPositionLogic : MonoBehaviour {
 
 		for(int i = tempHolder.Length - 1; i >= 0; --i)
 		{
+		    if (tempHolder[i].name.Length != 2 && tempHolder[i].name.Length != 1) continue;
+
 			vert_children.Add(int.Parse(tempHolder[i].name), tempHolder[i]);
 			tempHolder[i].position = new Vector2(0.0f, yValue + yValueConstant);
+		    print(tempHolder[i].name);
 			tempHolder[i].GetComponent<Text>().enabled = true;
 			yValue += yValueConstant;
 		}
@@ -100,74 +145,68 @@ public class MedalPositionLogic : MonoBehaviour {
 		}
 
 	    UpdateContent();
-	}
+    }
 
 	public void SetMedalHolderPosition(GameObject medalHolder, float guiltFloat, int tier)
 	{
-	    if (tier - 1 < 0)
+        if (tier - 1 < 0)
 	    {
             medalHolder.SetActive(false);
 	        return;
 	    }
-	    var X_index = tier;
-		var Y = guiltFloat;
 
-		var Y_index = (int)Y;
-		float Y_after_decimal = Y - Y_index;
+	    var xIndex = tier;
+		var y = guiltFloat;
+
+		var yIndex = (int)y;
+		float yAfterDecimal = y - yIndex;
 	    
 		// TODO Do we not already check for these? Why are they here?
-		if(!Globals.TierFilter.ToggleChildren[X_index - 1].isOn)
-		{
-			if(Y_index <= Mathf.Abs(Globals.MultiplierFilter.Max.value) && Y_index >= Globals.MultiplierFilter.Min.value)
-			{
-			    //print(Y_index);
-			    if (!vert_children.ContainsKey(Y_index) || !hori_children.ContainsKey(X_index))
-			        return;
+	    if (Globals.TierFilter.ToggleChildren[xIndex - 1].isOn) return;
 
-				var Y_transform = vert_children[Y_index].position;
-				var X_transform = hori_children[X_index].position;
+	    if(yIndex <= Mathf.Abs(Globals.MultiplierFilter.Max.value) && yIndex >= Globals.MultiplierFilter.Min.value)
+	    {
+	        if (!vert_children.ContainsKey(yIndex) || !hori_children.ContainsKey(xIndex))
+	            return;
 
-                //print(Y_index + " " + vert_children[Y_index].transform.position);
-
-				var new_transform = Vector3.zero;
-			    var next_Y = yValueConstant;
-
-                if (Y_index + 1 < vert_children.Count)
-			    {
-                    //print("test");
-			        next_Y = vert_children[Y_index + 1].position.y - Y_transform.y;
-                    //print(vert_children[Y_index + 1].name + " " + next_Y);
-			    }
-                //print(next_Y + " " + Y_after_decimal + " " +  Y_transform.y);
-			    new_transform = new Vector3(X_transform.x, Y_transform.y + (next_Y * Y_after_decimal));
+	        var yTransform = vert_children[yIndex].position;
+	        var xTransform = hori_children[xIndex].position;
                 
-                medalHolder.GetComponent<RectTransform>().position = new_transform;
-			    medalHolder.SetActive(true);
-            }
-			else
-			{
-				medalHolder.SetActive(false);
-			}
-		}
+	        var nextY = yValueConstant;
+
+	        if (yIndex + 1 < vert_children.Count)
+	        {
+	            nextY = vert_children[yIndex + 1].position.y - yTransform.y;
+	        }
+
+	        var newTransform = new Vector3(xTransform.x, yTransform.y + (nextY * yAfterDecimal));
+                
+	        medalHolder.GetComponent<RectTransform>().position = newTransform;
+	        medalHolder.SetActive(true);
+	    }
+	    else
+	    {
+	        medalHolder.SetActive(false);
+	    }
 	}
 
     public void ResetContent()
     {
         Content.position = initialPosition;
         Content.sizeDelta = initialSizeDelta;
-        Content.localScale = new Vector3(1f, 1f, 1f);
-        //print(Content.sizeDelta);
+        
         vert_children.Clear();
         hori_children.Clear();
-        foreach (var child in VerticalParent.GetComponentsInChildren<Transform>())
+        foreach (var child in VerticalParent.GetComponentsInChildren<Transform>().OrderByDescending(x => x.name))
         {
-            if (child.name != "Vertical (Y)")
+            if (child.name != "Vertical (Y)" && child.name != "Content" && child.name != "Scrollbar Horizontal" && child.name != "Sliding Area" && child.name != "Handle") // TODO Maybe just add a tag to medals: Medal - And just check for that
             {
                 child.SetParent(VerticalTempParent.transform);
+                if (child.name.Length != 2 || child.name.Length != 1) continue;
                 child.position = VerticalPositions[int.Parse(child.name) - 1];
             }
         }
-        foreach (var child in HorizontalParent.GetComponentsInChildren<Transform>())
+        foreach (var child in HorizontalParent.GetComponentsInChildren<Transform>().OrderByDescending(x => x.name))
         {
             if (child.name != "Horizontal (X)")
             {
@@ -180,8 +219,6 @@ public class MedalPositionLogic : MonoBehaviour {
     // http://answers.unity.com/answers/1302142/view.html
     public void UpdateContent()
 	{
-	    
-        //print("BEFORE: " + Content.sizeDelta);
         float yMin = 0.0f;
 		float yMax = 0.0f;
 		float xMin = 0.0f;
@@ -193,21 +230,11 @@ public class MedalPositionLogic : MonoBehaviour {
 
 		    if (child.name != "Vertical (Y)")
 		    {
-
-		        //if (yMin > child.offsetMin.y)
-		        //{
-		        //    print("Ymin: " + child.name + " " + child.offsetMin.y);
-		        //}
-		        //else if (yMax < child.offsetMax.y)
-		        //{
-		        //    print("Ymax: " + child.name + " " + child.offsetMax.y);
-		        //}
-                //foreach (var subchild in child.GetComponentsInChildren<RectTransform>())
-                //{
                 yMin = Mathf.Min(yMin, child.offsetMin.y);
 		        yMax = Mathf.Max(yMax, child.offsetMax.y);
-		        child.GetComponent<RowResizer>().SettingsChanged = true;
-		    }
+                
+		        xMin = Mathf.Min(xMin, child.offsetMin.x);
+            }
         }
 		foreach (var kv in hori_children)
 		{
@@ -215,49 +242,26 @@ public class MedalPositionLogic : MonoBehaviour {
 
 		    if (child.name != "Horizontal (X)")
 		    {
-		        //if (xMin > child.offsetMin.x)
-		        //{
-		        //    print("Xmin: " + child.name + " " + child.offsetMin.x);
-		        //}
-		        //else if (xMax < child.offsetMax.x)
-		        //{
-		        //    print("Xmax: " + child.name + " " + child.offsetMax.x);
-		        //}
-
-		        //foreach (var subchild in child.GetComponentsInChildren<RectTransform>())
-		        //{
-		        xMin = Mathf.Min(xMin, child.offsetMin.x);
 		        xMax = Mathf.Max(xMax, child.offsetMax.x);
-		        //}
 		    }
 		}
 
 		float finalSizeY = yMax - yMin;
 		float finalSizeX = xMax - xMin;
-
-	    //foreach (var child in ContentChildren)
-	    //{
-	    //    child.transform.SetParent(ContentTempParent.transform);
-	    //}
-
+        
         Content.sizeDelta = new Vector2 (finalSizeX, finalSizeY);
-        Content.localScale = new Vector3(0.15f, 0.15f, 0.15f);
-	    //print("AFTER: " + Content.sizeDelta);
-	    //foreach (var child in ContentChildren)
-	    //{
-	    //    child.transform.SetParent(Content.transform);
-	    //}
     }
 
-    public void UpateMedalHolderPosition(GameObject medalHolder)
+    // TODO Call this method when you are ready to shoot the medals into different objects
+    public void UpdateMedalHolderPosition(GameObject medalHolder, Transform currRow, Transform upperLowerRow)
     {
         var multiplier = float.Parse(medalHolder.name);
-        var lower = GameObject.Find(((int) multiplier).ToString()).transform.position.y;
-        var upper = GameObject.Find((((int) multiplier) + 1).ToString()).transform.position.y;
+        var lower = currRow.position.y;
+        var upper = upperLowerRow.position.y;
 
         var percentage = multiplier - (int) multiplier;
         var position = (upper - lower) * percentage;
 
-        medalHolder.transform.position = new Vector3(medalHolder.transform.position.x, lower + position);
+        medalHolder.GetComponent<RectTransform>().position = new Vector3(medalHolder.transform.position.x, lower + position);
     }
 }

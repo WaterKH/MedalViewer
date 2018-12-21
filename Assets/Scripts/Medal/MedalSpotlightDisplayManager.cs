@@ -8,6 +8,7 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 
 	public MedalCreator medalCreator;
     public TraitManager TraitManager;
+    MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
 
     #region Base
 
@@ -49,6 +50,7 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
     public RawImage GaugeBoost;
     public RawImage SPBBoost;
     public RawImage HPBoost;
+    public RawImage NextMedal;
 
     public RawImage[] AttackSaps;
 	public Text[] AttackSapsMults;
@@ -129,25 +131,26 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
         Reset();
 
         MedalDisplay medalDisplay = medalObject.GetComponent<MedalDisplay>();
-        MedalAbility medalAbility = null;
-        var medalAbilityID = 0;
+        MedalAbility medalAbility = new MedalAbility();
+        //var medalAbilityID = 0;
 
         isTransition = true;
         isDisplaying = true;
         elapsedTime = 0.0f;
 
         try
-		{
-			medalAbilityID = medalDisplay.Id;
+        {
+            medalAbility = MedalAbilityParser.Parser(medalDisplay.AbilityDescription);
+            //medalAbilityID = medalDisplay.Id;
 
-            if (medalCreator.medalAbilityImages.ContainsKey(medalAbilityID))
-            {
-                medalAbility = medalCreator.medalAbilityImages[medalAbilityID];
-            }
+            //         if (medalCreator.medalAbilityImages.ContainsKey(medalAbilityID))
+            //         {
+            //             medalAbility = medalCreator.medalAbilityImages[medalAbilityID];
+            //         }
         }
 		catch
 		{
-			print(medalDisplay.Name.Split(':')[0] + " " + medalDisplay.Name);
+			print(medalDisplay.Name.Split(':')[0] + " " + medalDisplay.AbilityDescription);
 		}
 
         #region Display Assignment
@@ -204,87 +207,87 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 	{
         if (medalAbility.STR.Count > 0)
         {
-            PlayerEffect.text += medalAbility.STR[0].Amount.ToUpper();
-            EnemyEffect.text += medalAbility.STR[0].Amount.ToUpper();
+            PlayerEffect.text += medalAbility.STR[0].Duration.ToUpper();
+            EnemyEffect.text += medalAbility.STR[0].Duration.ToUpper();
         }
         else if (medalAbility.DEF.Count > 0)
         {
-            PlayerEffect.text += medalAbility.DEF[0].Amount.ToUpper();
-            EnemyEffect.text += medalAbility.DEF[0].Amount.ToUpper();
+            PlayerEffect.text += medalAbility.DEF[0].Duration.ToUpper();
+            EnemyEffect.text += medalAbility.DEF[0].Duration.ToUpper();
         }
 
-        var strBoosts = medalAbility.CombatImages["STR"]["Raise"];
+        var strBoosts = medalAbility.CombatImages["STR"]["Raises"];
+	    var boostCounterSTR = 0;
+	    var boostCounterDEF = 0;
 
 		for(int i = 0; i < strBoosts.Count; ++i)
 		{
 			AttackBoosts[i].texture = strBoosts[i];
 			AttackBoosts[i].color = visible;
-			AttackBoostMults[i].text = "x" + medalAbility.STR[i].Tier;
+			AttackBoostMults[i].text = "x" + medalAbility.STR[boostCounterSTR++].Tier;
 		}
 
-		if(medalAbility.CombatImages["DEF"]["PlayerLower"].Count > 0)
+		if(medalAbility.CombatImages["DEF"]["PlayerLowers"].Count > 0)
 		{
-			var defBoosts = medalAbility.CombatImages["DEF"]["PlayerLower"];
+			var defBoosts = medalAbility.CombatImages["DEF"]["PlayerLowers"];
 
 			for(int i = 0; i < defBoosts.Count; ++i)
 			{
 				DefenseBoosts[i].texture = defBoosts[i];
 				DefenseBoosts[i].color = visible;
-				DefenseBoostMults[i].text = "x" + medalAbility.STR[i].Tier;
+				DefenseBoostMults[i].text = "x" + medalAbility.STR[boostCounterDEF++].Tier;
 			}
 		}
 		else
 		{
-			var defBoosts = medalAbility.CombatImages["DEF"]["Raise"];
+			var defBoosts = medalAbility.CombatImages["DEF"]["Raises"];
 
 			for(int i = 0; i < defBoosts.Count; ++i)
 			{
 				DefenseBoosts[i].texture = defBoosts[i];
 				DefenseBoosts[i].color = visible;
-				DefenseBoostMults[i].text = "x" + medalAbility.STR[i].Tier;
+				DefenseBoostMults[i].text = "x" + medalAbility.DEF[boostCounterDEF++].Tier;
 			}
 		}
 
-        GaugeBoost.texture = Resources.Load("Gauges/" + medalAbility.GAUGE) as Texture2D;
-        SPBBoost.texture = Resources.Load("SPBonus/" + medalAbility.SPBONUS) as Texture2D;
-        HPBoost.texture = Resources.Load("Heal/" + medalAbility.HEAL) as Texture2D;
+	    GaugeBoost.texture = medalAbility.MiscImages["GAUGE"];//Resources.Load("Gauges/" + medalAbility.GAUGE) as Texture2D;
+        SPBBoost.texture = medalAbility.MiscImages["SPBONUS"];//Resources.Load("SPBonus/" + medalAbility.SPBONUS) as Texture2D;
+        HPBoost.texture = medalAbility.MiscImages["HEAL"];//Resources.Load("Heal/" + medalAbility.HEAL) as Texture2D;
+	    NextMedal.texture = medalAbility.MiscImages["NEXTMEDAL"];
 
         if (GaugeBoost.texture != null)
-        {
             GaugeBoost.enabled = true;
-        }
 
         if (SPBBoost.texture != null)
-        {
             SPBBoost.enabled = true;
-        }
 
         if (HPBoost.texture != null)
-        {
             HPBoost.enabled = true;
-        }
 
-        var strSaps = medalAbility.CombatImages["STR"]["Lower"];
+	    if (NextMedal.texture != null)
+	        NextMedal.enabled = true;
+
+        var strSaps = medalAbility.CombatImages["STR"]["Lowers"];
 
 		for(int i = 0; i < strSaps.Count; ++i)
 		{
 			AttackSaps[i].texture = strSaps[i];
 			AttackSaps[i].color = visible;
-			AttackSapsMults[i].text = "x" + medalAbility.STR[i].Tier;
+			AttackSapsMults[i].text = "x" + medalAbility.STR[boostCounterSTR++].Tier;
 		}
 
-		var defSaps = medalAbility.CombatImages["DEF"]["Lower"];
+		var defSaps = medalAbility.CombatImages["DEF"]["Lowers"];
 
 		for(int i = 0; i < defSaps.Count; ++i)
 		{
 			DefenseSaps[i].texture = defSaps[i];
 			DefenseSaps[i].color = visible;
-			DefenseSapsMults[i].text = "x" + medalAbility.DEF[i].Tier;
+			DefenseSapsMults[i].text = "x" + medalAbility.DEF[boostCounterDEF++].Tier;
 		}
 
-        AttackCounterSap.texture = Resources.Load("Count/" + medalAbility.COUNT) as Texture2D;
-        TurnCounterSap.texture = Resources.Load("Count/" + medalAbility.COUNT) as Texture2D;
-        DamageSap.texture = Resources.Load("Damage/" + medalAbility.DAMAGE) as Texture2D;
+        AttackCounterSap.texture = medalAbility.MiscImages["COUNT"];
+        TurnCounterSap.texture = medalAbility.MiscImages["COUNT"];
+	    DamageSap.texture = medalAbility.MiscImages["DAMAGE+"];//Resources.Load("Damage/" + medalAbility.DAMAGE) as Texture2D;
 
         if(AttackCounterSap.texture != null)
         {
@@ -307,7 +310,7 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
         // If none of either are filled in, dis/able it
         PlayerParent.SetActive(CheckPlayerValues());
         EnemyParent.SetActive(CheckEnemyValues());
-    }
+    } // TODO Rewrite this garbage - Make it variable and loop through the dictionary itself, not look at predefined results
 
 	public void AssignStrengthDefenseMultipliers(MedalDisplay medalDisplay, MedalAbility medalAbility = null)
     {
@@ -403,6 +406,9 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
                 BaseMultiplier.color = visible;
                 MaxMultipliers[3].color = visible;
                 GuiltMultiplier.color = visible;
+
+                MultiplierTier.color = visible;
+                MultiplierTier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
                 break;
             case 7:
                 MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
@@ -494,6 +500,9 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 
         HPBoost.enabled = false;
         HPBoost.texture = null;
+
+        NextMedal.enabled = false;
+        NextMedal.texture = null;
 
         foreach (var aS in AttackSaps)
             aS.color = invisible;

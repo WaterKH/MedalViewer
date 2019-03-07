@@ -5,7 +5,7 @@ public static class Globals
 {
     #region Medals
 
-    public static Dictionary<int, Medal> Medals = new Dictionary<int, Medal>();
+    public static Dictionary<string, Medal> Medals = new Dictionary<string, Medal>();
 
     #endregion
 

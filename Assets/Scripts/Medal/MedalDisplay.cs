@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MedalDisplay : MonoBehaviour 
 {
-    public int Id;
+    public string Id;
 	public string Name;
     public string ImageURL;
 	public int Star;
@@ -27,6 +27,9 @@ public class MedalDisplay : MonoBehaviour
     public string GuiltMultiplier;
     public int Tier;
     public string SubslotMultiplier;
+
+    public bool IsSupernova;
+    public string SupernovaDescription;
 
 	public string Effect;
     public string Effect_Description;
@@ -94,6 +97,11 @@ public class MedalDisplay : MonoBehaviour
 			Gauge = convertedMedal.Gauge;
             GuiltMultiplier = convertedMedal.GuiltMultiplier;
 			Tier = convertedMedal.Tier;
+
+            if(!string.IsNullOrEmpty(SupernovaDescription))
+            {
+                IsSupernova = true;
+            }
 		}
 		else if(medal.Star == 7)
 		{
@@ -114,7 +122,12 @@ public class MedalDisplay : MonoBehaviour
 			Gauge = convertedMedal.Gauge;
 			SubslotMultiplier = convertedMedal.SubslotMultiplier;
 			Tier = convertedMedal.Tier;
-		}
+
+            if (!string.IsNullOrEmpty(SupernovaDescription))
+            {
+                IsSupernova = true;
+            }
+        }
 		else
 		{
 			var convertedMedal = medal;

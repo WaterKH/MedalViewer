@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 public class MedalSpotlightDisplayManager : MonoBehaviour {
 
-	public MedalCreator medalCreator;
+	//public MedalCreator medalCreator;
     public TraitManager TraitManager;
     MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
+
+    public CanvasGroup MedalHighlight;
 
     #region Base
 
     public Text MedalName;
-    public RawImage PSMAttribute;
-    public RawImage URAttribute;
 	public RawImage MedalPlaceholder;
     public RawImage MedalPlaceholderShadow;
     public Text Ability;
@@ -23,11 +23,18 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 	public RawImage Tier;
 	public RawImage Target;
 	public RawImage Gauges;
+    public RawImage PSMAttribute;
+    public RawImage URAttribute;
+    public CanvasGroup Supernova;
+
+    public Color32 Reversed;// = new Color(171, 0, 255, 255);
+    public Color32 Upright;// = new Color(255f, 255f, 0f, 255f);
 
     #endregion Base
 
     #region Traits
 
+    public CanvasGroup Traits;
     public RawImage InitialImage;
     public RawImage[] TraitSlots;
     public Text[] TraitSlotsText;
@@ -36,64 +43,79 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 
     #region Boosts and Saps
 
-    public GameObject PlayerParent;
-    public GameObject EnemyParent;
+    public CanvasGroup Boosts;
+    public CanvasGroup Saps;
 
-    public Text PlayerEffect;
-	public Text EnemyEffect;
+    public Text BoostsTurns;
+    public Text SapsTurns;
 
     public RawImage[] AttackBoosts;
-	public Text[] AttackBoostMults;
-	public RawImage[] DefenseBoosts;
-	public Text[] DefenseBoostMults;
-
-    public RawImage GaugeBoost;
-    public RawImage SPBBoost;
-    public RawImage HPBoost;
-    public RawImage NextMedal;
+    public Text[] AttackBoostMults;
+    public RawImage[] DefenseBoosts;
+    public Text[] DefenseBoostMults;
 
     public RawImage[] AttackSaps;
-	public Text[] AttackSapsMults;
-	public RawImage[] DefenseSaps;
-	public Text[] DefenseSapsMults;
-
-    public RawImage AttackCounterSap;
-    public RawImage TurnCounterSap;
-    public Text AttackTurnDivider;
-    public RawImage DamageSap;
-    public Text DamageText;
+    public Text[] AttackSapMults;
+    public RawImage[] DefenseSaps;
+    public Text[] DefenseSapMults;
 
     #endregion Boosts and Saps
 
-    #region Strength/Defense/Multipliers
+    #region Effects
 
-    public Text BaseDefense;
-    public Text BaseStrength;
-    public Text MaxDefense;
-    public Text MaxStrength;
+    public CanvasGroup Effects;
+    public RawImage[] EffectImages;
+    public Text[] EffectTexts;
 
-    public RawImage MultiplierTier;
-	public RawImage BaseMultiplier;
-    public RawImage[] MaxMultipliers;
-    public RawImage GuiltMultiplier;
+    #endregion
 
-	public Text[] MultiplierTexts;
-    public Text[] EqualTexts;
-    public Text[] MultiplierWithStrengthTexts;
+    #region Stats
 
-    public SPATKBonusManager SPATKBonusManager;
+    public Text Multiplier;
+    public Text Defense;
+    public Text Strength;
 
-    #endregion Strength/Defense/Multipliers
+    public Slider GuiltSlider;
+    public Toggle BaseMultiplier;
+    public Toggle MaxMultiplier;
+    public Toggle MaxGuiltMultiplier;
+    public Toggle Boosted;
+
+    public Button SwapMultiplier; // Probably not needed 
+
+    #endregion
+
+    #region Skill
+
+    public RawImage SkillImage;
+    public Text SkillText;
+
+    #endregion
+
+    #region CalculationVariables
+
+    public Text CalculatedStrength;
+    public Text NumberOfHits;
+    public Text SpecialAttackBonus;
+    public Slider SpecialAttackBonusSlider;
+    public Text SkillVariable;
+    public Text TraitAddition;
+
+    public Text FinalDamageOutput;
+
+    public SPATKBonusManager SPATKBonusManager; // Needed?
+
+    #endregion
 
     #region Private 
 
-    private int startIndexPlayer = 8;
-    private int startIndexEnemy = 6;
-    private string PlayerEffectInitial;
-    private string EnemyEffectInitial;
+    //private int startIndexPlayer = 8;
+    //private int startIndexEnemy = 6;
+    //private string PlayerEffectInitial;
+    //private string EnemyEffectInitial;
 
-    private CanvasGroup background_group;
-	private GameObject MedalSublist;
+    //private CanvasGroup background_group;
+	//private GameObject MedalSublist;
 	//private CanvasGroup MedalSublistGroup;
 
 	private Transform prevParent;
@@ -106,22 +128,19 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 
 	private Color32 visible = new Color (1f, 1f, 1f, 1f);
 	private Color32 invisible = new Color (0f, 0f, 0f, 0f);
-
+    
     private string initialTraitSlotText = "No Trait Selected";
 
     #endregion
 
     void Awake()
 	{
-		background_group = GameObject.FindGameObjectWithTag("Background").GetComponent<CanvasGroup>();
+		//background_group = GameObject.FindGameObjectWithTag("Background").GetComponent<CanvasGroup>();
 //		MedalSublistGroup = GameObject.FindGameObjectWithTag("MedalSublistGroup").GetComponent<CanvasGroup>();
-		MedalSublist = GameObject.FindGameObjectWithTag("MedalSublist");
+		//MedalSublist = GameObject.FindGameObjectWithTag("MedalSublist");
 
-		medalCreator = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalCreator>();
-
-		PlayerEffectInitial = PlayerEffect.text.Substring(0, startIndexPlayer);
-		EnemyEffectInitial = EnemyEffect.text.Substring(0, startIndexEnemy);
-
+		//medalCreator = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalCreator>();
+        
         Reset();
     }
 
@@ -163,9 +182,11 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
             medalAbility.SetUpDisplayAbility();
 
             this.AssignBoostsSaps(medalAbility);
-		}
+            this.AssignEffects(medalAbility);
 
-		this.AssignStrengthDefenseMultipliers(medalDisplay, medalAbility);
+            this.AssignStats(medalDisplay, medalAbility);
+        }
+
 
 		#endregion
 
@@ -176,7 +197,7 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 	}
 
     #region Assign Attributes
-
+    
     public void AssignBase(GameObject medalObject, MedalDisplay medalDisplay)
     {
         MedalPlaceholder.texture = medalObject.GetComponent<RawImage>().texture;
@@ -184,14 +205,21 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 
         MedalName.text = medalDisplay.Name;
         PSMAttribute.texture = Resources.Load("Gems/" + medalDisplay.Attribute_PSM + "_Gem") as Texture2D;
-        URAttribute.texture = Resources.Load("Gems/" + medalDisplay.Attribute_UR + "_Gem") as Texture2D;
+        URAttribute.color = medalDisplay.Attribute_UR == "Upright" ? Upright : Reversed;
 
-        Tier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
+        Tier.texture = Resources.Load("Tier/Black/" + medalDisplay.Tier) as Texture2D;
         Target.texture = Resources.Load("Target/" + medalDisplay.Target) as Texture2D;
         Gauges.texture = Resources.Load("Gauges/" + medalDisplay.Gauge) as Texture2D;
 
         Ability.text = medalDisplay.Ability;
         AbilityDescription.text = medalDisplay.AbilityDescription;
+
+        if(medalDisplay.IsSupernova)
+        {
+            Supernova.interactable = true;
+            Supernova.blocksRaycasts = true;
+            Supernova.alpha = 1;
+        }
     }
 
     public void AssignTraits(MedalDisplay medalDisplay)
@@ -205,238 +233,218 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 
 	public void AssignBoostsSaps(MedalAbility medalAbility)
 	{
-        if (medalAbility.STR.Count > 0)
+        var strBoostCounter = 0;
+        var defBoostCounter = 0;
+        var strSapCounter = 0;
+        var defSapCounter = 0;
+
+        var counterSTR = 0;
+        var counterDEF = 0;
+        //var sapCounterSTR = 0;
+        //var sapCounterDEF = 0;
+
+        foreach (var strDef in medalAbility.CombatImages)
         {
-            PlayerEffect.text += medalAbility.STR[0].Duration.ToUpper();
-            EnemyEffect.text += medalAbility.STR[0].Duration.ToUpper();
+            foreach(var raiseLower in strDef.Value)
+            {
+                if(raiseLower.Key == "Raises")
+                {
+                    if (strDef.Key == "STR")
+                    {
+                        foreach (var strRaise in raiseLower.Value)
+                        {
+                            AttackBoosts[strBoostCounter].texture = strRaise;
+                            AttackBoosts[strBoostCounter].color = visible;
+                            AttackBoostMults[strBoostCounter++].text = "x" + medalAbility.STR[counterSTR++].Tier;
+                        }
+                    }
+                    else if (strDef.Key == "DEF")
+                    {
+                        foreach (var defRaise in raiseLower.Value)
+                        {
+                            DefenseBoosts[defBoostCounter].texture = defRaise;
+                            DefenseBoosts[defBoostCounter].color = visible;
+                            DefenseBoostMults[defBoostCounter++].text = "x" + medalAbility.DEF[counterDEF++].Tier;
+                        }
+                    }
+                }
+                else if(raiseLower.Key == "Lowers")
+                {
+                    if (strDef.Key == "STR")
+                    {
+                        foreach (var strLower in raiseLower.Value)
+                        {
+                            AttackSaps[strSapCounter].texture = strLower;
+                            AttackSaps[strSapCounter].color = visible;
+                            AttackSapMults[strSapCounter++].text = "x" + medalAbility.STR[counterSTR++].Tier;
+                        }
+                    }
+                    else if (strDef.Key == "DEF")
+                    {
+                        foreach (var defLower in raiseLower.Value)
+                        {
+                            DefenseSaps[defSapCounter].texture = defLower;
+                            DefenseSaps[defSapCounter].color = visible;
+                            DefenseSapMults[defSapCounter++].text = "x" + medalAbility.DEF[counterDEF++].Tier;
+                        }
+                    }
+                }
+            }
         }
-        else if (medalAbility.DEF.Count > 0)
-        {
-            PlayerEffect.text += medalAbility.DEF[0].Duration.ToUpper();
-            EnemyEffect.text += medalAbility.DEF[0].Duration.ToUpper();
-        }
-
-        var strBoosts = medalAbility.CombatImages["STR"]["Raises"];
-	    var boostCounterSTR = 0;
-	    var boostCounterDEF = 0;
-
-		for(int i = 0; i < strBoosts.Count; ++i)
-		{
-			AttackBoosts[i].texture = strBoosts[i];
-			AttackBoosts[i].color = visible;
-			AttackBoostMults[i].text = "x" + medalAbility.STR[boostCounterSTR++].Tier;
-		}
-
-		if(medalAbility.CombatImages["DEF"]["PlayerLowers"].Count > 0)
-		{
-			var defBoosts = medalAbility.CombatImages["DEF"]["PlayerLowers"];
-
-			for(int i = 0; i < defBoosts.Count; ++i)
-			{
-				DefenseBoosts[i].texture = defBoosts[i];
-				DefenseBoosts[i].color = visible;
-				DefenseBoostMults[i].text = "x" + medalAbility.STR[boostCounterDEF++].Tier;
-			}
-		}
-		else
-		{
-			var defBoosts = medalAbility.CombatImages["DEF"]["Raises"];
-
-			for(int i = 0; i < defBoosts.Count; ++i)
-			{
-				DefenseBoosts[i].texture = defBoosts[i];
-				DefenseBoosts[i].color = visible;
-				DefenseBoostMults[i].text = "x" + medalAbility.DEF[boostCounterDEF++].Tier;
-			}
-		}
-
-	    GaugeBoost.texture = medalAbility.MiscImages["GAUGE"];//Resources.Load("Gauges/" + medalAbility.GAUGE) as Texture2D;
-        SPBBoost.texture = medalAbility.MiscImages["SPBONUS"];//Resources.Load("SPBonus/" + medalAbility.SPBONUS) as Texture2D;
-        HPBoost.texture = medalAbility.MiscImages["HEAL"];//Resources.Load("Heal/" + medalAbility.HEAL) as Texture2D;
-	    NextMedal.texture = medalAbility.MiscImages["NEXTMEDAL"];
-
-        if (GaugeBoost.texture != null)
-            GaugeBoost.enabled = true;
-
-        if (SPBBoost.texture != null)
-            SPBBoost.enabled = true;
-
-        if (HPBoost.texture != null)
-            HPBoost.enabled = true;
-
-	    if (NextMedal.texture != null)
-	        NextMedal.enabled = true;
-
-        var strSaps = medalAbility.CombatImages["STR"]["Lowers"];
-
-		for(int i = 0; i < strSaps.Count; ++i)
-		{
-			AttackSaps[i].texture = strSaps[i];
-			AttackSaps[i].color = visible;
-			AttackSapsMults[i].text = "x" + medalAbility.STR[boostCounterSTR++].Tier;
-		}
-
-		var defSaps = medalAbility.CombatImages["DEF"]["Lowers"];
-
-		for(int i = 0; i < defSaps.Count; ++i)
-		{
-			DefenseSaps[i].texture = defSaps[i];
-			DefenseSaps[i].color = visible;
-			DefenseSapsMults[i].text = "x" + medalAbility.DEF[boostCounterDEF++].Tier;
-		}
-
-        AttackCounterSap.texture = medalAbility.MiscImages["COUNT"];
-        TurnCounterSap.texture = medalAbility.MiscImages["COUNT"];
-	    DamageSap.texture = medalAbility.MiscImages["DAMAGE+"];//Resources.Load("Damage/" + medalAbility.DAMAGE) as Texture2D;
-
-        if(AttackCounterSap.texture != null)
-        {
-            AttackCounterSap.enabled = true;
-            AttackTurnDivider.enabled = true;
-        }
-
-        if (TurnCounterSap.texture != null)
-        {
-            TurnCounterSap.enabled = true;
-            AttackTurnDivider.enabled = true;
-        }
-
-        if (DamageSap.texture != null)
-        {
-            DamageSap.enabled = true;
-            DamageText.enabled = true;
-        }
+       
+        // TODO Account for player saps
 
         // If none of either are filled in, dis/able it
-        PlayerParent.SetActive(CheckPlayerValues());
-        EnemyParent.SetActive(CheckEnemyValues());
-    } // TODO Rewrite this garbage - Make it variable and loop through the dictionary itself, not look at predefined results
+        // TODO Should we make this smarter? 
+        if (CheckBoosts())
+            Boosts.SetCanvasGroupActive();
 
-	public void AssignStrengthDefenseMultipliers(MedalDisplay medalDisplay, MedalAbility medalAbility = null)
+        if (CheckSaps())
+            Saps.SetCanvasGroupActive();
+    }
+    
+    public void AssignSkill()
     {
-        BaseDefense.text = medalDisplay.BaseDefense.ToString();
-        MaxDefense.text = medalDisplay.MaxDefense.ToString();
-        BaseStrength.text = medalDisplay.BaseStrength.ToString();
-        MaxStrength.text = medalDisplay.MaxStrength.ToString();
-
-        //MultiplierTexts[0].text = medalDisplay.BaseMultiplier;
-		//MultiplierTexts[1].text = medalDisplay.MaxMultiplier;
-		//MultiplierTexts[2].text = medalDisplay.GuiltMultiplier;
-
-        switch(medalDisplay.Star)
-        {
-            case 1:
-            case 2:
-                MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
-
-                SPATKBonusManager.CurrMultiplier = medalDisplay.BaseMultiplier;
-                SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-
-                EqualTexts[0].text = "=";
-                MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
-
-                BaseMultiplier.color = visible;
-                break;
-            case 3:
-                MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
-                MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
-
-                SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-                SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-
-                EqualTexts[0].text = "=";
-                MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
-
-                EqualTexts[1].text = "=";
-                MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
-
-                BaseMultiplier.color = visible;
-                MaxMultipliers[0].color = visible;
-                break;
-            case 4:
-                MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
-                MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
-
-                SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-                SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-
-                EqualTexts[0].text = "=";
-                MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
-
-                EqualTexts[1].text = "=";
-                MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
-
-                BaseMultiplier.color = visible;
-                MaxMultipliers[1].color = visible;
-                break;
-            case 5:
-                MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
-                MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
-
-                SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-                SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-
-                EqualTexts[0].text = "=";
-                MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
-
-                EqualTexts[1].text = "=";
-                MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
-
-                BaseMultiplier.color = visible;
-                MaxMultipliers[2].color = visible;
-                break;
-            case 6:
-                MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
-                MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
-                MultiplierTexts[2].text = medalDisplay.GuiltMultiplier.Replace("-", "~");
-                
-                SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-                SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-                SPATKBonusManager.CurrTier = medalDisplay.Tier;
-
-                EqualTexts[0].text = "=";
-                MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
-
-                EqualTexts[1].text = "=";
-                MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
-
-                EqualTexts[2].text = "=";
-                MultiplierWithStrengthTexts[2].text = Parser.ParseMultiplierWithStrength(medalDisplay.GuiltMultiplier, medalDisplay.MaxStrength);
-
-                BaseMultiplier.color = visible;
-                MaxMultipliers[3].color = visible;
-                GuiltMultiplier.color = visible;
-
-                MultiplierTier.color = visible;
-                MultiplierTier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
-                break;
-            case 7:
-                MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
-                MultiplierTexts[2].text = medalDisplay.GuiltMultiplier.Replace("-", "~");
-               
-                SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-                SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-                SPATKBonusManager.CurrTier = medalDisplay.Tier;
-
-                EqualTexts[1].text = "=";
-                MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
-
-                EqualTexts[2].text = "=";
-                MultiplierWithStrengthTexts[2].text = Parser.ParseMultiplierWithStrength(medalDisplay.GuiltMultiplier, medalDisplay.MaxStrength);
-
-                MaxMultipliers[3].color = visible;
-                GuiltMultiplier.color = visible;
-
-                MultiplierTier.color = visible;
-                MultiplierTier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
-                break;
-            default:
-                break;
-        }
-
-        SPATKBonusManager.UpdateSPATKBonus();
+        // TODO If we save user medals, maybe pull from that database? But for right now, we don't need one
     }
 
+    public void AssignEffects(MedalAbility medalAbility)
+    {
+        var effectCounter = 0;
+
+        foreach(var effect in medalAbility.MiscImages)
+        {
+            if (effect.Value == null)
+                continue;
+
+            EffectImages[effectCounter].enabled = true;
+            EffectImages[effectCounter++].texture = effect.Value;
+        }
+
+        if (CheckEffects())
+            Effects.SetCanvasGroupActive();
+    }
+
+	public void AssignStats(MedalDisplay medalDisplay, MedalAbility medalAbility)
+    {
+        Multiplier.text = medalDisplay.BaseMultiplier.Split('-')[0];
+        Defense.text = medalDisplay.MaxDefense.ToString();
+        Strength.text = medalDisplay.MaxDefense.ToString();
+
+        //switch (medalDisplay.Star)
+        //{
+        //    case 1:
+        //    case 2:
+        //        MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
+
+        //        SPATKBonusManager.CurrMultiplier = medalDisplay.BaseMultiplier;
+        //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+
+        //        EqualTexts[0].text = "=";
+        //        MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
+
+        //        BaseMultiplier.color = visible;
+        //        break;
+        //    case 3:
+        //        MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
+        //        MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
+
+        //        SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
+        //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+
+        //        EqualTexts[0].text = "=";
+        //        MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
+
+        //        EqualTexts[1].text = "=";
+        //        MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+
+        //        BaseMultiplier.color = visible;
+        //        MaxMultipliers[0].color = visible;
+        //        break;
+        //    case 4:
+        //        MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
+        //        MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
+
+        //        SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
+        //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+
+        //        EqualTexts[0].text = "=";
+        //        MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
+
+        //        EqualTexts[1].text = "=";
+        //        MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+
+        //        BaseMultiplier.color = visible;
+        //        MaxMultipliers[1].color = visible;
+        //        break;
+        //    case 5:
+        //        MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
+        //        MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
+
+        //        SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
+        //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+
+        //        EqualTexts[0].text = "=";
+        //        MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
+
+        //        EqualTexts[1].text = "=";
+        //        MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+
+        //        BaseMultiplier.color = visible;
+        //        MaxMultipliers[2].color = visible;
+        //        break;
+        //    case 6:
+        //        MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
+        //        MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
+        //        MultiplierTexts[2].text = medalDisplay.GuiltMultiplier.Replace("-", "~");
+                
+        //        SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
+        //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+        //        SPATKBonusManager.CurrTier = medalDisplay.Tier;
+
+        //        EqualTexts[0].text = "=";
+        //        MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
+
+        //        EqualTexts[1].text = "=";
+        //        MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+
+        //        EqualTexts[2].text = "=";
+        //        MultiplierWithStrengthTexts[2].text = Parser.ParseMultiplierWithStrength(medalDisplay.GuiltMultiplier, medalDisplay.MaxStrength);
+
+        //        BaseMultiplier.color = visible;
+        //        MaxMultipliers[3].color = visible;
+        //        GuiltMultiplier.color = visible;
+
+        //        MultiplierTier.color = visible;
+        //        MultiplierTier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
+        //        break;
+        //    case 7:
+        //        MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
+        //        MultiplierTexts[2].text = medalDisplay.GuiltMultiplier.Replace("-", "~");
+               
+        //        SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
+        //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+        //        SPATKBonusManager.CurrTier = medalDisplay.Tier;
+
+        //        EqualTexts[1].text = "=";
+        //        MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+
+        //        EqualTexts[2].text = "=";
+        //        MultiplierWithStrengthTexts[2].text = Parser.ParseMultiplierWithStrength(medalDisplay.GuiltMultiplier, medalDisplay.MaxStrength);
+
+        //        MaxMultipliers[3].color = visible;
+        //        GuiltMultiplier.color = visible;
+
+        //        MultiplierTier.color = visible;
+        //        MultiplierTier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
+        //        break;
+        //    default:
+        //        break;
+        //}
+
+        //SPATKBonusManager.UpdateSPATKBonus();
+    }
+    
     #endregion Assign Attributes
 
     #region Reset Attributes
@@ -446,17 +454,19 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
         ResetBase();
         ResetTraits();
         ResetBoostsSaps();
-        ResetStrengthDefenseMultipliers();
+        ResetSkill();
+        ResetEffects();
+        ResetStats();
     }
 
     public void ResetBase()
     {
-        MedalPlaceholder.texture = Resources.Load("Medals/noctis") as Texture2D;
+        MedalPlaceholder.texture = Resources.Load("Placeholder") as Texture2D;
         MedalPlaceholderShadow.texture = MedalPlaceholder.texture;
-
+        
         MedalName.text = "PLACEHOLDER";
         PSMAttribute.texture = null;
-        URAttribute.texture = null;
+        URAttribute.color = invisible;
 
         Tier.texture = null;
         Target.texture = null;
@@ -464,6 +474,10 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 
         Ability.text = "ABILITY";
         AbilityDescription.text = "ABILITY DESCRIPTION";
+        
+        Supernova.interactable = false;
+        Supernova.blocksRaycasts = false;
+        Supernova.alpha = 0;
     }
 
     public void ResetTraits()
@@ -472,6 +486,7 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
         {
             TraitSlots[i].texture = InitialImage.texture;
             TraitSlots[i].enabled = false;
+
             TraitSlotsText[i].enabled = false;
             TraitSlotsText[i].text = initialTraitSlotText;
         }
@@ -479,9 +494,10 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 
     public void ResetBoostsSaps()
     {
-        PlayerEffect.text = PlayerEffectInitial;
-        EnemyEffect.text = EnemyEffectInitial;
+        BoostsTurns.text = "";
+        SapsTurns.text = "";
 
+        // Boosts
         foreach (var aB in AttackBoosts)
             aB.color = invisible;
         foreach (var aBM in AttackBoostMults)
@@ -492,62 +508,71 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
         foreach (var dBM in DefenseBoostMults)
             dBM.text = "";
 
-        GaugeBoost.enabled = false;
-        GaugeBoost.texture = null;
-
-        SPBBoost.enabled = false;
-        SPBBoost.texture = null;
-
-        HPBoost.enabled = false;
-        HPBoost.texture = null;
-
-        NextMedal.enabled = false;
-        NextMedal.texture = null;
-
+        // Saps
         foreach (var aS in AttackSaps)
             aS.color = invisible;
-        foreach (var aSM in AttackSapsMults)
+        foreach (var aSM in AttackSapMults)
             aSM.text = "";
 
         foreach (var dS in DefenseSaps)
             dS.color = invisible;
-        foreach (var dSM in DefenseSapsMults)
+        foreach (var dSM in DefenseSapMults)
             dSM.text = "";
 
-        AttackCounterSap.enabled = false;
-        AttackCounterSap.texture = null;
-
-        TurnCounterSap.enabled = false;
-        TurnCounterSap.texture = null;
-
-        AttackTurnDivider.enabled = false;
-
-        DamageSap.enabled = false;
-        DamageSap.texture = null;
-
-        DamageText.enabled = false;
+        Boosts.SetCanvasGroupInactive();
+        Saps.SetCanvasGroupInactive();
     }
 
-    public void ResetStrengthDefenseMultipliers()
+    public void ResetSkill()
     {
-        BaseMultiplier.color = invisible;
-        MaxMultipliers.ToList().ForEach(x => x.color = invisible);
-        GuiltMultiplier.color = invisible;
-        MultiplierTier.color = invisible;
+        SkillImage.texture = null;
+        SkillImage.enabled = false;
 
-        EqualTexts.ToList().ForEach(x => x.text = "");
+        SkillText.text = "";
+    }
 
-        MultiplierWithStrengthTexts.ToList().ForEach(x => x.text = "");
+    public void ResetEffects()
+    {
+        foreach(var effect in EffectImages)
+        {
+            effect.texture = null;
+            effect.enabled = false;
+        }
 
-        foreach (var mT in MultiplierTexts)
-            mT.text = "";
+        foreach(var effectText in EffectTexts)
+        {
+            effectText.text = "";
+        }
 
-        SPATKBonusManager.BonusMultiplierText.text = "";
+        Effects.SetCanvasGroupInactive();
+    }
 
-        BaseDefense.text = "NA";
-        MaxDefense.text = "NA";
-        BaseStrength.text = "NA";
-        MaxStrength.text = "NA";
+    public void ResetStats()
+    {
+        Multiplier.text = "";
+        Defense.text = "";
+        Strength.text = "";
+
+        BaseMultiplier.isOn = true;
+        MaxMultiplier.isOn = false;
+        MaxGuiltMultiplier.isOn = false;
+        Boosted.isOn = false;
+
+        GuiltSlider.value = 0;
+        GuiltSlider.minValue = 0;
+        GuiltSlider.maxValue = 1;
+    }
+
+    public void ResetCalculations()
+    {
+        CalculatedStrength.text = "";
+        NumberOfHits.text = "";
+        SpecialAttackBonus.text = "";
+        SkillVariable.text = "";
+        TraitAddition.text = "";
+        FinalDamageOutput.text = "";
+
+        SpecialAttackBonusSlider.value = 0;
     }
 
     #endregion Reset Attributes
@@ -558,7 +583,7 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
     {
         if (clickedOn.transform.childCount > 1)
         {
-            DisplaySublistOfMedals(clickedOn);
+            //DisplaySublistOfMedals(clickedOn);
         }
         else
         {
@@ -566,50 +591,84 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
         }
     }
 
-    public void DisplaySublistOfMedals(GameObject clickedOn)
+    //public void DisplaySublistOfMedals(GameObject clickedOn)
+    //{
+    //    MedalCycleLogic.Instance.StopCycleMedals();
+
+    //    var medalList = clickedOn.GetComponentsInChildren<Transform>();
+    //    this.prevParent = medalList[0];
+
+    //    for (int i = 1; i < medalList.Length; ++i)
+    //    {
+    //        var medal = medalList[i];
+
+    //        this.prevScale = medal.transform.localScale.x;
+    //        medal.GetComponent<RawImage>().color = visible;
+
+    //        medal.SetParent(MedalSublist.transform);
+    //        medal.transform.localScale = new Vector3(1f, 1f, 1f);
+    //        medal.GetComponent<RawImage>().raycastTarget = true;
+    //    }
+
+    //    //MedalSublistGroup.alpha = 1;
+    //    //MedalSublistGroup.interactable = true;
+    //    //MedalSublistGroup.blocksRaycasts = true;
+    //}
+
+    //public void HideSublistOfMedals()
+    //{
+    //    //MedalSublistGroup.alpha = 0;
+    //    //MedalSublistGroup.interactable = false;
+    //    //MedalSublistGroup.blocksRaycasts = false;
+
+    //    var medalList = MedalSublist.GetComponentsInChildren<Transform>();
+
+    //    for (int i = 1; i < medalList.Length; ++i)
+    //    {
+    //        var medal = medalList[i];
+
+    //        medal.GetComponent<RawImage>().raycastTarget = false;
+
+    //        medal.SetParent(this.prevParent);
+    //        medal.transform.localScale = new Vector3(this.prevScale, this.prevScale, this.prevScale);
+    //        medal.GetComponent<RawImage>().color = invisible;
+    //    }
+
+    //}
+
+    #region Calculation Methods
+    
+    public void BaseMultiplierClick()
     {
-        MedalCycleLogic.Instance.StopCycleMedals();
 
-        var medalList = clickedOn.GetComponentsInChildren<Transform>();
-        this.prevParent = medalList[0];
-
-        for (int i = 1; i < medalList.Length; ++i)
-        {
-            var medal = medalList[i];
-
-            this.prevScale = medal.transform.localScale.x;
-            medal.GetComponent<RawImage>().color = visible;
-
-            medal.SetParent(MedalSublist.transform);
-            medal.transform.localScale = new Vector3(1f, 1f, 1f);
-            medal.GetComponent<RawImage>().raycastTarget = true;
-        }
-
-        //MedalSublistGroup.alpha = 1;
-        //MedalSublistGroup.interactable = true;
-        //MedalSublistGroup.blocksRaycasts = true;
     }
 
-    public void HideSublistOfMedals()
+    public void MaxMultiplierClick()
     {
-        //MedalSublistGroup.alpha = 0;
-        //MedalSublistGroup.interactable = false;
-        //MedalSublistGroup.blocksRaycasts = false;
-
-        var medalList = MedalSublist.GetComponentsInChildren<Transform>();
-
-        for (int i = 1; i < medalList.Length; ++i)
-        {
-            var medal = medalList[i];
-
-            medal.GetComponent<RawImage>().raycastTarget = false;
-
-            medal.SetParent(this.prevParent);
-            medal.transform.localScale = new Vector3(this.prevScale, this.prevScale, this.prevScale);
-            medal.GetComponent<RawImage>().color = invisible;
-        }
 
     }
+
+    public void MaxGuiltMultiplierClick()
+    {
+
+    }
+
+    public void EffectMultiplierClick()
+    {
+
+    }
+
+    public void BoostedClick()
+    {
+
+    }
+
+    public void FinalDamageOutputCalculator(MedalAbility medalAbility)
+    {
+
+    }
+
+    #endregion
 
     public void HideCurrentMedal()
     {
@@ -624,7 +683,9 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 
     #endregion Display Methods
 
-    public bool CheckPlayerValues()
+    #region Checks
+
+    public bool CheckBoosts()
     {
         foreach (var aB in AttackBoosts)
         {
@@ -637,16 +698,11 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
             if (dB.color == visible)
                 return true;
         }
-
-        if (GaugeBoost.texture != null || SPBBoost.texture != null || HPBoost.texture != null)
-        {
-            return true;
-        }
-
+        
         return false;        
     }
 
-    public bool CheckEnemyValues()
+    public bool CheckSaps()
     {
         foreach (var aS in AttackSaps)
         {
@@ -659,14 +715,22 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
             if (dS.color == visible)
                 return true;
         }
+        
+        return false;
+    }
 
-        if (AttackCounterSap.texture != null || TurnCounterSap.texture != null || DamageSap.texture != null)
+    public bool CheckEffects()
+    {
+        foreach(var eff in EffectImages)
         {
-            return true;
+            if (eff.color == visible)
+                return true;
         }
 
         return false;
     }
+
+    #endregion
 
     void Update()
 	{
@@ -696,11 +760,11 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 			// If we haven't moved, we are at our initial position, else we are moving back
 			if(isDisplaying)
 			{
-				background_group.alpha = Mathf.Lerp(background_group.alpha, 1, elapsedTime);
-                background_group.interactable = true;
-                background_group.blocksRaycasts = true;
+                MedalHighlight.alpha = Mathf.Lerp(MedalHighlight.alpha, 1, elapsedTime);
+                MedalHighlight.interactable = true;
+                MedalHighlight.blocksRaycasts = true;
 
-                if (background_group.alpha >= 1.0f)
+                if (MedalHighlight.alpha >= 1.0f)
 				{
 					elapsedTime = 0.0f;
 					isTransition = false;
@@ -708,11 +772,11 @@ public class MedalSpotlightDisplayManager : MonoBehaviour {
 			}
 			else
 			{
-				background_group.alpha = Mathf.Lerp(background_group.alpha, 0, elapsedTime);
-                background_group.interactable = false;
-                background_group.blocksRaycasts = false;
+                MedalHighlight.alpha = Mathf.Lerp(MedalHighlight.alpha, 0, elapsedTime);
+                MedalHighlight.interactable = false;
+                MedalHighlight.blocksRaycasts = false;
 
-                if (background_group.alpha <= 0.0f)
+                if (MedalHighlight.alpha <= 0.0f)
 				{
 					elapsedTime = 0.0f;
 					isTransition = false;

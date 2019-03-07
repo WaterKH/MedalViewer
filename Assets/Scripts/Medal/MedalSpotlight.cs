@@ -12,7 +12,7 @@ public class MedalSpotlight : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		medalSpotlightDisplayManager = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalSpotlightDisplayManager>();
+		medalSpotlightDisplayManager = GameObject.FindGameObjectWithTag("MedalHighlight").GetComponent<MedalSpotlightDisplayManager>();
 		//medalLogic = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalLogic>();
 	}
 

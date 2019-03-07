@@ -126,7 +126,7 @@ public class CreateMedalUIManager : MonoBehaviour
 
         var medal = new Medal
         {
-            Id = int.Parse(Id.text),
+            Id = Id.text,
             Name = Name.text,
             Star = Star.value + 1,
             TraitSlots = TraitSlots.value + 1,

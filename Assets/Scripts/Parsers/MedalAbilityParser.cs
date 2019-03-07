@@ -10,78 +10,79 @@ public class MedalAbilityParser
 {
     #region DEALS
 
-    private static readonly Regex DealMultipleRegex = new Regex(@"^Deals (\d+) (?:\w+\s*)?hits");
-    private static readonly Regex DealOneRegex = new Regex(@"^Deals an? (?:\w+\s*)hit");
+    private static readonly Regex DealsRegex = new Regex(@"^Deals (\d+|an?) (?:\w+\s?)*hits?(.*)");
 
     #endregion
 
     #region BUFFS/DEBUFFS
 
     //stars 1-6
-    private static readonly Regex RaiseLowerRegex = new Regex(@"^(Raises|Lowers) (.*?)(?: for |\/)(\d+ \w+)");
+    private static readonly Regex RaiseLowerRegex = new Regex(@" ^ (Raises|Lowers) (.*?)(?: for |\/)(\d+ \w+)");
     private static readonly Regex ByTierRegex = new Regex(@"(.*?) by (\d+) tier\w?");
     // star 7
-    private static readonly Regex UpdatedRaiseLowerRegex = new Regex(@"^(\d+ \w+): (.*)");
+    private static readonly Regex UpdatedRaiseLowerRegex = new Regex(@"(\d+ \w+): (.*)");
+    //private static readonly Regex 
 
     #endregion
 
-    #region INFLICTS
+    #region INFLICTS/ DAMAGE+/ MORE DAMAGE
 
-    private static readonly Regex InflictFixedRegex = new Regex(@"^Inflicts (?:a )?fixed");
-    private static readonly Regex InflictTheComparisonRegex = new Regex(@"^Inflicts more damage the (\w+) (the slot number|your HP|your party|special|SP|skills|Lux|turns|gauges used|gauges are full|enemies)");
-    private static readonly Regex InflictStatusRegex = new Regex(@"^Inflicts more damage (?:.*?)+ (paralyzed|poisoned|sleeping|slot \d+|\d+ enemy)");
+    private static readonly Regex InflictFixedRegex = new Regex(@"Inflicts (?:a )?fixed(?:.* (defense))?");
+    private static readonly Regex InflictStatusRegex = new Regex(@"Inflicts more damage (?:.*?)+ (paralyzed|poisoned|sleeping");//|slot \d+|\d+ enemy)");
+    private static readonly Regex InflictTheComparisonRegex = new Regex(@"(?:Inflicts )?(?:M|m)ore damage the (\w+) (.*)+");
+    private static readonly Regex InflictMiscRegex = new Regex(@"(?:Inflicts )?(?:(?:M|m)ore )?damage (with 1 enemy left|in slot \d+|in exchange for \w+)");
+    
 
-    private static readonly Regex MoreDamageRegex = new Regex(@"^More damage (?:with |the ) (slot number|\d+ enemy left)");
+    //private static readonly Regex MoreDamageRegex = new Regex(@"^More damage (?:with |the ) (slot number|\d+ enemy left)");
     private static readonly Regex MorePowerfulRegex = new Regex(@"^More powerful when (critical hit)");
+    
+
+    private static readonly Regex DamagePlusRegex = new Regex(@"Damage\+: (.*)");
 
     #endregion
-
-    #region DAMAGE+
-
-    private static readonly Regex DamagePlusRegex = new Regex(@"^Damage\+: (.*)");
-
-    #endregion 
-
+    
     #region RECOVER/CURE
 
-    private static readonly Regex RecoverAndCureRegex = new Regex(@"^(\w+) recovers HP(?: and (cures))?");
-    private static readonly Regex CuresRegex = new Regex(@"^Cures");
-    private static readonly Regex HpRecoveryRegex = new Regex(@"^HP recovery LV (\d+)");
-    private static readonly Regex HpMaxRegex = new Regex(@"^HP (MAX)");
+    private static readonly Regex RecoverAndCureRegex = new Regex(@"(\w+) recovers HP(?: and (cures))?");
+    private static readonly Regex CuresRegex = new Regex($"(?:C|c)ures(?: own status)? ailments(?: and {RecoverAndCureRegex})");
+    private static readonly Regex HpRecoveryRegex = new Regex(@"HP (?:recovery LV (\d+)|(MAX))");
+    //private static readonly Regex HpMaxRegex = new Regex(@"^HP (MAX)");
 
     #endregion
 
     #region GAUGE
 
-    private static readonly Regex FillAndCureRegex = new Regex(@"^(?:Fills|Restores) (\d+) gauges(?: and (cures))?");
+    private static readonly Regex FillAndCureRegex = new Regex($"^(?:Fills|Restores) (\\d+) gauges(?: and ({CuresRegex}))?");
     private static readonly Regex GaugeRegex = new Regex(@"^Gauge \+(\d+)");
+    private static readonly Regex GaugeUseRegex = new Regex(@"^Gauge use \+(\d+)");
 
     #endregion
 
     #region REMOVES
 
-    private static readonly Regex RemovesRegex = new Regex(@"^Removes (own & targets'|target's|targets' )?status effects\s?(from self and all targets|of all targets)?");
+    private static readonly Regex RemovesRegex = new Regex(@"^Removes (.*)?status effects\s?(.*)?");
 
     #endregion
 
     #region COUNT
 
-    private static readonly Regex EnemyCountdownRegex = new Regex(@"^Enemy count\w* \+?(\d+|unaffected)");
-    private static readonly Regex AddCountRegex = new Regex(@"^Adds (\d+) to enemy count");
-    private static readonly Regex ResetCountRegex = new Regex(@"^(Resets) count");
-    private static readonly Regex CountRegex = new Regex(@"^Count\w* .(\d+)");
+    private static readonly Regex EnemyCountdownRegex = new Regex(@"^(?:Enemy )?(?:C|c)ount\w* \+?(\d+|unaffected)");
+    private static readonly Regex AddCountRegex = new Regex(@"^Adds (\d+) to enemy count\w*");
+    private static readonly Regex ResetCountRegex = new Regex(@"^(Resets) count\w*");
+    //private static readonly Regex CountRegex = new Regex(@"^Count\w* .(\d+)");
 
     #endregion
 
     #region COPY
 
     private static readonly Regex CopyRegex = new Regex(@"^Unleashes(?:.*?)(next|previous)");
+    private static readonly Regex IfNoneRegex = new Regex($"^If none(?:.*)({RaiseLowerRegex})");
 
     #endregion
 
     #region NEXT MEDAL
 
-    private static readonly Regex NextMedalRegex = new Regex(@"^Next Medal(?:.*?)(group attack|turns (?:Power|Magic|Speed))");
+    private static readonly Regex NextMedalRegex = new Regex(@"^Next Medal:? (group attack|turns (?:Power|Magic|Speed))");
 
     #endregion
 
@@ -429,43 +430,4 @@ public class MedalAbilityParser
                 break;
         }
     }
-
-    //foreach (var s in sections)
-        //{
-        //    //var result = earlierLowerRaise.Match(s.Trim());
-        //    var amount = 0;
-        //    Match boostResult = null;
-
-        //    if (!result.Success)
-        //    {
-        //        result = updatedLowerRaise.Match(s.Trim());
-
-        //        if (int.TryParse(result.Groups[2].Value.Trim(), out amount))
-        //        {
-        //            direction = amount > 0 ? "Raises" : "Lowers";
-
-        //            persistantAmount = Math.Abs(amount);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (result.Groups[1].Value.Trim() == "↑")
-        //        {
-        //            direction = "Raises";
-        //        }
-        //        else if(result.Groups[1].Value.Trim() == "↓")
-        //        {
-        //            direction = "Lowers";
-        //        }
-
-        //        if (int.TryParse(result.Groups[4].Value.Trim(), out amount))
-        //        {
-        //            persistantAmount = Math.Abs(amount);
-        //        }
-        //    }
-
-        //    boostResult = updatedBoostsSapsRegex.Match(result.Groups[3].Value);
-
-        //    BoostsSapsAssignment(boostResult.Groups, ability, direction, turns, persistantAmount.ToString());
-        //}
 }

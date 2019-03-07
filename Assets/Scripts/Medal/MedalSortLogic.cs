@@ -10,7 +10,7 @@ public class MedalSortLogic : MonoBehaviour {
 	public Dictionary<int, List<Medal>> medals_by_tier = new Dictionary<int, List<Medal>>();
 
 	// TODO Call all the combination of settings on each separate coroutine and generate those lists
-	public void SortManager(Dictionary<int, Medal> medals)
+	public void SortManager(Dictionary<string, Medal> medals)
 	{
 		if(!Globals.MultiplierFilter.SliderParent.isOn && !Globals.TierFilter.ToggleParent.isOn)
 		{

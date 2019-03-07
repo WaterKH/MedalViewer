@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Medal {
 
-    public int Id { get; set; }
+    public string Id { get; set; }
 	public string Name { get; set; }
     public string ImageURL { get; set; }
     public int Star { get; set; }
@@ -31,7 +31,10 @@ public class Medal {
     public string GuiltMultiplier { get; set; }
     public string SubslotMultiplier { get; set; }
     public int Tier { get; set; }
+    public string SupernovaName { get; set; }
     public string SupernovaDescription { get; set; }
+    public string SupernovaDamage { get; set; }
+    public string SupernovaTarget { get; set; }
 
     public string Effect { get; set; }
     public string Effect_Description { get; set; }

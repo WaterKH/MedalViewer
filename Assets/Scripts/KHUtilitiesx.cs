@@ -32,6 +32,20 @@ public static class KHUtilitiesx
 
         return false;
     }
+
+    public static void SetCanvasGroupActive(this CanvasGroup group)
+    {
+        group.interactable = true;
+        group.blocksRaycasts = true;
+        group.alpha = 1;
+    }
+
+    public static void SetCanvasGroupInactive(this CanvasGroup group)
+    {
+        group.interactable = false;
+        group.blocksRaycasts = false;
+        group.alpha = 0;
+    }
 }
 
 

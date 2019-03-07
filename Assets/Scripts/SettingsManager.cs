@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour {
 
-	public MedalCreator medalCreator;
+	public MedalManager medalCreator;
 	public MedalSortLogic Sorter;
     public MedalLogicManager LogicManager;
 

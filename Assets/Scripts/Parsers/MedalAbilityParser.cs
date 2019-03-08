@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class MedalAbilityParser
 {
+    #region Parser Vars
+
     #region DEALS
 
     private static readonly Regex DealsRegex = new Regex(@"^Deals (\d+|an?) (?:\w+\s?)*hits?(.*)");
@@ -17,8 +19,8 @@ public class MedalAbilityParser
     #region BUFFS/DEBUFFS
 
     //stars 1-6
-    private static readonly Regex RaiseLowerRegex = new Regex(@" ^ (Raises|Lowers) (.*?)(?: for |\/)(\d+ \w+)");
-    private static readonly Regex ByTierRegex = new Regex(@"(.*?) by (\d+) tier\w?");
+    private static readonly Regex RaiseLowerRegex = new Regex(@"(target's |targets' )?(Raises|Lowers|\d+|-\d+)?\s?(target's |targets' )?(?:(\w+)-?)?(?:based)?\s?(DEF|STR|defense|strength)?(?: by)?\s?(\d+)?(?: tiers?)?(?: for |\/)?(\d+)?(?: turns?| attacks?)?");
+    //private static readonly Regex ByTierRegex = new Regex(@"(.*?) by (\d+) tier\w?");
     // star 7
     private static readonly Regex UpdatedRaiseLowerRegex = new Regex(@"(\d+ \w+): (.*)");
     //private static readonly Regex 
@@ -27,10 +29,12 @@ public class MedalAbilityParser
 
     #region INFLICTS/ DAMAGE+/ MORE DAMAGE
 
-    private static readonly Regex InflictFixedRegex = new Regex(@"Inflicts (?:a )?fixed(?:.* (defense))?");
-    private static readonly Regex InflictStatusRegex = new Regex(@"Inflicts more damage (?:.*?)+ (paralyzed|poisoned|sleeping");//|slot \d+|\d+ enemy)");
-    private static readonly Regex InflictTheComparisonRegex = new Regex(@"(?:Inflicts )?(?:M|m)ore damage the (\w+) (.*)+");
-    private static readonly Regex InflictMiscRegex = new Regex(@"(?:Inflicts )?(?:(?:M|m)ore )?damage (with 1 enemy left|in slot \d+|in exchange for \w+)");
+    //private static readonly Regex InflictFixedRegex = new Regex(@"Inflicts (?:a )?(?:F|f)ixed(?:.* (defense))?");
+    private static readonly Regex InflictFixedRegex = new Regex(@"(?:Inflicts (?:a )?)?((?:F|f)ixed)(?:.* (defense))?");
+    private static readonly Regex InflixtRegex = new Regex(@"(?:Inflicts )?(?:(?:M|m)ore )?damage (?:the |if the |in |when |with |to )(.*)");
+    //private static readonly Regex InflictStatusRegex = new Regex(@"Inflicts more damage (?:.*?)+ (paralyzed|poisoned|sleeping)");//|slot \d+|\d+ enemy)");
+    //private static readonly Regex InflictTheComparisonRegex = new Regex(@"(?:Inflicts )?(?:M|m)ore damage the (.*)+");
+    //private static readonly Regex InflictMiscRegex = new Regex(@"(?:Inflicts )?(?:(?:M|m)ore )?damage (with 1 enemy left|in slot (\d+)|in exchange for (\w+))");
     
 
     //private static readonly Regex MoreDamageRegex = new Regex(@"^More damage (?:with |the ) (slot number|\d+ enemy left)");
@@ -44,15 +48,15 @@ public class MedalAbilityParser
     #region RECOVER/CURE
 
     private static readonly Regex RecoverAndCureRegex = new Regex(@"(\w+) recovers HP(?: and (cures))?");
-    private static readonly Regex CuresRegex = new Regex($"(?:C|c)ures(?: own status)? ailments(?: and {RecoverAndCureRegex})");
-    private static readonly Regex HpRecoveryRegex = new Regex(@"HP (?:recovery LV (\d+)|(MAX))");
+    private static readonly Regex CuresRegex = new Regex(@"(?:C|c)ures(?: own status)? ailments(?: and (\w+) recovers HP)");
+    private static readonly Regex HpRecoveryRegex = new Regex(@"HP (?:recovery LV (\d+|MAX))");
     //private static readonly Regex HpMaxRegex = new Regex(@"^HP (MAX)");
 
     #endregion
 
     #region GAUGE
 
-    private static readonly Regex FillAndCureRegex = new Regex($"^(?:Fills|Restores) (\\d+) gauges(?: and ({CuresRegex}))?");
+    private static readonly Regex FillAndCureRegex = new Regex(@"^(?:Fills|Restores) (\d+) gauges(?: and (cures))?");
     private static readonly Regex GaugeRegex = new Regex(@"^Gauge \+(\d+)");
     private static readonly Regex GaugeUseRegex = new Regex(@"^Gauge use \+(\d+)");
 
@@ -60,7 +64,7 @@ public class MedalAbilityParser
 
     #region REMOVES
 
-    private static readonly Regex RemovesRegex = new Regex(@"^Removes (.*)?status effects\s?(.*)?");
+    private static readonly Regex RemovesRegex = new Regex(@"Removes (.*)?status effects\s?(.*)?");
 
     #endregion
 
@@ -75,14 +79,19 @@ public class MedalAbilityParser
 
     #region COPY
 
-    private static readonly Regex CopyRegex = new Regex(@"^Unleashes(?:.*?)(next|previous)");
-    private static readonly Regex IfNoneRegex = new Regex($"^If none(?:.*)({RaiseLowerRegex})");
+    private static readonly Regex CopyRegex = new Regex(@"Unleashes(?:.*?)(next|previous|2 \w+ before| 2 \w+ after)");
+
+    #endregion
+
+    #region IF NONE
+    
+    private static readonly Regex IfNoneRegex = new Regex(@"If none(?:.*)(\d+ \w+): (.*)");
 
     #endregion
 
     #region NEXT MEDAL
 
-    private static readonly Regex NextMedalRegex = new Regex(@"^Next Medal:? (group attack|turns (?:Power|Magic|Speed))");
+    private static readonly Regex NextMedalRegex = new Regex(@"Next Medal:? (group attack|turns (?:Power|Magic|Speed))");
 
     #endregion
 
@@ -92,20 +101,23 @@ public class MedalAbilityParser
 
     #endregion
 
+    #endregion
 
     public static Regex[] Regexes = new Regex[]
     {
-        DealMultipleRegex, DealOneRegex,
-        RaiseLowerRegex, UpdatedRaiseLowerRegex,
-        InflictFixedRegex, InflictTheComparisonRegex, InflictStatusRegex,
-        MoreDamageRegex, MorePowerfulRegex, DamagePlusRegex,
-        RecoverAndCureRegex, CuresRegex, HpRecoveryRegex, HpMaxRegex,
-        FillAndCureRegex, GaugeRegex,
-        RemovesRegex,
-        EnemyCountdownRegex, AddCountRegex, ResetCountRegex, CountRegex,
-        CopyRegex,
-        NextMedalRegex,
-        SPAtkRegex
+        DealsRegex, // 0
+        RaiseLowerRegex, UpdatedRaiseLowerRegex, // 1, 2
+        InflictFixedRegex, InflixtRegex, // 3, 4
+        MorePowerfulRegex,  // 5
+        DamagePlusRegex,    // 6
+        RecoverAndCureRegex, CuresRegex, HpRecoveryRegex,   // 7, 8, 9
+        FillAndCureRegex, GaugeRegex, GaugeUseRegex,        // 10, 11, 12
+        RemovesRegex,   // 13
+        EnemyCountdownRegex, AddCountRegex, ResetCountRegex, //14, 15, 16
+        CopyRegex,  // 17
+        IfNoneRegex, // 18
+        NextMedalRegex, // 19
+        SPAtkRegex      // 20
     };
 
     public MedalAbility Parser(string abilityDescription)
@@ -113,7 +125,7 @@ public class MedalAbilityParser
         //TODO Perhaps make only one MedalAbility object and init that at Start() and then just simply change the items...
         var ability = new MedalAbility();
 
-        var parts = abilityDescription.Split('.');
+        var parts = abilityDescription.Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var item in parts)
         {
@@ -129,13 +141,14 @@ public class MedalAbilityParser
                 if (!result.Success) continue;
 
                 // TODO SWITCH THIS ASAP - From index to enums
+                // TODO ^ Is this still what I want? ^
                 switch (i)
                 {
-                    case 0: // 0 - 1 Deals
-                    case 1:
-                        ability.DEAL = result.Groups.Count == 2 ? result.Groups[1].Value : "1";
+                    case 0: // 0 Deals
+                        ability.Deal = result.Groups[1].Value;
+                        ability.IgnoreAttributes = result.Groups[2].Value;
                         break;
-                    case 2: // 2 - 3 Raise/ Lower
+                    case 1: // 1 - 2 Raise/ Lower
                         var tempResults = result.Groups[2].Value.Split('&');
                         var passed = false;
 
@@ -160,79 +173,77 @@ public class MedalAbilityParser
                             ParseRaiseLower(result.Groups, ability);
                         }
                         break;
-                    case 3: // 
+                    case 2:
                         ParseUpdatedRaiseLower(result.Groups, ability);
                         break;
-                    case 4: // 4 - 8 Inflicts
+                    case 3: // 3 - 5 Inflicts
+                        ability.Inflicts = "fixed";
+                        break;
+                    case 4:
                     case 5:
-                    case 6:
-                    case 7:
+                        ability.Inflicts = result.Groups[1].Value;
+                        break;
+                    case 6: // 6 Damage +
+                        ability.DamagePlus = result.Groups[1].Value;
+                        break;
+                    case 7: // 7 - 9 Heal/ Cure
+                        ability.Heal = result.Groups[1].Value;
+                        ability.Esuna = result.Groups[2].Value;
+                        break;
                     case 8:
-                        ability.INFL = result.Groups.Count == 3 ? result.Groups[1].Value + " " + result.Groups[2].Value : result.Groups.Count == 2 ? result.Groups[1].Value : "fixed";
+                        ability.Esuna = "cures";
+                        ability.Heal = result.Groups[1].Value;
                         break;
-                    case 9:  // 9 Damage+
-                        ability.DAMAGE = result.Groups[1].Value;
+                    case 9:
+                        ability.Heal = result.Groups[1].Value;
                         break;
-                    case 10: // 10 - 13 Recover/ Cures
-                        ability.HEAL = result.Groups[1].Value;
-                        ability.ESUNA = result.Groups[2].Success; // TODO Double check this, this may be the wrong variable
+                    case 10: // 10 - 12 Gauges
+                        ability.Gauge = result.Groups[1].Value;
+                        ability.Esuna = result.Groups[2].Value;
                         break;
                     case 11:
-                        ability.ESUNA = result.Groups[1].Success;
-                        break;
                     case 12:
-                    case 13:
-                        ability.HEAL = result.Groups[1].Value;
+                        ability.Gauge = result.Groups[1].Value;
                         break;
-                    case 14: // 14 - 15 Gauges
-                    case 15:
-                        ability.GAUGE = result.Groups[1].Value;
+                    case 13: // 13 Removes/ Dispel
+                        var split = result.Groups[1].Value.Split(new[] { " & ", " and " }, StringSplitOptions.RemoveEmptyEntries);
 
-                        if (result.Groups.Count == 3)
-                            ability.ESUNA = result.Groups[2].Success;
-
+                        if (split.Length == 2)
+                        {
+                            ability.DispelPlayer = split[0];
+                            ability.DispelEnemy = split[1];
+                        }
+                        else
+                            ability.DispelEnemy = split[0];
                         break;
-                    case 16: // 16 Removes
-                        ability.ENEMYESUNA = result.Groups[1].Value != ""
-                            ? result.Groups[1].Success
-                            : result.Groups[2].Success;
-
-                        if (result.Groups[1].Value == "own & targets'")
-                            ability.ESUNA = result.Groups[1].Success;
-                        else if (result.Groups[2].Value == "from self and all targets")
-                            ability.ESUNA = result.Groups[2].Success;
-
+                    case 14: // 14 - 16 Count
+                    case 15: 
+                    case 16:
+                        ability.Count = result.Groups[1].Value;
                         break;
-                    case 17: // 17 - 20 Count
-                    case 18:
-                    case 19:
-                    case 20: 
-                        ability.COUNT = result.Groups[1].Value;
+                    case 17: // 17 Copy
+                        ability.Copy = result.Groups[1].Value;
                         break;
-                    case 21: // 21 Copy
-                        ability.COPYDIRECTION = result.Groups[1].Value;
+                    case 18: // 18 If None
+                        //ability.IfNone = result.Groups[1].Value;
+                        // TODO Pass result to boost/sap parser
                         break;
-                    case 22:  // 22 Next Medal
-                        ability.NEXTMEDAL = result.Groups[1].Value;
+                    case 19: // 19 Next Medal
+                        ability.NextMedal = result.Groups[1].Value;
                         break;
-                    case 23: // 23 SP ATK B
-                        ability.SPBONUS = result.Groups[1].Value;
+                    case 20: // 20 SP Bonus
+                        ability.SPBonus = result.Groups[1].Value;
                         break;
                     default:
                         Debug.Log("ERROR: " + item);
                         break;
                 }
-
-                break;
+                //break;
             }
         }
 
         return ability;
     }
-
-    private Regex boostsSapsRegex =
-        new Regex(
-            @"(\w*?)(?:-?)\s?(strength|STR|defense|DEF)?\s?(?:&|and)?\s?(\w*)(?:-?\w*)\s?(strength|STR|defense|DEF) (of all attributes)?(?:of all targets)?\s?by (\d+) tier\w?");
 
     private void ParseRaiseLower(GroupCollection resultGroups, MedalAbility ability, string boostsSapsOverride = null)
     {
@@ -276,16 +287,6 @@ public class MedalAbilityParser
             AddMedal(strDef, medalCombatAbility, ability);
         }
     }
-
-    private Regex updatedLowerRaise = new Regex(@"^(target(?:'s|s'))?\s?(-?\d+)?\s?(.*)");
-    //private Regex earlierLowerRaise = new Regex(@"^(↑ |↓ )?(target(?:'s |s' ))?(.*?)(?: by)? (\d+)");
-    private Regex lowerRaise = 
-        new Regex(@"(↑|↓) (target(?:s'|'s))?\s?(?:(\w*)(?:-))?(Upright\s?|Reversed\s?)?(STR|DEF|strength|defense)?(?: & | and |\/|(?: by)? (\d+))?(?:, )?(?:(\w*)(?:-))?(Upright\s?|Reversed\s?)?(STR|DEF|strength|defense)?(?: & | and |\/|(?: by)? (\d+))?(?:, )?(?:(\w*)(?:-))?(Upright\s?|Reversed\s?)?(STR|DEF|strength|defense)?(?: & | and |\/|(?: by)? (\d+))?");
-
-    //private string strDef = "strength|STR|defense|DEF";
-    private Regex updatedBoostsSapsRegex =
-        new Regex(
-            @"(?:(\w*)(?:-)?(strength|STR|defense|DEF)?(?: & | and |\/))?(\w*)(?:-?\w*)\s?(strength|STR|defense|DEF)");
 
     private void ParseUpdatedRaiseLower(GroupCollection resultGroups, MedalAbility ability)
     {

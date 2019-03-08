@@ -8,17 +8,31 @@ public class MedalAbility {
 	//public int ID = 0;
 	public List<MedalCombatAbility> STR = new List<MedalCombatAbility>();
 	public List<MedalCombatAbility> DEF = new List<MedalCombatAbility>();
-    public string DEAL = "";
-	public string INFL = "";
-	public string HEAL = "";
-	public string GAUGE = "";
-	public bool ESUNA = false;
-    public bool ENEMYESUNA = false;
-	public string COUNT = "";
-	public string SPBONUS = "";
-	public string DAMAGE = "";
-	public string NEXTMEDAL = "";
-    public string COPYDIRECTION = "";
+
+
+    public string Deal = "";
+    public string IgnoreAttributes = "";
+
+    public string Inflicts = "";
+    //public string MoreDamage = ""; // Only Critical Hit for now
+	public string DamagePlus = "";
+
+    public string DispelEnemy = "";
+    public string DispelPlayer = "";
+
+    public string Heal = "";
+    public string Esuna = "";
+
+	public string Gauge = "";
+    
+	public string Count = "";
+
+    public string Copy = "";
+
+    public string SPBonus = "";
+
+	public string NextMedal = "";
+    
 
 	// Key: STR/DEF - Key: Raise/Lower/LowerPlayer - Value: Images
 	public Dictionary<string, Dictionary<string, List<Texture2D>>> CombatImages;

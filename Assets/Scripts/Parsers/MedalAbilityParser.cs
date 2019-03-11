@@ -18,8 +18,14 @@ public class MedalAbilityParser
 
     #region BUFFS/DEBUFFS
 
+    private static readonly string Direction = @"Raises|Lowers|\d+|-\d+";
+    private static readonly string Target = @"target's |targets'";
+    private static readonly string DefStr = @"DEF|STR|defense|strength";
+    private static readonly string Duration = @" turns?| attacks?";
+
     //stars 1-6
-    private static readonly Regex RaiseLowerRegex = new Regex(@"(target's |targets' )?(Raises|Lowers|\d+|-\d+)?\s?(target's |targets' )?(?:(\w+)-?)?(?:based)?\s?(DEF|STR|defense|strength)?(?: by)?\s?(\d+)?(?: tiers?)?(?: for |\/)?(\d+)?(?: turns?| attacks?)?");
+    //private static readonly Regex RaiseLowerRegex = new Regex($@"({Target})?({Direction})?\s?({Target})?(?:(\w+!(and|&|,)?-?))?(?:based)?\s?(DEF|STR|defense|strength)?(?: by)?\s?(\d+)?(?: tiers?)?(?: for |\/)?(\d+)?(?: turns?| attacks?)?");
+    private static readonly Regex RaiseLowerRegex = new Regex($@"({Direction})?\s?({Target})?(.*)\s?({DefStr})?(?: by)?\s?(\d+)?(?: tiers?)?(?: for |\/)?(\d+)?(?:{Duration})?");
     //private static readonly Regex ByTierRegex = new Regex(@"(.*?) by (\d+) tier\w?");
     // star 7
     private static readonly Regex UpdatedRaiseLowerRegex = new Regex(@"(\d+ \w+): (.*)");
@@ -149,29 +155,32 @@ public class MedalAbilityParser
                         ability.IgnoreAttributes = result.Groups[2].Value;
                         break;
                     case 1: // 1 - 2 Raise/ Lower
-                        var tempResults = result.Groups[2].Value.Split('&');
-                        var passed = false;
+                        var boostSaps = result.Captures;
 
-                        foreach (var t in tempResults)
-                        {
-                            passed = boostsSapsRegex.Match(t.Trim()).Success;
+                        ParseRaiseLower(boostSaps, ability);
+                        //var tempResults = result.Groups[2].Value.Split(new string[] { "&", " and " }, StringSplitOptions.RemoveEmptyEntries);
+                        //var passed = false;
 
-                            if (passed == false)
-                                break;
-                        }
+                        //foreach (var t in tempResults)
+                        //{
+                        //    passed = RaiseLowerRegex.Match(t.Trim()).Success;
 
-                        if (passed)
-                        {
-                            foreach (var t in tempResults)
-                            {
-                                ParseRaiseLower(result.Groups, ability, t.Trim());
-                            }
-                        }
-                        else
-                        {
-                            // TODO Account for Raises and Lowers in the same sentence
-                            ParseRaiseLower(result.Groups, ability);
-                        }
+                        //    if (passed == false)
+                        //        break;
+                        //}
+
+                        //if (passed)
+                        //{
+                        //    foreach (var t in tempResults)
+                        //    {
+                        //        ParseRaiseLower(result.Groups, ability, t.Trim());
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    // TODO Account for Raises and Lowers in the same sentence
+                        //    ParseRaiseLower(result.Groups, ability);
+                        //}
                         break;
                     case 2:
                         ParseUpdatedRaiseLower(result.Groups, ability);
@@ -243,6 +252,14 @@ public class MedalAbilityParser
         }
 
         return ability;
+    }
+
+    private void ParseRaiseLower(CaptureCollection captures, MedalAbility ability)
+    {
+        var direction = "";
+        var duration = "";
+        var amount = "";
+        
     }
 
     private void ParseRaiseLower(GroupCollection resultGroups, MedalAbility ability, string boostsSapsOverride = null)

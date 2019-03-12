@@ -62,7 +62,7 @@ public class MedalAbilityParser
 
     #endregion
 
-    #region REMOVES
+    #region DISPEL/ REMOVES
 
     private static readonly Regex RemovesRegex = new Regex(@"Removes (.*)?status effects\s?(.*)?");
 
@@ -101,6 +101,12 @@ public class MedalAbilityParser
 
     #endregion
 
+    #region MIRROR
+
+    private static readonly Regex MirrorsRegex = new Regex(@"Mirrors (target's) status enhancements");
+
+    #endregion
+
     #endregion
 
     public static Regex[] Regexes = new Regex[]
@@ -117,7 +123,8 @@ public class MedalAbilityParser
         IfNoneRegex,    // 16
         NextMedalRegex, // 17
         SPAtkRegex,     // 18
-        RaiseLowerRegex, RaisedBasedRegex, LowerBasedRegex  // 19, 20, 21
+        RaiseLowerRegex, RaisedBasedRegex, LowerBasedRegex,  // 19, 20, 21
+        MirrorsRegex    // 22
     };
 
     public MedalAbility Parser(string abilityDescription)
@@ -197,6 +204,7 @@ public class MedalAbilityParser
                         ability.Copy = result.Groups[1].Value;
                         break;
                     case 16: // 16 If None
+                        ParseRaiseLower(result.Groups, ability);
                         //ability.IfNone = result.Groups[1].Value;
                         // TODO Pass result to boost/sap parser
                         break;
@@ -214,6 +222,9 @@ public class MedalAbilityParser
                         break;
                     case 21:
                         ParseLowerBased(result.Groups, ability);
+                        break;
+                    case 22: // 22 Mirrors
+                        ability.Mirrors = result.Groups[1].Value;
                         break;
                     default:
                         Debug.Log("ERROR: " + item);
@@ -320,7 +331,7 @@ public class MedalAbilityParser
         #endregion
     }
     
-    private void ParseRaiseLower(GroupCollection resultGroups, MedalAbility ability, string boostsSapsOverride = null)
+    private void ParseRaiseLower(GroupCollection resultGroups, MedalAbility ability)
     {
         var duration = resultGroups[1].Value;
         var sections = resultGroups[2].Value.Split(',');
@@ -439,143 +450,7 @@ public class MedalAbilityParser
             }
         }
     }
-
-    private void BoostsSapsAssignment(GroupCollection results, MedalAbility ability, string lowersRaises, string turnsAttacks, string tierValue = "")
-    {
-        var psmValues = new List<string> { results[1].Value, results[3].Value };
-        var strDefValues = new List<string> { results[2].Value, results[4].Value };
-
-        var allAttrs = results[5].Value.Length > 0;
-        var tiers = results[6].Value.Length > 0 ? results[6].Value : tierValue;
-
-        for (int i = 0; i < 2; i++)
-        {
-            var psm = psmValues[i];
-            var strDef = strDefValues[i];
-            var medalCombatAbilities = new List<MedalCombatAbility>();
-
-            if (psm == "" && strDef == "")
-                continue;
-
-            var medalCombatAbility = new MedalCombatAbility
-            {
-                Direction = lowersRaises,
-                Attribute = psm == "" ? "Normal" : psm,
-                Tier = tiers,
-                Duration = turnsAttacks
-            };
-            
-            if (strDef == "")
-                strDef = strDefValues[1];
-
-            AddMedal(strDef, medalCombatAbility, ability);
-        }
-    }
-
-    private void ParseUpdatedRaiseLower(GroupCollection resultGroups, MedalAbility ability)
-    {
-        //var sections = resultGroups[2].Value.Split(',');
-
-        //var duration = resultGroups[1].Value;
-        //MatchCollection results = lowerRaise.Matches(resultGroups[2].Value);
-
-        //if (results.Count == 0)
-        //{
-        //    var parts = resultGroups[2].Value.Trim().Split(',');
-        //    var direction = "";
-        //    var persistentAmount = 0;
-
-        //    foreach (var p in parts)
-        //    {
-        //        var result = SPAtkRegex.Match(p.Trim());
-                
-        //        if (result.Success)
-        //        {
-        //            ability.SPBONUS = result.Groups[1].Value;
-        //        }
-        //        else
-        //        {
-        //            result = updatedLowerRaise.Match(p.Trim());
-        //            var amount = 0;
-
-        //            if (int.TryParse(result.Groups[2].Value.Trim(), out amount))
-        //            {
-        //                direction = amount > 0 ? "Raises" : "Lowers";
-
-        //                persistentAmount = Math.Abs(amount);
-        //            }
-
-        //            var boostResult = updatedBoostsSapsRegex.Match(result.Groups[3].Value);
-
-        //            BoostsSapsAssignment(boostResult.Groups, ability, direction, duration, persistentAmount.ToString());
-        //        }
-        //    }
-        //}
-        //else
-        //{
-            
-        //    foreach (Match result in results)
-        //    {
-        //        var direction = result.Groups[1].Value == "↑" ? "Raises" : "Lowers";
-        //        var targets = result.Groups[2].Value;
-
-        //        for (int i = 3; i < result.Groups.Count; i += 4)
-        //        {
-        //            var amount = result.Groups[i + 3].Value;
-        //            var strDef = result.Groups[i + 2].Value;
-        //            var UR = result.Groups[i + 1].Value;
-        //            var attribute = result.Groups[i].Value == ""
-        //                ? UR == "" ? strDef == "" ? result.Groups[i].Value : "Normal" : UR
-        //                : result.Groups[i].Value;
-
-        //            amount = CalculateResult(amount, i + 3, result.Groups);
-        //            strDef = CalculateResult(strDef, i + 2, result.Groups);
-
-        //            if (amount == "" || strDef == "" || attribute == "")
-        //                continue;
-
-        //            var medalCombatAbility = new MedalCombatAbility()
-        //            {
-        //                Duration = duration,
-        //                Attribute = attribute.Trim(),
-        //                Direction = direction,
-        //                Tier = amount
-        //            };
-
-        //            AddMedal(strDef, medalCombatAbility, ability);
-        //        }
-        //    }
-
-        //    var spAtk = SPAtkRegex.Match(resultGroups[2].Value);
-
-        //    if(spAtk.Success)
-        //        ability.SPBONUS = spAtk.Groups[1].Value;
-        //}
-    }
-
-    public string CalculateResult(string result, int index, GroupCollection groupCollection)
-    {
-        if (result == "")
-        {
-            if (index + 4 < groupCollection.Count)
-            {
-                if (groupCollection[index + 4].Value == "")
-                {
-                    if (index + 8 < groupCollection.Count)
-                    {
-                        result = groupCollection[index + 8].Value;
-                    }
-                }
-                else
-                {
-                    result = groupCollection[index + 4].Value;
-                }
-            }
-        }
-
-        return result;
-    }
-
+    
     public void AddMedal(string strDef, MedalCombatAbility combatAbility, MedalAbility ability)
     {
         var medalCombatAbilities = new List<MedalCombatAbility>();

@@ -32,6 +32,8 @@ public class MedalAbility {
     public string SPBonus = "";
 
 	public string NextMedal = "";
+
+    public string Mirrors = "";
     
 
 	// Key: STR/DEF - Key: Raise/Lower/LowerPlayer - Value: Images
@@ -54,51 +56,69 @@ public class MedalAbility {
 			CombatImages["DEF"][def.Direction].Add(def_image);
 		}
 
-		if(INFL != "")
+		if(Inflicts != "")
 		{
-			var infl_image = Resources.Load(ImagePaths.MiscPaths["INFL"][INFL]) as Texture2D;
+			var infl_image = Resources.Load(ImagePaths.MiscPaths["INFL"][Inflicts]) as Texture2D;
 			MiscImages["INFL"] = infl_image;
-		}
+        }
 
-		if(HEAL != "")
+        if (DamagePlus != "")
+        {
+            var dam_image = Resources.Load(ImagePaths.MiscPaths["DAMAGE+"][DamagePlus]) as Texture2D;
+            MiscImages["DAMAGE+"] = dam_image;
+        }
+
+        if(DispelEnemy != "")
+        {
+            var dispel_image = Resources.Load(ImagePaths.MiscPaths["DISPEL"][DispelEnemy]) as Texture2D;
+            MiscImages["DISPELENEMY"] = dispel_image;
+        }
+
+        if (DispelPlayer != "")
+        {
+            var dispel_image = Resources.Load(ImagePaths.MiscPaths["DISPEL"][DispelPlayer]) as Texture2D;
+            MiscImages["DISPELPLAYER"] = dispel_image;
+        }
+
+        if (Mirrors != "")
+        {
+            var mirror_image = Resources.Load(ImagePaths.MiscPaths["MIRROR"][Mirrors]) as Texture2D;
+            MiscImages["MIRROR"] = mirror_image;
+        }
+
+        if (Heal != "")
 		{
-			var heal_image = Resources.Load(ImagePaths.MiscPaths["HEAL"][HEAL]) as Texture2D;
+			var heal_image = Resources.Load(ImagePaths.MiscPaths["HEAL"][Heal]) as Texture2D;
 			MiscImages["HEAL"] = heal_image;
 		}
 
-		if(GAUGE != "")
+		if(Gauge != "")
 		{
-			var gauge_image = Resources.Load(ImagePaths.MiscPaths["GAUGE"][GAUGE]) as Texture2D;
+			var gauge_image = Resources.Load(ImagePaths.MiscPaths["GAUGE"][Gauge]) as Texture2D;
 			MiscImages["GAUGE"] = gauge_image;
 		}
 
-		if(ESUNA)
+		if(Esuna != "")
 		{
-			var esuna_image = Resources.Load(ImagePaths.MiscPaths["ESUNA"]["ESUNA"]) as Texture2D;
+			var esuna_image = Resources.Load(ImagePaths.MiscPaths["ESUNA"][Esuna]) as Texture2D;
 			MiscImages["ESUNA"] = esuna_image;
 		}
 
-		if(COUNT != "")
+		if(Count != "")
 		{
-			var count_image = Resources.Load(ImagePaths.MiscPaths["COUNT"][COUNT]) as Texture2D;
+			var count_image = Resources.Load(ImagePaths.MiscPaths["COUNT"][Count]) as Texture2D;
 			MiscImages["COUNT"] = count_image;
 		}
 
-	    if (SPBONUS != "")
+	    if (SPBonus != "")
 	    {
-	        var spbonus_image = Resources.Load(ImagePaths.MiscPaths["SPBONUS"][SPBONUS]) as Texture2D;
+	        var spbonus_image = Resources.Load(ImagePaths.MiscPaths["SPBONUS"][SPBonus]) as Texture2D;
 	        MiscImages["SPBONUS"] = spbonus_image;
 	    }
 
-        if (DAMAGE != "")
+		if(NextMedal != "")
 		{
-			var dam_image = Resources.Load(ImagePaths.MiscPaths["DAMAGE+"][DAMAGE]) as Texture2D;
-			MiscImages["DAMAGE+"] = dam_image;
-		}
-
-		if(NEXTMEDAL != "")
-		{
-			var next_image = Resources.Load(ImagePaths.MiscPaths["NEXTMEDAL"][NEXTMEDAL]) as Texture2D;
+			var next_image = Resources.Load(ImagePaths.MiscPaths["NEXTMEDAL"][NextMedal]) as Texture2D;
 			MiscImages["NEXTMEDAL"] = next_image;
 		}
 	}
@@ -126,7 +146,10 @@ public class MedalAbility {
             { "COUNT", null },
             { "DAMAGE+", null },
             { "NEXTMEDAL", null },
-            { "SPBONUS", null }
+            { "SPBONUS", null },
+            { "DISPELPLAYER", null },
+            { "DISPEL", null },
+            { "MIRROR", null }
         };
     }
 }

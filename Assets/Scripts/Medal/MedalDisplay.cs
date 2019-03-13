@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MedalDisplay : MonoBehaviour 
 {
-    public string Id;
+    public int Id;
 	public string Name;
     public string ImageURL;
 	public int Star;

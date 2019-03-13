@@ -5,16 +5,16 @@ public static class Globals
 {
     #region Medals
 
-    public static Dictionary<string, Medal> Medals = new Dictionary<string, Medal>();
+    public static Dictionary<int, Medal> Medals = new Dictionary<int, Medal>();
 
     #endregion
 
-    #region Database Table Instance
+    //#region Database Table Instance
 
-    public static SQLiteConnection Connection;
-    public static TableQuery<Medal> MedalsTable;
+    //public static SQLiteConnection Connection;
+    //public static TableQuery<Medal> MedalsTable;
 
-    #endregion
+    //#endregion
 
     #region Settings
 

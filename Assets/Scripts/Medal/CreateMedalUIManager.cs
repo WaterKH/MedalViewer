@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Crosstales.FB;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,8 +62,8 @@ public class CreateMedalUIManager : MonoBehaviour
 
     private readonly string customMedal = "CustomMedals";
     private string imageFilePath = "";
-    private string sourceName = "";
-    private string sourceNameExtension = "";
+    //private string sourceName = "";
+    //private string sourceNameExtension = "";
     private string customMedalFilePath = "";
 
     // Use this for initialization
@@ -98,16 +97,16 @@ public class CreateMedalUIManager : MonoBehaviour
         CreateMedalUIGroup.interactable = false;
     }
 
-    public void OpenMedal()
-    {
-        string extensions = "png";
+//    public void OpenMedal()
+//    {
+////        string extensions = "png";
 
-        imageFilePath = FileBrowser.OpenSingleFile("Open Medal Image", "", extensions);
+////        imageFilePath = FileBrowser.OpenSingleFile("Open Medal Image", "", extensions);
 
-        UpdateImage(imageFilePath);
+////        UpdateImage(imageFilePath);
 
-        Debug.Log("Selected Medal: " + imageFilePath);
-    }
+////        Debug.Log("Selected Medal: " + imageFilePath);
+//    }
 
     public void SaveMedal()
     {
@@ -126,7 +125,7 @@ public class CreateMedalUIManager : MonoBehaviour
 
         var medal = new Medal
         {
-            Id = Id.text,
+            Id = int.Parse(Id.text),
             Name = Name.text,
             Star = Star.value + 1,
             TraitSlots = TraitSlots.value + 1,
@@ -164,12 +163,12 @@ public class CreateMedalUIManager : MonoBehaviour
             return;
         }
         
-        Globals.Connection.Insert(medal);
+        //Globals.Connection.Insert(medal);
 
         Globals.Medals.Add(medal.Id, medal);
         MedalLogicManager.Add(medal);
 
-        Sorter.SortManager(Globals.Medals);
+        //Sorter.SortManager(Globals.Medals);
         MedalLogicManager.SetupMedalsByTierAndMult(Sorter.medals_by_tier);
 
         CloseCreateMedalUI();

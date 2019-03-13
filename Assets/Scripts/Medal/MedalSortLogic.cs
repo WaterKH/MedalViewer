@@ -10,17 +10,18 @@ public class MedalSortLogic : MonoBehaviour {
 	public Dictionary<int, List<Medal>> medals_by_tier = new Dictionary<int, List<Medal>>();
 
 	// TODO Call all the combination of settings on each separate coroutine and generate those lists
-	public void SortManager(Dictionary<string, Medal> medals)
+	public void SortManager(Dictionary<int, Medal> medals)
 	{
 		if(!Globals.MultiplierFilter.SliderParent.isOn && !Globals.TierFilter.ToggleParent.isOn)
 		{
 		    medals_by_tier.Clear();
 
-            var medalByTier = Globals.MedalsTable.Where(x => Globals.TierFilter.ToggleChildrenActivated.Contains(x.Tier));
-		    //var list = medalByTier.ToList();
-            var medalByMultAndTier = medalByTier.ToList().Where(x => CompareGuilt(x)).OrderBy(x => x.Tier);
+            //var medalByTier = Globals.MedalsTable.Where(x => Globals.TierFilter.ToggleChildrenActivated.Contains(x.Tier));
+            //var list = medalByTier.ToList();
+            //var medalByMultAndTier = medalByTier.ToList().Where(x => CompareGuilt(x)).OrderBy(x => x.Tier);
+            var medalByMultTier = Globals.Medals.Values.ToList();
 
-            foreach (var medal in medalByMultAndTier)
+            foreach (var medal in medalByMultTier)
             {
                 if (!medals_by_tier.ContainsKey(medal.Tier))
                 {
@@ -28,7 +29,7 @@ public class MedalSortLogic : MonoBehaviour {
                 }
                 medals_by_tier[medal.Tier].Add(medal);
             }
-		}
+        }
 	}
 
     public bool CompareGuilt(Medal medal)

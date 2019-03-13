@@ -7,31 +7,31 @@ using UnityEngine;
 
     public class MedalFilter : MonoBehaviour
     {
-    #region PSMUR
+        #region PSMUR
 
-    public bool Power = false;
-        public bool Speed = false;
-    public bool Magic = false;
-    public bool Upright = false;
-    public bool Reversed = false;
+        public bool Power { get; set; }
+        public bool Speed { get; set; }
+        public bool Magic { get; set; }
+        public bool Upright { get; set; }
+        public bool Reversed { get; set; }
 
-    #endregion
+        #endregion
 
-    #region Star
+        #region Star
 
-    public bool OneStar = false;
-    public bool TwoStar = false;
-    public bool ThreeStar = false;
-    public bool FourStar = false;
-    public bool FiveStar = false;
-    public bool SixStar = false;
-    public bool SevenStar = false;
+        public bool OneStar { get; set; }
+        public bool TwoStar { get; set; }
+        public bool ThreeStar { get; set; }
+        public bool FourStar { get; set; }
+        public bool FiveStar { get; set; }
+        public bool SixStar { get; set; }
+        public bool SevenStar { get; set; }
 
-    #endregion
+        #endregion
 
-    #region Type
+        #region Type
 
-    public bool Attack { get; set; }
+        public bool Attack { get; set; }
         public bool EXP { get; set; }
         public bool Boost { get; set; }
         public bool Cost { get; set; }
@@ -42,54 +42,54 @@ using UnityEngine;
 
         #region Tier
 
-        public bool Tier1 = false;
-    public bool Tier2 = false;
-    public bool Tier3 = false;
-    public bool Tier4 = false;
-    public bool Tier5 = false;
-    public bool Tier6 = false;
-    public bool Tier7 = false;
-    public bool Tier8 = false;
-    public bool Tier9 = false;
+        public bool Tier1 { get; set; }
+        public bool Tier2 { get; set; }
+        public bool Tier3 { get; set; }
+        public bool Tier4 { get; set; }
+        public bool Tier5 { get; set; }
+        public bool Tier6 { get; set; }
+        public bool Tier7 { get; set; }
+        public bool Tier8 { get; set; }
+        public bool Tier9 { get; set; }
 
-    #endregion
+        #endregion
 
-    #region Target
+        #region Target
 
-    public bool Single = false;
-    public bool All = false;
-    public bool Random = false;
+        public bool Single { get; set; }
+        public bool All { get; set; }
+        public bool Random { get; set; }
 
-    #endregion
+        #endregion
 
-    // TODO Add more filters, but will need to rework the database if we want to filter by Boosts/Saps/Heals/ Etc
-    #region Boosts & Saps
+        // TODO Add more filters, but will need to rework the database if we want to filter by Boosts/Saps/Heals/ Etc
+        #region Boosts & Saps
 
-    public bool GeneralAttackBoost = false;
-    public bool PowerAttackBoost = false;
-    public bool SpeedAttackBoost = false;
-    public bool MagicAttackBoost = false;
-    public bool UprightAttackBoost = false;
-    public bool ReversedAttackBoost = false;
-    public bool GeneralAttackSap = false;
-    public bool PowerAttackSap = false;
-    public bool SpeedAttackSap = false;
-    public bool MagicAttackSap = false;
-    public bool GeneralDefenseBoost = false;
-    public bool PowerDefenseBoost = false;
-    public bool SpeedDefenseBoost = false;
-    public bool MagicDefenseBoost = false;
-    public bool GeneralDefenseSap = false;
-    public bool PowerDefenseSap = false;
-    public bool SpeedDefenseSap = false;
-    public bool MagicDefenseSap = false;
-    public bool UprightDefenseSap = false;
-    public bool ReversedDefenseSap = false;
+        public bool GeneralAttackBoost { get; set; }
+        public bool PowerAttackBoost { get; set; }
+        public bool SpeedAttackBoost { get; set; }
+        public bool MagicAttackBoost { get; set; }
+        public bool UprightAttackBoost { get; set; }
+        public bool ReversedAttackBoost { get; set; }
+        public bool GeneralAttackSap { get; set; }
+        public bool PowerAttackSap { get; set; }
+        public bool SpeedAttackSap { get; set; }
+        public bool MagicAttackSap { get; set; }
+        public bool GeneralDefenseBoost { get; set; }
+        public bool PowerDefenseBoost { get; set; }
+        public bool SpeedDefenseBoost { get; set; }
+        public bool MagicDefenseBoost { get; set; }
+        public bool GeneralDefenseSap { get; set; }
+        public bool PowerDefenseSap { get; set; }
+        public bool SpeedDefenseSap { get; set; }
+        public bool MagicDefenseSap { get; set; }
+        public bool UprightDefenseSap { get; set; }
+        public bool ReversedDefenseSap { get; set; }
 
-    #endregion
+        #endregion
 
 
-    public void GenerateFilterQuery()
+        public string GenerateFilterQuery()
         {
             var query = "Select * From Medal Where ";
 
@@ -213,8 +213,8 @@ using UnityEngine;
 
             if(checkResult == "Where" || checkResult == "AND")
                 query = query.Substring(0, query.Length - checkResult.Length - 1);
-        Debug.Log(checkResult);
-        Debug.Log(query);
-            //return query;
+            Debug.Log(checkResult);
+            Debug.Log(query);
+            return query;
         }
     }

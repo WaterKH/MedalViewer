@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Medal {
 
-    public string Id { get; set; }
+    public int Id { get; set; }
 	public string Name { get; set; }
     public string ImageURL { get; set; }
     public int Star { get; set; }

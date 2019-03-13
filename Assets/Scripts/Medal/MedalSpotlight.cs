@@ -4,25 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class MedalSpotlight : MonoBehaviour {
+namespace MedalViewer.Medal
+{
+    public class MedalSpotlight : MonoBehaviour
+    {
 
-	public MedalSpotlightDisplayManager medalSpotlightDisplayManager;
-	//MedalLogic medalLogic;
+        public MedalSpotlightDisplayManager medalSpotlightDisplayManager;
+        //MedalLogic medalLogic;
 
-	// Use this for initialization
-	void Start () 
-	{
-		medalSpotlightDisplayManager = GameObject.FindGameObjectWithTag("MedalHighlight").GetComponent<MedalSpotlightDisplayManager>();
-		//medalLogic = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalLogic>();
-	}
+        // Use this for initialization
+        void Start()
+        {
+            medalSpotlightDisplayManager = GameObject.FindGameObjectWithTag("MedalHighlight").GetComponent<MedalSpotlightDisplayManager>();
+            //medalLogic = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalLogic>();
+        }
 
-	public void HandleDisplay()
-	{
-		medalSpotlightDisplayManager.HandleDisplay(gameObject);
-	}
+        public void HandleDisplay()
+        {
+            medalSpotlightDisplayManager.HandleDisplay(gameObject);
+        }
 
-	public void DisplayCurrentMedal()
-	{
-		medalSpotlightDisplayManager.Display(gameObject);
-	}
+        public void DisplayCurrentMedal()
+        {
+            medalSpotlightDisplayManager.Display(gameObject);
+        }
+    }
 }

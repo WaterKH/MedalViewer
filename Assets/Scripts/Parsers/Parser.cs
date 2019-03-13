@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System;
+using MedalViewer.Medal;
 
 public class Parser {
 
@@ -15,27 +16,29 @@ public class Parser {
 
     public float ParseGuilt(Medal medal)
 	{
-		float guilt_float = 0.0f;
+		float guiltFloat = 0.0f;
 
 	    try
 	    {   
 	        if (medal.Star == 6 || medal.Star == 7)
 	        {
-	            if (medal.GuiltMultiplier.Length != 0)
-	            {
+                //if (medal.GuiltMultiplier.Length != 0)
+                //{
 
-	                if (medal.GuiltMultiplier.Split('-').Length == 1)
-	                {
-	                    if (medal.GuiltMultiplier.Substring(1).Length > 1)
-	                    {
-	                        guilt_float = float.Parse(float.Parse(medal.GuiltMultiplier.Substring(1)).ToString("0.00"));
-	                    }
-	                }
-	                else
-	                {
-	                    guilt_float = float.Parse(float.Parse(medal.GuiltMultiplier.Split('-')[1]).ToString("0.00"));
-	                }
-	            }
+                //    if (medal.GuiltMultiplier.Split('-').Length == 1)
+                //    {
+                //        if (medal.GuiltMultiplier.Substring(1).Length > 1)
+                //        {
+                //            guilt_float = float.Parse(float.Parse(medal.GuiltMultiplier.Substring(1)).ToString("0.00"));
+                //        }
+                //    }
+                //    else
+                //    {
+                //        guilt_float = float.Parse(float.Parse(medal.GuiltMultiplier.Split('-')[1]).ToString("0.00"));
+                //    }
+                //}
+
+                guiltFloat = medal.GuiltMultiplierHigh != "" ? float.Parse(medal.GuiltMultiplierHigh) : medal.GuiltMultiplierLow != "" ? float.Parse(medal.GuiltMultiplierLow) : 0.0f;
 	        }
 	    }
 	    catch (Exception e)
@@ -44,7 +47,7 @@ public class Parser {
 	        Console.WriteLine(e);
 	    }
 
-	    return guilt_float;
+	    return guiltFloat;
 	}
 
     public float ParseGuilt(string guiltFloat)

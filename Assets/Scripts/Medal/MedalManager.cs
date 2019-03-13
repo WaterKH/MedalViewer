@@ -7,100 +7,133 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System;
 
-public class MedalManager : MonoBehaviour {
-
-    //public Dictionary<int, Medal> medals = new Dictionary<int, Medal>();
-
-    private readonly string connectionString = "Server=tcp:medalviewer.database.windows.net,1433;Initial Catalog=medalviewer;Persist Security Info=False;User ID=MedalViewer;Password=Password1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";//ConfigurationManager.ConnectionStrings["MedalViewerConnectionString"].ConnectionString;
-                                                  //private SQLiteConnection connection;
-
-    public MedalFilter MedalFilter;
-
-    public async Task GetMedals(MedalFilter medalFilter)
+namespace MedalViewer.Medal
+{
+    public class MedalManager : MonoBehaviour
     {
-        using (SqlConnection conn = new SqlConnection(connectionString))
-        {
-            var commandString = medalFilter.GenerateFilterQuery();
-            //Debug.Log(commandString);
+        public MedalFilter MedalFilter;
 
-            using (SqlCommand command = new SqlCommand(commandString, conn))
+        public MedalLogicManager MedalLogicManager;
+
+        //public Dictionary<int, Medal> medals = new Dictionary<int, Medal>();
+        private readonly string connectionString = "Server=tcp:medalviewer.database.windows.net,1433;Initial Catalog=medalviewer;Persist Security Info=False;User ID=MedalViewer;Password=Password1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        
+        void Awake()
+        {
+            // TODO Do we want this to be the only point of entry??
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            #region Retrieve Medals from Database
+
+            MedalFilter.DefaultFilters();
+
+            GetMedals(MedalFilter);
+
+            #endregion
+
+            #region Display Medals
+
+            MedalLogicManager.Initialize();
+
+            #endregion
+        }
+        
+        public void GetMedals(MedalFilter medalFilter)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                await conn.OpenAsync();
-                using (SqlDataReader reader = (await command.ExecuteReaderAsync()))
+                var commandString = medalFilter.GenerateFilterQuery();
+                Debug.Log(commandString);
+                using (SqlCommand command = new SqlCommand(commandString, conn))
                 {
-                    //Debug.Log("Test");
-                    while (await reader.ReadAsync())
+                    conn.Open();
+                    using (SqlDataReader reader = (command.ExecuteReader()))
                     {
-                        var medal = new Medal
+                        Debug.Log("Test");
+                        while (reader.Read())
                         {
-                            Id = Convert.IsDBNull(reader[0]) ? -1 : reader.GetInt32(0),
-                            Name = Convert.IsDBNull(reader[1]) ? "" : reader.GetString(1),
-                            ImageURL = Convert.IsDBNull(reader[2]) ? "" : reader.GetString(2),
-                            Star = Convert.IsDBNull(reader[3]) ? 0 : reader.GetInt32(3),
-                            Class = Convert.IsDBNull(reader[4]) ? "" : reader.GetString(4),
-                            Type = Convert.IsDBNull(reader[5]) ? "" : reader.GetString(5),
-                            Attribute_PSM = Convert.IsDBNull(reader[6]) ? "" : reader.GetString(6),
-                            Attribute_UR = Convert.IsDBNull(reader[7]) ? "" : reader.GetString(7),
-                            Discriminator = Convert.IsDBNull(reader[8]) ? "" : reader.GetString(8),
-                            BaseAttack = Convert.IsDBNull(reader[9]) ? 0 : reader.GetInt32(9),
-                            MaxAttack = Convert.IsDBNull(reader[10]) ? 0 : reader.GetInt32(10),
-                            BaseDefense = Convert.IsDBNull(reader[11]) ? 0 : reader.GetInt32(11),
-                            MaxDefense = Convert.IsDBNull(reader[12]) ? 0 : reader.GetInt32(12),
-                            TraitSlots = Convert.IsDBNull(reader[13]) ? 0 : reader.GetInt32(13),
-                            BasePetPoints = Convert.IsDBNull(reader[14]) ? 0 : reader.GetInt32(14),
-                            MaxPetPoints = Convert.IsDBNull(reader[15]) ? 0 : reader.GetInt32(15),
-                            Ability = Convert.IsDBNull(reader[16]) ? "" : reader.GetString(16),
-                            AbilityDescription = Convert.IsDBNull(reader[17]) ? "" : reader.GetString(17),
-                            Target = Convert.IsDBNull(reader[18]) ? "" : reader.GetString(18),
-                            Gauge = Convert.IsDBNull(reader[19]) ? 0 : reader.GetInt32(19),
-                            BaseMultiplier = Convert.IsDBNull(reader[20]) ? "" : reader.GetString(20),
-                            MaxMultiplier = Convert.IsDBNull(reader[21]) ? "" : reader.GetString(21),
-                            GuiltMultiplier = Convert.IsDBNull(reader[22]) ? "" : reader.GetString(22),
-                            SubslotMultiplier = Convert.IsDBNull(reader[23]) ? "" : reader.GetString(23),
-                            Tier = Convert.IsDBNull(reader[24]) ? 0 : reader.GetInt32(24),
-                            SupernovaName = Convert.IsDBNull(reader[25]) ? "" : reader.GetString(25),
-                            SupernovaDescription = Convert.IsDBNull(reader[26]) ? "" : reader.GetString(26),
-                            SupernovaDamage = Convert.IsDBNull(reader[27]) ? "" : reader.GetString(27),
-                            SupernovaTarget = Convert.IsDBNull(reader[28]) ? "" : reader.GetString(28),
-                            Effect = Convert.IsDBNull(reader[29]) ? "" : reader.GetString(29),
-                            Effect_Description = Convert.IsDBNull(reader[30]) ? "" : reader.GetString(30)
-                        };
-                        //Debug.Log(medal.Id + " " + medal.Name);
-                        Globals.Medals.Add(medal.Id, medal);
+                            //var Id = reader[0] == DBNull.Value ? -1 : reader.GetInt32(0);
+                            //var Name = reader[1] == DBNull.Value ? "" : reader.GetString(1);
+                            //var ImageURL = reader[2] == DBNull.Value ? "" : reader.GetString(2);
+                            //var Star = reader[3] == DBNull.Value ? 0 : reader.GetInt32(3);
+                            //var Class = reader[4] == DBNull.Value ? "" : reader.GetString(4);
+                            //var Type = reader[5] == DBNull.Value ? "" : reader.GetString(5);
+                            //var Attribute_PSM = reader[6] == DBNull.Value ? "" : reader.GetString(6);
+                            //var Attribute_UR = reader[7] == DBNull.Value ? "" : reader.GetString(7);
+                            //var Discriminator = reader[8] == DBNull.Value ? "" : reader.GetString(8);
+                            //var BaseAttack = reader[9] == DBNull.Value ? 0 : reader.GetInt32(9);
+                            //var MaxAttack = reader[10] == DBNull.Value ? 0 : reader.GetInt32(10);
+                            //var BaseDefense = reader[11] == DBNull.Value ? 0 : reader.GetInt32(11);
+                            //var MaxDefense = reader[12] == DBNull.Value ? 0 : reader.GetInt32(12);
+                            //var TraitSlots = reader[13] == DBNull.Value ? 0 : reader.GetInt32(13);
+                            //var BasePetPoints = reader[14] == DBNull.Value ? 0 : reader.GetInt32(14);
+                            //var MaxPetPoints = reader[15] == DBNull.Value ? 0 : reader.GetInt32(15);
+                            //var Ability = reader[16] == DBNull.Value ? "" : reader.GetString(16);
+                            //var AbilityDescription = reader[17] == DBNull.Value ? "" : reader.GetString(17);
+                            //var Target = reader[18] == DBNull.Value ? "" : reader.GetString(18);
+                            //var Gauge = reader[19] == DBNull.Value ? 0 : reader.GetInt32(19);
+                            //var BaseMultiplierLow = reader[20] == DBNull.Value ? "" : reader.GetString(20);
+                            //    var BaseMultiplierHigh = reader[21] == DBNull.Value ? "" : reader.GetString(20),
+                            //    var MaxMultiplierLow = reader[22] == DBNull.Value ? "" : reader.GetString(21),
+                            //    var MaxMultiplierHigh = reader[23] == DBNull.Value ? "" : reader.GetString(21),
+                            //    var GuiltMultiplierLow = reader[24] == DBNull.Value ? "" : reader.GetString(22),
+                            //    var GuiltMultiplierHigh = reader[25] == DBNull.Value ? "" : reader.GetString(22),
+                            //    var SubslotMultiplier = reader[26] == DBNull.Value ? "" : reader.GetString(23),
+                            //    var Tier = reader[27] == DBNull.Value ? 0 : reader.GetInt32(24),
+                            //    var SupernovaName = reader[28] == DBNull.Value ? "" : reader.GetString(25),
+                            //    var SupernovaDescription = reader[29] == DBNull.Value ? "" : reader.GetString(26),
+                            //    var SupernovaDamage = reader[30] == DBNull.Value ? "" : reader.GetString(27),
+                            //    var SupernovaTarget = reader[31] == DBNull.Value ? "" : reader.GetString(28),
+                            //    var Effect = reader[32] == DBNull.Value ? "" : reader.GetString(29),
+                            //    var Effect_Description = reader[33] == DBNull.Value ? "" : reader.GetString(30)
+
+                            var medal = new Medal
+                            {
+                                Id = reader[0] == DBNull.Value ? -1 : reader.GetInt32(0),
+                                Name = reader[1] == DBNull.Value ? "" : reader.GetString(1),
+                                ImageURL = reader[2] == DBNull.Value ? "" : reader.GetString(2),
+                                Star = reader[3] == DBNull.Value ? 0 : reader.GetInt32(3),
+                                Class = reader[4] == DBNull.Value ? "" : reader.GetString(4),
+                                Type = reader[5] == DBNull.Value ? "" : reader.GetString(5),
+                                Attribute_PSM = reader[6] == DBNull.Value ? "" : reader.GetString(6),
+                                Attribute_UR = reader[7] == DBNull.Value ? "" : reader.GetString(7),
+                                Discriminator = reader[8] == DBNull.Value ? "" : reader.GetString(8),
+                                BaseAttack = reader[9] == DBNull.Value ? 0 : reader.GetInt32(9),
+                                MaxAttack = reader[10] == DBNull.Value ? 0 : reader.GetInt32(10),
+                                BaseDefense = reader[11] == DBNull.Value ? 0 : reader.GetInt32(11),
+                                MaxDefense = reader[12] == DBNull.Value ? 0 : reader.GetInt32(12),
+                                TraitSlots = reader[13] == DBNull.Value ? 0 : reader.GetInt32(13),
+                                BasePetPoints = reader[14] == DBNull.Value ? 0 : reader.GetInt32(14),
+                                MaxPetPoints = reader[15] == DBNull.Value ? 0 : reader.GetInt32(15),
+                                Ability = reader[16] == DBNull.Value ? "" : reader.GetString(16),
+                                AbilityDescription = reader[17] == DBNull.Value ? "" : reader.GetString(17),
+                                Target = reader[18] == DBNull.Value ? "" : reader.GetString(18),
+                                Gauge = reader[19] == DBNull.Value ? 0 : reader.GetInt32(19),
+                                BaseMultiplierLow = reader[20] == DBNull.Value ? "" : reader.GetString(20),
+                                BaseMultiplierHigh = reader[21] == DBNull.Value ? "" : reader.GetString(21),
+                                MaxMultiplierLow = reader[22] == DBNull.Value ? "" : reader.GetString(22),
+                                MaxMultiplierHigh = reader[23] == DBNull.Value ? "" : reader.GetString(23),
+                                GuiltMultiplierLow = reader[24] == DBNull.Value ? "" : reader.GetString(24),
+                                GuiltMultiplierHigh = reader[25] == DBNull.Value ? "" : reader.GetString(25),
+                                SubslotMultiplier = reader[26] == DBNull.Value ? "" : reader.GetString(26),
+                                Tier = reader[27] == DBNull.Value ? 0 : reader.GetInt32(27),
+                                SupernovaName = reader[28] == DBNull.Value ? "" : reader.GetString(28),
+                                SupernovaDescription = reader[29] == DBNull.Value ? "" : reader.GetString(29),
+                                SupernovaDamage = reader[30] == DBNull.Value ? "" : reader.GetString(30),
+                                SupernovaTarget = reader[31] == DBNull.Value ? "" : reader.GetString(31),
+                                Effect = reader[32] == DBNull.Value ? "" : reader.GetString(32),
+                                Effect_Description = reader[33] == DBNull.Value ? "" : reader.GetString(33)
+                            };
+                            //Debug.Log(medal.Id + " " + medal.Name);
+                            Globals.Medals.Add(medal.Id, medal);
+                        }
                     }
                 }
             }
         }
-    }
 
-    public void DefaultFilters()
-    {
-        MedalFilter.Power = true;
-        MedalFilter.Speed = true;
-        MedalFilter.Magic = true;
-        MedalFilter.Reversed = true;
-        MedalFilter.Upright = true;
-
-        MedalFilter.SixStar = true;
-        MedalFilter.SevenStar = true;
-
-        MedalFilter.Attack = true;
-
-        MedalFilter.Tier5 = true;
-        MedalFilter.Tier6 = true;
-        MedalFilter.Tier7 = true;
-        MedalFilter.Tier8 = true;
-        MedalFilter.Tier9 = true;
-
-        MedalFilter.Single = true;
-        MedalFilter.All = true;
-        MedalFilter.Random = true;
-    }
-
-    void Awake () 
-	{
-        DefaultFilters();
-
-        Task.Run(() => GetMedals(MedalFilter));
     }
 }

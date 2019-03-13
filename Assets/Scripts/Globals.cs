@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SQLite4Unity3d;
+using MedalViewer.Medal;
 
 public static class Globals
 {

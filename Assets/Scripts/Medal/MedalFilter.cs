@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+namespace MedalViewer.Medal
+{
+
     public class MedalFilter : MonoBehaviour
     {
         #region PSMUR
@@ -62,6 +65,13 @@ using UnityEngine;
 
         #endregion
 
+        #region Range
+
+        public int LowRange { get; set; }
+        public int HighRange { get; set; }
+
+        #endregion
+
         // TODO Add more filters, but will need to rework the database if we want to filter by Boosts/Saps/Heals/ Etc
         #region Boosts & Saps
 
@@ -87,7 +97,33 @@ using UnityEngine;
         public bool ReversedDefenseSap { get; set; }
 
         #endregion
+        
+        public void DefaultFilters()
+        {
+            Power = true;
+            Speed = true;
+            Magic = true;
+            Reversed = true;
+            Upright = true;
 
+            SixStar = true;
+            SevenStar = true;
+
+            Attack = true;
+
+            Tier5 = true;
+            Tier6 = true;
+            Tier7 = true;
+            Tier8 = true;
+            Tier9 = true;
+
+            Single = true;
+            All = true;
+            Random = true;
+
+            LowRange = 30;
+            HighRange = 55;
+        }
 
         public string GenerateFilterQuery()
         {
@@ -98,7 +134,7 @@ using UnityEngine;
             if (Power)
                 psm += @" AttributePSM = 'Power'";
 
-            if(Speed)
+            if (Speed)
                 psm += string.IsNullOrEmpty(psm) ? @" AttributePSM = 'Speed'" : @" OR AttributePSM = 'Speed'";
 
             if (Magic)
@@ -118,9 +154,9 @@ using UnityEngine;
 
             var star = "";
             #region Star
-            if(OneStar)
+            if (OneStar)
                 star += @" Star = 1";
-            
+
             if (TwoStar)
                 star += string.IsNullOrEmpty(star) ? @" Star = 2" : @" OR Star = 2";
 
@@ -176,7 +212,7 @@ using UnityEngine;
 
             if (Tier4)
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 4" : @" OR Tier = 4";
-            
+
             if (Tier5)
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 5" : @" OR Tier = 5";
 
@@ -211,10 +247,11 @@ using UnityEngine;
             var querySplit = query.Split(' ');
             var checkResult = querySplit[querySplit.Length - 2];
 
-            if(checkResult == "Where" || checkResult == "AND")
+            if (checkResult == "Where" || checkResult == "AND")
                 query = query.Substring(0, query.Length - checkResult.Length - 1);
             Debug.Log(checkResult);
             Debug.Log(query);
             return query;
         }
     }
+}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2124,7 +2124,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015767207, y: 0.13949543}
   m_AnchorMax: {x: 0.4004069, y: 1}
-  m_AnchoredPosition: {x: -0.099998474, y: 1.3800001}
+  m_AnchoredPosition: {x: -0.1000061, y: 1.3800001}
   m_SizeDelta: {x: 0.029999971, y: 1.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &78197085
@@ -39566,7 +39566,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.034, y: 0.5}
   m_AnchorMax: {x: 0.955811, y: 0.9163392}
-  m_AnchoredPosition: {x: -0.21772766, y: 0.2914276}
+  m_AnchoredPosition: {x: -0.2177124, y: 0.2914276}
   m_SizeDelta: {x: -0.4093628, y: 0.5658455}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1091553409
@@ -47007,32 +47007,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a4f750e0e0f844c8c7dd46c93d95fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CreateMedalUIGroup: {fileID: 1077086979}
-  MedalLogicManager: {fileID: 2073629951}
-  Sorter: {fileID: 2073629956}
-  MedalUploader: {fileID: 844798547}
-  BaseDefense: {fileID: 1151322712}
-  MaxDefense: {fileID: 1310432918}
-  BaseAttack: {fileID: 2009932469}
-  MaxAttack: {fileID: 380974428}
-  Id: {fileID: 724712989}
-  Name: {fileID: 917334502}
-  Ability: {fileID: 336450263}
-  AbilityDescription: {fileID: 1420426167}
-  SupernovaDescription: {fileID: 931446696}
-  BaseMult: {fileID: 1622097349}
-  MaxMult: {fileID: 1434400987}
-  GuiltMult: {fileID: 1045746549}
-  SubSlotMult: {fileID: 2093197515}
-  BasePetPoints: {fileID: 1217819930}
-  MaxPetPoints: {fileID: 539088308}
-  TraitSlots: {fileID: 22911704}
-  Target: {fileID: 22911704}
-  Gauge: {fileID: 856049155}
-  Tier: {fileID: 446210697}
-  AttrPSM: {fileID: 903433860}
-  AttrUR: {fileID: 270573283}
-  Star: {fileID: 1886444955}
 --- !u!1 &1294498022
 GameObject:
   m_ObjectHideFlags: 0
@@ -56484,50 +56458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb0d89311518134d8740e63b11171a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Power: 0
-  Speed: 0
-  Magic: 0
-  Upright: 0
-  Reversed: 0
-  OneStar: 0
-  TwoStar: 0
-  ThreeStar: 0
-  FourStar: 0
-  FiveStar: 0
-  SixStar: 0
-  SevenStar: 0
-  Tier1: 0
-  Tier2: 0
-  Tier3: 0
-  Tier4: 0
-  Tier5: 0
-  Tier6: 0
-  Tier7: 0
-  Tier8: 0
-  Tier9: 0
-  Single: 0
-  All: 0
-  Random: 0
-  GeneralAttackBoost: 0
-  PowerAttackBoost: 0
-  SpeedAttackBoost: 0
-  MagicAttackBoost: 0
-  UprightAttackBoost: 0
-  ReversedAttackBoost: 0
-  GeneralAttackSap: 0
-  PowerAttackSap: 0
-  SpeedAttackSap: 0
-  MagicAttackSap: 0
-  GeneralDefenseBoost: 0
-  PowerDefenseBoost: 0
-  SpeedDefenseBoost: 0
-  MagicDefenseBoost: 0
-  GeneralDefenseSap: 0
-  PowerDefenseSap: 0
-  SpeedDefenseSap: 0
-  MagicDefenseSap: 0
-  UprightDefenseSap: 0
-  ReversedDefenseSap: 0
 --- !u!114 &1548058815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73012,6 +72942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MedalFilter: {fileID: 2073629958}
+  MedalLogicManager: {fileID: 2073629951}
 --- !u!4 &2073629953
 Transform:
   m_ObjectHideFlags: 0
@@ -73101,50 +73032,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb0d89311518134d8740e63b11171a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Power: 0
-  Speed: 0
-  Magic: 0
-  Upright: 0
-  Reversed: 0
-  OneStar: 0
-  TwoStar: 0
-  ThreeStar: 0
-  FourStar: 0
-  FiveStar: 0
-  SixStar: 0
-  SevenStar: 0
-  Tier1: 0
-  Tier2: 0
-  Tier3: 0
-  Tier4: 0
-  Tier5: 0
-  Tier6: 0
-  Tier7: 0
-  Tier8: 0
-  Tier9: 0
-  Single: 0
-  All: 0
-  Random: 0
-  GeneralAttackBoost: 0
-  PowerAttackBoost: 0
-  SpeedAttackBoost: 0
-  MagicAttackBoost: 0
-  UprightAttackBoost: 0
-  ReversedAttackBoost: 0
-  GeneralAttackSap: 0
-  PowerAttackSap: 0
-  SpeedAttackSap: 0
-  MagicAttackSap: 0
-  GeneralDefenseBoost: 0
-  PowerDefenseBoost: 0
-  SpeedDefenseBoost: 0
-  MagicDefenseBoost: 0
-  GeneralDefenseSap: 0
-  PowerDefenseSap: 0
-  SpeedDefenseSap: 0
-  MagicDefenseSap: 0
-  UprightDefenseSap: 0
-  ReversedDefenseSap: 0
 --- !u!114 &2073629959
 MonoBehaviour:
   m_ObjectHideFlags: 0

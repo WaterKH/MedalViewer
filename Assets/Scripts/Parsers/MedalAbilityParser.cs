@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedalViewer.Medal;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;

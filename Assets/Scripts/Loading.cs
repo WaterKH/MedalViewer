@@ -23,7 +23,7 @@ public class Loading : MonoBehaviour
     {
         while (IsLoading)
         {
-            print(IsLoading);
+            //print(IsLoading);
             int index = (int)(Time.time * framesPerSecond);
             index %= frames.Length;
             Image.texture = frames[index];

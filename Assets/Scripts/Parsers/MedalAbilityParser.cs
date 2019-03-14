@@ -258,11 +258,11 @@ public class MedalAbilityParser
 
         #region First Addition (If Not Null)
 
-        if (PSMUR_1 != null || StrDef_1 != null)
+        if (PSMUR_1 != "" || StrDef_1 != "")
         {
-            if(StrDef_1 == null)
+            if(StrDef_1 == "")
                 StrDef_1 = StrDef_2;
-            if (PSMUR_1 == null)
+            if (PSMUR_1 == "")
                 PSMUR_1 = "Normal";
             
             var medalCombatAbility_1 = new MedalCombatAbility()
@@ -281,8 +281,8 @@ public class MedalAbilityParser
 
         #region Second Addition (Should always add one)
 
-        if (PSMUR_2 == null)
-            PSMUR_2 = allAttributes != null ? "PSM" : "Normal";
+        if (PSMUR_2 == "")
+            PSMUR_2 = allAttributes != "" ? "PSM" : "Normal";
 
         var medalCombatAbility_2 = new MedalCombatAbility()
         {
@@ -315,7 +315,7 @@ public class MedalAbilityParser
         
         #region Medal Addition
 
-        if (PSMUR == null)
+        if (PSMUR == "")
             PSMUR = "Normal";
 
         var medalCombatAbility = new MedalCombatAbility()
@@ -348,8 +348,8 @@ public class MedalAbilityParser
             {
                 #region Vars
 
-                var target = result.Groups[1].Value ?? result.Groups[3].Value;
-                var direction = result.Groups[2].Value;
+                var target = result.Groups[1].Value != "" ? result.Groups[1].Value.Trim() : result.Groups[3].Value.Trim();
+                var direction = result.Groups[2].Value.Trim();
 
                 var PSMUR_1 = result.Groups[4].Value;
                 var StrDef_1 = result.Groups[5].Value;
@@ -360,7 +360,11 @@ public class MedalAbilityParser
                 var amount_2 = result.Groups[9].Value;
 
                 // If we have a number, parse it into direction and tier
-                if (direction.Length < 6 && direction != null)
+                if(directionPersist != "" && direction == "")
+                {
+                    direction = directionPersist;
+                }
+                else if (direction.Length < 6 && direction != "")
                 {
                     amount_1 = direction.Replace("-", "");
 
@@ -369,21 +373,21 @@ public class MedalAbilityParser
                     else
                         direction = "Lower";
                 }
-                else
-                {
-                    direction = directionPersist;
-                }
+                //else if(direction == "")
+                //{
+                //    direction = directionPersist;
+                //}
 
                 #endregion
 
                 #region First Medal Addition (If Not Null)
 
-                if (PSMUR_1 != null || StrDef_1 != null)
+                if (PSMUR_1 != "" || StrDef_1 != "")
                 {
-                    if (StrDef_1 == null)
+                    if (StrDef_1 == "")
                         StrDef_1 = StrDef_2;
 
-                    if (PSMUR_1 == null)
+                    if (PSMUR_1 == "")
                         PSMUR_1 = "Normal";
                     else if(PSMUR_1 == "DEF" || PSMUR_1 == "STR")
                     {
@@ -391,8 +395,8 @@ public class MedalAbilityParser
                         PSMUR_1 = "Normal";
                     }
 
-                    if (amount_1 == null)
-                        if (amount_2 != null)
+                    if (amount_1 == "")
+                        if (amount_2 != "")
                             amount_1 = amount_2;
                         else
                             amount_1 = amountPersist;
@@ -405,9 +409,6 @@ public class MedalAbilityParser
                         Duration = duration
                     };
 
-                    directionPersist = direction;
-                    amountPersist = amount_1;
-
                     // !! Medal Add Here !!
                     AddMedal(StrDef_1, medalCombatAbility_1, ability);
                 }
@@ -416,7 +417,7 @@ public class MedalAbilityParser
 
                 #region Second Medal Addition
 
-                if (PSMUR_2 == null)
+                if (PSMUR_2 == "")
                     PSMUR_2 = "Normal";
                 else if (PSMUR_2 == "DEF" || PSMUR_2 == "STR")
                 {
@@ -424,7 +425,7 @@ public class MedalAbilityParser
                     PSMUR_2 = "Normal";
                 }
 
-                if (amount_2 == null)
+                if (amount_2 == "")
                     amount_2 = amountPersist;
 
                 var medalCombatAbility_2 = new MedalCombatAbility()
@@ -439,6 +440,9 @@ public class MedalAbilityParser
                 AddMedal(StrDef_2, medalCombatAbility_2, ability);
 
                 #endregion
+                
+                directionPersist = direction;
+                amountPersist = amount_1;
             }
             else
             {

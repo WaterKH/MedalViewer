@@ -44,7 +44,7 @@ namespace MedalViewer.Medal
 
         public void Add(Medal medal)
         {
-            Debug.Log("Adding");
+            //Debug.Log("Adding");
             var medalGameObject = Instantiate(Resources.Load("Medal") as GameObject);
             var medalImage = medal.ImageURL;
 
@@ -90,16 +90,16 @@ namespace MedalViewer.Medal
 
             medalGameObject.transform.SetParent(medalHolderContent.transform);
 
-            Debug.Log("Finished Adding");
+            //Debug.Log("Finished Adding");
         }
 
         public void Initialize()
         {
             AllMedalDisplayObjects = new Dictionary<int, Dictionary<float, GameObject>>();
-            Debug.Log("MEDALS: " + Globals.Medals.Count);
+            //Debug.Log("MEDALS: " + Globals.Medals.Count);
             foreach (var kv in Globals.Medals)
             {
-                Debug.Log(kv.Value.Name);
+                //Debug.Log(kv.Value.Name);
                 var medal = kv.Value;
 
                 this.Add(medal);
@@ -119,6 +119,7 @@ namespace MedalViewer.Medal
 
             // DEFAULT
             SetupMedalsByTierAndMult(sortMedals.medals_by_tier);
+
         }
 
         // TODO Allow this to be for every thing, not just tier/ mult
@@ -169,12 +170,12 @@ namespace MedalViewer.Medal
 
         private IEnumerator LoadImage(string imageUrl, GameObject medalObject)
         {
-            Debug.Log(imageUrl);
-            yield return 0;
+            //Debug.Log(imageUrl);
+            //yield return 0;
             UnityWebRequest image = UnityWebRequestTexture.GetTexture(imageUrl);
             yield return image.SendWebRequest();
             if (image.isNetworkError || image.isHttpError)
-                Debug.Log(image.error);
+                Debug.Log(imageUrl + " " + image.error);
             else
                 medalObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)image.downloadHandler).texture;
         }

@@ -13,6 +13,7 @@ namespace MedalViewer.Medal
         //public MedalCreator medalCreator;
         public TraitManager TraitManager;
         MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
+        public Loading Loading;
 
         public CanvasGroup MedalHighlight;
 
@@ -150,6 +151,7 @@ namespace MedalViewer.Medal
 
         public void Display(GameObject medalObject)
         {
+            Loading.StartLoading();
             //MedalCycleLogic.Instance.StopCycleMedals();
             Reset();
 
@@ -198,6 +200,8 @@ namespace MedalViewer.Medal
             //{
             //	HideSublistOfMedals();
             //}
+
+            Loading.FinishLoading();
         }
 
         #region Assign Attributes
@@ -739,18 +743,21 @@ namespace MedalViewer.Medal
 
         private readonly string url = "https://medalviewer.blob.core.windows.net/images/";
 
-        private IEnumerator LoadImage(string imageUrl, GameObject medalObject)
+        IEnumerator LoadImage(string imageUrl, GameObject medalObject)
         {
             Debug.Log(imageUrl);
-            yield return 0;
+            //yield return 0;
             UnityWebRequest image = UnityWebRequestTexture.GetTexture(imageUrl);
             yield return image.SendWebRequest();
             if (image.isNetworkError || image.isHttpError)
                 Debug.Log(image.error);
             else
+            {
                 medalObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)image.downloadHandler).texture;
-            
-            MedalPlaceholderShadow.texture = MedalPlaceholder.texture;
+
+                MedalPlaceholderShadow.texture = MedalPlaceholder.texture;
+                print("Finished");
+            }
         }
 
         void Update()
@@ -779,7 +786,7 @@ namespace MedalViewer.Medal
             {
                 elapsedTime += Time.deltaTime;
                 // If we haven't moved, we are at our initial position, else we are moving back
-                if (isDisplaying)
+                if (isDisplaying && !Loading.IsLoading)
                 {
                     MedalHighlight.alpha = Mathf.Lerp(MedalHighlight.alpha, 1, elapsedTime);
                     MedalHighlight.interactable = true;
@@ -791,7 +798,7 @@ namespace MedalViewer.Medal
                         isTransition = false;
                     }
                 }
-                else
+                else if(!Loading.IsLoading)
                 {
                     MedalHighlight.alpha = Mathf.Lerp(MedalHighlight.alpha, 0, elapsedTime);
                     MedalHighlight.interactable = false;

@@ -12,7 +12,7 @@ namespace MedalViewer.Medal
     public class MedalManager : MonoBehaviour
     {
         public MedalFilter MedalFilter;
-
+        public Loading Loading;
         public MedalLogicManager MedalLogicManager;
 
         //public Dictionary<int, Medal> medals = new Dictionary<int, Medal>();
@@ -26,6 +26,8 @@ namespace MedalViewer.Medal
 
         public void Initialize()
         {
+            Loading.StartLoading();
+
             #region Retrieve Medals from Database
 
             MedalFilter.DefaultFilters();
@@ -39,6 +41,8 @@ namespace MedalViewer.Medal
             MedalLogicManager.Initialize();
 
             #endregion
+
+            Loading.FinishLoading();
         }
         
         public void GetMedals(MedalFilter medalFilter)
@@ -46,13 +50,13 @@ namespace MedalViewer.Medal
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 var commandString = medalFilter.GenerateFilterQuery();
-                Debug.Log(commandString);
+                //Debug.Log(commandString);
                 using (SqlCommand command = new SqlCommand(commandString, conn))
                 {
                     conn.Open();
                     using (SqlDataReader reader = (command.ExecuteReader()))
                     {
-                        Debug.Log("Test");
+                        //Debug.Log("Test");
                         while (reader.Read())
                         {
                             //var Id = reader[0] == DBNull.Value ? -1 : reader.GetInt32(0);

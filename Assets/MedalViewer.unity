@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2124,7 +2124,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015767207, y: 0.13949543}
   m_AnchorMax: {x: 0.4004069, y: 1}
-  m_AnchoredPosition: {x: -0.1000061, y: 1.3800001}
+  m_AnchoredPosition: {x: -0.09989166, y: 1.3800001}
   m_SizeDelta: {x: 0.029999971, y: 1.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &78197085
@@ -16188,6 +16188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TraitManager: {fileID: 2073629960}
+  Loading: {fileID: 945104728}
   MedalHighlight: {fileID: 459432754}
   MedalName: {fileID: 1917615070}
   MedalPlaceholder: {fileID: 2130038908}
@@ -33956,7 +33957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9103744, y: 0.058000002}
   m_AnchorMax: {x: 0.9654996, y: 0.20168519}
-  m_AnchoredPosition: {x: 0, y: -0.27000046}
+  m_AnchoredPosition: {x: 0, y: -0.27001953}
   m_SizeDelta: {x: -1.5400009, y: -0.5400009}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &945104726
@@ -33979,7 +33980,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 175e92e19d4e28a49b4396b798835f90, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -34006,6 +34007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ce8f98c9cc1ae4f9ededbf16ab077a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadingGroup: {fileID: 1471547249}
   frames:
   - {fileID: 2800000, guid: 175e92e19d4e28a49b4396b798835f90, type: 3}
   - {fileID: 2800000, guid: 828e79c349e1fa441b61b0797fc94cc9, type: 3}
@@ -34068,6 +34070,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 582eaa074a9526d4089cab336b3fa126, type: 3}
   - {fileID: 2800000, guid: 6164fd743eb31224ea5c28c2162d3200, type: 3}
   Image: {fileID: 945104726}
+  IsLoading: 0
 --- !u!1 &947488224
 GameObject:
   m_ObjectHideFlags: 0
@@ -34304,7 +34307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03739164, y: 0.103252746}
   m_AnchorMax: {x: 0.95582515, y: 0.5}
-  m_AnchoredPosition: {x: -0.42193604, y: -0.581234}
+  m_AnchoredPosition: {x: -0.42193604, y: -0.5812378}
   m_SizeDelta: {x: 0.12466431, y: -0.16950226}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &949280516
@@ -49169,7 +49172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.149765, y: 0.14373836}
   m_AnchorMax: {x: 0.9266591, y: 0.85600007}
-  m_AnchoredPosition: {x: -0.17998886, y: -0.07999802}
+  m_AnchoredPosition: {x: -0.17999268, y: -0.07999802}
   m_SizeDelta: {x: 0.21000004, y: -0.15999985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1335885542
@@ -54278,6 +54281,7 @@ GameObject:
   - component: {fileID: 1471547246}
   - component: {fileID: 1471547248}
   - component: {fileID: 1471547247}
+  - component: {fileID: 1471547249}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -54342,6 +54346,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1471547245}
   m_CullTransparentMesh: 0
+--- !u!225 &1471547249
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471547245}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1474924147
 GameObject:
   m_ObjectHideFlags: 0
@@ -68068,6 +68084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TraitManager: {fileID: 2073629960}
+  Loading: {fileID: 0}
   MedalHighlight: {fileID: 1935925467}
   MedalName: {fileID: 0}
   MedalPlaceholder: {fileID: 1081239634}
@@ -73165,6 +73182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MedalFilter: {fileID: 2073629958}
+  Loading: {fileID: 945104728}
   MedalLogicManager: {fileID: 2073629951}
 --- !u!4 &2073629953
 Transform:

@@ -133,7 +133,7 @@ namespace MedalViewer.Medal
 
                 vert_children.Add(int.Parse(tempHolder[i].name), tempHolder[i]);
                 tempHolder[i].position = new Vector2(0.0f, yValue + yValueConstant);
-                print(tempHolder[i].name);
+                //print(tempHolder[i].name);
                 tempHolder[i].GetComponent<Text>().enabled = true;
                 yValue += yValueConstant;
             }

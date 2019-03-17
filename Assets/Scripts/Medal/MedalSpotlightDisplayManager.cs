@@ -149,8 +149,9 @@ namespace MedalViewer.Medal
             Reset();
         }
 
-        public void Display(GameObject medalObject)
+        public IEnumerator Display(GameObject medalObject)
         {
+            yield return null;
             Loading.StartLoading();
             //MedalCycleLogic.Instance.StopCycleMedals();
             Reset();
@@ -159,9 +160,6 @@ namespace MedalViewer.Medal
             MedalAbility medalAbility = new MedalAbility();
             //var medalAbilityID = 0;
 
-            isTransition = true;
-            isDisplaying = true;
-            elapsedTime = 0.0f;
 
             try
             {
@@ -180,17 +178,25 @@ namespace MedalViewer.Medal
 
             #region Display Assignment
 
-            this.AssignBase(medalObject, medalDisplay);
-            this.AssignTraits(medalDisplay);
+            //StartCoroutine(AssignBase(medalObject, medalDisplay));
+            //StartCoroutine(AssignTraits(medalDisplay));
+
+            AssignBase(medalObject, medalDisplay);
+            AssignTraits(medalDisplay);
 
             if (medalAbility != null)
             {
                 medalAbility.SetUpDisplayAbility();
 
-                this.AssignBoostsSaps(medalAbility);
-                this.AssignEffects(medalAbility);
+                //StartCoroutine(AssignBoostsSaps(medalAbility));
+                //StartCoroutine(AssignEffects(medalAbility));
 
-                this.AssignStats(medalDisplay, medalAbility);
+                //StartCoroutine(AssignStats(medalDisplay, medalAbility));
+
+                AssignBoostsSaps(medalAbility);
+                AssignEffects(medalAbility);
+
+                AssignStats(medalDisplay, medalAbility);
             }
 
 
@@ -200,14 +206,18 @@ namespace MedalViewer.Medal
             //{
             //	HideSublistOfMedals();
             //}
+            isTransition = true;
+            elapsedTime = 0.0f;
 
-            Loading.FinishLoading();
+            StartCoroutine(ShowDisplay());
+            //Loading.FinishLoading();
         }
 
         #region Assign Attributes
 
         public void AssignBase(GameObject medalObject, MedalDisplay medalDisplay)
         {
+            //yield return null;
             //MedalPlaceholder.texture = medalObject.GetComponent<RawImage>().texture;
             var imageUrl = url + medalDisplay.ImageURL;
             StartCoroutine(LoadImage(imageUrl, MedalPlaceholder.gameObject));
@@ -233,6 +243,7 @@ namespace MedalViewer.Medal
 
         public void AssignTraits(MedalDisplay medalDisplay)
         {
+            //yield return null;
             for (int i = 0; i < medalDisplay.TraitSlots; ++i)
             {
                 TraitSlots[i].enabled = true;
@@ -242,6 +253,7 @@ namespace MedalViewer.Medal
 
         public void AssignBoostsSaps(MedalAbility medalAbility)
         {
+            //yield return null;
             var strBoostCounter = 0;
             var defBoostCounter = 0;
             var strSapCounter = 0;
@@ -315,10 +327,12 @@ namespace MedalViewer.Medal
         public void AssignSkill()
         {
             // TODO If we save user medals, maybe pull from that database? But for right now, we don't need one
+            //yield return null;
         }
 
         public void AssignEffects(MedalAbility medalAbility)
         {
+            //yield return null;
             var effectCounter = 0;
 
             foreach (var effect in medalAbility.MiscImages)
@@ -336,6 +350,7 @@ namespace MedalViewer.Medal
 
         public void AssignStats(MedalDisplay medalDisplay, MedalAbility medalAbility)
         {
+            //yield return null;
             Multiplier.text = medalDisplay.BaseMultiplier.Split('-')[0];
             Defense.text = medalDisplay.MaxDefense.ToString();
             Strength.text = medalDisplay.MaxDefense.ToString();
@@ -548,10 +563,10 @@ namespace MedalViewer.Medal
                 effect.enabled = false;
             }
 
-            foreach (var effectText in EffectTexts)
-            {
-                effectText.text = "";
-            }
+            //foreach (var effectText in EffectTexts)
+            //{
+            //    effectText.text = "";
+            //}
 
             Effects.SetCanvasGroupInactive();
         }
@@ -562,14 +577,14 @@ namespace MedalViewer.Medal
             Defense.text = "";
             Strength.text = "";
 
-            BaseMultiplier.isOn = true;
-            MaxMultiplier.isOn = false;
-            MaxGuiltMultiplier.isOn = false;
-            Boosted.isOn = false;
+            //BaseMultiplier.isOn = true;
+            //MaxMultiplier.isOn = false;
+            //MaxGuiltMultiplier.isOn = false;
+            //Boosted.isOn = false;
 
-            GuiltSlider.value = 0;
-            GuiltSlider.minValue = 0;
-            GuiltSlider.maxValue = 1;
+            //GuiltSlider.value = 0;
+            //GuiltSlider.minValue = 0;
+            //GuiltSlider.maxValue = 1;
         }
 
         public void ResetCalculations()
@@ -596,7 +611,7 @@ namespace MedalViewer.Medal
             }
             else
             {
-                Display(clickedOn.transform.GetChild(0).gameObject);
+                StartCoroutine(Display(clickedOn.transform.GetChild(0).gameObject));
             }
         }
 
@@ -685,7 +700,9 @@ namespace MedalViewer.Medal
             isDisplaying = false;
             elapsedTime = 0.0f;
 
-            TraitManager.HideToolBox();
+            StartCoroutine(HideDisplay());
+
+            //TraitManager.HideToolBox();
 
             //Reset();
         }
@@ -758,12 +775,15 @@ namespace MedalViewer.Medal
                 MedalPlaceholderShadow.texture = MedalPlaceholder.texture;
                 print("Finished");
             }
+
+            Loading.FinishLoading();
         }
 
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                //print(isDisplaying);
                 if (/*MedalSublistGroup.alpha >= 0.0f ||*/ isDisplaying)
                 {
                     //if (!MedalCycleLogic.Instance.firstPass)
@@ -782,11 +802,16 @@ namespace MedalViewer.Medal
                 //MedalCycleLogic.Instance.CycleMedals();
             }
 
-            if (isTransition)
+
+        }
+
+        IEnumerator ShowDisplay()
+        {
+            while (isTransition)
             {
                 elapsedTime += Time.deltaTime;
-                // If we haven't moved, we are at our initial position, else we are moving back
-                if (isDisplaying && !Loading.IsLoading)
+
+                if (!Loading.IsLoading)
                 {
                     MedalHighlight.alpha = Mathf.Lerp(MedalHighlight.alpha, 1, elapsedTime);
                     MedalHighlight.interactable = true;
@@ -795,21 +820,33 @@ namespace MedalViewer.Medal
                     if (MedalHighlight.alpha >= 1.0f)
                     {
                         elapsedTime = 0.0f;
-                        isTransition = false;
-                    }
-                }
-                else if(!Loading.IsLoading)
-                {
-                    MedalHighlight.alpha = Mathf.Lerp(MedalHighlight.alpha, 0, elapsedTime);
-                    MedalHighlight.interactable = false;
-                    MedalHighlight.blocksRaycasts = false;
 
-                    if (MedalHighlight.alpha <= 0.0f)
-                    {
-                        elapsedTime = 0.0f;
+                        isDisplaying = true;
                         isTransition = false;
                     }
                 }
+                yield return null;
+            }
+        }
+
+        IEnumerator HideDisplay()
+        {
+            while (isTransition)
+            {
+                elapsedTime += Time.deltaTime;
+                //print(isTransition);
+                MedalHighlight.alpha = Mathf.Lerp(MedalHighlight.alpha, 0, elapsedTime);
+                MedalHighlight.interactable = false;
+                MedalHighlight.blocksRaycasts = false;
+
+                if (MedalHighlight.alpha <= 0.0f)
+                {
+                    elapsedTime = 0.0f;
+
+                    //isDisplaying = false;
+                    isTransition = false;
+                }
+                yield return null;
             }
         }
     }

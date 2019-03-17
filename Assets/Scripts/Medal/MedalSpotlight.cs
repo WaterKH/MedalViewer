@@ -26,7 +26,7 @@ namespace MedalViewer.Medal
 
         public void DisplayCurrentMedal()
         {
-            medalSpotlightDisplayManager.Display(gameObject);
+            StartCoroutine(medalSpotlightDisplayManager.Display(gameObject));
         }
     }
 }

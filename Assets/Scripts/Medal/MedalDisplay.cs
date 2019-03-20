@@ -31,7 +31,10 @@ namespace MedalViewer.Medal
         public string SubslotMultiplier;
 
         public bool IsSupernova;
+        public string SupernovaName;
         public string SupernovaDescription;
+        public string SupernovaDamage;
+        public string SupernovaTarget;
 
         public string Effect;
         public string Effect_Description;
@@ -99,10 +102,14 @@ namespace MedalViewer.Medal
                 Gauge = convertedMedal.Gauge;
                 GuiltMultiplier = convertedMedal.GuiltMultiplierHigh != "" ? $"x{convertedMedal.GuiltMultiplierLow} - {convertedMedal.GuiltMultiplierHigh}" : $"x{convertedMedal.GuiltMultiplierLow}";
                 Tier = convertedMedal.Tier;
-
-                if (!string.IsNullOrEmpty(SupernovaDescription))
+                
+                if (!string.IsNullOrEmpty(convertedMedal.SupernovaName))
                 {
                     IsSupernova = true;
+                    SupernovaName = convertedMedal.SupernovaName;
+                    SupernovaDescription = convertedMedal.SupernovaDescription;
+                    SupernovaDamage = convertedMedal.SupernovaDamage;
+                    SupernovaTarget = convertedMedal.SupernovaTarget;
                 }
             }
             else if (medal.Star == 7)
@@ -125,9 +132,13 @@ namespace MedalViewer.Medal
                 SubslotMultiplier = convertedMedal.SubslotMultiplier;
                 Tier = convertedMedal.Tier;
 
-                if (!string.IsNullOrEmpty(SupernovaDescription))
+                if (!string.IsNullOrEmpty(convertedMedal.SupernovaName))
                 {
                     IsSupernova = true;
+                    SupernovaName = convertedMedal.SupernovaName;
+                    SupernovaDescription = convertedMedal.SupernovaDescription;
+                    SupernovaDamage = convertedMedal.SupernovaDamage;
+                    SupernovaTarget = convertedMedal.SupernovaTarget;
                 }
             }
             else

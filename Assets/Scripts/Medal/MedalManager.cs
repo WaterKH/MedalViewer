@@ -50,6 +50,7 @@ namespace MedalViewer.Medal
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 var commandString = medalFilter.GenerateFilterQuery();
+                print(commandString);
                 //Debug.Log(commandString);
                 using (SqlCommand command = new SqlCommand(commandString, conn))
                 {

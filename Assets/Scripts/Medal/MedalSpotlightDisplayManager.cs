@@ -16,6 +16,9 @@ namespace MedalViewer.Medal
         public Loading Loading;
 
         public CanvasGroup MedalHighlight;
+        public CanvasGroup MedalSupernova;
+        public CanvasGroup MedalTraits;
+        public CanvasGroup MedalSkills;
 
         #region Base
 
@@ -30,7 +33,7 @@ namespace MedalViewer.Medal
         public RawImage Gauges;
         public RawImage PSMAttribute;
         public RawImage URAttribute;
-        public CanvasGroup Supernova;
+        public CanvasGroup SupernovaButton;
 
         public Color32 Reversed;// = new Color(171, 0, 255, 255);
         public Color32 Upright;// = new Color(255f, 255f, 0f, 255f);
@@ -129,7 +132,11 @@ namespace MedalViewer.Medal
         private float elapsedTime = 0.0f;
 
         private bool isTransition = false;
+
         private bool isDisplaying = false;
+        private bool isDisplayingSupernova = false;
+        private bool isDisplayingSkills = false;
+        private bool isDisplayingTraits = false;
 
         private Color32 visible = new Color(1f, 1f, 1f, 1f);
         private Color32 invisible = new Color(0f, 0f, 0f, 0f);
@@ -209,7 +216,7 @@ namespace MedalViewer.Medal
             isTransition = true;
             elapsedTime = 0.0f;
 
-            StartCoroutine(ShowDisplay());
+            StartCoroutine(ShowDisplay(MedalHighlight));
             //Loading.FinishLoading();
         }
 
@@ -235,9 +242,9 @@ namespace MedalViewer.Medal
 
             if (medalDisplay.IsSupernova)
             {
-                Supernova.interactable = true;
-                Supernova.blocksRaycasts = true;
-                Supernova.alpha = 1;
+                SupernovaButton.interactable = true;
+                SupernovaButton.blocksRaycasts = true;
+                SupernovaButton.alpha = 1;
             }
         }
 
@@ -247,7 +254,7 @@ namespace MedalViewer.Medal
             for (int i = 0; i < medalDisplay.TraitSlots; ++i)
             {
                 TraitSlots[i].enabled = true;
-                TraitSlotsText[i].enabled = true;
+                //TraitSlotsText[i].enabled = true;
             }
         }
 
@@ -499,9 +506,9 @@ namespace MedalViewer.Medal
             Ability.text = "ABILITY";
             AbilityDescription.text = "ABILITY DESCRIPTION";
 
-            Supernova.interactable = false;
-            Supernova.blocksRaycasts = false;
-            Supernova.alpha = 0;
+            SupernovaButton.interactable = false;
+            SupernovaButton.blocksRaycasts = false;
+            SupernovaButton.alpha = 0;
         }
 
         public void ResetTraits()
@@ -511,8 +518,8 @@ namespace MedalViewer.Medal
                 TraitSlots[i].texture = InitialImage.texture;
                 TraitSlots[i].enabled = false;
 
-                TraitSlotsText[i].enabled = false;
-                TraitSlotsText[i].text = initialTraitSlotText;
+                //TraitSlotsText[i].enabled = false;
+                //TraitSlotsText[i].text = initialTraitSlotText;
             }
         }
 
@@ -700,11 +707,68 @@ namespace MedalViewer.Medal
             isDisplaying = false;
             elapsedTime = 0.0f;
 
-            StartCoroutine(HideDisplay());
+            StartCoroutine(HideDisplay(MedalHighlight));
 
             //TraitManager.HideToolBox();
 
             //Reset();
+        }
+
+        public void ShowSupernova()
+        {
+            isTransition = true;
+            isDisplayingSupernova = true;
+            elapsedTime = 0.0f;
+
+            StartCoroutine(ShowDisplay(MedalSupernova));
+        }
+
+        public void ShowSkills()
+        {
+            isTransition = true;
+            isDisplayingSkills = true;
+            elapsedTime = 0.0f;
+
+            StartCoroutine(ShowDisplay(MedalSkills));
+        }
+
+        public void ShowTraits()
+        {
+            isTransition = true;
+            isDisplayingTraits = true;
+            elapsedTime = 0.0f;
+
+            StartCoroutine(ShowDisplay(MedalTraits));
+        }
+
+        public void HideSupernova()
+        {
+            print("Hide Supernova");
+            isTransition = true;
+            isDisplayingSupernova = false;
+            elapsedTime = 0.0f;
+
+            StartCoroutine(HideDisplay(MedalSupernova));
+        }
+
+        public void HideSkills()
+        {
+            print("Hide Skills");
+            isTransition = true;
+            isDisplayingSkills = false;
+            elapsedTime = 0.0f;
+
+            StartCoroutine(HideDisplay(MedalSkills));
+        }
+
+        public void HideTraits()
+        {
+            print("Hide Traits");
+            isTransition = true;
+            isDisplayingTraits = false;
+            elapsedTime = 0.0f;
+
+            StartCoroutine(HideDisplay(MedalTraits));
         }
 
         #endregion Display Methods
@@ -783,45 +847,42 @@ namespace MedalViewer.Medal
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                //print(isDisplaying);
-                if (/*MedalSublistGroup.alpha >= 0.0f ||*/ isDisplaying)
+                if(this.isDisplayingSkills || this.isDisplayingTraits)
                 {
-                    //if (!MedalCycleLogic.Instance.firstPass)
-                    //{
-                    //    HideSublistOfMedals();
-                    //}
-                    if (TraitManager.IsDisplayingTrait)
-                    {
-                        TraitManager.HideToolBox();
-                    }
-                    else if (isDisplaying)
-                    {
-                        HideCurrentMedal();
-                    }
+                    if (this.isDisplayingSkills)
+                        HideSkills();
+                    else
+                        HideTraits();
                 }
-                //MedalCycleLogic.Instance.CycleMedals();
+                else if(this.isDisplayingSupernova)
+                {
+                    HideSupernova();
+                }
+                else
+                {
+                    HideCurrentMedal();
+                }
             }
-
-
         }
 
-        IEnumerator ShowDisplay()
+        public IEnumerator ShowDisplay(CanvasGroup canvasGroup)
         {
+            elapsedTime = 0;
             while (isTransition)
             {
-                elapsedTime += Time.deltaTime;
-
                 if (!Loading.IsLoading)
                 {
-                    MedalHighlight.alpha = Mathf.Lerp(MedalHighlight.alpha, 1, elapsedTime);
-                    MedalHighlight.interactable = true;
-                    MedalHighlight.blocksRaycasts = true;
+                    elapsedTime += Time.deltaTime;
+                    print("Displaying");
+                    canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 1, elapsedTime);
+                    canvasGroup.interactable = true;
+                    canvasGroup.blocksRaycasts = true;
 
-                    if (MedalHighlight.alpha >= 1.0f)
+                    if (canvasGroup.alpha >= 1.0f)
                     {
                         elapsedTime = 0.0f;
 
-                        isDisplaying = true;
+                        //isDisplayVar = true;
                         isTransition = false;
                     }
                 }
@@ -829,17 +890,17 @@ namespace MedalViewer.Medal
             }
         }
 
-        IEnumerator HideDisplay()
+        public IEnumerator HideDisplay(CanvasGroup canvasGroup)
         {
             while (isTransition)
             {
                 elapsedTime += Time.deltaTime;
-                //print(isTransition);
-                MedalHighlight.alpha = Mathf.Lerp(MedalHighlight.alpha, 0, elapsedTime);
-                MedalHighlight.interactable = false;
-                MedalHighlight.blocksRaycasts = false;
+                print("Hiding");
+                canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0, elapsedTime);
+                canvasGroup.interactable = false;
+                canvasGroup.blocksRaycasts = false;
 
-                if (MedalHighlight.alpha <= 0.0f)
+                if (canvasGroup.alpha <= 0.0f)
                 {
                     elapsedTime = 0.0f;
 

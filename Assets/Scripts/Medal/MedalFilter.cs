@@ -241,8 +241,23 @@ namespace MedalViewer.Medal
             if (Random)
                 target += string.IsNullOrEmpty(target) ? @" Target = 'Random'" : @" OR Target = 'Random'";
             #endregion
-            query += string.IsNullOrEmpty(target) ? "" : $"{target}";
+            query += string.IsNullOrEmpty(target) ? "" : $"{target} AND ";
 
+            var range = "";
+            #region Range
+
+            if (LowRange > 0)
+                range += $"BaseMultiplierLow >= {LowRange} OR MaxMultiplierLow >= {LowRange} OR GuiltMultiplierLow >= {LowRange}";
+
+            if (HighRange > 0)
+            {
+                if (!string.IsNullOrEmpty(range))
+                    range += " AND ";
+
+                range += $"BaseMultiplierHigh <= {HighRange} OR MaxMultiplierHigh <= {HighRange} OR GuiltMultiplierHigh <= {HighRange}";
+            }
+            #endregion
+            query += string.IsNullOrEmpty(range) ? "" : $"{range}";
 
             var querySplit = query.Split(' ');
             var checkResult = querySplit[querySplit.Length - 2];

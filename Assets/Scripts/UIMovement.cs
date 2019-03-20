@@ -27,10 +27,10 @@ public class UIMovement : MonoBehaviour {
 		//max = 1.0f;
 		//min = 0.08f;
 
-	    min = -800;
+	    min = -2500;
 	    max = -5000;
 
-	    MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, -1800);
+	    MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, -2500);
 	    //Content.transform.localScale = Vector3.one * min;
 	    //Content.transform.position = new Vector2(-406.9875f, -57241.6f);
 	    //Background.transform.position = Content.transform.position;

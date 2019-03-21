@@ -9,7 +9,6 @@ public class UIMovement : MonoBehaviour {
 	#region public vars
 	public Camera MainCamera;
     public MedalPositionLogic MedalPositionLogic;
-    //public GameObject Background;
 
 	public GameObject YRows;
 	#endregion
@@ -18,51 +17,46 @@ public class UIMovement : MonoBehaviour {
 	private float max;
 	private float min;
 
+    private float zoomValue;
+
 	private bool isFilterDisplay;
 	private bool isSearchDisplay;
 	#endregion
 
 	void Awake()
 	{
-		//max = 1.0f;
-		//min = 0.08f;
+        MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, -2500);
 
-	    min = -2500;
-	    max = -5000;
+        min = 50;
+        max = 110;
+        zoomValue = 5;
 
-	    MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, -2500);
-	    //Content.transform.localScale = Vector3.one * min;
-	    //Content.transform.position = new Vector2(-406.9875f, -57241.6f);
-	    //Background.transform.position = Content.transform.position;
+        MainCamera.fieldOfView = 60;
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		//Content.transform.position = Background.transform.position;
-		//Background.transform.localScale = Content.transform.localScale;
-        
-		float zoomValue = Input.GetAxis("Mouse ScrollWheel") * 20000;
- 
-		if (zoomValue != 0)
-		{
-            if (Mathf.Abs(MainCamera.transform.position.z) >= Mathf.Abs(min) && Mathf.Abs(MainCamera.transform.position.z) <= Mathf.Abs(max))
+        if(Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            if(MainCamera.fieldOfView > min)
             {
-                //Content.transform.localScale += Vector3.one * zoomValue * Time.deltaTime / 2;
-                //Content.transform.position -= Vector3.one * zoomValue * Time.deltaTime / 2;
-                MainCamera.transform.position += new Vector3(0, 0, zoomValue * Time.deltaTime);
-
-
-                if (Mathf.Abs(MainCamera.transform.position.z) <= Mathf.Abs(min))
-                {
-                    MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, min);
-                }
-                else if (Mathf.Abs(MainCamera.transform.position.z) >= Mathf.Abs(max))
-                {
-                    MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, max);
-                }
-
-                //MedalPositionLogic.UpdateContent();
+                MainCamera.fieldOfView -= zoomValue;
+            }
+            else
+            {
+                MainCamera.fieldOfView = min;
+            }
+        }
+        else if(Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            if (MainCamera.fieldOfView < max)
+            {
+                MainCamera.fieldOfView += zoomValue;
+            }
+            else
+            {
+                MainCamera.fieldOfView = max;
             }
         }
 	}

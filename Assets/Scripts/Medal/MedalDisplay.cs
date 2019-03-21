@@ -28,7 +28,7 @@ namespace MedalViewer.Medal
         public int Gauge;
         public string GuiltMultiplier;
         public int Tier;
-        public string SubslotMultiplier;
+        public double SubslotMultiplier;
 
         public bool IsSupernova;
         public string SupernovaName;
@@ -61,7 +61,7 @@ namespace MedalViewer.Medal
                 MaxPetPoints = convertedMedal.MaxPetPoints;
                 Ability = convertedMedal.Ability;
                 AbilityDescription = convertedMedal.AbilityDescription;
-                BaseMultiplier = convertedMedal.BaseMultiplierHigh != "" ? $"x{convertedMedal.BaseMultiplierLow} - {convertedMedal.BaseMultiplierHigh}" : $"x{convertedMedal.BaseMultiplierLow}";
+                BaseMultiplier = convertedMedal.BaseMultiplierHigh != 0.0f ? $"x{convertedMedal.BaseMultiplierLow} - {convertedMedal.BaseMultiplierHigh}" : $"x{convertedMedal.BaseMultiplierLow}";
                 Target = convertedMedal.Target;
                 Gauge = convertedMedal.Gauge;
             }
@@ -78,8 +78,8 @@ namespace MedalViewer.Medal
                 MaxPetPoints = convertedMedal.MaxPetPoints;
                 Ability = convertedMedal.Ability;
                 AbilityDescription = convertedMedal.AbilityDescription;
-                BaseMultiplier = convertedMedal.BaseMultiplierHigh != "" ? $"x{convertedMedal.BaseMultiplierLow} - {convertedMedal.BaseMultiplierHigh}" : $"x{convertedMedal.BaseMultiplierLow}";
-                MaxMultiplier = convertedMedal.MaxMultiplierHigh != "" ? $"x{convertedMedal.MaxMultiplierLow} - {convertedMedal.MaxMultiplierHigh}" : $"x{convertedMedal.MaxMultiplierLow}";
+                BaseMultiplier = convertedMedal.BaseMultiplierHigh != 0.0f ? $"x{convertedMedal.BaseMultiplierLow} - {convertedMedal.BaseMultiplierHigh}" : $"x{convertedMedal.BaseMultiplierLow}";
+                MaxMultiplier = convertedMedal.MaxMultiplierHigh != 0.0f ? $"x{convertedMedal.MaxMultiplierLow} - {convertedMedal.MaxMultiplierHigh}" : $"x{convertedMedal.MaxMultiplierLow}";
                 Target = convertedMedal.Target;
                 Gauge = convertedMedal.Gauge;
             }
@@ -96,11 +96,11 @@ namespace MedalViewer.Medal
                 MaxPetPoints = convertedMedal.MaxPetPoints;
                 Ability = convertedMedal.Ability;
                 AbilityDescription = convertedMedal.AbilityDescription;
-                BaseMultiplier = convertedMedal.BaseMultiplierHigh != "" ? $"x{convertedMedal.BaseMultiplierLow} - {convertedMedal.BaseMultiplierHigh}" : $"x{convertedMedal.BaseMultiplierLow}";
-                MaxMultiplier = convertedMedal.MaxMultiplierHigh != "" ? $"x{convertedMedal.MaxMultiplierLow} - {convertedMedal.MaxMultiplierHigh}" : $"x{convertedMedal.MaxMultiplierLow}";
+                BaseMultiplier = convertedMedal.BaseMultiplierHigh != 0.0f ? $"x{convertedMedal.BaseMultiplierLow} - {convertedMedal.BaseMultiplierHigh}" : $"x{convertedMedal.BaseMultiplierLow}";
+                MaxMultiplier = convertedMedal.MaxMultiplierHigh != 0.0f ? $"x{convertedMedal.MaxMultiplierLow} - {convertedMedal.MaxMultiplierHigh}" : $"x{convertedMedal.MaxMultiplierLow}";
                 Target = convertedMedal.Target;
                 Gauge = convertedMedal.Gauge;
-                GuiltMultiplier = convertedMedal.GuiltMultiplierHigh != "" ? $"x{convertedMedal.GuiltMultiplierLow} - {convertedMedal.GuiltMultiplierHigh}" : $"x{convertedMedal.GuiltMultiplierLow}";
+                GuiltMultiplier = convertedMedal.GuiltMultiplierHigh != 0.0f ? $"x{convertedMedal.GuiltMultiplierLow} - {convertedMedal.GuiltMultiplierHigh}" : $"x{convertedMedal.GuiltMultiplierLow}";
                 Tier = convertedMedal.Tier;
                 
                 if (!string.IsNullOrEmpty(convertedMedal.SupernovaName))
@@ -125,9 +125,9 @@ namespace MedalViewer.Medal
                 MaxPetPoints = convertedMedal.MaxPetPoints;
                 Ability = convertedMedal.Ability;
                 AbilityDescription = convertedMedal.AbilityDescription;
-                MaxMultiplier = convertedMedal.MaxMultiplierHigh != "" ? $"x{convertedMedal.MaxMultiplierLow} - {convertedMedal.MaxMultiplierHigh}" : $"x{convertedMedal.MaxMultiplierLow}";
+                MaxMultiplier = convertedMedal.MaxMultiplierHigh != 0.0f ? $"x{convertedMedal.MaxMultiplierLow} - {convertedMedal.MaxMultiplierHigh}" : $"x{convertedMedal.MaxMultiplierLow}";
                 Target = convertedMedal.Target;
-                GuiltMultiplier = convertedMedal.GuiltMultiplierHigh != "" ? $"x{convertedMedal.GuiltMultiplierLow} - {convertedMedal.GuiltMultiplierHigh}" : $"x{convertedMedal.GuiltMultiplierLow}";
+                GuiltMultiplier = convertedMedal.GuiltMultiplierHigh != 0.0f ? $"x{convertedMedal.GuiltMultiplierLow} - {convertedMedal.GuiltMultiplierHigh}" : $"x{convertedMedal.GuiltMultiplierLow}";
                 Gauge = convertedMedal.Gauge;
                 SubslotMultiplier = convertedMedal.SubslotMultiplier;
                 Tier = convertedMedal.Tier;

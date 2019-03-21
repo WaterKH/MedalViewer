@@ -14,9 +14,9 @@ public class Parser {
         { 5, 1.50f }, { 6, 1.80f }, { 7, 2.00f }, { 8, 2.30f }
     };
 
-    public float ParseGuilt(Medal medal)
+    public double ParseGuilt(Medal medal)
 	{
-		float guiltFloat = 0.0f;
+		double guiltFloat = 0.0;
 
 	    try
 	    {   
@@ -38,7 +38,7 @@ public class Parser {
                 //    }
                 //}
 
-                guiltFloat = medal.GuiltMultiplierHigh != "" ? float.Parse(medal.GuiltMultiplierHigh) : medal.GuiltMultiplierLow != "" ? float.Parse(medal.GuiltMultiplierLow) : 0.0f;
+                guiltFloat = medal.GuiltMultiplierHigh != 0.0 ? medal.GuiltMultiplierHigh : medal.GuiltMultiplierLow != 0.0 ? medal.GuiltMultiplierLow : 0.0;
 	        }
 	    }
 	    catch (Exception e)

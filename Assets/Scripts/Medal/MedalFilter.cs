@@ -140,7 +140,7 @@ namespace MedalViewer.Medal
             if (Magic)
                 psm += string.IsNullOrEmpty(psm) ? @" AttributePSM = 'Magic'" : @" OR AttributePSM = 'Magic'";
             #endregion
-            query += string.IsNullOrEmpty(psm) ? "" : $"{psm} AND ";
+            query += string.IsNullOrEmpty(psm) ? "" : $"({psm}) AND ";
 
             var ur = "";
             #region UR
@@ -150,7 +150,7 @@ namespace MedalViewer.Medal
             if (Reversed)
                 ur += string.IsNullOrEmpty(ur) ? @" AttributeUR = 'Reversed'" : @" OR AttributeUR = 'Reversed'";
             #endregion
-            query += string.IsNullOrEmpty(ur) ? "" : $"{ur} AND ";
+            query += string.IsNullOrEmpty(ur) ? "" : $"({ur}) AND ";
 
             var star = "";
             #region Star
@@ -175,7 +175,7 @@ namespace MedalViewer.Medal
             if (SevenStar)
                 star += string.IsNullOrEmpty(star) ? @" Star = 7" : @" OR Star = 7";
             #endregion
-            query += string.IsNullOrEmpty(star) ? "" : $"{star} AND ";
+            query += string.IsNullOrEmpty(star) ? "" : $"({star}) AND ";
 
             var type = "";
             #region Type
@@ -197,7 +197,7 @@ namespace MedalViewer.Medal
             if (Sell)
                 type += string.IsNullOrEmpty(type) ? @" Type = 'Sell'" : @" OR Type = 'Sell'";
             #endregion
-            query += string.IsNullOrEmpty(type) ? "" : $"{type} AND ";
+            query += string.IsNullOrEmpty(type) ? "" : $"({type}) AND ";
 
             var tier = "";
             #region Tier
@@ -228,7 +228,7 @@ namespace MedalViewer.Medal
             if (Tier9)
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 9" : @" OR Tier = 9";
             #endregion
-            query += string.IsNullOrEmpty(tier) ? "" : $"{tier} AND ";
+            query += string.IsNullOrEmpty(tier) ? "" : $"({tier}) AND ";
 
             var target = "";
             #region Target
@@ -241,26 +241,19 @@ namespace MedalViewer.Medal
             if (Random)
                 target += string.IsNullOrEmpty(target) ? @" Target = 'Random'" : @" OR Target = 'Random'";
             #endregion
-            query += string.IsNullOrEmpty(target) ? "" : $"{target} AND ";
+            query += string.IsNullOrEmpty(target) ? "" : $"({target}) AND ";
 
             var range = "";
             #region Range
-
-            if (LowRange > 0)
-                range += $"BaseMultiplierLow >= {LowRange} OR MaxMultiplierLow >= {LowRange} OR GuiltMultiplierLow >= {LowRange}";
-
-            if (HighRange > 0)
-            {
-                if (!string.IsNullOrEmpty(range))
-                    range += " AND ";
-
-                range += $"BaseMultiplierHigh <= {HighRange} OR MaxMultiplierHigh <= {HighRange} OR GuiltMultiplierHigh <= {HighRange}";
-            }
+            if (LowRange > 0 && HighRange > 0)
+                range += $"(BaseMultiplierLow Between {LowRange} AND {HighRange}) OR (BaseMultiplierHigh Between {LowRange} AND {HighRange}) OR" +
+                    $"(MaxMultiplierLow Between {LowRange} AND {HighRange}) OR (MaxMultiplierHigh Between {LowRange} AND {HighRange}) OR" +
+                    $"(GuiltMultiplierLow Between {LowRange} AND {HighRange}) OR (GuiltMultiplierHigh Between {LowRange} AND {HighRange})";
             #endregion
-            query += string.IsNullOrEmpty(range) ? "" : $"{range}";
+            query += string.IsNullOrEmpty(range) ? "" : $"({range})";
 
             var querySplit = query.Split(' ');
-            var checkResult = querySplit[querySplit.Length - 2];
+            var checkResult = querySplit[querySplit.Length - 1];
 
             if (checkResult == "Where" || checkResult == "AND")
                 query = query.Substring(0, query.Length - checkResult.Length - 1);

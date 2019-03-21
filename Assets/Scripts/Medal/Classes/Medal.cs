@@ -29,13 +29,13 @@ namespace MedalViewer.Medal
         public string AbilityDescription { get; set; }
         public string Target { get; set; }
         public int Gauge { get; set; }
-        public string BaseMultiplierLow { get; set; }
-        public string BaseMultiplierHigh { get; set; }
-        public string MaxMultiplierLow { get; set; }
-        public string MaxMultiplierHigh { get; set; }
-        public string GuiltMultiplierLow { get; set; }
-        public string GuiltMultiplierHigh { get; set; }
-        public string SubslotMultiplier { get; set; }
+        public double BaseMultiplierLow { get; set; }
+        public double BaseMultiplierHigh { get; set; }
+        public double MaxMultiplierLow { get; set; }
+        public double MaxMultiplierHigh { get; set; }
+        public double GuiltMultiplierLow { get; set; }
+        public double GuiltMultiplierHigh { get; set; }
+        public double SubslotMultiplier { get; set; }
         public int Tier { get; set; }
         public string SupernovaName { get; set; }
         public string SupernovaDescription { get; set; }

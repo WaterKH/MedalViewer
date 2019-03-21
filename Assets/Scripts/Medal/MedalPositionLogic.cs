@@ -149,7 +149,7 @@ namespace MedalViewer.Medal
             UpdateContent();
         }
 
-        public void SetMedalHolderPosition(GameObject medalHolder, float guiltFloat, int tier)
+        public void SetMedalHolderPosition(GameObject medalHolder, double guiltFloat, int tier)
         {
             if (tier - 1 < 0)
             {
@@ -161,7 +161,7 @@ namespace MedalViewer.Medal
             var y = guiltFloat;
 
             var yIndex = (int)y;
-            float yAfterDecimal = y - yIndex;
+            double yAfterDecimal = y - yIndex;
 
             // TODO Do we not already check for these? Why are they here?
             //if (Globals.TierFilter.ToggleChildren[xIndex - 1].isOn) return;
@@ -181,7 +181,7 @@ namespace MedalViewer.Medal
                     nextY = vert_children[yIndex + 1].position.y - yTransform.y;
                 }
 
-                var newTransform = new Vector3(xTransform.x, yTransform.y + (nextY * yAfterDecimal));
+                var newTransform = new Vector3(xTransform.x, yTransform.y + (nextY * (float)yAfterDecimal));
 
                 medalHolder.GetComponent<RectTransform>().position = newTransform;
                 medalHolder.SetActive(true);

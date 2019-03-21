@@ -21,7 +21,7 @@ namespace MedalViewer.Medal
         public List<GameObject> parents;
 
         // Use this to access all medals - Key: tier - Key: multiplier - Value: Parent Holder for Medals
-        public Dictionary<int, Dictionary<float, GameObject>> AllMedalDisplayObjects;
+        public Dictionary<int, Dictionary<double, GameObject>> AllMedalDisplayObjects;
         //public Dictionary<GameObject, int> medalChildrenHolders = new Dictionary<GameObject, int>();
 
         private Parser parser = new Parser();
@@ -62,7 +62,7 @@ namespace MedalViewer.Medal
 
             if (!AllMedalDisplayObjects.ContainsKey(tier))
             {
-                AllMedalDisplayObjects.Add(tier, new Dictionary<float, GameObject>());
+                AllMedalDisplayObjects.Add(tier, new Dictionary<double, GameObject>());
             }
 
             if (!AllMedalDisplayObjects[tier].ContainsKey(guiltFloat))
@@ -95,7 +95,7 @@ namespace MedalViewer.Medal
 
         public void Initialize()
         {
-            AllMedalDisplayObjects = new Dictionary<int, Dictionary<float, GameObject>>();
+            AllMedalDisplayObjects = new Dictionary<int, Dictionary<double, GameObject>>();
             //Debug.Log("MEDALS: " + Globals.Medals.Count);
             foreach (var kv in Globals.Medals)
             {

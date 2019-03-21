@@ -39,7 +39,7 @@ namespace MedalViewer.Medal
         public string Effect;
         public string Effect_Description;
 
-        public void MapVariables(Medal medal)//, TextAsset MedalData)
+        public void MapVariables(Medal medal)
         {
             Id = medal.Id;
             Name = medal.Name;

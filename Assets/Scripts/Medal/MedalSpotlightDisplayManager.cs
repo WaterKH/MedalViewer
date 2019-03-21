@@ -9,8 +9,6 @@ namespace MedalViewer.Medal
 {
     public class MedalSpotlightDisplayManager : MonoBehaviour
     {
-
-        //public MedalCreator medalCreator;
         public TraitManager TraitManager;
         MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
         public Loading Loading;
@@ -20,76 +18,57 @@ namespace MedalViewer.Medal
         public CanvasGroup MedalTraits;
         public CanvasGroup MedalSkills;
 
-        #region Base
+        public CanvasGroup Player;
+        public CanvasGroup Enemy;
+        public CanvasGroup Effects;
 
-        public Text MedalName;
-        public RawImage MedalPlaceholder;
-        public RawImage MedalPlaceholderShadow;
-        public Text Ability;
-        public Text AbilityDescription;
+        #region Icons
 
+        public RawImage PSMAttribute;
+        public RawImage URAttribute;
         public RawImage Tier;
         public RawImage Target;
         public RawImage Gauges;
-        public RawImage PSMAttribute;
-        public RawImage URAttribute;
-        public CanvasGroup SupernovaButton;
 
         public Color32 Reversed;// = new Color(171, 0, 255, 255);
         public Color32 Upright;// = new Color(255f, 255f, 0f, 255f);
 
-        #endregion Base
+        #endregion
 
-        #region Traits
+        #region MedalName
 
-        public CanvasGroup Traits;
-        public RawImage InitialImage;
-        public RawImage[] TraitSlots;
-        public Text[] TraitSlotsText;
-
-        #endregion Traits
-
-        #region Boosts and Saps
-
-        public CanvasGroup Boosts;
-        public CanvasGroup Saps;
-
-        public Text BoostsTurns;
-        public Text SapsTurns;
-
-        public RawImage[] AttackBoosts;
-        public Text[] AttackBoostMults;
-        public RawImage[] DefenseBoosts;
-        public Text[] DefenseBoostMults;
-
-        public RawImage[] AttackSaps;
-        public Text[] AttackSapMults;
-        public RawImage[] DefenseSaps;
-        public Text[] DefenseSapMults;
-
-        #endregion Boosts and Saps
-
-        #region Effects
-
-        public CanvasGroup Effects;
-        public RawImage[] EffectImages;
-        public Text[] EffectTexts;
+        public Text MedalName;
 
         #endregion
 
-        #region Stats
+        #region Content
+        
+        #region Player
+        
+        public Text PlayerTurns;
 
-        public Text Multiplier;
-        public Text Defense;
-        public Text Strength;
+        public RawImage[] PlayerAttack;
+        public Text[] PlayerAttackMults;
+        public RawImage[] PlayerDefense;
+        public Text[] PlayerDefenseMults;
+        
+        #endregion
 
-        public Slider GuiltSlider;
-        public Toggle BaseMultiplier;
-        public Toggle MaxMultiplier;
-        public Toggle MaxGuiltMultiplier;
-        public Toggle Boosted;
+        #region Enemy
+        
+        public Text EnemyTurns;
 
-        public Button SwapMultiplier; // Probably not needed 
+        public RawImage[] EnemyAttack;
+        public Text[] EnemyAttackMults;
+        public RawImage[] EnemyDefense;
+        public Text[] EnemyDefenseMults;
+
+        #endregion
+        
+        #region Effects
+
+        public RawImage[] EffectImages;
+        public Text[] EffectTexts;
 
         #endregion
 
@@ -100,31 +79,70 @@ namespace MedalViewer.Medal
 
         #endregion
 
-        #region CalculationVariables
+        #region Traits
 
-        public Text CalculatedStrength;
-        public Text NumberOfHits;
-        public Text SpecialAttackBonus;
-        public Slider SpecialAttackBonusSlider;
-        public Text SkillVariable;
-        public Text TraitAddition;
+        //public CanvasGroup Traits;
+        public RawImage[] TraitSlots;
+        //public Text[] TraitSlotsText;
+        
+        public RawImage InitialImage;
 
-        public Text FinalDamageOutput;
+        #endregion Traits
+
+        #region Stats
+
+        public Text Defense;
+        public Slider DefenseSlider;
+        public Text AddedDefense;
+
+        public Text Strength;
+        public Slider StrengthSlider;
+        public Text AddedStrength;
+
+        public Text Multiplier;
+        public Button SwapMultiplier;
+        public Text MultiplierIdentifier;
+
+        public Button[] MultiplierOrbs;
+        public Button[] GuiltButtons;
+        public Slider GuiltSlider;
+        public Text GuiltValue;
+
+        #endregion
+        
+        #region Vars
+
+        public Text Deals;
+        public Text SPABonus;
+        public Text Skill;
+        public Text[] TraitValues;
 
         public SPATKBonusManager SPATKBonusManager; // Needed?
 
         #endregion
 
+        #region Total
+        
+        public Text FinalDamageOutput;
+        
+        #endregion
+
+        #endregion
+
+        #region MedalInfo
+
+        public CanvasGroup SupernovaButton;
+        public RawImage MedalPlaceholder;
+        public RawImage MedalPlaceholderShadow;
+        public Text Ability;
+        public Text AbilityDescription;
+
+        #endregion
+
+
         #region Private 
 
-        //private int startIndexPlayer = 8;
-        //private int startIndexEnemy = 6;
-        //private string PlayerEffectInitial;
-        //private string EnemyEffectInitial;
-
-        //private CanvasGroup background_group;
-        //private GameObject MedalSublist;
-        //private CanvasGroup MedalSublistGroup;
+        private readonly string url = "https://medalviewer.blob.core.windows.net/images/";
 
         private Transform prevParent;
         private float prevScale;
@@ -133,7 +151,7 @@ namespace MedalViewer.Medal
 
         private bool isTransition = false;
 
-        private bool isDisplaying = false;
+        //private bool isDisplaying = false;
         private bool isDisplayingSupernova = false;
         private bool isDisplayingSkills = false;
         private bool isDisplayingTraits = false;
@@ -141,7 +159,7 @@ namespace MedalViewer.Medal
         private Color32 visible = new Color(1f, 1f, 1f, 1f);
         private Color32 invisible = new Color(0f, 0f, 0f, 0f);
 
-        private string initialTraitSlotText = "No Trait Selected";
+        //private string initialTraitSlotText = "N/A";
 
         #endregion
 
@@ -160,23 +178,14 @@ namespace MedalViewer.Medal
         {
             yield return null;
             Loading.StartLoading();
-            //MedalCycleLogic.Instance.StopCycleMedals();
             Reset();
 
             MedalDisplay medalDisplay = medalObject.GetComponent<MedalDisplay>();
             MedalAbility medalAbility = new MedalAbility();
-            //var medalAbilityID = 0;
-
-
+            
             try
             {
                 medalAbility = MedalAbilityParser.Parser(medalDisplay.AbilityDescription);
-                //medalAbilityID = medalDisplay.Id;
-
-                //         if (medalCreator.medalAbilityImages.ContainsKey(medalAbilityID))
-                //         {
-                //             medalAbility = medalCreator.medalAbilityImages[medalAbilityID];
-                //         }
             }
             catch
             {
@@ -184,52 +193,31 @@ namespace MedalViewer.Medal
             }
 
             #region Display Assignment
-
-            //StartCoroutine(AssignBase(medalObject, medalDisplay));
-            //StartCoroutine(AssignTraits(medalDisplay));
-
-            AssignBase(medalObject, medalDisplay);
-            AssignTraits(medalDisplay);
-
+            
+            AssignIcons(medalDisplay);
+            AssignMedalName(medalDisplay);
+            AssignMedalInfo(medalDisplay);
+            
             if (medalAbility != null)
             {
                 medalAbility.SetUpDisplayAbility();
 
-                //StartCoroutine(AssignBoostsSaps(medalAbility));
-                //StartCoroutine(AssignEffects(medalAbility));
-
-                //StartCoroutine(AssignStats(medalDisplay, medalAbility));
-
-                AssignBoostsSaps(medalAbility);
-                AssignEffects(medalAbility);
-
-                AssignStats(medalDisplay, medalAbility);
+                AssignContent(medalDisplay, medalAbility);
             }
 
 
             #endregion
-
-            //if(MedalSublistGroup.alpha >= 0.0f)
-            //{
-            //	HideSublistOfMedals();
-            //}
+            
             isTransition = true;
             elapsedTime = 0.0f;
 
             StartCoroutine(ShowDisplay(MedalHighlight));
-            //Loading.FinishLoading();
         }
 
         #region Assign Attributes
 
-        public void AssignBase(GameObject medalObject, MedalDisplay medalDisplay)
+        private void AssignIcons(MedalDisplay medalDisplay)
         {
-            //yield return null;
-            //MedalPlaceholder.texture = medalObject.GetComponent<RawImage>().texture;
-            var imageUrl = url + medalDisplay.ImageURL;
-            StartCoroutine(LoadImage(imageUrl, MedalPlaceholder.gameObject));
-
-            MedalName.text = medalDisplay.Name;
             PSMAttribute.texture = Resources.Load("Gems/" + medalDisplay.Attribute_PSM + "_Gem") as Texture2D;
             URAttribute.color = medalDisplay.Attribute_UR == "Upright" ? Upright : Reversed;
 
@@ -237,6 +225,34 @@ namespace MedalViewer.Medal
             Target.texture = Resources.Load("Target/" + medalDisplay.Target) as Texture2D;
             Gauges.texture = Resources.Load("Gauges/" + medalDisplay.Gauge) as Texture2D;
 
+        }
+
+        private void AssignMedalName(MedalDisplay medalDisplay)
+        {
+            MedalName.text = medalDisplay.Name;
+        }
+
+        private void AssignContent(MedalDisplay medalDisplay, MedalAbility medalAbility)
+        {
+            AssignPlayerEnemy(medalAbility);
+            AssignEffects(medalAbility);
+
+            AssignSkill();
+            AssignTraits(medalDisplay);
+            AssignStats(medalDisplay);
+            //AssignSlots(medalDisplay);
+
+            AssignVars(medalDisplay, medalAbility);
+            AssignTotal();
+        }
+
+        #region AssignContent
+
+        private void AssignMedalInfo(MedalDisplay medalDisplay)
+        {
+            var imageUrl = url + medalDisplay.ImageURL;
+            StartCoroutine(LoadImage(imageUrl, MedalPlaceholder.gameObject));
+            
             Ability.text = medalDisplay.Ability;
             AbilityDescription.text = medalDisplay.AbilityDescription;
 
@@ -248,28 +264,15 @@ namespace MedalViewer.Medal
             }
         }
 
-        public void AssignTraits(MedalDisplay medalDisplay)
+        private void AssignPlayerEnemy(MedalAbility medalAbility)
         {
-            //yield return null;
-            for (int i = 0; i < medalDisplay.TraitSlots; ++i)
-            {
-                TraitSlots[i].enabled = true;
-                //TraitSlotsText[i].enabled = true;
-            }
-        }
-
-        public void AssignBoostsSaps(MedalAbility medalAbility)
-        {
-            //yield return null;
-            var strBoostCounter = 0;
-            var defBoostCounter = 0;
-            var strSapCounter = 0;
-            var defSapCounter = 0;
+            var strPlayerCounter = 0;
+            var defPlayerCounter = 0;
+            var strEnemyCounter = 0;
+            var defEnemyCounter = 0;
 
             var counterSTR = 0;
             var counterDEF = 0;
-            //var sapCounterSTR = 0;
-            //var sapCounterDEF = 0;
 
             foreach (var strDef in medalAbility.CombatImages)
             {
@@ -281,18 +284,18 @@ namespace MedalViewer.Medal
                         {
                             foreach (var strRaise in raiseLower.Value)
                             {
-                                AttackBoosts[strBoostCounter].texture = strRaise;
-                                AttackBoosts[strBoostCounter].color = visible;
-                                AttackBoostMults[strBoostCounter++].text = "x" + medalAbility.STR[counterSTR++].Tier;
+                                PlayerAttack[strPlayerCounter].texture = strRaise;
+                                PlayerAttack[strPlayerCounter].color = visible;
+                                PlayerAttackMults[strPlayerCounter++].text = "x" + medalAbility.STR[counterSTR++].Tier;
                             }
                         }
                         else if (strDef.Key == "DEF")
                         {
                             foreach (var defRaise in raiseLower.Value)
                             {
-                                DefenseBoosts[defBoostCounter].texture = defRaise;
-                                DefenseBoosts[defBoostCounter].color = visible;
-                                DefenseBoostMults[defBoostCounter++].text = "x" + medalAbility.DEF[counterDEF++].Tier;
+                                PlayerDefense[defPlayerCounter].texture = defRaise;
+                                PlayerDefense[defPlayerCounter].color = visible;
+                                PlayerDefenseMults[defPlayerCounter++].text = "x" + medalAbility.DEF[counterDEF++].Tier;
                             }
                         }
                     }
@@ -302,18 +305,18 @@ namespace MedalViewer.Medal
                         {
                             foreach (var strLower in raiseLower.Value)
                             {
-                                AttackSaps[strSapCounter].texture = strLower;
-                                AttackSaps[strSapCounter].color = visible;
-                                AttackSapMults[strSapCounter++].text = "x" + medalAbility.STR[counterSTR++].Tier;
+                                EnemyAttack[strEnemyCounter].texture = strLower;
+                                EnemyAttack[strEnemyCounter].color = visible;
+                                EnemyAttackMults[strEnemyCounter++].text = "x" + medalAbility.STR[counterSTR++].Tier;
                             }
                         }
                         else if (strDef.Key == "DEF")
                         {
                             foreach (var defLower in raiseLower.Value)
                             {
-                                DefenseSaps[defSapCounter].texture = defLower;
-                                DefenseSaps[defSapCounter].color = visible;
-                                DefenseSapMults[defSapCounter++].text = "x" + medalAbility.DEF[counterDEF++].Tier;
+                                EnemyDefense[defEnemyCounter].texture = defLower;
+                                EnemyDefense[defEnemyCounter].color = visible;
+                                EnemyDefenseMults[defEnemyCounter++].text = "x" + medalAbility.DEF[counterDEF++].Tier;
                             }
                         }
                     }
@@ -321,25 +324,16 @@ namespace MedalViewer.Medal
             }
 
             // TODO Account for player saps
+            
+            if (CheckPlayer())
+                Player.SetCanvasGroupActive();
 
-            // If none of either are filled in, dis/able it
-            // TODO Should we make this smarter? 
-            if (CheckBoosts())
-                Boosts.SetCanvasGroupActive();
-
-            if (CheckSaps())
-                Saps.SetCanvasGroupActive();
+            if (CheckEnemy())
+                Enemy.SetCanvasGroupActive();
         }
 
-        public void AssignSkill()
+        private void AssignEffects(MedalAbility medalAbility)
         {
-            // TODO If we save user medals, maybe pull from that database? But for right now, we don't need one
-            //yield return null;
-        }
-
-        public void AssignEffects(MedalAbility medalAbility)
-        {
-            //yield return null;
             var effectCounter = 0;
 
             foreach (var effect in medalAbility.MiscImages)
@@ -355,7 +349,23 @@ namespace MedalViewer.Medal
                 Effects.SetCanvasGroupActive();
         }
 
-        public void AssignStats(MedalDisplay medalDisplay, MedalAbility medalAbility)
+        private void AssignSkill()
+        {
+            // TODO If we save user medals, maybe pull from that database? But for right now, we don't need one
+            //yield return null;
+        }
+
+        private void AssignTraits(MedalDisplay medalDisplay)
+        {
+            //yield return null;
+            for (int i = 0; i < medalDisplay.TraitSlots; ++i)
+            {
+                TraitSlots[i].enabled = true;
+                //TraitSlotsText[i].enabled = true;
+            }
+        }
+
+        private void AssignStats(MedalDisplay medalDisplay/*, MedalAbility medalAbility*/)
         {
             //yield return null;
             Multiplier.text = medalDisplay.BaseMultiplier.Split('-')[0];
@@ -476,33 +486,51 @@ namespace MedalViewer.Medal
             //SPATKBonusManager.UpdateSPATKBonus();
         }
 
+        private void AssignVars(MedalDisplay medalDisplay, MedalAbility medalAbility)
+        {
+            Deals.text = medalAbility.Deal;
+            SPABonus.text = medalAbility.SPBonus ?? "15";
+        }
+
+        private void AssignTotal()
+        {
+
+        }
+
+        #endregion 
+
         #endregion Assign Attributes
 
         #region Reset Attributes
 
         public void Reset()
         {
-            ResetBase();
-            ResetTraits();
-            ResetBoostsSaps();
-            ResetSkill();
-            ResetEffects();
-            ResetStats();
+            ResetIcons();
+            ResetMedalName();
+            ResetMedalInfo();
+            ResetContent();
         }
 
-        public void ResetBase()
+        private void ResetIcons()
         {
-            MedalPlaceholder.texture = Resources.Load("Placeholder") as Texture2D;
-            MedalPlaceholderShadow.texture = MedalPlaceholder.texture;
-
-            MedalName.text = "PLACEHOLDER";
             PSMAttribute.texture = null;
             URAttribute.color = invisible;
 
             Tier.texture = null;
             Target.texture = null;
             Gauges.texture = null;
+        }
 
+        private void ResetMedalName()
+        {
+            MedalName.text = "PLACEHOLDER";
+        }
+
+        private void ResetMedalInfo()
+        {
+            MedalPlaceholder.texture = Resources.Load("Placeholder") as Texture2D;
+            MedalPlaceholderShadow.texture = MedalPlaceholder.texture;
+            
             Ability.text = "ABILITY";
             AbilityDescription.text = "ABILITY DESCRIPTION";
 
@@ -511,55 +539,51 @@ namespace MedalViewer.Medal
             SupernovaButton.alpha = 0;
         }
 
-        public void ResetTraits()
+        private void ResetContent()
         {
-            for (int i = 0; i < TraitSlots.Length; ++i)
-            {
-                TraitSlots[i].texture = InitialImage.texture;
-                TraitSlots[i].enabled = false;
+            ResetPlayerEnemy();
+            ResetEffects();
 
-                //TraitSlotsText[i].enabled = false;
-                //TraitSlotsText[i].text = initialTraitSlotText;
-            }
+            ResetSkill();
+            ResetTraits();
+            ResetStats();
+            //ResetSlots();
+
+            ResetVars();
+            ResetTotal();
         }
 
-        public void ResetBoostsSaps()
-        {
-            BoostsTurns.text = "";
-            SapsTurns.text = "";
+        #region ResetContent
 
-            // Boosts
-            foreach (var aB in AttackBoosts)
+        public void ResetPlayerEnemy()
+        {
+            PlayerTurns.text = "";
+            EnemyTurns.text = "";
+
+            // Player
+            foreach (var aB in PlayerAttack)
                 aB.color = invisible;
-            foreach (var aBM in AttackBoostMults)
+            foreach (var aBM in PlayerAttackMults)
                 aBM.text = "";
 
-            foreach (var dB in DefenseBoosts)
+            foreach (var dB in PlayerDefense)
                 dB.color = invisible;
-            foreach (var dBM in DefenseBoostMults)
+            foreach (var dBM in PlayerDefenseMults)
                 dBM.text = "";
 
-            // Saps
-            foreach (var aS in AttackSaps)
+            // Enemy
+            foreach (var aS in EnemyAttack)
                 aS.color = invisible;
-            foreach (var aSM in AttackSapMults)
+            foreach (var aSM in EnemyAttackMults)
                 aSM.text = "";
 
-            foreach (var dS in DefenseSaps)
+            foreach (var dS in EnemyDefense)
                 dS.color = invisible;
-            foreach (var dSM in DefenseSapMults)
+            foreach (var dSM in EnemyDefenseMults)
                 dSM.text = "";
 
-            Boosts.SetCanvasGroupInactive();
-            Saps.SetCanvasGroupInactive();
-        }
-
-        public void ResetSkill()
-        {
-            SkillImage.texture = null;
-            SkillImage.enabled = false;
-
-            SkillText.text = "";
+            Player.SetCanvasGroupInactive();
+            Enemy.SetCanvasGroupInactive();
         }
 
         public void ResetEffects()
@@ -578,33 +602,48 @@ namespace MedalViewer.Medal
             Effects.SetCanvasGroupInactive();
         }
 
+        public void ResetSkill()
+        {
+            SkillImage.texture = null;
+            SkillImage.enabled = false;
+
+            SkillText.text = "";
+        }
+
+        public void ResetTraits()
+        {
+            for (int i = 0; i < TraitSlots.Length; ++i)
+            {
+                TraitSlots[i].texture = InitialImage.texture;
+                TraitSlots[i].enabled = false;
+            }
+        }
+        
         public void ResetStats()
         {
             Multiplier.text = "";
             Defense.text = "";
             Strength.text = "";
-
-            //BaseMultiplier.isOn = true;
-            //MaxMultiplier.isOn = false;
-            //MaxGuiltMultiplier.isOn = false;
-            //Boosted.isOn = false;
-
-            //GuiltSlider.value = 0;
-            //GuiltSlider.minValue = 0;
-            //GuiltSlider.maxValue = 1;
+            
+            // TODO Add rest of vars
         }
 
-        public void ResetCalculations()
+        public void ResetVars()
         {
-            CalculatedStrength.text = "";
-            NumberOfHits.text = "";
-            SpecialAttackBonus.text = "";
-            SkillVariable.text = "";
-            TraitAddition.text = "";
-            FinalDamageOutput.text = "";
+            Deals.text = "";
+            SPABonus.text = "";
+            Skill.text = "";
 
-            SpecialAttackBonusSlider.value = 0;
+            foreach (var trait in TraitValues)
+                trait.text = "";
         }
+
+        public void ResetTotal()
+        {
+            FinalDamageOutput.text = "";
+        }
+
+        #endregion
 
         #endregion Reset Attributes
 
@@ -621,90 +660,11 @@ namespace MedalViewer.Medal
                 StartCoroutine(Display(clickedOn.transform.GetChild(0).gameObject));
             }
         }
-
-        //public void DisplaySublistOfMedals(GameObject clickedOn)
-        //{
-        //    MedalCycleLogic.Instance.StopCycleMedals();
-
-        //    var medalList = clickedOn.GetComponentsInChildren<Transform>();
-        //    this.prevParent = medalList[0];
-
-        //    for (int i = 1; i < medalList.Length; ++i)
-        //    {
-        //        var medal = medalList[i];
-
-        //        this.prevScale = medal.transform.localScale.x;
-        //        medal.GetComponent<RawImage>().color = visible;
-
-        //        medal.SetParent(MedalSublist.transform);
-        //        medal.transform.localScale = new Vector3(1f, 1f, 1f);
-        //        medal.GetComponent<RawImage>().raycastTarget = true;
-        //    }
-
-        //    //MedalSublistGroup.alpha = 1;
-        //    //MedalSublistGroup.interactable = true;
-        //    //MedalSublistGroup.blocksRaycasts = true;
-        //}
-
-        //public void HideSublistOfMedals()
-        //{
-        //    //MedalSublistGroup.alpha = 0;
-        //    //MedalSublistGroup.interactable = false;
-        //    //MedalSublistGroup.blocksRaycasts = false;
-
-        //    var medalList = MedalSublist.GetComponentsInChildren<Transform>();
-
-        //    for (int i = 1; i < medalList.Length; ++i)
-        //    {
-        //        var medal = medalList[i];
-
-        //        medal.GetComponent<RawImage>().raycastTarget = false;
-
-        //        medal.SetParent(this.prevParent);
-        //        medal.transform.localScale = new Vector3(this.prevScale, this.prevScale, this.prevScale);
-        //        medal.GetComponent<RawImage>().color = invisible;
-        //    }
-
-        //}
-
-        #region Calculation Methods
-
-        public void BaseMultiplierClick()
-        {
-
-        }
-
-        public void MaxMultiplierClick()
-        {
-
-        }
-
-        public void MaxGuiltMultiplierClick()
-        {
-
-        }
-
-        public void EffectMultiplierClick()
-        {
-
-        }
-
-        public void BoostedClick()
-        {
-
-        }
-
-        public void FinalDamageOutputCalculator(MedalAbility medalAbility)
-        {
-
-        }
-
-        #endregion
-
+        
         public void HideCurrentMedal()
         {
             isTransition = true;
-            isDisplaying = false;
+            //isDisplaying = false;
             elapsedTime = 0.0f;
 
             StartCoroutine(HideDisplay(MedalHighlight));
@@ -775,15 +735,15 @@ namespace MedalViewer.Medal
 
         #region Checks
 
-        public bool CheckBoosts()
+        public bool CheckPlayer()
         {
-            foreach (var aB in AttackBoosts)
+            foreach (var aB in PlayerAttack)
             {
                 if (aB.color == visible)
                     return true;
             }
 
-            foreach (var dB in DefenseBoosts)
+            foreach (var dB in PlayerDefense)
             {
                 if (dB.color == visible)
                     return true;
@@ -792,15 +752,15 @@ namespace MedalViewer.Medal
             return false;
         }
 
-        public bool CheckSaps()
+        public bool CheckEnemy()
         {
-            foreach (var aS in AttackSaps)
+            foreach (var aS in EnemyAttack)
             {
                 if (aS.color == visible)
                     return true;
             }
 
-            foreach (var dS in DefenseSaps)
+            foreach (var dS in EnemyDefense)
             {
                 if (dS.color == visible)
                     return true;
@@ -821,28 +781,41 @@ namespace MedalViewer.Medal
         }
 
         #endregion
+        
+        #region Calculation Methods
 
-        private readonly string url = "https://medalviewer.blob.core.windows.net/images/";
-
-        IEnumerator LoadImage(string imageUrl, GameObject medalObject)
+        public void BaseMultiplierClick()
         {
-            Debug.Log(imageUrl);
-            //yield return 0;
-            UnityWebRequest image = UnityWebRequestTexture.GetTexture(imageUrl);
-            yield return image.SendWebRequest();
-            if (image.isNetworkError || image.isHttpError)
-                Debug.Log(image.error);
-            else
-            {
-                medalObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)image.downloadHandler).texture;
 
-                MedalPlaceholderShadow.texture = MedalPlaceholder.texture;
-                print("Finished");
-            }
-
-            Loading.FinishLoading();
         }
 
+        public void MaxMultiplierClick()
+        {
+
+        }
+
+        public void MaxGuiltMultiplierClick()
+        {
+
+        }
+
+        public void EffectMultiplierClick()
+        {
+
+        }
+
+        public void BoostedClick()
+        {
+
+        }
+
+        public void FinalDamageOutputCalculator(MedalAbility medalAbility)
+        {
+
+        }
+
+        #endregion
+        
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -865,6 +838,25 @@ namespace MedalViewer.Medal
             }
         }
 
+        IEnumerator LoadImage(string imageUrl, GameObject medalObject)
+        {
+            Debug.Log(imageUrl);
+            //yield return 0;
+            UnityWebRequest image = UnityWebRequestTexture.GetTexture(imageUrl);
+            yield return image.SendWebRequest();
+            if (image.isNetworkError || image.isHttpError)
+                Debug.Log(image.error);
+            else
+            {
+                medalObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)image.downloadHandler).texture;
+
+                MedalPlaceholderShadow.texture = MedalPlaceholder.texture;
+                print("Finished");
+            }
+
+            Loading.FinishLoading();
+        }
+
         public IEnumerator ShowDisplay(CanvasGroup canvasGroup)
         {
             elapsedTime = 0;
@@ -873,7 +865,7 @@ namespace MedalViewer.Medal
                 if (!Loading.IsLoading)
                 {
                     elapsedTime += Time.deltaTime;
-                    print("Displaying");
+                    //print("Displaying");
                     canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 1, elapsedTime);
                     canvasGroup.interactable = true;
                     canvasGroup.blocksRaycasts = true;
@@ -895,7 +887,7 @@ namespace MedalViewer.Medal
             while (isTransition)
             {
                 elapsedTime += Time.deltaTime;
-                print("Hiding");
+                //print("Hiding");
                 canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0, elapsedTime);
                 canvasGroup.interactable = false;
                 canvasGroup.blocksRaycasts = false;

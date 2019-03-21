@@ -257,8 +257,8 @@ namespace MedalViewer.Medal
 
             if (checkResult == "Where" || checkResult == "AND")
                 query = query.Substring(0, query.Length - checkResult.Length - 1);
-            Debug.Log(checkResult);
-            Debug.Log(query);
+            //Debug.Log(checkResult);
+            //Debug.Log(query);
             return query;
         }
     }

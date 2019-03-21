@@ -735,7 +735,7 @@ namespace MedalViewer.Medal
 
         #region Checks
 
-        public bool CheckPlayer()
+        private bool CheckPlayer()
         {
             foreach (var aB in PlayerAttack)
             {
@@ -752,7 +752,7 @@ namespace MedalViewer.Medal
             return false;
         }
 
-        public bool CheckEnemy()
+        private bool CheckEnemy()
         {
             foreach (var aS in EnemyAttack)
             {
@@ -769,11 +769,11 @@ namespace MedalViewer.Medal
             return false;
         }
 
-        public bool CheckEffects()
+        private bool CheckEffects()
         {
             foreach (var eff in EffectImages)
             {
-                if (eff.color == visible)
+                if (eff.enabled == true)
                     return true;
             }
 

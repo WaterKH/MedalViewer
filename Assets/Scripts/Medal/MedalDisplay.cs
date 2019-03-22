@@ -22,11 +22,14 @@ namespace MedalViewer.Medal
         public int MaxPetPoints;
         public string Ability;
         public string AbilityDescription;
-        public string BaseMultiplier;
+        public string BaseMultiplierLow;
+        public string BaseMultiplierHigh;
         public string Target;
-        public string MaxMultiplier;
+        public string MaxMultiplierLow;
+        public string MaxMultiplierHigh;
         public int Gauge;
-        public string GuiltMultiplier;
+        public string GuiltMultiplierLow;
+        public string GuiltMultiplierHigh;
         public int Tier;
         public double SubslotMultiplier;
 
@@ -61,7 +64,8 @@ namespace MedalViewer.Medal
                 MaxPetPoints = convertedMedal.MaxPetPoints;
                 Ability = convertedMedal.Ability;
                 AbilityDescription = convertedMedal.AbilityDescription;
-                BaseMultiplier = convertedMedal.BaseMultiplierHigh != 0.0f ? $"x{convertedMedal.BaseMultiplierLow} - {convertedMedal.BaseMultiplierHigh}" : $"x{convertedMedal.BaseMultiplierLow}";
+                BaseMultiplierLow = convertedMedal.BaseMultiplierLow.ToString();
+                BaseMultiplierHigh = convertedMedal.BaseMultiplierHigh.ToString();
                 Target = convertedMedal.Target;
                 Gauge = convertedMedal.Gauge;
             }
@@ -78,8 +82,10 @@ namespace MedalViewer.Medal
                 MaxPetPoints = convertedMedal.MaxPetPoints;
                 Ability = convertedMedal.Ability;
                 AbilityDescription = convertedMedal.AbilityDescription;
-                BaseMultiplier = convertedMedal.BaseMultiplierHigh != 0.0f ? $"x{convertedMedal.BaseMultiplierLow} - {convertedMedal.BaseMultiplierHigh}" : $"x{convertedMedal.BaseMultiplierLow}";
-                MaxMultiplier = convertedMedal.MaxMultiplierHigh != 0.0f ? $"x{convertedMedal.MaxMultiplierLow} - {convertedMedal.MaxMultiplierHigh}" : $"x{convertedMedal.MaxMultiplierLow}";
+                BaseMultiplierLow = convertedMedal.BaseMultiplierLow.ToString();
+                BaseMultiplierHigh = convertedMedal.BaseMultiplierHigh.ToString();
+                MaxMultiplierLow = convertedMedal.MaxMultiplierLow.ToString();
+                MaxMultiplierHigh = convertedMedal.MaxMultiplierHigh.ToString();
                 Target = convertedMedal.Target;
                 Gauge = convertedMedal.Gauge;
             }
@@ -96,11 +102,14 @@ namespace MedalViewer.Medal
                 MaxPetPoints = convertedMedal.MaxPetPoints;
                 Ability = convertedMedal.Ability;
                 AbilityDescription = convertedMedal.AbilityDescription;
-                BaseMultiplier = convertedMedal.BaseMultiplierHigh != 0.0f ? $"x{convertedMedal.BaseMultiplierLow} - {convertedMedal.BaseMultiplierHigh}" : $"x{convertedMedal.BaseMultiplierLow}";
-                MaxMultiplier = convertedMedal.MaxMultiplierHigh != 0.0f ? $"x{convertedMedal.MaxMultiplierLow} - {convertedMedal.MaxMultiplierHigh}" : $"x{convertedMedal.MaxMultiplierLow}";
+                BaseMultiplierLow = convertedMedal.BaseMultiplierLow.ToString();
+                BaseMultiplierHigh = convertedMedal.BaseMultiplierHigh.ToString();
+                MaxMultiplierLow = convertedMedal.MaxMultiplierLow.ToString();
+                MaxMultiplierHigh = convertedMedal.MaxMultiplierHigh.ToString();
                 Target = convertedMedal.Target;
                 Gauge = convertedMedal.Gauge;
-                GuiltMultiplier = convertedMedal.GuiltMultiplierHigh != 0.0f ? $"x{convertedMedal.GuiltMultiplierLow} - {convertedMedal.GuiltMultiplierHigh}" : $"x{convertedMedal.GuiltMultiplierLow}";
+                GuiltMultiplierLow = convertedMedal.GuiltMultiplierLow.ToString();
+                GuiltMultiplierHigh = convertedMedal.GuiltMultiplierHigh.ToString();
                 Tier = convertedMedal.Tier;
                 
                 if (!string.IsNullOrEmpty(convertedMedal.SupernovaName))
@@ -125,9 +134,11 @@ namespace MedalViewer.Medal
                 MaxPetPoints = convertedMedal.MaxPetPoints;
                 Ability = convertedMedal.Ability;
                 AbilityDescription = convertedMedal.AbilityDescription;
-                MaxMultiplier = convertedMedal.MaxMultiplierHigh != 0.0f ? $"x{convertedMedal.MaxMultiplierLow} - {convertedMedal.MaxMultiplierHigh}" : $"x{convertedMedal.MaxMultiplierLow}";
+                MaxMultiplierLow = convertedMedal.MaxMultiplierLow.ToString();
+                MaxMultiplierHigh = convertedMedal.MaxMultiplierHigh.ToString();
                 Target = convertedMedal.Target;
-                GuiltMultiplier = convertedMedal.GuiltMultiplierHigh != 0.0f ? $"x{convertedMedal.GuiltMultiplierLow} - {convertedMedal.GuiltMultiplierHigh}" : $"x{convertedMedal.GuiltMultiplierLow}";
+                GuiltMultiplierLow = convertedMedal.GuiltMultiplierLow.ToString();
+                GuiltMultiplierHigh = convertedMedal.GuiltMultiplierHigh.ToString();
                 Gauge = convertedMedal.Gauge;
                 SubslotMultiplier = convertedMedal.SubslotMultiplier;
                 Tier = convertedMedal.Tier;

@@ -50,7 +50,7 @@ namespace MedalViewer.Medal
         public void AssignMedals(GameObject medalGameObject)
         {
             var medal = medalGameObject.GetComponent<MedalDisplay>();
-            var guiltFloat = parser.ParseGuilt(medal.GuiltMultiplier);
+            var guiltFloat = medal.GuiltMultiplierHigh != "" ? float.Parse(medal.GuiltMultiplierHigh) : float.Parse(medal.GuiltMultiplierLow);
 
             medalGameObject.transform.SetParent(MedalLogicManager.AllMedalDisplayObjects[medal.Tier][guiltFloat].GetComponentsInChildren<Transform>().First(x => x.name == "Content").transform);
         }

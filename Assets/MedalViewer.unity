@@ -1192,6 +1192,7 @@ GameObject:
   - component: {fileID: 31379183}
   - component: {fileID: 31379185}
   - component: {fileID: 31379184}
+  - component: {fileID: 31379186}
   m_Layer: 5
   m_Name: Strength-
   m_TagString: Untagged
@@ -1260,6 +1261,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31379182}
   m_CullTransparentMesh: 0
+--- !u!114 &31379186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31379182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 31379184}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateAddedStrength
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &31562381
 GameObject:
   m_ObjectHideFlags: 0
@@ -9693,7 +9747,7 @@ GameObject:
   - component: {fileID: 280971402}
   - component: {fileID: 280971401}
   m_Layer: 5
-  m_Name: Orb3
+  m_Name: Orb_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9713,10 +9767,10 @@ RectTransform:
   m_Father: {fileID: 1927099552}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.15541358, y: 0.36324337}
-  m_AnchorMax: {x: 0.23682716, y: 0.8176577}
-  m_AnchoredPosition: {x: 14.97496, y: -1.4512463}
-  m_SizeDelta: {x: 5.181986, y: 1.6157913}
+  m_AnchorMin: {x: 0.3648399, y: 0.25640905}
+  m_AnchorMax: {x: 0.5336797, y: 0.8176577}
+  m_AnchoredPosition: {x: -0.032577515, y: -0.45124626}
+  m_SizeDelta: {x: -0.065061, y: -0.38399994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &280971401
 MonoBehaviour:
@@ -9731,15 +9785,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9960785, b: 0.5764706, a: 1}
     m_PressedColor: {r: 1, g: 0.9941299, b: 0.16509432, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -9757,7 +9811,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 280971402}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateMultiplierOrb
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &280971402
@@ -9773,7 +9838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -13938,7 +14003,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -3.300003, y: 0}
+  m_AnchoredPosition: {x: -3.3000183, y: 0}
   m_SizeDelta: {x: 13.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &377710821
@@ -17929,7 +17994,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.5971649}
-  m_AnchoredPosition: {x: -0.027496338, y: -0.24900055}
+  m_AnchoredPosition: {x: -0.027496338, y: -0.24899292}
   m_SizeDelta: {x: 0.054871, y: -0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &459318085
@@ -18106,6 +18171,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   Enemy: {fileID: 0}
   Effects: {fileID: 740142076}
+  Guilt: {fileID: 0}
   PSMAttribute: {fileID: 1806615990}
   URAttribute: {fileID: 1768871269}
   Tier: {fileID: 1703237519}
@@ -18164,6 +18230,12 @@ MonoBehaviour:
   GuiltButtons: []
   GuiltSlider: {fileID: 2065380720}
   GuiltValue: {fileID: 0}
+  BaseMultiplierLow: 
+  BaseMultiplierHigh: 
+  MaxMultiplierLow: 
+  MaxMultiplierHigh: 
+  GuiltMultiplierLow: 
+  GuiltMultiplierHigh: 
   Deals: {fileID: 0}
   SPABonus: {fileID: 0}
   Skill: {fileID: 0}
@@ -18175,6 +18247,10 @@ MonoBehaviour:
   MedalPlaceholderShadow: {fileID: 1110672222}
   Ability: {fileID: 103498364}
   AbilityDescription: {fileID: 918254546}
+  NormalColor: {r: 0, g: 0, b: 0, a: 0}
+  SelectedColor: {r: 0, g: 0, b: 0, a: 0}
+  MultiplierOn: {r: 0, g: 0, b: 0, a: 0}
+  MultiplierOff: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &459558808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19217,7 +19293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.063, y: 0.467}
   m_AnchorMax: {x: 0.95536804, y: 0.957}
-  m_AnchoredPosition: {x: -1.1281586, y: -12.187325}
+  m_AnchoredPosition: {x: -1.1281738, y: -12.187325}
   m_SizeDelta: {x: 1.1516724, y: -9.188797}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &470217844
@@ -20558,11 +20634,22 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0.523
+  m_WholeNumbers: 1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateStrength
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &516104369
@@ -21363,7 +21450,7 @@ GameObject:
   - component: {fileID: 539940803}
   - component: {fileID: 539940802}
   m_Layer: 5
-  m_Name: Orb5
+  m_Name: Orb_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21383,10 +21470,10 @@ RectTransform:
   m_Father: {fileID: 1927099552}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.30341357, y: 0.36324337}
-  m_AnchorMax: {x: 0.38482714, y: 0.8176576}
-  m_AnchoredPosition: {x: 26.21312, y: -1.4512463}
-  m_SizeDelta: {x: 5.181984, y: 1.6157913}
+  m_AnchorMin: {x: 0.698, y: 0.25640905}
+  m_AnchorMax: {x: 0.8663595, y: 0.8176576}
+  m_AnchoredPosition: {x: -0.0000076293945, y: -0.45124626}
+  m_SizeDelta: {x: -0.000056267, y: -0.384}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &539940802
 MonoBehaviour:
@@ -21401,15 +21488,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9960785, b: 0.5764706, a: 1}
     m_PressedColor: {r: 1, g: 0.9941299, b: 0.16509432, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -21427,7 +21514,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 539940803}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateMultiplierOrb
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &539940803
@@ -21443,7 +21541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -22764,11 +22862,22 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0.862
+  m_WholeNumbers: 1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateDefense
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &603129580
@@ -23419,6 +23528,7 @@ GameObject:
   - component: {fileID: 618553302}
   - component: {fileID: 618553304}
   - component: {fileID: 618553303}
+  - component: {fileID: 618553305}
   m_Layer: 5
   m_Name: Strength+
   m_TagString: Untagged
@@ -23441,9 +23551,9 @@ RectTransform:
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.94870126, y: 0.65535563}
-  m_AnchorMax: {x: 0.9846514, y: 0.7825499}
-  m_AnchoredPosition: {x: -0.10003662, y: -0.20999908}
-  m_SizeDelta: {x: -0.6479988, y: -0.5799999}
+  m_AnchorMax: {x: 0.9807676, y: 0.7825499}
+  m_AnchoredPosition: {x: 0.0068359375, y: 0.040000916}
+  m_SizeDelta: {x: 0.36080998, y: -0.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &618553303
 MonoBehaviour:
@@ -23487,6 +23597,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 618553301}
   m_CullTransparentMesh: 0
+--- !u!114 &618553305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618553301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 618553303}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateAddedStrength
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &622587369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24964,6 +25127,7 @@ GameObject:
   - component: {fileID: 674639835}
   - component: {fileID: 674639837}
   - component: {fileID: 674639836}
+  - component: {fileID: 674639838}
   m_Layer: 5
   m_Name: Defense-
   m_TagString: Untagged
@@ -24987,8 +25151,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7835903, y: 0.8175499}
   m_AnchorMax: {x: 0.818, y: 0.93854994}
-  m_AnchoredPosition: {x: -0.020019531, y: -0.03390503}
-  m_SizeDelta: {x: -0.6480007, y: 0.42000008}
+  m_AnchoredPosition: {x: 0.17559814, y: -0.03390503}
+  m_SizeDelta: {x: -0.25686, y: 0.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &674639836
 MonoBehaviour:
@@ -25032,6 +25196,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 674639834}
   m_CullTransparentMesh: 0
+--- !u!114 &674639838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674639834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 674639836}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateAddedDefense
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &676674852
 GameObject:
   m_ObjectHideFlags: 0
@@ -25663,7 +25880,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.027706765, y: 0.8880001}
   m_AnchorMax: {x: 0.40100002, y: 0.95972276}
-  m_AnchoredPosition: {x: -0.08997345, y: -0.06994629}
+  m_AnchoredPosition: {x: -0.08996582, y: -0.06994629}
   m_SizeDelta: {x: -0.22000003, y: -0.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &698586510
@@ -29298,8 +29515,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.162, y: 0}
   m_AnchorMax: {x: 0.2664687, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0.4000206}
-  m_SizeDelta: {x: -1.1707993, y: -0.3894348}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0.0000076293945}
+  m_SizeDelta: {x: -1.171, y: -0.000017166}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &786863890
 MonoBehaviour:
@@ -29340,7 +29557,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 786863891}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateGuilt
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &786863891
@@ -34463,10 +34691,10 @@ RectTransform:
   m_Father: {fileID: 234286889}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.124435045, y: 0.8175499}
-  m_AnchorMax: {x: 0.32129005, y: 0.93854994}
-  m_AnchoredPosition: {x: 0.2999878, y: 0.16369629}
-  m_SizeDelta: {x: -0.47309875, y: 0.42411423}
+  m_AnchorMin: {x: 0.124435045, y: 0.7912083}
+  m_AnchorMax: {x: 0.32129005, y: 0.95600003}
+  m_AnchoredPosition: {x: 0.2999878, y: 0.12322998}
+  m_SizeDelta: {x: -0.47, y: 0.23029995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &891001685
 MonoBehaviour:
@@ -40904,6 +41132,7 @@ GameObject:
   - component: {fileID: 1002635360}
   - component: {fileID: 1002635362}
   - component: {fileID: 1002635361}
+  - component: {fileID: 1002635363}
   m_Layer: 5
   m_Name: Defense+
   m_TagString: Untagged
@@ -40972,6 +41201,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002635359}
   m_CullTransparentMesh: 0
+--- !u!114 &1002635363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002635359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1002635361}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateAddedDefense
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!224 &1003129755
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41300,7 +41582,7 @@ GameObject:
   - component: {fileID: 1013654135}
   - component: {fileID: 1013654134}
   m_Layer: 5
-  m_Name: Orb2
+  m_Name: Orb_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41320,10 +41602,10 @@ RectTransform:
   m_Father: {fileID: 1927099552}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.081413575, y: 0.36324337}
-  m_AnchorMax: {x: 0.16282716, y: 0.8176577}
-  m_AnchoredPosition: {x: 9.355896, y: -1.4512461}
-  m_SizeDelta: {x: 5.181986, y: 1.6157913}
+  m_AnchorMin: {x: 0.19650692, y: 0.25640905}
+  m_AnchorMax: {x: 0.3648399, y: 0.8176576}
+  m_AnchoredPosition: {x: -0.026519775, y: -0.45124626}
+  m_SizeDelta: {x: -0.053067, y: -0.384}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1013654134
 MonoBehaviour:
@@ -41338,15 +41620,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9960785, b: 0.5764706, a: 1}
     m_PressedColor: {r: 1, g: 0.9941299, b: 0.16509432, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -41364,7 +41646,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1013654135}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateMultiplierOrb
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1013654135
@@ -41380,7 +41673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -42492,11 +42785,22 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
-  m_WholeNumbers: 0
+  m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateGuiltSliderValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1043560837
@@ -46177,7 +46481,7 @@ GameObject:
   - component: {fileID: 1125068102}
   - component: {fileID: 1125068101}
   m_Layer: 5
-  m_Name: ChipValue
+  m_Name: DaleValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46198,9 +46502,9 @@ RectTransform:
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.818, y: 0.8088695}
-  m_AnchorMax: {x: 0.93711627, y: 0.93854994}
-  m_AnchoredPosition: {x: -0.18200684, y: 0.47154236}
-  m_SizeDelta: {x: 0.32405996, y: -0.13}
+  m_AnchorMax: {x: 0.94870126, y: 0.93854994}
+  m_AnchoredPosition: {x: -0.06323242, y: 0.47154236}
+  m_SizeDelta: {x: -0.22076, y: -0.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1125068101
 MonoBehaviour:
@@ -46229,7 +46533,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 20
-    m_Alignment: 5
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -47861,8 +48165,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.162, y: 0}
   m_AnchorMax: {x: 0.2664687, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.39999962}
-  m_SizeDelta: {x: -1.1707993, y: -0.38943672}
+  m_AnchoredPosition: {x: 0, y: 0.000011444092}
+  m_SizeDelta: {x: -1.171, y: -0.000017166}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1152538330
 MonoBehaviour:
@@ -47903,7 +48207,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1152538331}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateGuilt
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1152538331
@@ -49889,7 +50204,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -3.300003, y: 0}
+  m_AnchoredPosition: {x: -3.3000183, y: 0}
   m_SizeDelta: {x: 13.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1199527325
@@ -50260,7 +50575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.013654946, y: 0.012}
   m_AnchorMax: {x: 0.98634505, y: 0.49600002}
-  m_AnchoredPosition: {x: -0.009979248, y: -0.25001526}
+  m_AnchoredPosition: {x: -0.009979248, y: -0.25003052}
   m_SizeDelta: {x: -0.01999998, y: -0.49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1212945933
@@ -52779,7 +53094,7 @@ GameObject:
   - component: {fileID: 1286634836}
   - component: {fileID: 1286634835}
   m_Layer: 5
-  m_Name: SkillText
+  m_Name: TotalText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57500,7 +57815,7 @@ GameObject:
   - component: {fileID: 1393549816}
   - component: {fileID: 1393549815}
   m_Layer: 5
-  m_Name: Orb1
+  m_Name: Orb_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57520,10 +57835,10 @@ RectTransform:
   m_Father: {fileID: 1927099552}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.0074135745, y: 0.36324337}
-  m_AnchorMax: {x: 0.08882715, y: 0.81765777}
-  m_AnchoredPosition: {x: 3.7369082, y: -1.4512768}
-  m_SizeDelta: {x: 5.181988, y: 1.6157913}
+  m_AnchorMin: {x: 0.024253456, y: 0.25640905}
+  m_AnchorMax: {x: 0.19650692, y: 0.81765777}
+  m_AnchoredPosition: {x: 0.07296753, y: -0.45127678}
+  m_SizeDelta: {x: -0.14590001, y: -0.38399994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1393549815
 MonoBehaviour:
@@ -57538,15 +57853,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9960785, b: 0.5764706, a: 1}
     m_PressedColor: {r: 1, g: 0.9941299, b: 0.16509432, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -57564,7 +57879,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1393549816}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateMultiplierOrb
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1393549816
@@ -57580,7 +57906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -59234,7 +59560,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.026655342, y: 0.038875453}
   m_AnchorMax: {x: 0.97400004, y: 0.333}
-  m_AnchoredPosition: {x: 0.5, y: 0.3500061}
+  m_AnchoredPosition: {x: 0.5, y: 0.3499756}
   m_SizeDelta: {x: 0.37, y: 0.7099991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1432651593
@@ -65488,7 +65814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -65514,7 +65840,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1598549561}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateMultiplier
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1598549561
@@ -66832,7 +67169,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015767207, y: 0.13366108}
   m_AnchorMax: {x: 0.41700003, y: 0.8977183}
-  m_AnchoredPosition: {x: -0.35247803, y: -0.14750004}
+  m_AnchoredPosition: {x: -0.35247803, y: -0.14750099}
   m_SizeDelta: {x: -0.7049999, y: 0.16000009}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1655527956
@@ -67158,7 +67495,7 @@ GameObject:
   - component: {fileID: 1658136783}
   - component: {fileID: 1658136782}
   m_Layer: 5
-  m_Name: DaleValue
+  m_Name: ChipValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67179,9 +67516,9 @@ RectTransform:
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.818, y: 0.65535563}
-  m_AnchorMax: {x: 0.93711627, y: 0.7825499}
-  m_AnchoredPosition: {x: 0.20904541, y: -0.028457642}
-  m_SizeDelta: {x: 0.32406235, y: -0.12999916}
+  m_AnchorMax: {x: 0.94870126, y: 0.7825499}
+  m_AnchoredPosition: {x: -0.06335449, y: -0.028457642}
+  m_SizeDelta: {x: -0.22057, y: -0.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1658136782
 MonoBehaviour:
@@ -67210,7 +67547,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 20
-    m_Alignment: 5
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -70324,8 +70661,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.162, y: 0}
   m_AnchorMax: {x: 0.2664687, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.39998984}
-  m_SizeDelta: {x: -1.1707993, y: -0.38943672}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -1.171, y: -0.0000019073}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1745422893
 MonoBehaviour:
@@ -70362,11 +70699,22 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1745422894}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateGuilt
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1745422894
@@ -70376,7 +70724,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745422891}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -72752,7 +73100,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2547113, y: 0.11334887}
   m_AnchorMax: {x: 0.38187557, y: 0.40289825}
-  m_AnchoredPosition: {x: 0.47039795, y: -0.1000061}
+  m_AnchoredPosition: {x: 0.47074127, y: -0.1000061}
   m_SizeDelta: {x: -0.75, y: -0.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1803692946
@@ -74242,6 +74590,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1842841828}
+  - component: {fileID: 1842841829}
   m_Layer: 5
   m_Name: Guilt
   m_TagString: Untagged
@@ -74274,6 +74623,18 @@ RectTransform:
   m_AnchoredPosition: {x: -0.08001709, y: 0.01499939}
   m_SizeDelta: {x: -0.13999987, y: -0.1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1842841829
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842841827}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1844571239
 GameObject:
   m_ObjectHideFlags: 0
@@ -77066,10 +77427,10 @@ RectTransform:
   m_Father: {fileID: 234286889}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.020435045, y: 0.079717286}
+  m_AnchorMin: {x: 0.024327453, y: 0.079717286}
   m_AnchorMax: {x: 0.25329003, y: 0.23828273}
-  m_AnchoredPosition: {x: 0.4000244, y: -0.14700317}
-  m_SizeDelta: {x: -0.44000244, y: 0.40999985}
+  m_AnchoredPosition: {x: -0.099975586, y: -0.14700317}
+  m_SizeDelta: {x: 0.55999756, y: 0.40999985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1927099553
 MonoBehaviour:
@@ -77382,6 +77743,7 @@ MonoBehaviour:
   Player: {fileID: 1578766456}
   Enemy: {fileID: 904889556}
   Effects: {fileID: 518058660}
+  Guilt: {fileID: 1842841829}
   PSMAttribute: {fileID: 375493672}
   URAttribute: {fileID: 1291766561}
   Tier: {fileID: 811047671}
@@ -77458,8 +77820,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  SkillImage: {fileID: 933126855}
-  SkillText: {fileID: 1960268301}
+  SkillImage: {fileID: 1448275402}
+  SkillText: {fileID: 2046166798}
   TraitSlots:
   - {fileID: 434665153}
   - {fileID: 1803692946}
@@ -77488,6 +77850,12 @@ MonoBehaviour:
   - {fileID: 1152538330}
   GuiltSlider: {fileID: 1043513683}
   GuiltValue: {fileID: 1173419856}
+  BaseMultiplierLow: 
+  BaseMultiplierHigh: 
+  MaxMultiplierLow: 
+  MaxMultiplierHigh: 
+  GuiltMultiplierLow: 
+  GuiltMultiplierHigh: 
   Deals: {fileID: 764649795}
   SPABonus: {fileID: 1761923258}
   Skill: {fileID: 1873374334}
@@ -77498,12 +77866,16 @@ MonoBehaviour:
   - {fileID: 1655820173}
   - {fileID: 1176407371}
   SPATKBonusManager: {fileID: 2073629961}
-  FinalDamageOutput: {fileID: 1294498023}
+  FinalDamageOutput: {fileID: 1286634835}
   SupernovaButton: {fileID: 1123491694}
   MedalPlaceholder: {fileID: 1081239634}
   MedalPlaceholderShadow: {fileID: 1465555308}
   Ability: {fileID: 1397837059}
   AbilityDescription: {fileID: 748102491}
+  NormalColor: {r: 0, g: 0, b: 0, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 0, a: 1}
+  MultiplierOn: {r: 1, g: 1, b: 1, a: 1}
+  MultiplierOff: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
 --- !u!225 &1935925467
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -77512,8 +77884,8 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935925465}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
+  m_Alpha: 1
+  m_Interactable: 1
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1935925468
@@ -78647,7 +79019,7 @@ GameObject:
   - component: {fileID: 1953345643}
   - component: {fileID: 1953345642}
   m_Layer: 5
-  m_Name: Orb4
+  m_Name: Orb_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78667,10 +79039,10 @@ RectTransform:
   m_Father: {fileID: 1927099552}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.22941358, y: 0.36324337}
-  m_AnchorMax: {x: 0.3107593, y: 0.8176577}
-  m_AnchoredPosition: {x: 20.591484, y: -1.4512463}
-  m_SizeDelta: {x: 5.176836, y: 1.6157913}
+  m_AnchorMin: {x: 0.5336797, y: 0.25640905}
+  m_AnchorMax: {x: 0.698, y: 0.8176577}
+  m_AnchoredPosition: {x: 0.089977264, y: -0.45124626}
+  m_SizeDelta: {x: 0.17991, y: -0.384}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1953345642
 MonoBehaviour:
@@ -78685,15 +79057,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9960785, b: 0.5764706, a: 1}
     m_PressedColor: {r: 1, g: 0.9941299, b: 0.16509432, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -78711,7 +79083,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1953345643}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935925466}
+        m_MethodName: UpdateMultiplierOrb
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1953345643
@@ -78727,7 +79110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -81080,10 +81463,10 @@ RectTransform:
   m_Father: {fileID: 234286889}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.124435045, y: 0.6466752}
-  m_AnchorMax: {x: 0.32129005, y: 0.7738326}
-  m_AnchoredPosition: {x: 0.256958, y: -0.16630936}
-  m_SizeDelta: {x: -0.55911255, y: 0.87363243}
+  m_AnchorMin: {x: 0.124435045, y: 0.6204566}
+  m_AnchorMax: {x: 0.32129005, y: 0.7912083}
+  m_AnchoredPosition: {x: 0.256958, y: 0.22834778}
+  m_SizeDelta: {x: -0.56, y: -0.7771001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2032553231
 MonoBehaviour:

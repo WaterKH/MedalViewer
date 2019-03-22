@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace MedalViewer.Medal
         public CanvasGroup Player;
         public CanvasGroup Enemy;
         public CanvasGroup Effects;
+        public CanvasGroup Guilt;
 
         #region Icons
 
@@ -108,8 +110,27 @@ namespace MedalViewer.Medal
         public Slider GuiltSlider;
         public Text GuiltValue;
 
+        public Tuple<int, int>[] GuiltByTier = { 
+            Tuple.Create(10, 25),
+            Tuple.Create(20, 50),
+            Tuple.Create(40, 100),
+            Tuple.Create(60, 130),
+            Tuple.Create(80, 150),
+            Tuple.Create(100, 180),
+            Tuple.Create(120, 200),
+            Tuple.Create(150, 230),
+            Tuple.Create(200, 280)
+        };
+
+        public string BaseMultiplierLow;
+        public string BaseMultiplierHigh;
+        public string MaxMultiplierLow;
+        public string MaxMultiplierHigh;
+        public string GuiltMultiplierLow;
+        public string GuiltMultiplierHigh;
+
         #endregion
-        
+
         #region Vars
 
         public Text Deals;
@@ -139,6 +160,16 @@ namespace MedalViewer.Medal
 
         #endregion
 
+        #region Colors
+
+        public Color NormalColor;
+        public Color SelectedColor;
+        public Color MultiplierOn;
+        public Color MultiplierOff;
+
+        #endregion
+
+
 
         #region Private 
 
@@ -158,7 +189,7 @@ namespace MedalViewer.Medal
 
         private Color32 visible = new Color(1f, 1f, 1f, 1f);
         private Color32 invisible = new Color(0f, 0f, 0f, 0f);
-
+        
         //private string initialTraitSlotText = "N/A";
 
         #endregion
@@ -351,8 +382,7 @@ namespace MedalViewer.Medal
 
         private void AssignSkill()
         {
-            // TODO If we save user medals, maybe pull from that database? But for right now, we don't need one
-            //yield return null;
+            SkillImage.enabled = true;
         }
 
         private void AssignTraits(MedalDisplay medalDisplay)
@@ -368,128 +398,202 @@ namespace MedalViewer.Medal
         private void AssignStats(MedalDisplay medalDisplay/*, MedalAbility medalAbility*/)
         {
             //yield return null;
-            Multiplier.text = medalDisplay.BaseMultiplier.Split('-')[0];
-            Defense.text = medalDisplay.MaxDefense.ToString();
-            Strength.text = medalDisplay.MaxDefense.ToString();
+            //Multiplier.text = medalDisplay.BaseMultiplier.Split('-')[0];
+            Defense.text = medalDisplay.BaseDefense.ToString();
+            Strength.text = medalDisplay.BaseDefense.ToString();
 
-            //switch (medalDisplay.Star)
-            //{
-            //    case 1:
-            //    case 2:
-            //        MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
+            DefenseSlider.minValue = medalDisplay.BaseDefense;
+            DefenseSlider.maxValue = medalDisplay.MaxDefense;
+            StrengthSlider.minValue = medalDisplay.BaseStrength;
+            StrengthSlider.maxValue = medalDisplay.MaxStrength;
 
-            //        SPATKBonusManager.CurrMultiplier = medalDisplay.BaseMultiplier;
-            //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+            DefenseSlider.value = medalDisplay.BaseDefense;
+            StrengthSlider.value = medalDisplay.BaseStrength;
 
-            //        EqualTexts[0].text = "=";
-            //        MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
+            BaseMultiplierLow = medalDisplay.BaseMultiplierLow;
+            BaseMultiplierHigh = medalDisplay.BaseMultiplierHigh;
+            MaxMultiplierLow = medalDisplay.MaxMultiplierLow;
+            MaxMultiplierHigh = medalDisplay.MaxMultiplierHigh;
+            GuiltMultiplierLow = medalDisplay.GuiltMultiplierLow;
+            GuiltMultiplierHigh = medalDisplay.GuiltMultiplierHigh;
 
-            //        BaseMultiplier.color = visible;
-            //        break;
-            //    case 3:
-            //        MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
-            //        MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
+            //if ((BaseMultiplierHigh != "" || MaxMultiplierHigh != "" || GuiltMultiplierHigh != "") && 
+            //    (BaseMultiplierHigh != "0" || MaxMultiplierHigh != "0" || GuiltMultiplierHigh != "0"))
+            if(Effects.alpha != 0)
+            {
+                SwapMultiplier.GetComponent<Image>().enabled = true;
+                SwapMultiplier.enabled = true;
+            }
 
-            //        SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-            //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+            switch (medalDisplay.Star)
+            {
+                case 1:
+                case 2:
+                    Multiplier.text = medalDisplay.BaseMultiplierLow;
+                    
+                    //SPATKBonusManager.CurrMultiplier = medalDisplay.BaseMultiplier;
+                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+                    
+                    //MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
 
-            //        EqualTexts[0].text = "=";
-            //        MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
+                    //BaseMultiplier.color = visible;
+                    break;
+                case 3:
+                    Multiplier.text = medalDisplay.BaseMultiplierLow;
 
-            //        EqualTexts[1].text = "=";
-            //        MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+                    for (int i = 0; i < 1; ++i)
+                    {
+                        MultiplierOrbs[i].enabled = true;
+                        MultiplierOrbs[i].GetComponent<Image>().enabled = true;
+                    }
 
-            //        BaseMultiplier.color = visible;
-            //        MaxMultipliers[0].color = visible;
-            //        break;
-            //    case 4:
-            //        MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
-            //        MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
+                    //SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
+                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
 
-            //        SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-            //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+                    //EqualTexts[0].text = "=";
+                    //MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
 
-            //        EqualTexts[0].text = "=";
-            //        MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
+                    //EqualTexts[1].text = "=";
+                    //MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
 
-            //        EqualTexts[1].text = "=";
-            //        MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+                    //BaseMultiplier.color = visible;
+                    //MaxMultipliers[0].color = visible;
+                    break;
+                case 4:
+                    Multiplier.text = medalDisplay.BaseMultiplierLow;
 
-            //        BaseMultiplier.color = visible;
-            //        MaxMultipliers[1].color = visible;
-            //        break;
-            //    case 5:
-            //        MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
-            //        MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
+                    for (int i = 0; i < 2; ++i)
+                    {
+                        MultiplierOrbs[i].enabled = true;
+                        MultiplierOrbs[i].GetComponent<Image>().enabled = true;
+                    }
 
-            //        SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-            //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+                    //SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
+                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
 
-            //        EqualTexts[0].text = "=";
-            //        MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
+                    //EqualTexts[0].text = "=";
+                    //MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
 
-            //        EqualTexts[1].text = "=";
-            //        MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+                    //EqualTexts[1].text = "=";
+                    //MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
 
-            //        BaseMultiplier.color = visible;
-            //        MaxMultipliers[2].color = visible;
-            //        break;
-            //    case 6:
-            //        MultiplierTexts[0].text = medalDisplay.BaseMultiplier.Replace("-", "~");
-            //        MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
-            //        MultiplierTexts[2].text = medalDisplay.GuiltMultiplier.Replace("-", "~");
+                    //BaseMultiplier.color = visible;
+                    //MaxMultipliers[1].color = visible;
+                    break;
+                case 5:
+                    Multiplier.text = medalDisplay.BaseMultiplierLow;
 
-            //        SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-            //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-            //        SPATKBonusManager.CurrTier = medalDisplay.Tier;
+                    for (int i = 0; i < 3; ++i)
+                    {
+                        MultiplierOrbs[i].enabled = true;
+                        MultiplierOrbs[i].GetComponent<Image>().enabled = true;
+                    }
 
-            //        EqualTexts[0].text = "=";
-            //        MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
+                    //SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
+                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
 
-            //        EqualTexts[1].text = "=";
-            //        MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+                    //EqualTexts[0].text = "=";
+                    //MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
 
-            //        EqualTexts[2].text = "=";
-            //        MultiplierWithStrengthTexts[2].text = Parser.ParseMultiplierWithStrength(medalDisplay.GuiltMultiplier, medalDisplay.MaxStrength);
+                    //EqualTexts[1].text = "=";
+                    //MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
 
-            //        BaseMultiplier.color = visible;
-            //        MaxMultipliers[3].color = visible;
-            //        GuiltMultiplier.color = visible;
+                    //BaseMultiplier.color = visible;
+                    //MaxMultipliers[2].color = visible;
+                    break;
+                case 6:
+                    Multiplier.text = medalDisplay.BaseMultiplierLow;
 
-            //        MultiplierTier.color = visible;
-            //        MultiplierTier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
-            //        break;
-            //    case 7:
-            //        MultiplierTexts[1].text = medalDisplay.MaxMultiplier.Replace("-", "~");
-            //        MultiplierTexts[2].text = medalDisplay.GuiltMultiplier.Replace("-", "~");
+                    for (int i = 0; i < 5; ++i)
+                    {
+                        MultiplierOrbs[i].enabled = true;
+                        MultiplierOrbs[i].GetComponent<Image>().enabled = true;
+                    }
 
-            //        SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-            //        SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-            //        SPATKBonusManager.CurrTier = medalDisplay.Tier;
+                    GuiltButtons[0].enabled = true;
+                    GuiltButtons[0].GetComponent<Image>().enabled = true;
 
-            //        EqualTexts[1].text = "=";
-            //        MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+                    GuiltSlider.minValue = GuiltByTier[medalDisplay.Tier - 1].Item1;
+                    GuiltSlider.maxValue = GuiltByTier[medalDisplay.Tier - 1].Item2;
 
-            //        EqualTexts[2].text = "=";
-            //        MultiplierWithStrengthTexts[2].text = Parser.ParseMultiplierWithStrength(medalDisplay.GuiltMultiplier, medalDisplay.MaxStrength);
+                    Guilt.alpha = 1;
+                    Guilt.interactable = true;
+                    Guilt.blocksRaycasts = true;
 
-            //        MaxMultipliers[3].color = visible;
-            //        GuiltMultiplier.color = visible;
+                    GuiltValue.text = GuiltSlider.minValue.ToString();
 
-            //        MultiplierTier.color = visible;
-            //        MultiplierTier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
-            //        break;
-            //    default:
-            //        break;
-            //}
+                    //SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
+                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+                    //SPATKBonusManager.CurrTier = medalDisplay.Tier;
+
+                    //EqualTexts[0].text = "=";
+                    //MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
+
+                    //EqualTexts[1].text = "=";
+                    //MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+
+                    //EqualTexts[2].text = "=";
+                    //MultiplierWithStrengthTexts[2].text = Parser.ParseMultiplierWithStrength(medalDisplay.GuiltMultiplier, medalDisplay.MaxStrength);
+
+                    //BaseMultiplier.color = visible;
+                    //MaxMultipliers[3].color = visible;
+                    //GuiltMultiplier.color = visible;
+
+                    //MultiplierTier.color = visible;
+                    //MultiplierTier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
+                    break;
+                case 7:
+                    Multiplier.text = medalDisplay.MaxMultiplierLow;
+
+                    for (int i = 0; i < 5; ++i)
+                    {
+                        var colors = MultiplierOrbs[i].colors;
+                        colors.normalColor = SelectedColor;
+                        MultiplierOrbs[i].colors = colors;
+
+                        MultiplierOrbs[i].enabled = true;
+                        MultiplierOrbs[i].GetComponent<Image>().enabled = true;
+                    }
+                    
+                    GuiltButtons[1].enabled = true;
+                    GuiltButtons[1].GetComponent<Image>().enabled = true;
+
+                    GuiltSlider.minValue = GuiltByTier[medalDisplay.Tier - 1].Item1;
+                    GuiltSlider.maxValue = GuiltByTier[medalDisplay.Tier - 1].Item2;
+
+                    Guilt.alpha = 1;
+                    Guilt.interactable = true;
+                    Guilt.blocksRaycasts = true;
+
+                    GuiltValue.text = GuiltSlider.minValue.ToString();
+
+                    //SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
+                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
+                    //SPATKBonusManager.CurrTier = medalDisplay.Tier;
+
+                    //EqualTexts[1].text = "=";
+                    //MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
+
+                    //EqualTexts[2].text = "=";
+                    //MultiplierWithStrengthTexts[2].text = Parser.ParseMultiplierWithStrength(medalDisplay.GuiltMultiplier, medalDisplay.MaxStrength);
+
+                    //MaxMultipliers[3].color = visible;
+                    //GuiltMultiplier.color = visible;
+
+                    //MultiplierTier.color = visible;
+                    //MultiplierTier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
+                    break;
+                default:
+                    break;
+            }
 
             //SPATKBonusManager.UpdateSPATKBonus();
         }
 
         private void AssignVars(MedalDisplay medalDisplay, MedalAbility medalAbility)
         {
-            Deals.text = medalAbility.Deal;
-            SPABonus.text = medalAbility.SPBonus ?? "15";
+            Deals.text = medalAbility.Deal != "" ? medalAbility.Deal : "1";
+            SPABonus.text = medalAbility.SPBonus != "" ? medalAbility.SPBonus : "15";
         }
 
         private void AssignTotal()
@@ -497,9 +601,173 @@ namespace MedalViewer.Medal
 
         }
 
-        #endregion 
+        #endregion
 
         #endregion Assign Attributes
+
+        #region Update Attributes
+
+        public void UpdateStrength()
+        {
+            Strength.text = StrengthSlider.value.ToString();
+
+            UpdateTotal();
+        }
+
+        public void UpdateAddedStrength(int value)
+        {
+            var strength = int.Parse(AddedStrength.text);
+            if (strength > 0 && strength < 1000)
+            {
+                AddedStrength.text = (strength + value).ToString();
+            }
+
+            UpdateTotal();
+        }
+
+        public void UpdateDefense()
+        {
+            Defense.text = DefenseSlider.value.ToString();
+        }
+
+        public void UpdateAddedDefense(int value)
+        {
+            var defense = int.Parse(AddedDefense.text);
+            if (defense > 0 && defense < 1000)
+            {
+                AddedDefense.text = (defense + value).ToString();
+            }
+        }
+
+        public void UpdateMultiplier()
+        {
+            var colors = SwapMultiplier.colors;
+
+            if (MultiplierIdentifier.text == "Base")
+            {
+                MultiplierIdentifier.text = "Max";
+
+                colors.normalColor = MultiplierOn;
+                colors.highlightedColor = MultiplierOff;
+
+                if(GuiltButtons[0].enabled == true)
+                {
+                    if(MultiplierOrbs[4].enabled == true)
+                    {
+                        Multiplier.text = MaxMultiplierHigh.ToString();
+                    }
+                    else
+                    {
+                        Multiplier.text = BaseMultiplierHigh.ToString();
+                    }
+                }
+                else
+                {
+                    Multiplier.text = GuiltMultiplierHigh.ToString();
+                }
+            }
+            else
+            {
+                MultiplierIdentifier.text = "Base";
+                
+                colors.normalColor = MultiplierOff;
+                colors.highlightedColor = MultiplierOn;
+
+                if (GuiltButtons[0].enabled == true)
+                {
+                    if (MultiplierOrbs[4].enabled == true)
+                    {
+                        Multiplier.text = MaxMultiplierLow.ToString();
+                    }
+                    else
+                    {
+                        Multiplier.text = BaseMultiplierLow.ToString();
+                    }
+                }
+                else
+                {
+                    Multiplier.text = GuiltMultiplierLow.ToString();
+                }
+            }
+            
+            SwapMultiplier.colors = colors;
+        }
+
+        public void UpdateMultiplierOrb(int orbIndex)
+        {
+            foreach(var orb in MultiplierOrbs)
+            {
+                var colors = orb.colors;
+                colors.normalColor = NormalColor;
+                orb.colors = colors;
+            }
+
+            for(int i = 0; i < orbIndex; ++i)
+            {
+                var colors = MultiplierOrbs[i].colors;
+                colors.normalColor = SelectedColor;
+                MultiplierOrbs[i].colors = colors;
+            }
+        }
+
+        public void UpdateGuilt()
+        {
+            if(GuiltButtons[0].enabled == true)
+            {
+                foreach(var orb in MultiplierOrbs)
+                {
+                    var colors = orb.colors;
+                    colors.normalColor = SelectedColor;
+                    orb.colors = colors;
+                }
+
+                GuiltButtons[0].enabled = false;
+                GuiltButtons[0].GetComponent<Image>().enabled = false;
+
+                GuiltButtons[1].enabled = true;
+                GuiltButtons[2].enabled = true;
+                GuiltButtons[1].GetComponent<Image>().enabled = true;
+                GuiltButtons[2].GetComponent<Image>().enabled = true;
+
+                if (SwapMultiplier.colors.normalColor == SelectedColor)
+                    Multiplier.text = GuiltMultiplierHigh;
+                else
+                    Multiplier.text = GuiltMultiplierLow;
+
+                GuiltSlider.interactable = true;
+            }
+            else if (GuiltButtons[1].enabled == true || GuiltButtons[2].enabled == true)
+            {
+                GuiltButtons[0].enabled = true;
+                GuiltButtons[0].GetComponent<Image>().enabled = true;
+
+                GuiltButtons[1].enabled = false;
+                GuiltButtons[2].enabled = false;
+                GuiltButtons[1].GetComponent<Image>().enabled = false;
+                GuiltButtons[2].GetComponent<Image>().enabled = false;
+
+                if (SwapMultiplier.colors.normalColor == SelectedColor)
+                    Multiplier.text = MaxMultiplierHigh;
+                else
+                    Multiplier.text = MaxMultiplierLow;
+
+                GuiltSlider.interactable = false;
+            }
+        }
+
+        public void UpdateGuiltSliderValue()
+        {
+            GuiltValue.text = $"{GuiltSlider.value.ToString()}%";
+
+            //GuiltButtons[1].GetComponent<CanvasGroup>().alpha = 
+        }
+
+        public void UpdateTotal()
+        {
+
+        }
+
+        #endregion
 
         #region Reset Attributes
 
@@ -604,7 +872,7 @@ namespace MedalViewer.Medal
 
         public void ResetSkill()
         {
-            SkillImage.texture = null;
+            SkillImage.texture = InitialImage.texture;
             SkillImage.enabled = false;
 
             SkillText.text = "";
@@ -625,7 +893,38 @@ namespace MedalViewer.Medal
             Defense.text = "";
             Strength.text = "";
             
-            // TODO Add rest of vars
+            var multColors = SwapMultiplier.colors;
+            multColors.normalColor = MultiplierOff;
+            SwapMultiplier.colors = multColors;
+            SwapMultiplier.GetComponent<Image>().enabled = false;
+            SwapMultiplier.enabled = false;
+
+            DefenseSlider.value = 0;
+            StrengthSlider.value = 0;
+           
+            MultiplierIdentifier.text = "Base";
+            AddedDefense.text = "0";
+            AddedStrength.text = "0";
+
+            foreach (var orb in MultiplierOrbs)
+            {
+                var colors = orb.colors;
+                colors.normalColor = NormalColor;
+                orb.colors = colors;
+
+                orb.enabled = false;
+                orb.GetComponent<Image>().enabled = false;
+            }
+            
+            foreach(var guilt in GuiltButtons)
+            {
+                guilt.GetComponent<Image>().enabled = false;
+            }
+            Guilt.alpha = 0;
+            Guilt.interactable = false;
+            Guilt.blocksRaycasts = false;
+            GuiltSlider.value = 0;
+            GuiltValue.text = "0%";
         }
 
         public void ResetVars()

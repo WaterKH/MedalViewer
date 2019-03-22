@@ -695,11 +695,11 @@ namespace MedalViewer.Medal
 
         public void UpdateMultiplierOrb(int orbIndex)
         {
-            foreach(var orb in MultiplierOrbs)
+            for(int i = orbIndex; i < MultiplierOrbs.Length; ++i)
             {
-                var colors = orb.colors;
+                var colors = MultiplierOrbs[i].colors;
                 colors.normalColor = NormalColor;
-                orb.colors = colors;
+                MultiplierOrbs[i].colors = colors;
             }
 
             for(int i = 0; i < orbIndex; ++i)

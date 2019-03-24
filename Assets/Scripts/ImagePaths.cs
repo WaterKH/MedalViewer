@@ -168,7 +168,9 @@ public class ImagePaths {
                 { "70", "SPATKBonus/70" }, { "80", "SPATKBonus/80" }, { "90", "SPATKBonus/90" },
                 { "100", "SPATKBonus/100" }, { "110", "SPATKBonus/110" }, { "120", "SPATKBonus/120" },
                 { "130", "SPATKBonus/120" }, { "140", "SPATKBonus/120" }, { "150", "SPATKBonus/120" },
-                { "160", "SPATKBonus/120" },
+                { "160", "SPATKBonus/120" }, { "170", "SPATKBonus/120" }, { "180", "SPATKBonus/120" },
+                { "190", "SPATKBonus/120" }, { "200", "SPATKBonus/120" }, { "210", "SPATKBonus/120" },
+                { "260", "SPATKBonus/120" },
             }
         },
     };

@@ -79,6 +79,28 @@ namespace MedalViewer.Medal
         public RawImage SkillImage;
         public Text SkillText;
 
+        public Dictionary<string, string> SkillConversion = new Dictionary<string, string>
+        {
+            { "Attack Boost All I", "1.2" }, {"Attack Boost All II", "1.4" },
+
+            { "Attack Boost I", "1.2" }, { "Attack Boost II", "1.4" }, { "Attack Boost III", "1.6" },
+            { "Attack Boost IV", "1.8" }, { "Attack Boost V", "2.0" }, { "Attack Boost VI", "2.2" },
+            { "Attack Boost VII", "2.4" }, { "Attack Boost VIII", "2.6" }, { "Attack Boost IX", "2.8" },
+
+            { "Attack Boost II & AP+", "1.4" }, { "Attack Boost III & AP+", "1.6" },
+            { "Attack Boost VI & AP+", "2.2" }, { "Attack Boost IX & AP+", "2.8" },
+
+            { "Attack Boost II & LP+", "1.4" }, { "Attack Boost III & LP+", "1.6" },
+            { "Attack Boost IV & LP+", "1.8" }, { "Attack Boost V & LP+", "2.0" }, { "Attack Boost VI & LP+", "2.2" },
+            { "Attack Boost VII & LP+", "2.4" }, { "Attack Boost VIII & LP+", "2.6" },
+
+            { "Attack Boost III Max & GA1/2", "1.6" },
+            { "Attack Boost IV Max & GA0/1/2", "1.8" }, { "Attack Boost V Max & GA0/1/2", "2.0" }, { "Attack Boost VI Max & GA0/1/2", "2.2" },
+            { "Attack Boost VII Max & GA0/1/2", "2.4" }, { "Attack Boost VIII Max & GA0/1/2", "2.6" },
+
+            { "Null", "" }
+        };
+
         #endregion
 
         #region Traits
@@ -86,8 +108,17 @@ namespace MedalViewer.Medal
         //public CanvasGroup Traits;
         public RawImage[] TraitSlots;
         //public Text[] TraitSlotsText;
+        public RawImage CurrentTraitSlot;
         
         public RawImage InitialImage;
+
+        public Dictionary<string, string> TraitConversion = new Dictionary<string, string>
+        {
+            { "Ground Enemy DEF -60%", "-60%G" }, { "Aerial Enemy DEF -60%", "-60%A" },
+            { "Damage in Raids +40%", "+40%R" }, { "Extra Attack: 40% Power", "+40%EA"},
+            { "DEF +2000", "+2000D" }, { "STR +1000", "+1000S"},
+            { "Null", "" }
+        };
 
         #endregion Traits
 
@@ -138,7 +169,15 @@ namespace MedalViewer.Medal
         public Text Skill;
         public Text[] TraitValues;
 
-        public SPATKBonusManager SPATKBonusManager; // Needed?
+        public int CurrSPIndex = 0;
+        public string[] SPABonusValues = new string[]
+        {
+            "0", "15", "20", "30", "40", "60", "70", "80", "90",
+            "100", "110", "120", "130", "140", "150", "160", "170", "180", "190",
+            "200", "210", "260"
+        };
+
+        //public SPATKBonusManager SPATKBonusManager; // Needed?
 
         #endregion
 
@@ -193,57 +232,7 @@ namespace MedalViewer.Medal
         //private string initialTraitSlotText = "N/A";
 
         #endregion
-
-        void Awake()
-        {
-            //background_group = GameObject.FindGameObjectWithTag("Background").GetComponent<CanvasGroup>();
-            //		MedalSublistGroup = GameObject.FindGameObjectWithTag("MedalSublistGroup").GetComponent<CanvasGroup>();
-            //MedalSublist = GameObject.FindGameObjectWithTag("MedalSublist");
-
-            //medalCreator = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalCreator>();
-
-            Reset();
-        }
-
-        public IEnumerator Display(GameObject medalObject)
-        {
-            yield return null;
-            Loading.StartLoading();
-            Reset();
-
-            MedalDisplay medalDisplay = medalObject.GetComponent<MedalDisplay>();
-            MedalAbility medalAbility = new MedalAbility();
             
-            try
-            {
-                medalAbility = MedalAbilityParser.Parser(medalDisplay.AbilityDescription);
-            }
-            catch
-            {
-                print(medalDisplay.Name.Split(':')[0] + " " + medalDisplay.AbilityDescription);
-            }
-
-            #region Display Assignment
-            
-            AssignIcons(medalDisplay);
-            AssignMedalName(medalDisplay);
-            AssignMedalInfo(medalDisplay);
-            
-            if (medalAbility != null)
-            {
-                medalAbility.SetUpDisplayAbility();
-
-                AssignContent(medalDisplay, medalAbility);
-            }
-
-
-            #endregion
-            
-            isTransition = true;
-            elapsedTime = 0.0f;
-
-            StartCoroutine(ShowDisplay(MedalHighlight));
-        }
 
         #region Assign Attributes
 
@@ -255,7 +244,6 @@ namespace MedalViewer.Medal
             Tier.texture = Resources.Load("Tier/Black/" + medalDisplay.Tier) as Texture2D;
             Target.texture = Resources.Load("Target/" + medalDisplay.Target) as Texture2D;
             Gauges.texture = Resources.Load("Gauges/" + medalDisplay.Gauge) as Texture2D;
-
         }
 
         private void AssignMedalName(MedalDisplay medalDisplay)
@@ -397,8 +385,6 @@ namespace MedalViewer.Medal
 
         private void AssignStats(MedalDisplay medalDisplay/*, MedalAbility medalAbility*/)
         {
-            //yield return null;
-            //Multiplier.text = medalDisplay.BaseMultiplier.Split('-')[0];
             Defense.text = medalDisplay.BaseDefense.ToString();
             Strength.text = medalDisplay.BaseDefense.ToString();
 
@@ -416,9 +402,7 @@ namespace MedalViewer.Medal
             MaxMultiplierHigh = medalDisplay.MaxMultiplierHigh;
             GuiltMultiplierLow = medalDisplay.GuiltMultiplierLow;
             GuiltMultiplierHigh = medalDisplay.GuiltMultiplierHigh;
-
-            //if ((BaseMultiplierHigh != "" || MaxMultiplierHigh != "" || GuiltMultiplierHigh != "") && 
-            //    (BaseMultiplierHigh != "0" || MaxMultiplierHigh != "0" || GuiltMultiplierHigh != "0"))
+            
             if(Effects.alpha != 0)
             {
                 SwapMultiplier.GetComponent<Image>().enabled = true;
@@ -431,12 +415,6 @@ namespace MedalViewer.Medal
                 case 2:
                     Multiplier.text = medalDisplay.BaseMultiplierLow;
                     
-                    //SPATKBonusManager.CurrMultiplier = medalDisplay.BaseMultiplier;
-                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-                    
-                    //MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
-
-                    //BaseMultiplier.color = visible;
                     break;
                 case 3:
                     Multiplier.text = medalDisplay.BaseMultiplierLow;
@@ -446,18 +424,7 @@ namespace MedalViewer.Medal
                         MultiplierOrbs[i].enabled = true;
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
-
-                    //SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-
-                    //EqualTexts[0].text = "=";
-                    //MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
-
-                    //EqualTexts[1].text = "=";
-                    //MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
-
-                    //BaseMultiplier.color = visible;
-                    //MaxMultipliers[0].color = visible;
+                    
                     break;
                 case 4:
                     Multiplier.text = medalDisplay.BaseMultiplierLow;
@@ -467,18 +434,7 @@ namespace MedalViewer.Medal
                         MultiplierOrbs[i].enabled = true;
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
-
-                    //SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-
-                    //EqualTexts[0].text = "=";
-                    //MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
-
-                    //EqualTexts[1].text = "=";
-                    //MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
-
-                    //BaseMultiplier.color = visible;
-                    //MaxMultipliers[1].color = visible;
+                    
                     break;
                 case 5:
                     Multiplier.text = medalDisplay.BaseMultiplierLow;
@@ -488,18 +444,7 @@ namespace MedalViewer.Medal
                         MultiplierOrbs[i].enabled = true;
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
-
-                    //SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-
-                    //EqualTexts[0].text = "=";
-                    //MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
-
-                    //EqualTexts[1].text = "=";
-                    //MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
-
-                    //BaseMultiplier.color = visible;
-                    //MaxMultipliers[2].color = visible;
+                    
                     break;
                 case 6:
                     Multiplier.text = medalDisplay.BaseMultiplierLow;
@@ -521,26 +466,7 @@ namespace MedalViewer.Medal
                     Guilt.blocksRaycasts = true;
 
                     GuiltValue.text = GuiltSlider.minValue.ToString();
-
-                    //SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-                    //SPATKBonusManager.CurrTier = medalDisplay.Tier;
-
-                    //EqualTexts[0].text = "=";
-                    //MultiplierWithStrengthTexts[0].text = Parser.ParseMultiplierWithStrength(medalDisplay.BaseMultiplier, medalDisplay.MaxStrength);
-
-                    //EqualTexts[1].text = "=";
-                    //MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
-
-                    //EqualTexts[2].text = "=";
-                    //MultiplierWithStrengthTexts[2].text = Parser.ParseMultiplierWithStrength(medalDisplay.GuiltMultiplier, medalDisplay.MaxStrength);
-
-                    //BaseMultiplier.color = visible;
-                    //MaxMultipliers[3].color = visible;
-                    //GuiltMultiplier.color = visible;
-
-                    //MultiplierTier.color = visible;
-                    //MultiplierTier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
+                    
                     break;
                 case 7:
                     Multiplier.text = medalDisplay.MaxMultiplierLow;
@@ -566,39 +492,22 @@ namespace MedalViewer.Medal
                     Guilt.blocksRaycasts = true;
 
                     GuiltValue.text = GuiltSlider.minValue.ToString();
-
-                    //SPATKBonusManager.CurrMultiplier = medalDisplay.MaxMultiplier;
-                    //SPATKBonusManager.CurrMaxStrength = medalDisplay.MaxStrength;
-                    //SPATKBonusManager.CurrTier = medalDisplay.Tier;
-
-                    //EqualTexts[1].text = "=";
-                    //MultiplierWithStrengthTexts[1].text = Parser.ParseMultiplierWithStrength(medalDisplay.MaxMultiplier, medalDisplay.MaxStrength);
-
-                    //EqualTexts[2].text = "=";
-                    //MultiplierWithStrengthTexts[2].text = Parser.ParseMultiplierWithStrength(medalDisplay.GuiltMultiplier, medalDisplay.MaxStrength);
-
-                    //MaxMultipliers[3].color = visible;
-                    //GuiltMultiplier.color = visible;
-
-                    //MultiplierTier.color = visible;
-                    //MultiplierTier.texture = Resources.Load("Tier/Tier_" + medalDisplay.Tier) as Texture2D;
+                    
                     break;
                 default:
                     break;
             }
-
-            //SPATKBonusManager.UpdateSPATKBonus();
         }
 
         private void AssignVars(MedalDisplay medalDisplay, MedalAbility medalAbility)
         {
             Deals.text = medalAbility.Deal != "" ? medalAbility.Deal : "1";
-            SPABonus.text = medalAbility.SPBonus != "" ? medalAbility.SPBonus : "15";
+            SPABonus.text = medalAbility.SPBonus != "" ? medalAbility.SPBonus : "0";
         }
 
         private void AssignTotal()
         {
-
+            UpdateTotal();
         }
 
         #endregion
@@ -607,17 +516,44 @@ namespace MedalViewer.Medal
 
         #region Update Attributes
 
+        public void UpdateSkill(GameObject value)
+        {
+            SkillImage.texture = value.GetComponent<RawImage>().texture;
+            SkillText.text = value.name;
+
+            Skill.text = SkillConversion[value.name];
+            
+            UpdateTotal();
+
+            HideSkills();
+        }
+
+        public void UpdateTrait(GameObject value)
+        {
+            CurrentTraitSlot.texture = value.GetComponent<RawImage>().texture;
+
+            var index = int.Parse(CurrentTraitSlot.name.Split('_')[1]);
+            TraitValues[index].text = TraitConversion[value.name];
+
+            UpdateTotal();
+
+            HideTraits();
+        }
+
         public void UpdateStrength()
         {
             Strength.text = StrengthSlider.value.ToString();
 
-            UpdateTotal();
+            if (StrengthSlider.value != 0)
+            {
+                UpdateTotal();
+            }
         }
 
         public void UpdateAddedStrength(int value)
         {
             var strength = int.Parse(AddedStrength.text);
-            if (strength > 0 && strength < 1000)
+            if ((strength + value) >= 0 && (strength + value) <= 1000)
             {
                 AddedStrength.text = (strength + value).ToString();
             }
@@ -633,7 +569,7 @@ namespace MedalViewer.Medal
         public void UpdateAddedDefense(int value)
         {
             var defense = int.Parse(AddedDefense.text);
-            if (defense > 0 && defense < 1000)
+            if ((defense + value) >= 0 && (defense + value) <= 1000)
             {
                 AddedDefense.text = (defense + value).ToString();
             }
@@ -691,6 +627,8 @@ namespace MedalViewer.Medal
             }
             
             SwapMultiplier.colors = colors;
+
+            UpdateTotal();
         }
 
         public void UpdateMultiplierOrb(int orbIndex)
@@ -708,6 +646,8 @@ namespace MedalViewer.Medal
                 colors.normalColor = SelectedColor;
                 MultiplierOrbs[i].colors = colors;
             }
+
+            UpdateTotal();
         }
 
         public void UpdateGuilt()
@@ -753,6 +693,8 @@ namespace MedalViewer.Medal
 
                 GuiltSlider.interactable = false;
             }
+
+            UpdateTotal();
         }
 
         public void UpdateGuiltSliderValue()
@@ -760,13 +702,157 @@ namespace MedalViewer.Medal
             GuiltValue.text = $"{GuiltSlider.value.ToString()}%";
 
             //GuiltButtons[1].GetComponent<CanvasGroup>().alpha = 
+
+            if (GuiltSlider.value != 0)
+            {
+                UpdateTotal();
+            }
+        }
+
+        public void UpdateSPBonus(int value)
+        {
+            if ((CurrSPIndex + value) >= 0 && (CurrSPIndex + value) < SPABonusValues.Length)
+            {
+                SPABonus.text = SPABonusValues[(CurrSPIndex + value)];
+                CurrSPIndex += value;
+            }
+
+            UpdateTotal();
         }
 
         public void UpdateTotal()
         {
+            if (Strength.text.Length == 0 || Multiplier.text.Length == 0 || Deals.text.Length == 0 || SPABonus.text.Length == 0)
+                return;
 
+            var str = StrengthSlider.value;//int.Parse(Strength.text);
+            var addedStr = int.Parse(AddedStrength.text);
+            var mult = float.Parse(Multiplier.text);
+            var guilt = GuiltSlider.value;
+            var deals = int.Parse(Deals.text);
+            var spBonus = int.Parse(SPABonus.text);
+            var skill = Skill.text.Length > 0 ? float.Parse(Skill.text) : 0.0f;
+            //var trait1 = 0.0f;
+            //var trait2 = 0.0f;
+            //var trait3 = 0.0f;
+            //var trait4 = 0.0f;
+            //var trait5 = 0.0f;
+            
+            var totalRaids = 0.0f;
+            var extraAttack = 0.0f;
+
+            var totalStr = str + addedStr;
+
+            if (TraitValues[0].text.Length > 2)
+            {
+                if (TraitValues[0].text[TraitValues[0].text.Length - 1] == 'S')
+                {
+                    totalStr += 1000;/* = TraitValues[0].text.Contains("%") ? float.Parse($".{TraitValues[0].text.Substring(1, 2)}") : TraitValues[0].text.Length > 0 ? int.Parse(TraitValues[0].text.Substring(1, 4)) : 0;*/
+                }
+                else if(TraitValues[0].text[TraitValues[0].text.Length - 1] == 'R')
+                {
+                    totalRaids += 0.40f;
+                }
+                else if(TraitValues[0].text.Substring(TraitValues[0].text.Length - 2) == "EA")
+                {
+                    extraAttack = 0.40f;
+                }
+            }
+
+            if (TraitValues[1].text.Length > 2)
+            {
+                if (TraitValues[1].text[TraitValues[1].text.Length - 1] == 'S')
+                {
+                    totalStr += 1000;/* = TraitValues[0].text.Contains("%") ? float.Parse($".{TraitValues[0].text.Substring(1, 2)}") : TraitValues[0].text.Length > 0 ? int.Parse(TraitValues[0].text.Substring(1, 4)) : 0;*/
+                }
+                else if (TraitValues[1].text[TraitValues[1].text.Length - 1] == 'R')
+                {
+                    totalRaids += 0.40f;
+                }
+                else if (TraitValues[1].text.Substring(TraitValues[1].text.Length - 2) == "EA")
+                {
+                    extraAttack = 0.40f;
+                }
+            }
+
+            if (TraitValues[2].text.Length > 2)
+            {
+                if (TraitValues[2].text[TraitValues[2].text.Length - 1] == 'S')
+                {
+                    totalStr += 1000;/* = TraitValues[0].text.Contains("%") ? float.Parse($".{TraitValues[0].text.Substring(1, 2)}") : TraitValues[0].text.Length > 0 ? int.Parse(TraitValues[0].text.Substring(1, 4)) : 0;*/
+                }
+                else if (TraitValues[2].text[TraitValues[2].text.Length - 1] == 'R')
+                {
+                    totalRaids += 0.40f;
+                }
+                else if (TraitValues[2].text.Substring(TraitValues[2].text.Length - 2) == "EA")
+                {
+                    extraAttack = 0.40f;
+                }
+            }
+
+            if (TraitValues[3].text.Length > 2)
+            {
+                if (TraitValues[3].text[TraitValues[3].text.Length - 1] == 'S')
+                {
+                    totalStr += 1000;/* = TraitValues[0].text.Contains("%") ? float.Parse($".{TraitValues[0].text.Substring(1, 2)}") : TraitValues[0].text.Length > 0 ? int.Parse(TraitValues[0].text.Substring(1, 4)) : 0;*/
+                }
+                else if (TraitValues[3].text[TraitValues[3].text.Length - 1] == 'R')
+                {
+                    totalRaids += 0.40f;
+                }
+                else if (TraitValues[3].text.Substring(TraitValues[3].text.Length - 2) == "EA")
+                {
+                    extraAttack = 0.40f;
+                }
+            }
+
+            if (TraitValues[4].text.Length > 2)
+            {
+                if (TraitValues[4].text[TraitValues[4].text.Length - 1] == 'S')
+                {
+                    totalStr += 1000;/* = TraitValues[0].text.Contains("%") ? float.Parse($".{TraitValues[0].text.Substring(1, 2)}") : TraitValues[0].text.Length > 0 ? int.Parse(TraitValues[0].text.Substring(1, 4)) : 0;*/
+                }
+                else if (TraitValues[4].text[TraitValues[4].text.Length - 1] == 'R')
+                {
+                    totalRaids += 0.40f;
+                }
+                else if (TraitValues[4].text.Substring(TraitValues[4].text.Length - 2) == "EA")
+                {
+                    extraAttack = 0.40f;
+                }
+            }
+            
+            //if (trait1 == 1000.0f)
+            //    totalStr += (int)trait1;
+            //if (trait2 == 1000.0f)
+            //    totalStr += (int)trait2;
+            //if (trait3 == 1000.0f)
+            //    totalStr += (int)trait3;
+            //if (trait4 == 1000.0f)
+            //    totalStr += (int)trait4;
+            //if (trait5 == 1000.0f)
+            //    totalStr += (int)trait5;
+            
+            var totalMult = guilt != 0.0f && spBonus != 0 ? mult * ((guilt + spBonus + 100) / 100) : 
+                            guilt != 0.0f ? mult * ((guilt + 100) / 100) :
+                            spBonus != 0 ? mult * ((spBonus + 100) / 100) : 
+                            mult;
+
+            var totalMultTimesStrength = totalStr * totalMult;
+
+
+            var total = skill != 0 && totalRaids != 0.0f && extraAttack != 0.0f ? deals * skill * (totalRaids + extraAttack + 1.0f) * totalMultTimesStrength :
+                        skill != 0 && extraAttack != 0.0f ? deals * skill * (extraAttack + 1.0f) * totalMultTimesStrength :
+                        totalRaids != 0.0f && extraAttack != 0.0f ? deals * (totalRaids + extraAttack + 1.0f) * totalMultTimesStrength :
+                        skill != 0 ? deals * skill * totalMultTimesStrength :
+                        totalRaids != 0.0f ? deals * (totalRaids + 1.0f) * totalMultTimesStrength :
+                        extraAttack != 0.0f ? deals * (extraAttack + 1.0f) * totalMultTimesStrength :
+                        deals * totalMultTimesStrength;
+
+            FinalDamageOutput.text = String.Format("{0:#,#.##}", (int)Math.Ceiling(total));
         }
-
+        
         #endregion
 
         #region Reset Attributes
@@ -991,11 +1077,13 @@ namespace MedalViewer.Medal
             StartCoroutine(ShowDisplay(MedalSkills));
         }
 
-        public void ShowTraits()
+        public void ShowTraits(RawImage value)
         {
             isTransition = true;
             isDisplayingTraits = true;
             elapsedTime = 0.0f;
+
+            CurrentTraitSlot = value;
 
             StartCoroutine(ShowDisplay(MedalTraits));
         }
@@ -1081,40 +1169,6 @@ namespace MedalViewer.Medal
 
         #endregion
         
-        #region Calculation Methods
-
-        public void BaseMultiplierClick()
-        {
-
-        }
-
-        public void MaxMultiplierClick()
-        {
-
-        }
-
-        public void MaxGuiltMultiplierClick()
-        {
-
-        }
-
-        public void EffectMultiplierClick()
-        {
-
-        }
-
-        public void BoostedClick()
-        {
-
-        }
-
-        public void FinalDamageOutputCalculator(MedalAbility medalAbility)
-        {
-
-        }
-
-        #endregion
-        
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -1135,6 +1189,57 @@ namespace MedalViewer.Medal
                     HideCurrentMedal();
                 }
             }
+        }
+
+        void Awake()
+        {
+            //background_group = GameObject.FindGameObjectWithTag("Background").GetComponent<CanvasGroup>();
+            //		MedalSublistGroup = GameObject.FindGameObjectWithTag("MedalSublistGroup").GetComponent<CanvasGroup>();
+            //MedalSublist = GameObject.FindGameObjectWithTag("MedalSublist");
+
+            //medalCreator = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalCreator>();
+
+            Reset();
+        }
+
+        public IEnumerator Display(GameObject medalObject)
+        {
+            yield return null;
+            Loading.StartLoading();
+            Reset();
+
+            MedalDisplay medalDisplay = medalObject.GetComponent<MedalDisplay>();
+            MedalAbility medalAbility = new MedalAbility();
+
+            try
+            {
+                medalAbility = MedalAbilityParser.Parser(medalDisplay.AbilityDescription);
+            }
+            catch
+            {
+                print(medalDisplay.Name.Split(':')[0] + " " + medalDisplay.AbilityDescription);
+            }
+
+            #region Display Assignment
+
+            AssignIcons(medalDisplay);
+            AssignMedalName(medalDisplay);
+            AssignMedalInfo(medalDisplay);
+
+            if (medalAbility != null)
+            {
+                medalAbility.SetUpDisplayAbility();
+
+                AssignContent(medalDisplay, medalAbility);
+            }
+
+
+            #endregion
+
+            isTransition = true;
+            elapsedTime = 0.0f;
+
+            StartCoroutine(ShowDisplay(MedalHighlight));
         }
 
         IEnumerator LoadImage(string imageUrl, GameObject medalObject)

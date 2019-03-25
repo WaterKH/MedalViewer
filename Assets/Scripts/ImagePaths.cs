@@ -126,8 +126,9 @@ public class ImagePaths {
 			{
                 { "Uses all gauges", "Inflict/SP/ATKspuseall" },
                 { "1", "Gauges/1" }, { "2", "Gauges/2" }, { "3", "Gauges/3" }, { "4", "Gauges/4" }, { "5", "Gauges/5" },
-                { "6", "Gauges/6" }, { "7", "Gauges/7" }, { "8", "Gauges/8" }, { "9", "Gauges/9" }, { "10", "Gauges/10" }
-			}
+                { "6", "Gauges/6" }, { "7", "Gauges/7" }, { "8", "Gauges/8" }, { "9", "Gauges/9" }, { "10", "Gauges/10" },
+                { "30", "Gauges/10"}
+            }
 		},
         {
             "DISPEL", new Dictionary<string, string>()
@@ -143,7 +144,7 @@ public class ImagePaths {
 				{ "0", "Count/COUNTunnaf" },
                 { "1", "Count/1" }, { "2", "Count/2" }, { "3", "Count/3" }, { "4", "Count/4" }, { "5", "Count/5" },
                 { "6", "Count/6" }, { "7", "Count/7" }, { "8", "Count/8" }, { "9", "Count/9" }, { "10", "Count/10"},
-			    { "Resets", "Count/COUNTreset" }, { "unaffected", "Count/COUNTunnaf" }
+                { "Resets", "Count/COUNTreset" }, { "unaffected", "Count/COUNTunnaf" }
 			}
 		},
         {
@@ -170,7 +171,7 @@ public class ImagePaths {
                 { "130", "SPATKBonus/120" }, { "140", "SPATKBonus/120" }, { "150", "SPATKBonus/120" },
                 { "160", "SPATKBonus/120" }, { "170", "SPATKBonus/120" }, { "180", "SPATKBonus/120" },
                 { "190", "SPATKBonus/120" }, { "200", "SPATKBonus/120" }, { "210", "SPATKBonus/120" },
-                { "260", "SPATKBonus/120" },
+                { "250", "SPATKBonus/120" }, { "260", "SPATKBonus/120" },
             }
         },
     };

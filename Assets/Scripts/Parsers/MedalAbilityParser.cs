@@ -71,7 +71,7 @@ public class MedalAbilityParser
 
     #region COUNT
 
-    private static readonly Regex EnemyCountdownRegex = new Regex(@"^(?:Enemy )?(?:C|c)ount\w* \+?(\d+|unaffected)");
+    private static readonly Regex EnemyCountdownRegex = new Regex(@"^(?:Enemy )?(?:C|c)ount\w* \±?\+?(\d+|unaffected)");
     private static readonly Regex AddCountRegex = new Regex(@"^Adds (\d+) to enemy count\w*");
     private static readonly Regex ResetCountRegex = new Regex(@"^(Resets) count\w*");
     //private static readonly Regex CountRegex = new Regex(@"^Count\w* .(\d+)");

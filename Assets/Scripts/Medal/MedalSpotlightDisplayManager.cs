@@ -24,6 +24,10 @@ namespace MedalViewer.Medal
         public CanvasGroup Effects;
         public CanvasGroup Guilt;
 
+        public CanvasGroup SupernovaPlayer;
+        public CanvasGroup SupernovaEnemy;
+        public CanvasGroup SupernovaEffects;
+
         #region Icons
 
         public RawImage PSMAttribute;
@@ -199,6 +203,45 @@ namespace MedalViewer.Medal
 
         #endregion
 
+        #region Supernova
+
+        public Text SupernovaName;
+        public Text SupernovaDescription;
+        public RawImage SupernovaTarget;
+        public Text SupernovaDamage;
+
+        #region Player
+
+        public Text SupernovaPlayerTurns;
+
+        public RawImage[] SupernovaPlayerAttack;
+        public Text[] SupernovaPlayerAttackMults;
+        public RawImage[] SupernovaPlayerDefense;
+        public Text[] SupernovaPlayerDefenseMults;
+
+        #endregion
+
+        #region Enemy
+
+        public Text SupernovaEnemyTurns;
+
+        public RawImage[] SupernovaEnemyAttack;
+        public Text[] SupernovaEnemyAttackMults;
+        public RawImage[] SupernovaEnemyDefense;
+        public Text[] SupernovaEnemyDefenseMults;
+
+        #endregion
+
+        #region Effects
+
+        public RawImage[] SupernovaEffectImages;
+        //public Text[] SupernovaEffectTexts;
+
+        #endregion
+
+        #endregion
+
+
         #region Colors
 
         public Color NormalColor;
@@ -207,9 +250,7 @@ namespace MedalViewer.Medal
         public Color MultiplierOff;
 
         #endregion
-
-
-
+        
         #region Private 
 
         private readonly string url = "https://medalviewer.blob.core.windows.net/images/";
@@ -281,6 +322,18 @@ namespace MedalViewer.Medal
                 SupernovaButton.blocksRaycasts = true;
                 SupernovaButton.alpha = 1;
             }
+        }
+
+        private void AssignSupernova(MedalDisplay medalDisplay, MedalAbility medalAbility)
+        {
+            SupernovaName.text = medalDisplay.SupernovaName;
+            SupernovaDescription.text = medalDisplay.SupernovaDescription;
+            SupernovaDamage.text = medalDisplay.SupernovaDamage;
+
+            SupernovaTarget.texture = Resources.Load($"Target/{medalDisplay.SupernovaTarget}") as Texture2D;
+
+            AssignSupernovaPlayerEnemy(medalAbility);
+            AssignSupernovaEffects(medalAbility);
         }
 
         private void AssignPlayerEnemy(MedalAbility medalAbility)
@@ -386,12 +439,12 @@ namespace MedalViewer.Medal
         private void AssignStats(MedalDisplay medalDisplay/*, MedalAbility medalAbility*/)
         {
             Defense.text = medalDisplay.BaseDefense.ToString();
-            Strength.text = medalDisplay.BaseDefense.ToString();
+            Strength.text = medalDisplay.BaseStrength.ToString();
 
             DefenseSlider.minValue = medalDisplay.BaseDefense;
-            DefenseSlider.maxValue = medalDisplay.MaxDefense;
+            DefenseSlider.maxValue = medalDisplay.MaxDefense == 0 ? medalDisplay.BaseDefense : medalDisplay.MaxDefense;
             StrengthSlider.minValue = medalDisplay.BaseStrength;
-            StrengthSlider.maxValue = medalDisplay.MaxStrength;
+            StrengthSlider.maxValue = medalDisplay.MaxStrength == 0 ? medalDisplay.BaseStrength : medalDisplay.MaxStrength;
 
             DefenseSlider.value = medalDisplay.BaseDefense;
             StrengthSlider.value = medalDisplay.BaseStrength;
@@ -508,6 +561,91 @@ namespace MedalViewer.Medal
         private void AssignTotal()
         {
             UpdateTotal();
+        }
+
+        private void AssignSupernovaPlayerEnemy(MedalAbility medalAbility)
+        {
+            var strPlayerCounter = 0;
+            var defPlayerCounter = 0;
+            var strEnemyCounter = 0;
+            var defEnemyCounter = 0;
+
+            var counterSTR = 0;
+            var counterDEF = 0;
+
+            foreach (var strDef in medalAbility.CombatImages)
+            {
+                foreach (var raiseLower in strDef.Value)
+                {
+                    if (raiseLower.Key == "Raises")
+                    {
+                        if (strDef.Key == "STR")
+                        {
+                            foreach (var strRaise in raiseLower.Value)
+                            {
+                                SupernovaPlayerAttack[strPlayerCounter].texture = strRaise;
+                                SupernovaPlayerAttack[strPlayerCounter].color = visible;
+                                SupernovaPlayerAttackMults[strPlayerCounter++].text = "x" + medalAbility.STR[counterSTR++].Tier;
+                            }
+                        }
+                        else if (strDef.Key == "DEF")
+                        {
+                            foreach (var defRaise in raiseLower.Value)
+                            {
+                                SupernovaPlayerDefense[defPlayerCounter].texture = defRaise;
+                                SupernovaPlayerDefense[defPlayerCounter].color = visible;
+                                SupernovaPlayerDefenseMults[defPlayerCounter++].text = "x" + medalAbility.DEF[counterDEF++].Tier;
+                            }
+                        }
+                    }
+                    else if (raiseLower.Key == "Lowers")
+                    {
+                        if (strDef.Key == "STR")
+                        {
+                            foreach (var strLower in raiseLower.Value)
+                            {
+                                SupernovaEnemyAttack[strEnemyCounter].texture = strLower;
+                                SupernovaEnemyAttack[strEnemyCounter].color = visible;
+                                SupernovaEnemyAttackMults[strEnemyCounter++].text = "x" + medalAbility.STR[counterSTR++].Tier;
+                            }
+                        }
+                        else if (strDef.Key == "DEF")
+                        {
+                            foreach (var defLower in raiseLower.Value)
+                            {
+                                SupernovaEnemyDefense[defEnemyCounter].texture = defLower;
+                                SupernovaEnemyDefense[defEnemyCounter].color = visible;
+                                SupernovaEnemyDefenseMults[defEnemyCounter++].text = "x" + medalAbility.DEF[counterDEF++].Tier;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // TODO Account for player saps
+
+            if (CheckSupernovaPlayer())
+                SupernovaPlayer.SetCanvasGroupActive();
+
+            if (CheckSupernovaEnemy())
+                SupernovaEnemy.SetCanvasGroupActive();
+        }
+
+        private void AssignSupernovaEffects(MedalAbility medalAbility)
+        {
+            var effectCounter = 0;
+
+            foreach (var effect in medalAbility.MiscImages)
+            {
+                if (effect.Value == null)
+                    continue;
+
+                SupernovaEffectImages[effectCounter].enabled = true;
+                SupernovaEffectImages[effectCounter++].texture = effect.Value;
+            }
+
+            if (CheckSupernovaEffects())
+                SupernovaEffects.SetCanvasGroupActive();
         }
 
         #endregion
@@ -834,9 +972,9 @@ namespace MedalViewer.Medal
             //if (trait5 == 1000.0f)
             //    totalStr += (int)trait5;
             
-            var totalMult = guilt != 0.0f && spBonus != 0 ? mult * ((guilt + spBonus + 100) / 100) : 
-                            guilt != 0.0f ? mult * ((guilt + 100) / 100) :
-                            spBonus != 0 ? mult * ((spBonus + 100) / 100) : 
+            var totalMult = guilt != 0.0f && spBonus != 0 ? mult * ((guilt + spBonus + 100 / 100) + 1.0f) : 
+                            guilt != 0.0f ? mult * ((guilt / 100) + 1.0f) :
+                            spBonus != 0 ? mult * ((spBonus + 100 / 100) + 1.0f) : 
                             mult;
 
             var totalMultTimesStrength = totalStr * totalMult;
@@ -863,6 +1001,7 @@ namespace MedalViewer.Medal
             ResetMedalName();
             ResetMedalInfo();
             ResetContent();
+            ResetSupernova();
         }
 
         private void ResetIcons()
@@ -1030,6 +1169,68 @@ namespace MedalViewer.Medal
 
         #endregion
 
+        private void ResetSupernova()
+        {
+            SupernovaName.text = "";
+            SupernovaDescription.text = "";
+            SupernovaDamage.text = "";
+            SupernovaTarget.texture = null;
+
+            ResetSupernovaPlayerEnemy();
+            ResetSupernovaEffects();
+        }
+
+        #region Supernova
+
+        public void ResetSupernovaPlayerEnemy()
+        {
+            SupernovaPlayerTurns.text = "";
+            SupernovaEnemyTurns.text = "";
+
+            // Player
+            foreach (var aB in SupernovaPlayerAttack)
+                aB.color = invisible;
+            foreach (var aBM in SupernovaPlayerAttackMults)
+                aBM.text = "";
+
+            foreach (var dB in SupernovaPlayerDefense)
+                dB.color = invisible;
+            foreach (var dBM in SupernovaPlayerDefenseMults)
+                dBM.text = "";
+
+            // Enemy
+            foreach (var aS in SupernovaEnemyAttack)
+                aS.color = invisible;
+            foreach (var aSM in SupernovaEnemyAttackMults)
+                aSM.text = "";
+
+            foreach (var dS in SupernovaEnemyDefense)
+                dS.color = invisible;
+            foreach (var dSM in SupernovaEnemyDefenseMults)
+                dSM.text = "";
+
+            SupernovaPlayer.SetCanvasGroupInactive();
+            SupernovaEnemy.SetCanvasGroupInactive();
+        }
+
+        public void ResetSupernovaEffects()
+        {
+            foreach (var effect in SupernovaEffectImages)
+            {
+                effect.texture = null;
+                effect.enabled = false;
+            }
+
+            //foreach (var effectText in EffectTexts)
+            //{
+            //    effectText.text = "";
+            //}
+
+            SupernovaEffects.SetCanvasGroupInactive();
+        }
+
+        #endregion
+
         #endregion Reset Attributes
 
         #region Display Methods
@@ -1122,6 +1323,8 @@ namespace MedalViewer.Medal
 
         #region Checks
 
+        #region Content
+
         private bool CheckPlayer()
         {
             foreach (var aB in PlayerAttack)
@@ -1168,7 +1371,58 @@ namespace MedalViewer.Medal
         }
 
         #endregion
-        
+
+        #region Supernova
+
+        private bool CheckSupernovaPlayer()
+        {
+            foreach (var aB in SupernovaPlayerAttack)
+            {
+                if (aB.color == visible)
+                    return true;
+            }
+
+            foreach (var dB in SupernovaPlayerDefense)
+            {
+                if (dB.color == visible)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool CheckSupernovaEnemy()
+        {
+            foreach (var aS in SupernovaEnemyAttack)
+            {
+                if (aS.color == visible)
+                    return true;
+            }
+
+            foreach (var dS in SupernovaEnemyDefense)
+            {
+                if (dS.color == visible)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool CheckSupernovaEffects()
+        {
+            foreach (var eff in SupernovaEffectImages)
+            {
+                if (eff.enabled == true)
+                    return true;
+            }
+
+            return false;
+        }
+
+        #endregion
+
+        #endregion
+
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -1193,12 +1447,6 @@ namespace MedalViewer.Medal
 
         void Awake()
         {
-            //background_group = GameObject.FindGameObjectWithTag("Background").GetComponent<CanvasGroup>();
-            //		MedalSublistGroup = GameObject.FindGameObjectWithTag("MedalSublistGroup").GetComponent<CanvasGroup>();
-            //MedalSublist = GameObject.FindGameObjectWithTag("MedalSublist");
-
-            //medalCreator = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalCreator>();
-
             Reset();
         }
 
@@ -1210,10 +1458,16 @@ namespace MedalViewer.Medal
 
             MedalDisplay medalDisplay = medalObject.GetComponent<MedalDisplay>();
             MedalAbility medalAbility = new MedalAbility();
+            MedalAbility medalAbilitySupernova = new MedalAbility();
 
             try
             {
                 medalAbility = MedalAbilityParser.Parser(medalDisplay.AbilityDescription);
+
+                if(medalDisplay.IsSupernova)
+                {
+                    medalAbilitySupernova = MedalAbilityParser.Parser(medalDisplay.SupernovaDescription);
+                }
             }
             catch
             {
@@ -1233,6 +1487,12 @@ namespace MedalViewer.Medal
                 AssignContent(medalDisplay, medalAbility);
             }
 
+            if(medalAbilitySupernova != null)
+            {
+                medalAbilitySupernova.SetUpDisplayAbility();
+
+                AssignSupernova(medalDisplay, medalAbilitySupernova);
+            }
 
             #endregion
 

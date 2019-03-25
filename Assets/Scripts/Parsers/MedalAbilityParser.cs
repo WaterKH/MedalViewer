@@ -367,6 +367,7 @@ public class MedalAbilityParser
                 else if (direction.Length < 6 && direction != "")
                 {
                     amount_1 = direction.Replace("-", "");
+                    amountPersist = amount_1;
 
                     if (int.Parse(direction) > 0)
                         direction = "Raises";

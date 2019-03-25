@@ -509,10 +509,16 @@ namespace MedalViewer.Medal
                     }
 
                     GuiltButtons[0].enabled = true;
-                    GuiltButtons[0].GetComponent<Image>().enabled = true;
+                    GuiltButtons[0].GetComponent<RawImage>().enabled = true;
+
+                    GuiltButtons[0].GetComponent<RawImage>().texture = Resources.Load($"Tier/Inactive-Guilt/{medalDisplay.Tier}") as Texture2D;
+                    GuiltButtons[1].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-White/{medalDisplay.Tier}") as Texture2D;
+                    GuiltButtons[2].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-Black/{medalDisplay.Tier}") as Texture2D;
 
                     GuiltSlider.minValue = GuiltByTier[medalDisplay.Tier - 1].Item1;
                     GuiltSlider.maxValue = GuiltByTier[medalDisplay.Tier - 1].Item2;
+
+                    GuiltSlider.value = GuiltSlider.minValue;
 
                     Guilt.alpha = 1;
                     Guilt.interactable = true;
@@ -535,10 +541,16 @@ namespace MedalViewer.Medal
                     }
                     
                     GuiltButtons[1].enabled = true;
-                    GuiltButtons[1].GetComponent<Image>().enabled = true;
+                    GuiltButtons[1].GetComponent<RawImage>().enabled = true;
+                    
+                    GuiltButtons[0].GetComponent<RawImage>().texture = Resources.Load($"Tier/Inactive-Guilt/{medalDisplay.Tier}") as Texture2D;
+                    GuiltButtons[1].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-White/{medalDisplay.Tier}") as Texture2D;
+                    GuiltButtons[2].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-Black/{medalDisplay.Tier}") as Texture2D;
 
                     GuiltSlider.minValue = GuiltByTier[medalDisplay.Tier - 1].Item1;
                     GuiltSlider.maxValue = GuiltByTier[medalDisplay.Tier - 1].Item2;
+
+                    GuiltSlider.value = GuiltSlider.minValue;
 
                     Guilt.alpha = 1;
                     Guilt.interactable = true;
@@ -870,11 +882,6 @@ namespace MedalViewer.Medal
             var deals = int.Parse(Deals.text);
             var spBonus = int.Parse(SPABonus.text);
             var skill = Skill.text.Length > 0 ? float.Parse(Skill.text) : 0.0f;
-            //var trait1 = 0.0f;
-            //var trait2 = 0.0f;
-            //var trait3 = 0.0f;
-            //var trait4 = 0.0f;
-            //var trait5 = 0.0f;
             
             var totalRaids = 0.0f;
             var extraAttack = 0.0f;
@@ -885,7 +892,7 @@ namespace MedalViewer.Medal
             {
                 if (TraitValues[0].text[TraitValues[0].text.Length - 1] == 'S')
                 {
-                    totalStr += 1000;/* = TraitValues[0].text.Contains("%") ? float.Parse($".{TraitValues[0].text.Substring(1, 2)}") : TraitValues[0].text.Length > 0 ? int.Parse(TraitValues[0].text.Substring(1, 4)) : 0;*/
+                    totalStr += 1000;
                 }
                 else if(TraitValues[0].text[TraitValues[0].text.Length - 1] == 'R')
                 {
@@ -901,7 +908,7 @@ namespace MedalViewer.Medal
             {
                 if (TraitValues[1].text[TraitValues[1].text.Length - 1] == 'S')
                 {
-                    totalStr += 1000;/* = TraitValues[0].text.Contains("%") ? float.Parse($".{TraitValues[0].text.Substring(1, 2)}") : TraitValues[0].text.Length > 0 ? int.Parse(TraitValues[0].text.Substring(1, 4)) : 0;*/
+                    totalStr += 1000;
                 }
                 else if (TraitValues[1].text[TraitValues[1].text.Length - 1] == 'R')
                 {
@@ -917,7 +924,7 @@ namespace MedalViewer.Medal
             {
                 if (TraitValues[2].text[TraitValues[2].text.Length - 1] == 'S')
                 {
-                    totalStr += 1000;/* = TraitValues[0].text.Contains("%") ? float.Parse($".{TraitValues[0].text.Substring(1, 2)}") : TraitValues[0].text.Length > 0 ? int.Parse(TraitValues[0].text.Substring(1, 4)) : 0;*/
+                    totalStr += 1000;
                 }
                 else if (TraitValues[2].text[TraitValues[2].text.Length - 1] == 'R')
                 {
@@ -933,7 +940,7 @@ namespace MedalViewer.Medal
             {
                 if (TraitValues[3].text[TraitValues[3].text.Length - 1] == 'S')
                 {
-                    totalStr += 1000;/* = TraitValues[0].text.Contains("%") ? float.Parse($".{TraitValues[0].text.Substring(1, 2)}") : TraitValues[0].text.Length > 0 ? int.Parse(TraitValues[0].text.Substring(1, 4)) : 0;*/
+                    totalStr += 1000;
                 }
                 else if (TraitValues[3].text[TraitValues[3].text.Length - 1] == 'R')
                 {
@@ -949,7 +956,7 @@ namespace MedalViewer.Medal
             {
                 if (TraitValues[4].text[TraitValues[4].text.Length - 1] == 'S')
                 {
-                    totalStr += 1000;/* = TraitValues[0].text.Contains("%") ? float.Parse($".{TraitValues[0].text.Substring(1, 2)}") : TraitValues[0].text.Length > 0 ? int.Parse(TraitValues[0].text.Substring(1, 4)) : 0;*/
+                    totalStr += 1000;
                 }
                 else if (TraitValues[4].text[TraitValues[4].text.Length - 1] == 'R')
                 {
@@ -961,20 +968,9 @@ namespace MedalViewer.Medal
                 }
             }
             
-            //if (trait1 == 1000.0f)
-            //    totalStr += (int)trait1;
-            //if (trait2 == 1000.0f)
-            //    totalStr += (int)trait2;
-            //if (trait3 == 1000.0f)
-            //    totalStr += (int)trait3;
-            //if (trait4 == 1000.0f)
-            //    totalStr += (int)trait4;
-            //if (trait5 == 1000.0f)
-            //    totalStr += (int)trait5;
-            
-            var totalMult = guilt != 0.0f && spBonus != 0 ? mult * ((guilt + spBonus + 100 / 100) + 1.0f) : 
+            var totalMult = guilt != 0.0f && spBonus != 0 ? mult * ((guilt + spBonus / 100) + 1.0f) : 
                             guilt != 0.0f ? mult * ((guilt / 100) + 1.0f) :
-                            spBonus != 0 ? mult * ((spBonus + 100 / 100) + 1.0f) : 
+                            spBonus != 0 ? mult * ((spBonus / 100) + 1.0f) : 
                             mult;
 
             var totalMultTimesStrength = totalStr * totalMult;
@@ -1143,7 +1139,8 @@ namespace MedalViewer.Medal
             
             foreach(var guilt in GuiltButtons)
             {
-                guilt.GetComponent<Image>().enabled = false;
+                guilt.GetComponent<RawImage>().enabled = false;
+                guilt.GetComponent<RawImage>().texture = null;
             }
             Guilt.alpha = 0;
             Guilt.interactable = false;

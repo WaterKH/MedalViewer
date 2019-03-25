@@ -510,7 +510,7 @@ namespace MedalViewer.Medal
 
                     GuiltButtons[0].enabled = true;
                     GuiltButtons[0].GetComponent<RawImage>().enabled = true;
-
+                    
                     GuiltButtons[0].GetComponent<RawImage>().texture = Resources.Load($"Tier/Inactive-Guilt/{medalDisplay.Tier}") as Texture2D;
                     GuiltButtons[1].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-White/{medalDisplay.Tier}") as Texture2D;
                     GuiltButtons[2].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-Black/{medalDisplay.Tier}") as Texture2D;
@@ -1247,14 +1247,13 @@ namespace MedalViewer.Medal
         public void HideCurrentMedal()
         {
             isTransition = true;
-            //isDisplaying = false;
             elapsedTime = 0.0f;
 
             StartCoroutine(HideDisplay(MedalHighlight));
 
-            //TraitManager.HideToolBox();
-
-            //Reset();
+            HideSkills();
+            HideTraits();
+            HideSupernova();
         }
 
         public void ShowSupernova()
@@ -1272,6 +1271,7 @@ namespace MedalViewer.Medal
             isDisplayingSkills = true;
             elapsedTime = 0.0f;
 
+            StartCoroutine(HideDisplay(MedalTraits));
             StartCoroutine(ShowDisplay(MedalSkills));
         }
 
@@ -1283,6 +1283,7 @@ namespace MedalViewer.Medal
 
             CurrentTraitSlot = value;
 
+            StartCoroutine(HideDisplay(MedalSkills));
             StartCoroutine(ShowDisplay(MedalTraits));
         }
 
@@ -1520,7 +1521,9 @@ namespace MedalViewer.Medal
 
         public IEnumerator ShowDisplay(CanvasGroup canvasGroup)
         {
+            StopCoroutine(HideDisplay(canvasGroup));
             elapsedTime = 0;
+
             while (isTransition)
             {
                 if (!Loading.IsLoading)
@@ -1545,6 +1548,9 @@ namespace MedalViewer.Medal
 
         public IEnumerator HideDisplay(CanvasGroup canvasGroup)
         {
+            StopCoroutine(ShowDisplay(canvasGroup));
+            elapsedTime = 0.0f;
+
             while (isTransition)
             {
                 elapsedTime += Time.deltaTime;

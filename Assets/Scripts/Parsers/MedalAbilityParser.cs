@@ -369,9 +369,9 @@ public class MedalAbilityParser
                     amount_1 = direction.Replace("-", "");
 
                     if (int.Parse(direction) > 0)
-                        direction = "Raise";
+                        direction = "Raises";
                     else
-                        direction = "Lower";
+                        direction = "Lowers";
                 }
                 //else if(direction == "")
                 //{

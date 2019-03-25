@@ -121,8 +121,8 @@ namespace MedalViewer.Medal
             All = true;
             Random = true;
 
-            LowRange = 30;
-            HighRange = 55;
+            LowRange = 20;
+            HighRange = 65;
         }
 
         public string GenerateFilterQuery()

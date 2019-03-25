@@ -123,14 +123,20 @@ namespace MedalViewer.Medal
                 var next_image = Resources.Load(ImagePaths.MiscPaths["NEXTMEDAL"][NextMedal]) as Texture2D;
                 MiscImages["NEXTMEDAL"] = next_image;
             }
+
+            if(IgnoreAttributes != "")
+            {
+                var next_image = Resources.Load(ImagePaths.MiscPaths["IGNORE"][IgnoreAttributes]) as Texture2D;
+                MiscImages["IGNORE"] = next_image;
+            }
         }
 
         public void InitImages()
         {
             CombatImages = new Dictionary<string, Dictionary<string, List<Texture2D>>>
-        {
-            { "STR", new Dictionary<string, List<Texture2D>>() }
-        };
+            {
+                { "STR", new Dictionary<string, List<Texture2D>>() }
+            };
             CombatImages["STR"].Add("Raises", new List<Texture2D>());
             CombatImages["STR"].Add("Lowers", new List<Texture2D>());
 
@@ -140,19 +146,20 @@ namespace MedalViewer.Medal
             CombatImages["DEF"].Add("PlayerLowers", new List<Texture2D>()); // TODO Redesign backend to account for player
 
             MiscImages = new Dictionary<string, Texture2D>
-        {
-            { "INFL", null },
-            { "HEAL", null },
-            { "GAUGE", null },
-            { "ESUNA", null },
-            { "COUNT", null },
-            { "DAMAGE+", null },
-            { "NEXTMEDAL", null },
-            { "SPBONUS", null },
-            { "DISPELPLAYER", null },
-            { "DISPEL", null },
-            { "MIRROR", null }
-        };
+            {
+                { "INFL", null },
+                { "HEAL", null },
+                { "GAUGE", null },
+                { "ESUNA", null },
+                { "COUNT", null },
+                { "DAMAGE+", null },
+                { "NEXTMEDAL", null },
+                { "SPBONUS", null },
+                { "DISPELPLAYER", null },
+                { "DISPEL", null },
+                { "MIRROR", null },
+                { "IGNORE", null }
+            };
         }
     }
 }

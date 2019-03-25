@@ -174,5 +174,11 @@ public class ImagePaths {
                 { "250", "SPATKBonus/120" }, { "260", "SPATKBonus/120" },
             }
         },
+        {
+            "IGNORE", new Dictionary<string, string>()
+            {
+                { "ignore", "Inflict/NoAtt" }
+            }
+        }
     };
 }

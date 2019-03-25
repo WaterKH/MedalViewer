@@ -111,6 +111,7 @@ namespace MedalViewer.Medal
 
             Attack = true;
 
+            Tier3 = true;
             Tier5 = true;
             Tier6 = true;
             Tier7 = true;
@@ -121,7 +122,7 @@ namespace MedalViewer.Medal
             All = true;
             Random = true;
 
-            LowRange = 20;
+            LowRange = 16;
             HighRange = 65;
         }
 

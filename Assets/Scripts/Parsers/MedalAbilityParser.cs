@@ -13,7 +13,8 @@ public class MedalAbilityParser
 
     #region DEALS
 
-    private static readonly Regex DealsRegex = new Regex(@"^Deals (\d+|an?) (?:\w+\s?)*hits?(.*)");
+    private static readonly Regex DealsRegex = new Regex(@"Deals (\d+|an?) (?:\w+\s?)*hits?(?: with (no attributes))?");
+    private static readonly Regex UnleashesRegex = new Regex(@"Unleashes an attack with no attributes");
 
     #endregion
 
@@ -125,7 +126,8 @@ public class MedalAbilityParser
         NextMedalRegex, // 17
         SPAtkRegex,     // 18
         RaiseLowerRegex, RaisedBasedRegex, LowerBasedRegex,  // 19, 20, 21
-        MirrorsRegex    // 22
+        MirrorsRegex,    // 22
+        UnleashesRegex   // 23
     };
 
     public MedalAbility Parser(string abilityDescription)
@@ -153,7 +155,7 @@ public class MedalAbilityParser
                 switch (i)
                 {
                     case 0: // 0 Deals
-                        ability.Deal = result.Groups[1].Value;
+                        ability.Deal = result.Groups[1].Value == "an" || result.Groups[1].Value == "a" ? "1" : result.Groups[1].Value;
                         ability.IgnoreAttributes = result.Groups[2].Value;
                         break;
                     case 1: // 1 - 3 Inflicts
@@ -226,6 +228,10 @@ public class MedalAbilityParser
                         break;
                     case 22: // 22 Mirrors
                         ability.Mirrors = result.Groups[1].Value;
+                        break;
+                    case 23:
+                        ability.Deal = "1";
+                        ability.IgnoreAttributes = "ignore";
                         break;
                     default:
                         Debug.Log("ERROR: " + item);

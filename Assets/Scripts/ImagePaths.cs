@@ -80,7 +80,7 @@ public class ImagePaths {
 
                 { "less Lux collected in that stage", "Inflict/Lux/ATKluxminus" },
                 
-                { "1 enemy left (incl. raid boss parts)", "Inflict/ATKsingleboss" },
+                { "1 enemy left (incl raid boss parts)", "Inflict/ATKsingleboss" }, { "1 enemy left (incl raid boss)", "Inflict/ATKsingleboss" },
 
                 { "slot 1", "Inflict/Slots/1" }, { "slot 2", "Inflict/Slots/2" }, { "slot 3", "Inflict/Slots/3" },
                 { "slot 4", "Inflict/Slots/4" }, { "slot 5", "Inflict/Slots/5" }, { "slot 6", "Inflict/Slots/6" },

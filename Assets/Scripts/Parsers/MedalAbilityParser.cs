@@ -60,7 +60,7 @@ public class MedalAbilityParser
 
     private static readonly Regex FillAndCureRegex = new Regex(@"^(?:Fills|Restores) (\d+) gauges(?: and (cures))?");
     private static readonly Regex GaugeRegex = new Regex(@"^Gauge \+(\d+)");
-    private static readonly Regex GaugeUseRegex = new Regex(@"^Gauge use \+(\d+)");
+    private static readonly Regex GaugeUseRegex = new Regex(@"^Gauge (use \+\d+)");
 
     #endregion
 

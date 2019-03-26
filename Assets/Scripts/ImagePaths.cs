@@ -124,10 +124,11 @@ public class ImagePaths {
         {
 			"GAUGE", new Dictionary<string, string>()
 			{
-                { "Uses all gauges", "Inflict/SP/ATKspuseall" },
-                { "1", "Gauges/1" }, { "2", "Gauges/2" }, { "3", "Gauges/3" }, { "4", "Gauges/4" }, { "5", "Gauges/5" },
+                { "0", "Gauges/0" }, { "1", "Gauges/1" }, { "2", "Gauges/2" }, { "3", "Gauges/3" }, { "4", "Gauges/4" }, { "5", "Gauges/5" },
                 { "6", "Gauges/6" }, { "7", "Gauges/7" }, { "8", "Gauges/8" }, { "9", "Gauges/9" }, { "10", "Gauges/10" },
-                { "30", "Gauges/10"}
+                { "30", "Gauges/10"},
+                
+                { "Uses all gauges", "Inflict/SP/ATKspuseall" }, { "use +2", "Gauges/Use2" }
             }
 		},
         {
@@ -140,7 +141,6 @@ public class ImagePaths {
 		{
 			"COUNT", new Dictionary<string, string>()
 			{
-
 				{ "0", "Count/COUNTunnaf" },
                 { "1", "Count/1" }, { "2", "Count/2" }, { "3", "Count/3" }, { "4", "Count/4" }, { "5", "Count/5" },
                 { "6", "Count/6" }, { "7", "Count/7" }, { "8", "Count/8" }, { "9", "Count/9" }, { "10", "Count/10"},

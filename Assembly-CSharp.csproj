@@ -60,7 +60,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\FilterDisplayManager.cs" />
     <Compile Include="Assets\Scripts\Globals.cs" />
     <Compile Include="Assets\Scripts\ImagePaths.cs" />
     <Compile Include="Assets\Scripts\KHUtilitiesx.cs" />
@@ -69,9 +68,11 @@
     <Compile Include="Assets\Scripts\Medal\Classes\MedalAbility.cs" />
     <Compile Include="Assets\Scripts\Medal\Classes\MedalCombatAbility.cs" />
     <Compile Include="Assets\Scripts\Medal\CreateMedalUIManager.cs" />
+    <Compile Include="Assets\Scripts\Medal\FilterDisplayManager.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalCycleLogic.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalDisplay.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalFilter.cs" />
+    <Compile Include="Assets\Scripts\Medal\MedalGraphViewLogic.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalLogicManager.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalManager.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalPositionLogic.cs" />

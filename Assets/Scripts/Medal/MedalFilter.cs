@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace MedalViewer.Medal
 {
-
     public class MedalFilter : MonoBehaviour
     {
         #region PSMUR
@@ -72,6 +71,8 @@ namespace MedalViewer.Medal
 
         #endregion
 
+        public List<int> Tiers = new List<int>();
+
         // TODO Add more filters, but will need to rework the database if we want to filter by Boosts/Saps/Heals/ Etc
         #region Boosts & Saps
 
@@ -97,7 +98,12 @@ namespace MedalViewer.Medal
         public bool ReversedDefenseSap { get; set; }
 
         #endregion
-        
+
+        private void Awake()
+        {
+            DefaultFilters();
+        }
+
         public void DefaultFilters()
         {
             Power = true;

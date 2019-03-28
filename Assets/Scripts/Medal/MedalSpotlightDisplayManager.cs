@@ -18,6 +18,7 @@ namespace MedalViewer.Medal
         public CanvasGroup MedalSupernova;
         public CanvasGroup MedalTraits;
         public CanvasGroup MedalSkills;
+        public CanvasGroup PetTraits;
 
         public CanvasGroup Player;
         public CanvasGroup Enemy;
@@ -126,6 +127,22 @@ namespace MedalViewer.Medal
 
         #endregion Traits
 
+        #region Pet Trait
+        
+        public RawImage PetTraitSlot;
+
+        public Dictionary<string, string> PetTraitConversion = new Dictionary<string, string>
+        {
+            { "Ground Enemy DEF -20%", "-20%G" }, { "Aerial Enemy DEF -20%", "-20%A" },
+            { "Damage in Raids +10%", "+10%R" }, { "Damage in Raids +20%", "+20%R" }, { "Damage in Raids +30%", "+30%R" }, { "Damage in Raids +100%", "+100%R" },
+            { "Extra Attack: 120% Power", "+120%EA"},
+            { "STR +50", "+50S"}, { "STR +100", "+100S"}, { "STR +200", "+200S"}, { "STR +400", "+400S"}, { "STR +500", "+500S"}, { "STR +2000", "+2000S"},
+            { "DEF +200", "+200D" }, { "DEF +400", "+400D" }, { "DEF +600", "+600D" }, { "DEF +800", "+800D" }, { "DEF +1000", "+1000D" },
+            { "Null", "" }
+        };
+
+        #endregion
+
         #region Stats
 
         public Text Defense;
@@ -171,6 +188,7 @@ namespace MedalViewer.Medal
         public Text Deals;
         public Text SPABonus;
         public Text Skill;
+        public Text PetTraitValue;
         public Text[] TraitValues;
 
         public int CurrSPIndex = 0;
@@ -178,7 +196,7 @@ namespace MedalViewer.Medal
         {
             "0", "15", "20", "30", "40", "60", "70", "80", "90",
             "100", "110", "120", "130", "140", "150", "160", "170", "180", "190",
-            "200", "210", "260"
+            "200", "210", "250", "260"
         };
 
         //public SPATKBonusManager SPATKBonusManager; // Needed?
@@ -266,6 +284,7 @@ namespace MedalViewer.Medal
         private bool isDisplayingSupernova = false;
         private bool isDisplayingSkills = false;
         private bool isDisplayingTraits = false;
+        private bool isDisplayingPetTraits = false;
 
         private Color32 visible = new Color(1f, 1f, 1f, 1f);
         private Color32 invisible = new Color(0f, 0f, 0f, 0f);
@@ -299,6 +318,7 @@ namespace MedalViewer.Medal
 
             AssignSkill();
             AssignTraits(medalDisplay);
+            AssignPetTrait();
             AssignStats(medalDisplay);
             //AssignSlots(medalDisplay);
 
@@ -436,6 +456,11 @@ namespace MedalViewer.Medal
             }
         }
 
+        private void AssignPetTrait()
+        {
+            PetTraitSlot.enabled = true;
+        }
+
         private void AssignStats(MedalDisplay medalDisplay/*, MedalAbility medalAbility*/)
         {
             Defense.text = medalDisplay.BaseDefense.ToString();
@@ -567,7 +592,7 @@ namespace MedalViewer.Medal
         private void AssignVars(MedalDisplay medalDisplay, MedalAbility medalAbility)
         {
             Deals.text = medalAbility.Deal != "" ? medalAbility.Deal : "1";
-            SPABonus.text = medalAbility.SPBonus != "" ? medalAbility.SPBonus : "0";
+            //SPABonus.text = medalAbility.SPBonus != "" ? medalAbility.SPBonus : "0";
         }
 
         private void AssignTotal()
@@ -688,6 +713,17 @@ namespace MedalViewer.Medal
             UpdateTotal();
 
             HideTraits();
+        }
+
+        public void UpdatePetTrait(GameObject value)
+        {
+            PetTraitSlot.texture = value.GetComponent<RawImage>().texture;
+            
+            PetTraitValue.text = PetTraitConversion[value.name];
+
+            UpdateTotal();
+
+            HidePetTraits();
         }
 
         public void UpdateStrength()
@@ -872,7 +908,7 @@ namespace MedalViewer.Medal
 
         public void UpdateTotal()
         {
-            if (Strength.text.Length == 0 || Multiplier.text.Length == 0 || Deals.text.Length == 0 || SPABonus.text.Length == 0)
+            if (Strength.text.Length == 0 || Multiplier.text.Length == 0 || Deals.text.Length == 0)
                 return;
 
             var str = StrengthSlider.value;//int.Parse(Strength.text);
@@ -880,13 +916,16 @@ namespace MedalViewer.Medal
             var mult = float.Parse(Multiplier.text);
             var guilt = GuiltSlider.value;
             var deals = int.Parse(Deals.text);
-            var spBonus = int.Parse(SPABonus.text);
+            //var spBonus = int.Parse(SPABonus.text);
             var skill = Skill.text.Length > 0 ? float.Parse(Skill.text) : 0.0f;
             
             var totalRaids = 0.0f;
             var extraAttack = 0.0f;
 
             var totalStr = str + addedStr;
+
+            // TODO Add pet trait slot value
+            // TODO spBonus
 
             if (TraitValues[0].text.Length > 2)
             {
@@ -967,12 +1006,12 @@ namespace MedalViewer.Medal
                     extraAttack = 0.40f;
                 }
             }
-            
-            var totalMult = guilt != 0.0f && spBonus != 0 ? mult * ((guilt + spBonus / 100) + 1.0f) : 
-                            guilt != 0.0f ? mult * ((guilt / 100) + 1.0f) :
-                            spBonus != 0 ? mult * ((spBonus / 100) + 1.0f) : 
-                            mult;
 
+            //var totalMult = guilt != 0.0f && spBonus != 0 ? mult * ((guilt + spBonus / 100) + 1.0f) : 
+            //                guilt != 0.0f ? mult * ((guilt / 100) + 1.0f) :
+            //                spBonus != 0 ? mult * ((spBonus / 100) + 1.0f) : 
+            //                mult;
+            var totalMult = 1.0f;
             var totalMultTimesStrength = totalStr * totalMult;
 
 
@@ -1035,6 +1074,7 @@ namespace MedalViewer.Medal
 
             ResetSkill();
             ResetTraits();
+            ResetPetTrait();
             ResetStats();
             //ResetSlots();
 
@@ -1107,6 +1147,12 @@ namespace MedalViewer.Medal
                 TraitSlots[i].enabled = false;
             }
         }
+
+        public void ResetPetTrait()
+        {
+            PetTraitSlot.texture = InitialImage.texture;
+            PetTraitSlot.enabled = false;
+        }
         
         public void ResetStats()
         {
@@ -1152,7 +1198,7 @@ namespace MedalViewer.Medal
         public void ResetVars()
         {
             Deals.text = "";
-            SPABonus.text = "";
+            //SPABonus.text = "";
             Skill.text = "";
 
             foreach (var trait in TraitValues)
@@ -1253,6 +1299,7 @@ namespace MedalViewer.Medal
 
             HideSkills();
             HideTraits();
+            HidePetTraits();
             HideSupernova();
         }
 
@@ -1267,29 +1314,44 @@ namespace MedalViewer.Medal
 
         public void ShowSkills()
         {
+            HidePetTraits();
+            HideTraits();
+
             isTransition = true;
             isDisplayingSkills = true;
             elapsedTime = 0.0f;
 
-            StartCoroutine(HideDisplay(MedalTraits));
             StartCoroutine(ShowDisplay(MedalSkills));
         }
 
         public void ShowTraits(RawImage value)
         {
+            HidePetTraits();
+            HideSkills();
+
             isTransition = true;
             isDisplayingTraits = true;
             elapsedTime = 0.0f;
 
             CurrentTraitSlot = value;
-
-            StartCoroutine(HideDisplay(MedalSkills));
+            
             StartCoroutine(ShowDisplay(MedalTraits));
+        }
+
+        public void ShowPetTraits()
+        {
+            HideSkills();
+            HideTraits();
+
+            isTransition = true;
+            isDisplayingPetTraits = true;
+            elapsedTime = 0.0f;
+
+            StartCoroutine(ShowDisplay(PetTraits));
         }
 
         public void HideSupernova()
         {
-            print("Hide Supernova");
             isTransition = true;
             isDisplayingSupernova = false;
             elapsedTime = 0.0f;
@@ -1299,7 +1361,9 @@ namespace MedalViewer.Medal
 
         public void HideSkills()
         {
-            print("Hide Skills");
+            if (MedalSkills.alpha == 0)
+                return;
+
             isTransition = true;
             isDisplayingSkills = false;
             elapsedTime = 0.0f;
@@ -1309,12 +1373,26 @@ namespace MedalViewer.Medal
 
         public void HideTraits()
         {
-            print("Hide Traits");
+            if (MedalTraits.alpha == 0)
+                return;
+
             isTransition = true;
             isDisplayingTraits = false;
             elapsedTime = 0.0f;
 
             StartCoroutine(HideDisplay(MedalTraits));
+        }
+
+        public void HidePetTraits()
+        {
+            if (PetTraits.alpha == 0)
+                return;
+
+            isTransition = true;
+            isDisplayingTraits = false;
+            elapsedTime = 0.0f;
+
+            StartCoroutine(HideDisplay(PetTraits));
         }
 
         #endregion Display Methods
@@ -1425,12 +1503,11 @@ namespace MedalViewer.Medal
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if(this.isDisplayingSkills || this.isDisplayingTraits)
+                if(this.isDisplayingSkills || this.isDisplayingTraits || this.isDisplayingPetTraits)
                 {
-                    if (this.isDisplayingSkills)
-                        HideSkills();
-                    else
-                        HideTraits();
+                    HideSkills();
+                    HidePetTraits();
+                    HideTraits();
                 }
                 else if(this.isDisplayingSupernova)
                 {
@@ -1521,13 +1598,16 @@ namespace MedalViewer.Medal
 
         public IEnumerator ShowDisplay(CanvasGroup canvasGroup)
         {
+            print("Test");
             StopCoroutine(HideDisplay(canvasGroup));
             elapsedTime = 0;
-
+            print(isTransition);
             while (isTransition)
             {
+                print("Transition");
                 if (!Loading.IsLoading)
                 {
+                    print("Tranisitioning");
                     elapsedTime += Time.deltaTime;
                     //print("Displaying");
                     canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 1, elapsedTime);

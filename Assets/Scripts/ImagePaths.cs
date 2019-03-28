@@ -124,11 +124,11 @@ public class ImagePaths {
         {
 			"GAUGE", new Dictionary<string, string>()
 			{
-                { "0", "Gauges/0" }, { "1", "Gauges/1" }, { "2", "Gauges/2" }, { "3", "Gauges/3" }, { "4", "Gauges/4" }, { "5", "Gauges/5" },
-                { "6", "Gauges/6" }, { "7", "Gauges/7" }, { "8", "Gauges/8" }, { "9", "Gauges/9" }, { "10", "Gauges/10" },
-                { "30", "Gauges/10"},
+                { "0", "Gauges/Restore/GR0" }, { "1", "Gauges/Restore/GR1" }, { "2", "Gauges/Restore/GR2" }, { "3", "Gauges/Restore/GR3" },
+                { "4", "Gauges/Restore/GR4" }, { "5", "Gauges/Restore/GR5" }, { "6", "Gauges/Restore/GR6" }, { "7", "Gauges/Restore/GR7" },
+                { "8", "Gauges/Restore/GR8" }, { "9", "Gauges/Restore/GR9" }, { "10", "Gauges/Restore/GR10" }, { "30", "Gauges/Restore/GR30"},
                 
-                { "Uses all gauges", "Inflict/SP/ATKspuseall" }, { "use +2", "Gauges/Use2" }
+                { "Uses all gauges", "Gauges/Uses/GUall" }, { "use +2", "Gauges/Uses/GU2" }
             }
 		},
         {
@@ -141,10 +141,10 @@ public class ImagePaths {
 		{
 			"COUNT", new Dictionary<string, string>()
 			{
-				{ "0", "Count/COUNTunnaf" },
-                { "1", "Count/1" }, { "2", "Count/2" }, { "3", "Count/3" }, { "4", "Count/4" }, { "5", "Count/5" },
-                { "6", "Count/6" }, { "7", "Count/7" }, { "8", "Count/8" }, { "9", "Count/9" }, { "10", "Count/10"},
-                { "Resets", "Count/COUNTreset" }, { "unaffected", "Count/COUNTunnaf" }
+				{ "0", "Count/count0" },
+                { "1", "Count/count1" }, { "2", "Count/count2" }, { "3", "Count/count3" }, { "4", "Count/count4" }, { "5", "Count/count5" },
+                { "6", "Count/count6" }, { "7", "Count/count7" }, { "8", "Count/count8" }, { "9", "Count/count9" }, { "10", "Count/count10"},
+                { "Resets", "Count/COUNTreset" }, { "unaffected", "Count/count0" }
 			}
 		},
         {
@@ -164,14 +164,14 @@ public class ImagePaths {
         {
             "SPBONUS", new Dictionary<string, string>()
             {
-                { "15", "Gems/Upright_Gem" }, { "20", "SPATKBonus/20" },
+                { "15", "SPATKBonus/15" }, { "20", "SPATKBonus/20" },
                 { "30", "SPATKBonus/30" }, { "40", "SPATKBonus/40" }, { "60", "SPATKBonus/60" },
                 { "70", "SPATKBonus/70" }, { "80", "SPATKBonus/80" }, { "90", "SPATKBonus/90" },
                 { "100", "SPATKBonus/100" }, { "110", "SPATKBonus/110" }, { "120", "SPATKBonus/120" },
-                { "130", "SPATKBonus/120" }, { "140", "SPATKBonus/120" }, { "150", "SPATKBonus/120" },
-                { "160", "SPATKBonus/120" }, { "170", "SPATKBonus/120" }, { "180", "SPATKBonus/120" },
-                { "190", "SPATKBonus/120" }, { "200", "SPATKBonus/120" }, { "210", "SPATKBonus/120" },
-                { "250", "SPATKBonus/120" }, { "260", "SPATKBonus/120" },
+                { "130", "SPATKBonus/130" }, { "140", "SPATKBonus/140" }, { "150", "SPATKBonus/150" },
+                { "160", "SPATKBonus/160" }, { "170", "SPATKBonus/170" }, { "180", "SPATKBonus/180" },
+                { "190", "SPATKBonus/190" }, { "200", "SPATKBonus/200" }, { "210", "SPATKBonus/210" },
+                { "250", "SPATKBonus/250" }, { "260", "SPATKBonus/260" },
             }
         },
         {

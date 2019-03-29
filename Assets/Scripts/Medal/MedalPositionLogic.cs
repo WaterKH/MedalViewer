@@ -52,7 +52,7 @@ namespace MedalViewer.Medal
             var medal = medalGameObject.GetComponent<MedalDisplay>();
             var guiltFloat = medal.GuiltMultiplierHigh != "" ? float.Parse(medal.GuiltMultiplierHigh) : float.Parse(medal.GuiltMultiplierLow);
 
-            medalGameObject.transform.SetParent(MedalLogicManager.AllMedalDisplayObjects[medal.Tier][guiltFloat].GetComponentsInChildren<Transform>().First(x => x.name == "Content").transform);
+            //medalGameObject.transform.SetParent(MedalLogicManager.AllMedalDisplayObjects[medal.Tier][guiltFloat].GetComponentsInChildren<Transform>().First(x => x.name == "Content").transform);
         }
 
         public void AssignMedalHolders(GameObject medalHolder)
@@ -106,7 +106,7 @@ namespace MedalViewer.Medal
                 }
                 else if (child.name != "Content" && child.name != "Scrollbar Horizontal" && child.name != "Sliding Area" && child.name != "Handle") // TODO Maybe just add a tag to medals: Medal - And just check for that
                 {
-                    AssignMedals(child.gameObject);
+                    //AssignMedals(child.gameObject);
                 }
             }
 

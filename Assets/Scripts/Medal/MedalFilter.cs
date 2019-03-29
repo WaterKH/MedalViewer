@@ -117,8 +117,8 @@ namespace MedalViewer.Medal
 
             Attack = true;
 
-            Tier3 = true;
-            Tier5 = true;
+            //Tier3 = true;
+            //Tier5 = true;
             Tier6 = true;
             Tier7 = true;
             Tier8 = true;

@@ -38,7 +38,7 @@ namespace MedalViewer.Medal
 
             #region Display Medals
 
-            MedalLogicManager.Initialize();
+            //MedalLogicManager.Initialize();
 
             #endregion
 
@@ -103,6 +103,5 @@ namespace MedalViewer.Medal
                 }
             }
         }
-
     }
 }

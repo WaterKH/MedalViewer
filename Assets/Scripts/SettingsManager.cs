@@ -67,7 +67,7 @@ public class SettingsManager : MonoBehaviour {
 	    Globals.StarFilter = this.StarFilter;
 
         Sorter.SortManager(Globals.Medals);
-	    LogicManager.SetupMedalsByTierAndMult(Sorter.medals_by_tier);
+	    //LogicManager.SetupMedalsByTierAndMult(Sorter.medals_by_tier);
 
         CloseFilter();
 	}

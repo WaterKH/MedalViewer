@@ -99,7 +99,7 @@ public class MedalAbilityParser
 
     #region SP ATK B
 
-    private static readonly Regex SPAtkRegex = new Regex(@"SP ATK (?:B|bonus) \+(\d+)%");
+    private static readonly Regex SPAtkRegex = new Regex(@"SP (?:ATK|attack) (?:B|bonus) \+(\d+)%");
 
     #endregion
 

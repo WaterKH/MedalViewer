@@ -186,13 +186,14 @@ namespace MedalViewer.Medal
         #region Vars
 
         public Text Deals;
-        public Text SPABonus;
+        public RawImage SPABonus;
+        public Slider SPABonusSlider;
         public Text Skill;
         public Text PetTraitValue;
         public Text[] TraitValues;
 
-        public int CurrSPIndex = 0;
-        public string[] SPABonusValues = new string[]
+        //public int CurrSPIndex = 0;
+        private List<string> SPABonusValues = new List<string>
         {
             "0", "15", "20", "30", "40", "60", "70", "80", "90",
             "100", "110", "120", "130", "140", "150", "160", "170", "180", "190",
@@ -592,7 +593,8 @@ namespace MedalViewer.Medal
         private void AssignVars(MedalDisplay medalDisplay, MedalAbility medalAbility)
         {
             Deals.text = medalAbility.Deal != "" ? medalAbility.Deal : "1";
-            //SPABonus.text = medalAbility.SPBonus != "" ? medalAbility.SPBonus : "0";
+            SPABonusSlider.value = medalAbility.SPBonus != "" ? SPABonusValues.IndexOf(medalAbility.SPBonus) : 0;
+            SPABonus.texture = Resources.Load($"SPATKBonus/Alt/{SPABonusValues[(int)SPABonusSlider.value]}A") as Texture2D;
         }
 
         private void AssignTotal()
@@ -895,13 +897,9 @@ namespace MedalViewer.Medal
             }
         }
 
-        public void UpdateSPBonus(int value)
+        public void UpdateSPBonus()
         {
-            if ((CurrSPIndex + value) >= 0 && (CurrSPIndex + value) < SPABonusValues.Length)
-            {
-                SPABonus.text = SPABonusValues[(CurrSPIndex + value)];
-                CurrSPIndex += value;
-            }
+            SPABonus.texture = Resources.Load($"SPATKBonus/Alt/{SPABonusValues[(int)SPABonusSlider.value]}A") as Texture2D;
 
             UpdateTotal();
         }
@@ -916,7 +914,7 @@ namespace MedalViewer.Medal
             var mult = float.Parse(Multiplier.text);
             var guilt = GuiltSlider.value;
             var deals = int.Parse(Deals.text);
-            //var spBonus = int.Parse(SPABonus.text);
+            var spBonus = int.Parse(SPABonusValues[(int)SPABonusSlider.value]);
             var skill = Skill.text.Length > 0 ? float.Parse(Skill.text) : 0.0f;
             
             var totalRaids = 0.0f;
@@ -925,7 +923,6 @@ namespace MedalViewer.Medal
             var totalStr = str + addedStr;
 
             // TODO Add pet trait slot value
-            // TODO spBonus
 
             if (TraitValues[0].text.Length > 2)
             {
@@ -1006,15 +1003,14 @@ namespace MedalViewer.Medal
                     extraAttack = 0.40f;
                 }
             }
+            
+            var totalMult = guilt != 0.0f && spBonus != 0 ? mult * ((guilt / 100) + 1.0f) * (((float)spBonus / 100) + 1.0f) :
+                            guilt != 0.0f ? mult * ((guilt / 100) + 1.0f) :
+                            spBonus != 0 ? mult * (((float)spBonus / 100) + 1.0f) :
+                            mult;
 
-            //var totalMult = guilt != 0.0f && spBonus != 0 ? mult * ((guilt + spBonus / 100) + 1.0f) : 
-            //                guilt != 0.0f ? mult * ((guilt / 100) + 1.0f) :
-            //                spBonus != 0 ? mult * ((spBonus / 100) + 1.0f) : 
-            //                mult;
-            var totalMult = 1.0f;
             var totalMultTimesStrength = totalStr * totalMult;
-
-
+            
             var total = skill != 0 && totalRaids != 0.0f && extraAttack != 0.0f ? deals * skill * (totalRaids + extraAttack + 1.0f) * totalMultTimesStrength :
                         skill != 0 && extraAttack != 0.0f ? deals * skill * (extraAttack + 1.0f) * totalMultTimesStrength :
                         totalRaids != 0.0f && extraAttack != 0.0f ? deals * (totalRaids + extraAttack + 1.0f) * totalMultTimesStrength :
@@ -1198,8 +1194,10 @@ namespace MedalViewer.Medal
         public void ResetVars()
         {
             Deals.text = "";
-            //SPABonus.text = "";
+            SPABonus.texture = null;
+            SPABonusSlider.value = 0;
             Skill.text = "";
+            PetTraitValue.text = "";
 
             foreach (var trait in TraitValues)
                 trait.text = "";
@@ -1292,15 +1290,15 @@ namespace MedalViewer.Medal
         
         public void HideCurrentMedal()
         {
-            isTransition = true;
-            elapsedTime = 0.0f;
-
-            StartCoroutine(HideDisplay(MedalHighlight));
-
             HideSkills();
             HideTraits();
             HidePetTraits();
             HideSupernova();
+
+            isTransition = true;
+            elapsedTime = 0.0f;
+
+            StartCoroutine(HideDisplay(MedalHighlight));
         }
 
         public void ShowSupernova()
@@ -1352,6 +1350,9 @@ namespace MedalViewer.Medal
 
         public void HideSupernova()
         {
+            if (MedalSupernova.alpha == 0)
+                return;
+
             isTransition = true;
             isDisplayingSupernova = false;
             elapsedTime = 0.0f;
@@ -1590,7 +1591,7 @@ namespace MedalViewer.Medal
                 medalObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)image.downloadHandler).texture;
 
                 MedalPlaceholderShadow.texture = MedalPlaceholder.texture;
-                print("Finished");
+                //print("Finished");
             }
 
             Loading.FinishLoading();
@@ -1598,16 +1599,16 @@ namespace MedalViewer.Medal
 
         public IEnumerator ShowDisplay(CanvasGroup canvasGroup)
         {
-            print("Test");
+            //print("Test");
             StopCoroutine(HideDisplay(canvasGroup));
             elapsedTime = 0;
-            print(isTransition);
+            //print(isTransition);
             while (isTransition)
             {
-                print("Transition");
+                //print("Transition");
                 if (!Loading.IsLoading)
                 {
-                    print("Tranisitioning");
+                    //print("Tranisitioning");
                     elapsedTime += Time.deltaTime;
                     //print("Displaying");
                     canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 1, elapsedTime);

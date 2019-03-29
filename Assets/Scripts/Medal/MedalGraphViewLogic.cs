@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace MedalViewer.Medal
 {
@@ -10,9 +11,11 @@ namespace MedalViewer.Medal
         public MedalFilter MedalFilter;
         public Transform StartPositionY;
         public Transform StartPositionX;
+        public Transform ParentY;
+        public Transform ParentX;
 
         private readonly int yOffset = 250;
-        private readonly int xOffset = 50;
+        private readonly int xOffset = 350;
 
         private List<GameObject> RowsY = new List<GameObject>();
         private List<GameObject> ColumnsX = new List<GameObject>();
@@ -28,11 +31,18 @@ namespace MedalViewer.Medal
 
             #region Y Row Creation
 
-            int tempYOffset = 0;
-            for(int i = MedalFilter.LowRange; i <= MedalFilter.HighRange; ++i)
+            //var parentY = StartPositionY.parent;
+            int tempYOffset = yOffset;
+
+            //StartPositionY.SetParent(parentY.parent, true);
+            //ParentY.GetComponent<RectTransform>().sizeDelta = new Vector2(ParentY.GetComponent<RectTransform>().sizeDelta.x, yOffset * (MedalFilter.HighRange - MedalFilter.LowRange));
+            ParentY.GetComponent<RectTransform>().offsetMax = new Vector2(ParentY.GetComponent<RectTransform>().offsetMax.x, yOffset * (MedalFilter.HighRange - MedalFilter.LowRange + 2));
+            //StartPositionY.SetParent(parentY, false);
+
+            for (int i = MedalFilter.LowRange; i <= MedalFilter.HighRange; ++i)
             {
                 var pos = new Vector2(StartPositionY.position.x, StartPositionY.position.y + tempYOffset);
-                var row = Instantiate(Resources.Load("NumberY") as GameObject, pos, Quaternion.identity, StartPositionY.parent);
+                var row = Instantiate(Resources.Load("NumberY") as GameObject, pos, Quaternion.identity, ParentY.parent);
 
                 row.name = i.ToString();
                 row.GetComponent<Text>().text = i.ToString();
@@ -42,16 +52,21 @@ namespace MedalViewer.Medal
                 tempYOffset += yOffset;
                 RowsY.Add(row);
             }
+            
+            ParentY.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" || x.name != "Content" || x.name != "InitialYPosition").ToList().ForEach(x => x.transform.SetParent(ParentY));
 
             #endregion
-            
+
             #region X Column Creation
 
-            int tempXOffset = 0;
-            foreach(var tier in new int[] { 4, 5, 6, 7 })//MedalFilter.Tiers)
+            int tempXOffset = 150;
+
+            ParentX.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 3), ParentX.GetComponent<RectTransform>().offsetMax.y);
+
+            foreach (var tier in MedalFilter.Tiers)
             {
                 var pos = new Vector2(StartPositionX.position.x + tempXOffset, StartPositionX.position.y);
-                var column = Instantiate(Resources.Load("NumberX") as GameObject, pos, Quaternion.identity, StartPositionX.parent);
+                var column = Instantiate(Resources.Load("NumberX") as GameObject, pos, Quaternion.identity, ParentX.parent);
 
                 column.name = tier.ToString();
                 column.GetComponent<Text>().text = tier.ToString();
@@ -61,6 +76,8 @@ namespace MedalViewer.Medal
                 tempXOffset += xOffset;
                 ColumnsX.Add(column);
             }
+
+            ParentX.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" || x.name != "Content" || x.name != "InitialXPosition").ToList().ForEach(x => x.transform.SetParent(ParentX));
 
             #endregion
         }

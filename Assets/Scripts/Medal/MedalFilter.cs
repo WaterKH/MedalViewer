@@ -130,6 +130,8 @@ namespace MedalViewer.Medal
 
             LowRange = 16;
             HighRange = 65;
+
+            Tiers.AddRange(new int[] { 6, 7, 8, 9 });
         }
 
         public string GenerateFilterQuery()

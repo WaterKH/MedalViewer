@@ -60,7 +60,7 @@ namespace MedalViewer.Medal
                 var multiplier = medal.GuiltMultiplierHigh != 0.0f ? medal.GuiltMultiplierHigh : medal.GuiltMultiplierLow;
                 if (!medals[medal.Tier].ContainsKey(multiplier))
                 {
-                    var guiltIndex = (int)multiplier - 1 < 0 ? 0 : (int)multiplier - 1;
+                    var guiltIndex = (int)multiplier < 0 ? 0 : (int)multiplier;
 
                     var tempObject = Instantiate(Resources.Load("MedalDisplay") as GameObject);
 
@@ -68,12 +68,12 @@ namespace MedalViewer.Medal
                     print(medal.Tier + " - " + guiltIndex);
                     tempObject.transform.position = new Vector3(XParents.First(x => x.name == medal.Tier.ToString()).transform.position.x, YParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
                     
-                    tempObject.transform.SetParent(YParents[guiltIndex].transform);
+                    tempObject.transform.SetParent(YParents.First(x => x.name == guiltIndex.ToString()).transform);
                     
                     medals[medal.Tier].Add(multiplier, tempObject);
                 }
 
-                medalGameObject.transform.SetParent(medals[medal.Tier][multiplier].transform);
+                medalGameObject.transform.SetParent(medals[medal.Tier][multiplier].GetComponentsInChildren<RectTransform>().First(x => x.name == "Content").transform);
             }
 
             return medals;

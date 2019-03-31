@@ -10,6 +10,7 @@ namespace MedalViewer.Medal
 {
     public class MedalLogicManager : MonoBehaviour
     {
+        private bool cyclesOn = true;
         private readonly string url = "https://medalviewer.blob.core.windows.net/thumbnails/";
         
         public Dictionary<int, Dictionary<double, GameObject>> GenerateMedals(List<GameObject> YParents, List<GameObject> XParents, Transform MedalContentHolder)
@@ -30,7 +31,11 @@ namespace MedalViewer.Medal
                 {
                     var guiltIndex = (int)multiplier < 0 ? 0 : (int)multiplier;
 
-                    var tempObject = Instantiate(Resources.Load("MedalDisplay") as GameObject);
+                    GameObject tempObject = null;
+                    if(cyclesOn)
+                        tempObject = Instantiate(Resources.Load("MedalCycleDisplay") as GameObject);
+                    else
+                        tempObject = Instantiate(Resources.Load("MedalDisplay") as GameObject);
 
                     tempObject.name = multiplier.ToString("0.00");
 
@@ -41,14 +46,25 @@ namespace MedalViewer.Medal
                     medals[medal.Tier].Add(multiplier, tempObject);
                 }
 
-                medalGameObject.transform.SetParent(medals[medal.Tier][multiplier].GetComponentsInChildren<RectTransform>().First(x => x.name == "Content").transform, true);
+                if (cyclesOn)
+                {
+                    medalGameObject.transform.SetParent(medals[medal.Tier][multiplier].GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent"), false);
+                }
+                else
+                {
+                    medalGameObject.transform.SetParent(medals[medal.Tier][multiplier].GetComponentsInChildren<RectTransform>().First(x => x.name == "Content"), true);
+                }
             }
 
             foreach(var kv in medals)
             {
                 foreach (var kv2 in kv.Value)
                 {
-                    this.UpdateMedalHolderContent(kv2.Value.GetComponentsInChildren<RectTransform>().First(x => x.name == "Content"));
+                    if (cyclesOn)
+                        this.UpdateMedalCycleContent(kv2.Value.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent"));
+                        //this.UpdateMedalHolderContent(kv2.Value.GetComponentsInChildren<RectTransform>().First(x => x.name == "Content"));
+                    else
+                        this.UpdateMedalHolderContent(kv2.Value.GetComponentsInChildren<RectTransform>().First(x => x.name == "Content"));
                 }
             }
 
@@ -96,6 +112,30 @@ namespace MedalViewer.Medal
         public void UpdateMedalHolderContent(RectTransform content)
         {
             var children = content.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Content").ToList();
+            var gridLayout = content.GetComponent<GridLayoutGroup>();
+            var parentGridLayout = content.GetComponent<GridLayoutGroup>();
+
+            if (children.Count == 0) return;
+
+            children.ForEach(x => x.SetParent(content.parent));
+
+            parentGridLayout.enabled = false;
+            var updateX = (children.Count + 1) * gridLayout.cellSize.x + children.Count * gridLayout.spacing.x;
+
+            content.sizeDelta = new Vector2(updateX, content.sizeDelta.y);
+
+            parentGridLayout.enabled = true;
+            children.ForEach(x => x.SetParent(content));
+
+            if (children.Count <= 3)
+            {
+                content.parent.GetComponent<RectTransform>().sizeDelta = content.sizeDelta;
+            }
+        }
+
+        public void UpdateMedalCycleContent(RectTransform content)
+        {
+            var children = content.GetComponentsInChildren<RectTransform>().Where(x => x.name != "SubContent").ToList();
             var gridLayout = content.GetComponent<GridLayoutGroup>();
             var parentGridLayout = content.GetComponent<GridLayoutGroup>();
 

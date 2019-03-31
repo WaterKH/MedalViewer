@@ -28,7 +28,7 @@ namespace MedalViewer.Medal
         public Dictionary<int, Dictionary<double, GameObject>> MedalGameObjects;
 
         private readonly int yOffset = 250;
-        private readonly int xOffset = 700;
+        private readonly int xOffset = 500;
 
         private List<GameObject> RowsY = new List<GameObject>();
         private List<GameObject> ColumnsX = new List<GameObject>();
@@ -106,7 +106,7 @@ namespace MedalViewer.Medal
                 {
                     var medal = mult.Value;
 
-                    Globals.CycleMedals.Add(medal, medal.GetComponentsInChildren<Transform>().Where(x => x.name != medal.name).ToList().Count);
+                    Globals.CycleMedals.Add(medal, 0);// medal.transform.childCount);
                 }
             }
 

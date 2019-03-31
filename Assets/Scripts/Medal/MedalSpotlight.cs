@@ -16,6 +16,7 @@ namespace MedalViewer.Medal
         void Start()
         {
             medalSpotlightDisplayManager = GameObject.FindGameObjectWithTag("MedalHighlight").GetComponent<MedalSpotlightDisplayManager>();
+            //print(medalSpotlightDisplayManager);
             //medalLogic = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalLogic>();
         }
 

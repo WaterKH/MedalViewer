@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace MedalViewer.Medal
 {
@@ -13,10 +14,11 @@ namespace MedalViewer.Medal
         // but it can't be set in the inspector, because we use lazy instantiation
         public bool stopped;
         public bool firstPass = true;
-    
+        private Coroutine lastRoutine = null;
+
         // Static singleton instance
         private static MedalCycleLogic instance;
-
+        
         // Static singleton property
         public static MedalCycleLogic Instance
         {
@@ -29,7 +31,7 @@ namespace MedalViewer.Medal
         {
             MedalLogicManager = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalLogicManager>();
 
-            StartCoroutine(CycleMedals(Globals.CycleMedals));
+            //StartCoroutine(CycleMedals(Globals.CycleMedals));
         }
 
         // Instance method, this method can be accesed through the singleton instance
@@ -37,9 +39,10 @@ namespace MedalViewer.Medal
         {
             while (!stopped)
             {
+                // TODO Do fades for medals
                 foreach (var m in medals)
                 {
-                    var currMedal = m.Key.transform.GetChild(m.Value);
+                    var currMedal = m.Key.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent").GetChild(m.Value);
 
                     m.Key.GetComponent<RawImage>().texture = currMedal.GetComponent<RawImage>().texture;
                 }
@@ -47,10 +50,10 @@ namespace MedalViewer.Medal
                 List<GameObject> keys = new List<GameObject>(medals.Keys);
                 foreach (var key in keys)
                 {
-                    medals[key] = (medals[key] + 1) % key.transform.childCount;
+                    medals[key] = (medals[key] + 1) % key.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent").childCount;
                 }
 
-                yield return new WaitForSeconds(2.0f);
+                yield return new WaitForSeconds(1.5f);
             }
         }
 
@@ -58,13 +61,14 @@ namespace MedalViewer.Medal
         {
             stopped = false;
             firstPass = true;
-            StartCoroutine(CycleMedals(Globals.CycleMedals));
+            lastRoutine = StartCoroutine(CycleMedals(Globals.CycleMedals));
         }
 
         public void StopCycleMedals()
         {
             stopped = true;
             firstPass = false;
+            StopCoroutine(lastRoutine);
         }
     }
 }

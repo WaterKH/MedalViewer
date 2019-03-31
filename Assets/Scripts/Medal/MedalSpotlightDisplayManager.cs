@@ -274,6 +274,8 @@ namespace MedalViewer.Medal
 
         private readonly string url = "https://medalviewer.blob.core.windows.net/images/";
 
+        private GameObject currSublistMedal;
+
         private Transform prevParent;
         private float prevScale;
 
@@ -281,7 +283,8 @@ namespace MedalViewer.Medal
 
         private bool isTransition = false;
 
-        //private bool isDisplaying = false;
+        private bool isDisplayingMedal = false;
+        private bool isDisplayingSublist = false;
         private bool isDisplayingSupernova = false;
         private bool isDisplayingSkills = false;
         private bool isDisplayingTraits = false;
@@ -696,7 +699,7 @@ namespace MedalViewer.Medal
         public void UpdateSkill(GameObject value)
         {
             SkillImage.texture = value.GetComponent<RawImage>().texture;
-            SkillText.text = value.name;
+            SkillText.text = value.name == "Null" ? "" : value.name;
 
             Skill.text = SkillConversion[value.name];
             
@@ -1278,18 +1281,22 @@ namespace MedalViewer.Medal
 
         public void HandleDisplay(GameObject clickedOn)
         {
-            if (clickedOn.transform.childCount > 1)
+            MedalCycleLogic.Instance.StopCycleMedals();
+            
+            if (clickedOn.GetComponentInChildren<GridLayoutGroup>().transform.childCount > 1)
             {
-                //DisplaySublistOfMedals(clickedOn);
+                DisplaySublistOfMedals(clickedOn);
             }
             else
             {
-                StartCoroutine(Display(clickedOn.transform.GetChild(0).gameObject));
+                StartCoroutine(Display(clickedOn.GetComponentInChildren<GridLayoutGroup>().transform.GetChild(0).gameObject));
             }
         }
         
         public void HideCurrentMedal()
         {
+            isDisplayingMedal = false;
+
             HideSkills();
             HideTraits();
             HidePetTraits();
@@ -1299,6 +1306,8 @@ namespace MedalViewer.Medal
             elapsedTime = 0.0f;
 
             StartCoroutine(HideDisplay(MedalHighlight));
+            
+            MedalCycleLogic.Instance.StartCycleMedals();
         }
 
         public void ShowSupernova()
@@ -1504,19 +1513,26 @@ namespace MedalViewer.Medal
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if(this.isDisplayingSkills || this.isDisplayingTraits || this.isDisplayingPetTraits)
+                if (isDisplayingMedal)
                 {
-                    HideSkills();
-                    HidePetTraits();
-                    HideTraits();
+                    if (this.isDisplayingSkills || this.isDisplayingTraits || this.isDisplayingPetTraits)
+                    {
+                        HideSkills();
+                        HidePetTraits();
+                        HideTraits();
+                    }
+                    else if (this.isDisplayingSupernova)
+                    {
+                        HideSupernova();
+                    }
+                    else
+                    {
+                        HideCurrentMedal();
+                    }
                 }
-                else if(this.isDisplayingSupernova)
+                else if(isDisplayingSublist)
                 {
-                    HideSupernova();
-                }
-                else
-                {
-                    HideCurrentMedal();
+                    this.HideSublistOfMedals(true);
                 }
             }
         }
@@ -1531,6 +1547,10 @@ namespace MedalViewer.Medal
             yield return null;
             Loading.StartLoading();
             Reset();
+
+            isDisplayingMedal = true;
+            if(currSublistMedal != null)
+                this.HideSublistOfMedals();
 
             MedalDisplay medalDisplay = medalObject.GetComponent<MedalDisplay>();
             MedalAbility medalAbility = new MedalAbility();
@@ -1648,6 +1668,33 @@ namespace MedalViewer.Medal
                     isTransition = false;
                 }
                 yield return null;
+            }
+        }
+
+        public void DisplaySublistOfMedals(GameObject clickedOn)
+        {
+            isDisplayingSublist = true;
+
+            currSublistMedal = clickedOn;
+
+            clickedOn.GetComponentInChildren<CanvasGroup>().alpha = 1;
+            clickedOn.GetComponentInChildren<CanvasGroup>().blocksRaycasts = true;
+            clickedOn.GetComponentInChildren<CanvasGroup>().interactable = true;
+        }
+
+        public void HideSublistOfMedals(bool closed = false)
+        {
+            isDisplayingSublist = false;
+
+            currSublistMedal.GetComponentInChildren<CanvasGroup>().alpha = 0;
+            currSublistMedal.GetComponentInChildren<CanvasGroup>().blocksRaycasts = false;
+            currSublistMedal.GetComponentInChildren<CanvasGroup>().interactable = false;
+
+            currSublistMedal = null;
+
+            if (closed)
+            {
+                MedalCycleLogic.Instance.StartCycleMedals();
             }
         }
     }

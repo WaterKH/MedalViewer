@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.Networking;
+using UnityEngine.EventSystems;
 
 namespace MedalViewer.Medal
 {
@@ -11,6 +12,7 @@ namespace MedalViewer.Medal
     {
         public MedalFilter MedalFilter;
         public MedalLogicManager MedalLogicManager;
+        public MedalPositionLogic MedalPositionLogic;
 
         public Transform StartPositionY;
         public Transform StartPositionX;
@@ -19,10 +21,14 @@ namespace MedalViewer.Medal
 
         public Transform MedalContent;
 
+        public ScrollRect MedalView;
+        public ScrollRect Vertical;
+        public ScrollRect Horizontal;
+        
         public Dictionary<int, Dictionary<double, GameObject>> MedalGameObjects;
 
         private readonly int yOffset = 250;
-        private readonly int xOffset = 350;
+        private readonly int xOffset = 700;
 
         private List<GameObject> RowsY = new List<GameObject>();
         private List<GameObject> ColumnsX = new List<GameObject>();
@@ -38,7 +44,7 @@ namespace MedalViewer.Medal
 
             #region Y Row Creation
             
-            int tempYOffset = yOffset;
+            int tempYOffset = 400;
             
             ParentY.GetComponent<RectTransform>().offsetMax = new Vector2(ParentY.GetComponent<RectTransform>().offsetMax.x, yOffset * (MedalFilter.HighRange - MedalFilter.LowRange + 2));
             
@@ -60,9 +66,9 @@ namespace MedalViewer.Medal
 
             #region X Column Creation
 
-            int tempXOffset = 150;
+            int tempXOffset = 300;
 
-            ParentX.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 3), ParentX.GetComponent<RectTransform>().offsetMax.y);
+            ParentX.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 2), ParentX.GetComponent<RectTransform>().offsetMax.y);
 
             foreach (var tier in MedalFilter.Tiers)
             {
@@ -80,20 +86,38 @@ namespace MedalViewer.Medal
 
             #endregion
 
-            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 3), yOffset * (MedalFilter.HighRange - MedalFilter.LowRange + 2));
+            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 2), yOffset * (MedalFilter.HighRange - MedalFilter.LowRange + 2));
 
             PopulateMedals();
+            PopulateCycleMedals();
         }
 
         public void PopulateMedals()
         {
-            MedalGameObjects = MedalLogicManager.GenerateMedals(RowsY, ColumnsX);
-            
+            MedalGameObjects = MedalLogicManager.GenerateMedals(RowsY, ColumnsX, MedalContent);
+            MedalPositionLogic.PlaceMedals(RowsY, ColumnsX, MedalGameObjects);
         }
         
+        public void PopulateCycleMedals()
+        {
+            foreach(var tier in MedalGameObjects)
+            {
+                foreach(var mult in tier.Value)
+                {
+                    var medal = mult.Value;
+
+                    Globals.CycleMedals.Add(medal, medal.GetComponentsInChildren<Transform>().Where(x => x.name != medal.name).ToList().Count);
+                }
+            }
+
+            MedalCycleLogic.Instance.StartCycleMedals();
+        }
+
         public void Reset()
         {
-            foreach(var row in RowsY)
+            Globals.CycleMedals.Clear();
+
+            foreach (var row in RowsY)
             {
                 Destroy(row);
             }
@@ -102,6 +126,27 @@ namespace MedalViewer.Medal
             {
                 Destroy(column);
             }
+        }
+        
+        public void UpdateScrollBars(Vector2 vector)
+        {
+            if (Globals.PointerObjectName == "Scroll View")
+            {
+                Horizontal.horizontalNormalizedPosition = vector.x;
+                Vertical.verticalNormalizedPosition = vector.y;
+            }
+        }
+
+        public void UpdateScrollMedalViewX(Vector2 vector)
+        {
+            if (Globals.PointerObjectName == "Horizontal")
+                MedalView.horizontalNormalizedPosition = vector.x;
+        }
+
+        public void UpdateScrollMedalViewY(Vector2 vector)
+        {
+            if (Globals.PointerObjectName == "Vertical")
+                MedalView.verticalNormalizedPosition = vector.y;
         }
     }
 }

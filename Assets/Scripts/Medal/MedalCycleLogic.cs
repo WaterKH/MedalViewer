@@ -1,65 +1,70 @@
-﻿//using UnityEngine;
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine.UI;
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
-//public class MedalCycleLogic : MonoBehaviour
-//{
-//    // This field can be accesed through our singleton instance,
-//    // but it can't be set in the inspector, because we use lazy instantiation
-//    public bool stopped;
-//    public bool firstPass = true;
-//	public Dictionary<GameObject, int> medalChildrenHolders = new Dictionary<GameObject, int>();
+namespace MedalViewer.Medal
+{
+    public class MedalCycleLogic : MonoBehaviour
+    {
+        MedalLogicManager MedalLogicManager;
 
-//    // Static singleton instance
-//	private static MedalCycleLogic instance;
+        // This field can be accesed through our singleton instance,
+        // but it can't be set in the inspector, because we use lazy instantiation
+        public bool stopped;
+        public bool firstPass = true;
+    
+        // Static singleton instance
+        private static MedalCycleLogic instance;
 
-//    // Static singleton property
-//	public static MedalCycleLogic Instance
-//    {
-//        // Here we use the ?? operator, to return 'instance' if 'instance' does not equal null
-//        // otherwise we assign instance to a new component and return that
-//		get { return instance ?? (instance = new GameObject("MedalCycleLogic").AddComponent<MedalCycleLogic>()); }
-//    }
+        // Static singleton property
+        public static MedalCycleLogic Instance
+        {
+            // Here we use the ?? operator, to return 'instance' if 'instance' does not equal null
+            // otherwise we assign instance to a new component and return that
+            get { return instance ?? (instance = new GameObject("MedalCycleLogic").AddComponent<MedalCycleLogic>()); }
+        }
 
-//    void Start()
-//    {
-//		StartCoroutine(CycleMedals(medalChildrenHolders));
-//    }
+        void Start()
+        {
+            MedalLogicManager = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalLogicManager>();
 
-//    // Instance method, this method can be accesed through the singleton instance
-//	public IEnumerator CycleMedals(Dictionary<GameObject, int> medals)
-//	{
-//		while(!stopped)
-//		{
-//			foreach(var m in medals)
-//			{
-//				var currMedal = m.Key.transform.GetChild(m.Value);
+            StartCoroutine(CycleMedals(Globals.CycleMedals));
+        }
 
-//				m.Key.GetComponent<RawImage>().texture = currMedal.GetComponent<RawImage>().texture;
-//			}
+        // Instance method, this method can be accesed through the singleton instance
+        public IEnumerator CycleMedals(Dictionary<GameObject, int> medals)
+        {
+            while (!stopped)
+            {
+                foreach (var m in medals)
+                {
+                    var currMedal = m.Key.transform.GetChild(m.Value);
 
-//			List<GameObject> keys = new List<GameObject>(medals.Keys);
-//			foreach(var key in keys)
-//			{
-//				medals[key] = (medals[key] + 1) % key.transform.childCount;
-//			}
+                    m.Key.GetComponent<RawImage>().texture = currMedal.GetComponent<RawImage>().texture;
+                }
 
-//			yield return new WaitForSeconds(1.0f);
+                List<GameObject> keys = new List<GameObject>(medals.Keys);
+                foreach (var key in keys)
+                {
+                    medals[key] = (medals[key] + 1) % key.transform.childCount;
+                }
 
-//		}
-//	}
+                yield return new WaitForSeconds(2.0f);
+            }
+        }
 
-//	public void CycleMedals()
-//	{
-//		stopped = false;
-//		firstPass = true;
-//		StartCoroutine(CycleMedals(medalChildrenHolders));
-//	}
+        public void StartCycleMedals()
+        {
+            stopped = false;
+            firstPass = true;
+            StartCoroutine(CycleMedals(Globals.CycleMedals));
+        }
 
-//	public void StopCycleMedals()
-//	{
-//		stopped = true;
-//		firstPass = false;
-//	}
-//}
+        public void StopCycleMedals()
+        {
+            stopped = true;
+            firstPass = false;
+        }
+    }
+}

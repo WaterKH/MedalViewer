@@ -14,8 +14,7 @@ namespace MedalViewer.Medal
         public MedalFilter MedalFilter;
         public Loading Loading;
         public MedalLogicManager MedalLogicManager;
-
-        //public Dictionary<int, Medal> medals = new Dictionary<int, Medal>();
+        
         private readonly string connectionString = "Server=tcp:medalviewer.database.windows.net,1433;Initial Catalog=medalviewer;Persist Security Info=False;User ID=MedalViewer;Password=Password1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         
         void Awake()
@@ -50,8 +49,7 @@ namespace MedalViewer.Medal
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 var commandString = medalFilter.GenerateFilterQuery();
-                //print(commandString);
-                //Debug.Log(commandString);
+                
                 using (SqlCommand command = new SqlCommand(commandString, conn))
                 {
                     conn.Open();
@@ -96,7 +94,7 @@ namespace MedalViewer.Medal
                                 Effect = reader[32] == DBNull.Value ? "" : reader.GetString(32),
                                 Effect_Description = reader[33] == DBNull.Value ? "" : reader.GetString(33)
                             };
-                            //Debug.Log(medal.Id + " " + medal.Name);
+
                             Globals.Medals.Add(medal.Id, medal);
                         }
                     }

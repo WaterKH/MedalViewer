@@ -1,20 +1,17 @@
 ﻿using System.Collections.Generic;
 using MedalViewer.Medal;
+using UnityEngine.EventSystems;
+using UnityEngine;
 
 public static class Globals
 {
     #region Medals
 
     public static Dictionary<int, Medal> Medals = new Dictionary<int, Medal>();
+    public static Dictionary<GameObject, int> CycleMedals = new Dictionary<GameObject, int>();
 
     #endregion
-
-    //#region Database Table Instance
-
-    //public static SQLiteConnection Connection;
-    //public static TableQuery<Medal> MedalsTable;
-
-    //#endregion
+    
 
     #region Settings
 
@@ -24,4 +21,6 @@ public static class Globals
     public static SliderFilterLogic MultiplierFilter;
 
     #endregion
+
+    public static string PointerObjectName;
 }

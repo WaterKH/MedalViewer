@@ -126,8 +126,8 @@ public class RowResizer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 : 0; // TODO Fix the else part?
         }
 
-        CurrRow.GetComponentsInChildren<Transform>().Where(x => x.name != CurrRow.name && OnlyDigits.Match(x.name).Success).ToList().ForEach(x => MedalPositionLogic.UpdateMedalHolderPosition(x.gameObject, currRow.transform, nextRow));
-        PrevRow.GetComponentsInChildren<Transform>().Where(x => x.name != PrevRow.name && OnlyDigits.Match(x.name).Success).ToList().ForEach(x => MedalPositionLogic.UpdateMedalHolderPosition(x.gameObject, previousRow, currRow.transform));
+        //CurrRow.GetComponentsInChildren<Transform>().Where(x => x.name != CurrRow.name && OnlyDigits.Match(x.name).Success).ToList().ForEach(x => MedalPositionLogic.UpdateMedalHolderPosition(x.gameObject, currRow.transform, nextRow));
+        //PrevRow.GetComponentsInChildren<Transform>().Where(x => x.name != PrevRow.name && OnlyDigits.Match(x.name).Success).ToList().ForEach(x => MedalPositionLogic.UpdateMedalHolderPosition(x.gameObject, previousRow, currRow.transform));
 
         if (mouseDelta > 0)
         {

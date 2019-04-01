@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System;
+using UnityEngine.Networking;
+using System.Text;
 
 namespace MedalViewer.Medal
 {
@@ -14,9 +16,12 @@ namespace MedalViewer.Medal
         public MedalFilter MedalFilter;
         public Loading Loading;
         public MedalLogicManager MedalLogicManager;
-        
+        public MedalGraphViewLogic MedalGraphViewLogic;
+
+        private readonly string selectFilteredMedalsPHP = "https://mvphp.azurewebsites.net/selectFilteredMedals.php";
         private readonly string connectionString = "Server=tcp:medalviewer.database.windows.net,1433;Initial Catalog=medalviewer;Persist Security Info=False;User ID=MedalViewer;Password=Password1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        
+        private bool client = false;
+
         void Awake()
         {
             // TODO Do we want this to be the only point of entry??
@@ -31,17 +36,18 @@ namespace MedalViewer.Medal
 
             MedalFilter.DefaultFilters();
 
-            GetMedals(MedalFilter);
+            if (client)
+                GetMedals(MedalFilter);
+            else
+                StartCoroutine(GetMedalsFromPHP(MedalFilter));
 
             #endregion
 
             #region Display Medals
 
-            //MedalLogicManager.Initialize();
+            StartCoroutine(MedalGraphViewLogic.Display());
 
             #endregion
-
-            Loading.FinishLoading();
         }
         
         public void GetMedals(MedalFilter medalFilter)
@@ -100,6 +106,74 @@ namespace MedalViewer.Medal
                     }
                 }
             }
+
+            Loading.FinishLoading();
+        }
+
+        public IEnumerator GetMedalsFromPHP(MedalFilter medalFilter)
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("sqlQuery", medalFilter.GenerateFilterQuery());
+
+            using (UnityWebRequest www = UnityWebRequest.Post(selectFilteredMedalsPHP, form))
+            {
+                yield return www.SendWebRequest();
+                if (www.isNetworkError || www.isHttpError)
+                {
+                    Debug.Log("ERROR:: " + www.error);
+                }
+                else
+                {
+                    //Debug.Log(www.downloadHandler.text);
+                    var rows = www.downloadHandler.text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var row in rows)
+                    {
+                        var splitRow = row.Split(new char[] { '|' }, StringSplitOptions.None);
+                        
+                        var medal = new Medal
+                        {
+                            Id = string.IsNullOrEmpty(splitRow[0]) ? -1 : int.Parse(splitRow[0]),
+                            Name = string.IsNullOrEmpty(splitRow[1]) ? "" : splitRow[1],
+                            ImageURL = string.IsNullOrEmpty(splitRow[2]) ? "" : splitRow[2],
+                            Star = string.IsNullOrEmpty(splitRow[3]) ? 0 : int.Parse(splitRow[3]),
+                            Class = string.IsNullOrEmpty(splitRow[4]) ? "" : splitRow[4],
+                            Type = string.IsNullOrEmpty(splitRow[5]) ? "" : splitRow[5],
+                            Attribute_PSM = string.IsNullOrEmpty(splitRow[6]) ? "" : splitRow[6],
+                            Attribute_UR = string.IsNullOrEmpty(splitRow[7]) ? "" : splitRow[7],
+                            Discriminator = string.IsNullOrEmpty(splitRow[8]) ? "" : splitRow[8],
+                            BaseAttack = string.IsNullOrWhiteSpace(splitRow[9]) ? 0 : int.Parse(splitRow[9]),
+                            MaxAttack = string.IsNullOrEmpty(splitRow[10]) ? 0 : int.Parse(splitRow[10]),
+                            BaseDefense = string.IsNullOrEmpty(splitRow[11]) ? 0 : int.Parse(splitRow[11]),
+                            MaxDefense = string.IsNullOrEmpty(splitRow[12]) ? 0 : int.Parse(splitRow[12]),
+                            TraitSlots = string.IsNullOrEmpty(splitRow[13]) ? 0 : int.Parse(splitRow[13]),
+                            BasePetPoints = string.IsNullOrEmpty(splitRow[14]) ? 0 : int.Parse(splitRow[14]),
+                            MaxPetPoints = string.IsNullOrEmpty(splitRow[15]) ? 0 : int.Parse(splitRow[15]),
+                            Ability = string.IsNullOrEmpty(splitRow[16]) ? "" : splitRow[16],
+                            AbilityDescription = string.IsNullOrEmpty(splitRow[17]) ? "" : splitRow[17],
+                            Target = string.IsNullOrEmpty(splitRow[18]) ? "" : splitRow[18],
+                            Gauge = string.IsNullOrEmpty(splitRow[19]) ? 0 : int.Parse(splitRow[19]),
+                            BaseMultiplierLow = string.IsNullOrEmpty(splitRow[20]) ? 0.0 : double.Parse(splitRow[20]),
+                            BaseMultiplierHigh = string.IsNullOrEmpty(splitRow[21]) ? 0.0 : double.Parse(splitRow[21]),
+                            MaxMultiplierLow = string.IsNullOrEmpty(splitRow[22]) ? 0.0 : double.Parse(splitRow[22]),
+                            MaxMultiplierHigh = string.IsNullOrEmpty(splitRow[23]) ? 0.0 : double.Parse(splitRow[23]),
+                            GuiltMultiplierLow = string.IsNullOrEmpty(splitRow[24]) ? 0.0 : double.Parse(splitRow[24]),
+                            GuiltMultiplierHigh = string.IsNullOrEmpty(splitRow[25]) ? 0.0 : double.Parse(splitRow[25]),
+                            SubslotMultiplier = string.IsNullOrEmpty(splitRow[26]) ? 0.0 : double.Parse(splitRow[26]),
+                            Tier = string.IsNullOrEmpty(splitRow[27]) ? 0 : int.Parse(splitRow[27]),
+                            SupernovaName = string.IsNullOrEmpty(splitRow[28]) ? "" : splitRow[28],
+                            SupernovaDescription = string.IsNullOrEmpty(splitRow[29]) ? "" : splitRow[29],
+                            SupernovaDamage = string.IsNullOrEmpty(splitRow[30]) ? "" : splitRow[30],
+                            SupernovaTarget = string.IsNullOrEmpty(splitRow[31]) ? "" : splitRow[31],
+                            Effect = string.IsNullOrEmpty(splitRow[32]) ? "" : splitRow[32],
+                            Effect_Description = string.IsNullOrEmpty(splitRow[33]) ? "" : splitRow[33]
+                        };
+                        
+                        Globals.Medals.Add(medal.Id, medal);
+                    }
+                }
+            }
+
+            Loading.FinishLoading();
         }
     }
 }

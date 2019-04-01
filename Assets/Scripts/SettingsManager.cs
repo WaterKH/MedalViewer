@@ -66,7 +66,7 @@ public class SettingsManager : MonoBehaviour {
 	    Globals.PSM_URFilter = this.PSM_URFilter;
 	    Globals.StarFilter = this.StarFilter;
 
-        Sorter.SortManager(Globals.Medals);
+        //Sorter.SortManager(Globals.Medals);
 	    //LogicManager.SetupMedalsByTierAndMult(Sorter.medals_by_tier);
 
         CloseFilter();

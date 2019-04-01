@@ -13,6 +13,7 @@ namespace MedalViewer.Medal
         public MedalFilter MedalFilter;
         public MedalLogicManager MedalLogicManager;
         public MedalPositionLogic MedalPositionLogic;
+        public Loading Loading;
 
         public Transform StartPositionY;
         public Transform StartPositionX;
@@ -32,14 +33,16 @@ namespace MedalViewer.Medal
 
         private List<GameObject> RowsY = new List<GameObject>();
         private List<GameObject> ColumnsX = new List<GameObject>();
-
-        private void Start()
+        
+        public IEnumerator Display()
         {
-            Display();
-        }
+            while(Loading.IsLoading)
+            {
+                yield return null;
+            }
+            
+            Loading.StartLoading();
 
-        public void Display()
-        {
             this.Reset();
 
             #region Y Row Creation
@@ -68,7 +71,7 @@ namespace MedalViewer.Medal
 
             int tempXOffset = 300;
 
-            ParentX.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 2), ParentX.GetComponent<RectTransform>().offsetMax.y);
+            ParentX.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 3), ParentX.GetComponent<RectTransform>().offsetMax.y);
 
             foreach (var tier in MedalFilter.Tiers)
             {
@@ -86,10 +89,12 @@ namespace MedalViewer.Medal
 
             #endregion
 
-            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 2), yOffset * (MedalFilter.HighRange - MedalFilter.LowRange + 2));
+            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 3), yOffset * (MedalFilter.HighRange - MedalFilter.LowRange + 2));
 
             PopulateMedals();
             PopulateCycleMedals();
+            
+            Loading.FinishLoading();
         }
 
         public void PopulateMedals()

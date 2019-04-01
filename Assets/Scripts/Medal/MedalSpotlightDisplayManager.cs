@@ -31,6 +31,8 @@ namespace MedalViewer.Medal
 
         #region Icons
 
+        public Text PetPointsBase;
+        public Text PetPointsMax;
         public RawImage PSMAttribute;
         public RawImage URAttribute;
         public RawImage Tier;
@@ -302,6 +304,9 @@ namespace MedalViewer.Medal
 
         private void AssignIcons(MedalDisplay medalDisplay)
         {
+            PetPointsBase.text = medalDisplay.BasePetPoints.ToString();
+            PetPointsMax.text = medalDisplay.MaxPetPoints.ToString();
+
             PSMAttribute.texture = Resources.Load("Gems/" + medalDisplay.Attribute_PSM + "_Gem") as Texture2D;
             URAttribute.color = medalDisplay.Attribute_UR == "Upright" ? Upright : Reversed;
 
@@ -1040,6 +1045,9 @@ namespace MedalViewer.Medal
 
         private void ResetIcons()
         {
+            PetPointsBase.text = "--";
+            PetPointsMax.text = "--";
+
             PSMAttribute.texture = null;
             URAttribute.color = invisible;
 

@@ -14,18 +14,26 @@ public class FilterDisplayManager : MonoBehaviour
         {
             if (this.isDisplayingFilters)
             {
-                
+                HideFilterMenu();
             }
         }
     }
 
     public void DisplayFilterMenu()
     {
+        isDisplayingFilters = true;
 
+        FilterMenu.alpha = 1;
+        FilterMenu.interactable = true;
+        FilterMenu.blocksRaycasts = true;
     }
 
     public void HideFilterMenu()
     {
+        isDisplayingFilters = false;
 
+        FilterMenu.alpha = 0;
+        FilterMenu.interactable = false;
+        FilterMenu.blocksRaycasts = false;
     }
 }

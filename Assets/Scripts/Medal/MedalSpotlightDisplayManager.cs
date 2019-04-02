@@ -10,7 +10,6 @@ namespace MedalViewer.Medal
 {
     public class MedalSpotlightDisplayManager : MonoBehaviour
     {
-        public TraitManager TraitManager;
         MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
         public Loading Loading;
 
@@ -38,10 +37,7 @@ namespace MedalViewer.Medal
         public RawImage Tier;
         public RawImage Target;
         public RawImage Gauges;
-
-        public Color32 Reversed;// = new Color(171, 0, 255, 255);
-        public Color32 Upright;// = new Color(255f, 255f, 0f, 255f);
-
+        
         #endregion
 
         #region MedalName
@@ -308,11 +304,11 @@ namespace MedalViewer.Medal
             PetPointsMax.text = medalDisplay.MaxPetPoints.ToString();
 
             PSMAttribute.texture = Resources.Load("Gems/" + medalDisplay.Attribute_PSM + "_Gem") as Texture2D;
-            URAttribute.color = medalDisplay.Attribute_UR == "Upright" ? Upright : Reversed;
+            URAttribute.texture = Resources.Load("Gems/" + medalDisplay.Attribute_UR + "_Gem") as Texture2D;
 
             Tier.texture = Resources.Load("Tier/Black/" + medalDisplay.Tier) as Texture2D;
             Target.texture = Resources.Load("Target/" + medalDisplay.Target) as Texture2D;
-            Gauges.texture = Resources.Load("Gauges/" + medalDisplay.Gauge) as Texture2D;
+            Gauges.texture = Resources.Load("Gauges/Uses/GU" + medalDisplay.Gauge) as Texture2D;
         }
 
         private void AssignMedalName(MedalDisplay medalDisplay)
@@ -1049,7 +1045,7 @@ namespace MedalViewer.Medal
             PetPointsMax.text = "--";
 
             PSMAttribute.texture = null;
-            URAttribute.color = invisible;
+            URAttribute.texture = null;
 
             Tier.texture = null;
             Target.texture = null;

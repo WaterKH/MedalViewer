@@ -126,7 +126,8 @@ public class ImagePaths {
 			{
                 { "0", "Gauges/Restore/GR0" }, { "1", "Gauges/Restore/GR1" }, { "2", "Gauges/Restore/GR2" }, { "3", "Gauges/Restore/GR3" },
                 { "4", "Gauges/Restore/GR4" }, { "5", "Gauges/Restore/GR5" }, { "6", "Gauges/Restore/GR6" }, { "7", "Gauges/Restore/GR7" },
-                { "8", "Gauges/Restore/GR8" }, { "9", "Gauges/Restore/GR9" }, { "10", "Gauges/Restore/GR10" }, { "30", "Gauges/Restore/GR30"},
+                { "8", "Gauges/Restore/GR8" }, { "9", "Gauges/Restore/GR9" }, { "10", "Gauges/Restore/GR10" }, { "15", "Gauges/Restore/GR15" },
+                { "30", "Gauges/Restore/GR30"},
                 
                 { "Uses all gauges", "Gauges/Uses/GUall" }, { "use +2", "Gauges/Uses/GU2" }
             }

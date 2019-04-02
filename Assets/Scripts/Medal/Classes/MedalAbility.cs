@@ -129,6 +129,12 @@ namespace MedalViewer.Medal
                 var next_image = Resources.Load(ImagePaths.MiscPaths["IGNORE"][IgnoreAttributes]) as Texture2D;
                 MiscImages["IGNORE"] = next_image;
             }
+
+            if(Copy != "")
+            {
+                var copy_image = Resources.Load(ImagePaths.MiscPaths["COPY"][Copy]) as Texture2D;
+                MiscImages["COPY"] = copy_image;
+            }
         }
 
         public void InitImages()
@@ -158,7 +164,8 @@ namespace MedalViewer.Medal
                 { "DISPELPLAYER", null },
                 { "DISPEL", null },
                 { "MIRROR", null },
-                { "IGNORE", null }
+                { "IGNORE", null },
+                { "COPY", null }
             };
         }
     }

@@ -151,7 +151,7 @@ public class ImagePaths {
         {
             "COPY", new Dictionary<string, string>()
             {
-                { "next Medal", "Copy/before" }, { "previous Medal", "Copy/after" },
+                { "previous Medal", "Copy/before" }, { "next Medal", "Copy/after" }, 
                 { "2 Medals before", "Copy/before" }, { "2 Medals after", "Copy/after" },
             }
         },

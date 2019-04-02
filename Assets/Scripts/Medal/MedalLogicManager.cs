@@ -11,7 +11,7 @@ namespace MedalViewer.Medal
     public class MedalLogicManager : MonoBehaviour
     {
         private bool cyclesOn = true;
-        private readonly string url = "https://medalviewer.blob.core.windows.net/images/";//thumbnails/";
+        private readonly string url = "https://medalviewer.blob.core.windows.net/thumbnails/";
         
         public Dictionary<int, Dictionary<double, GameObject>> GenerateMedals(List<GameObject> YParents, List<GameObject> XParents, Transform MedalContentHolder)
         {
@@ -86,7 +86,7 @@ namespace MedalViewer.Medal
         
         private void SetMedalImage(Medal medalItem, GameObject medalObject, string prevImg)
         {
-            var fileName = medalItem.ImageURL;//.Replace(".png", "_tn.png");
+            var fileName = medalItem.ImageURL.Replace(".png", "_tn.png");
 
             if (fileName == "NULL")
             {

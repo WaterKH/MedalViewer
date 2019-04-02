@@ -81,7 +81,7 @@ public class MedalAbilityParser
 
     #region COPY
 
-    private static readonly Regex CopyRegex = new Regex(@"Unleashes(?:.*?)(next|previous|2 \w+ before| 2 \w+ after)");
+    private static readonly Regex CopyRegex = new Regex(@"Unleashes(?:.*?)(next Medal|previous Medal|2 \w+ before| 2 \w+ after)");
 
     #endregion
 
@@ -237,7 +237,7 @@ public class MedalAbilityParser
                         Debug.Log("ERROR: " + item);
                         break;
                 }
-                //break;
+                break;
             }
         }
 

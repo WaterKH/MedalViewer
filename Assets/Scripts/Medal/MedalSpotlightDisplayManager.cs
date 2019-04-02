@@ -468,16 +468,16 @@ namespace MedalViewer.Medal
 
         private void AssignStats(MedalDisplay medalDisplay/*, MedalAbility medalAbility*/)
         {
-            Defense.text = medalDisplay.BaseDefense.ToString();
-            Strength.text = medalDisplay.BaseStrength.ToString();
+            Defense.text = medalDisplay.MaxDefense.ToString();
+            Strength.text = medalDisplay.MaxStrength.ToString();
 
             DefenseSlider.minValue = medalDisplay.BaseDefense;
             DefenseSlider.maxValue = medalDisplay.MaxDefense == 0 ? medalDisplay.BaseDefense : medalDisplay.MaxDefense;
             StrengthSlider.minValue = medalDisplay.BaseStrength;
             StrengthSlider.maxValue = medalDisplay.MaxStrength == 0 ? medalDisplay.BaseStrength : medalDisplay.MaxStrength;
 
-            DefenseSlider.value = medalDisplay.BaseDefense;
-            StrengthSlider.value = medalDisplay.BaseStrength;
+            DefenseSlider.value = medalDisplay.MaxDefense;
+            StrengthSlider.value = medalDisplay.MaxStrength;
 
             BaseMultiplierLow = medalDisplay.BaseMultiplierLow;
             BaseMultiplierHigh = medalDisplay.BaseMultiplierHigh;
@@ -490,6 +490,9 @@ namespace MedalViewer.Medal
             {
                 SwapMultiplier.GetComponent<Image>().enabled = true;
                 SwapMultiplier.enabled = true;
+
+                // Change to Max 
+                UpdateMultiplier();
             }
 
             switch (medalDisplay.Star)
@@ -504,6 +507,10 @@ namespace MedalViewer.Medal
 
                     for (int i = 0; i < 1; ++i)
                     {
+                        var colors = MultiplierOrbs[i].colors;
+                        colors.normalColor = SelectedColor;
+                        MultiplierOrbs[i].colors = colors;
+
                         MultiplierOrbs[i].enabled = true;
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
@@ -514,6 +521,10 @@ namespace MedalViewer.Medal
 
                     for (int i = 0; i < 2; ++i)
                     {
+                        var colors = MultiplierOrbs[i].colors;
+                        colors.normalColor = SelectedColor;
+                        MultiplierOrbs[i].colors = colors;
+
                         MultiplierOrbs[i].enabled = true;
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
@@ -524,6 +535,10 @@ namespace MedalViewer.Medal
 
                     for (int i = 0; i < 3; ++i)
                     {
+                        var colors = MultiplierOrbs[i].colors;
+                        colors.normalColor = SelectedColor;
+                        MultiplierOrbs[i].colors = colors;
+
                         MultiplierOrbs[i].enabled = true;
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
@@ -534,12 +549,16 @@ namespace MedalViewer.Medal
 
                     for (int i = 0; i < 5; ++i)
                     {
+                        var colors = MultiplierOrbs[i].colors;
+                        colors.normalColor = SelectedColor;
+                        MultiplierOrbs[i].colors = colors;
+
                         MultiplierOrbs[i].enabled = true;
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
 
-                    GuiltButtons[0].enabled = true;
-                    GuiltButtons[0].GetComponent<RawImage>().enabled = true;
+                    GuiltButtons[2].enabled = true;
+                    GuiltButtons[2].GetComponent<RawImage>().enabled = true;
                     
                     GuiltButtons[0].GetComponent<RawImage>().texture = Resources.Load($"Tier/Inactive-Guilt/{medalDisplay.Tier}") as Texture2D;
                     GuiltButtons[1].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-White/{medalDisplay.Tier}") as Texture2D;
@@ -548,13 +567,13 @@ namespace MedalViewer.Medal
                     GuiltSlider.minValue = GuiltByTier[medalDisplay.Tier - 1].Item1;
                     GuiltSlider.maxValue = GuiltByTier[medalDisplay.Tier - 1].Item2;
 
-                    GuiltSlider.value = GuiltSlider.minValue;
+                    GuiltSlider.value = GuiltSlider.maxValue;
 
                     Guilt.alpha = 1;
                     Guilt.interactable = true;
                     Guilt.blocksRaycasts = true;
 
-                    GuiltValue.text = GuiltSlider.minValue.ToString();
+                    GuiltValue.text = GuiltSlider.maxValue.ToString();
                     
                     break;
                 case 7:
@@ -570,8 +589,8 @@ namespace MedalViewer.Medal
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
                     
-                    GuiltButtons[1].enabled = true;
-                    GuiltButtons[1].GetComponent<RawImage>().enabled = true;
+                    GuiltButtons[2].enabled = true;
+                    GuiltButtons[2].GetComponent<RawImage>().enabled = true;
                     
                     GuiltButtons[0].GetComponent<RawImage>().texture = Resources.Load($"Tier/Inactive-Guilt/{medalDisplay.Tier}") as Texture2D;
                     GuiltButtons[1].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-White/{medalDisplay.Tier}") as Texture2D;
@@ -580,13 +599,13 @@ namespace MedalViewer.Medal
                     GuiltSlider.minValue = GuiltByTier[medalDisplay.Tier - 1].Item1;
                     GuiltSlider.maxValue = GuiltByTier[medalDisplay.Tier - 1].Item2;
 
-                    GuiltSlider.value = GuiltSlider.minValue;
+                    GuiltSlider.value = GuiltSlider.maxValue;
 
                     Guilt.alpha = 1;
                     Guilt.interactable = true;
                     Guilt.blocksRaycasts = true;
 
-                    GuiltValue.text = GuiltSlider.minValue.ToString();
+                    GuiltValue.text = GuiltSlider.maxValue.ToString();
                     
                     break;
                 default:
@@ -782,16 +801,16 @@ namespace MedalViewer.Medal
                 {
                     if(MultiplierOrbs[4].enabled == true)
                     {
-                        Multiplier.text = MaxMultiplierHigh.ToString();
+                        Multiplier.text = $"x{MaxMultiplierHigh}";
                     }
                     else
                     {
-                        Multiplier.text = BaseMultiplierHigh.ToString();
+                        Multiplier.text = $"x{BaseMultiplierHigh}";
                     }
                 }
                 else
                 {
-                    Multiplier.text = GuiltMultiplierHigh.ToString();
+                    Multiplier.text = $"x{GuiltMultiplierHigh}";
                 }
             }
             else
@@ -805,16 +824,16 @@ namespace MedalViewer.Medal
                 {
                     if (MultiplierOrbs[4].enabled == true)
                     {
-                        Multiplier.text = MaxMultiplierLow.ToString();
+                        Multiplier.text = $"x{MaxMultiplierLow}";
                     }
                     else
                     {
-                        Multiplier.text = BaseMultiplierLow.ToString();
+                        Multiplier.text = $"x{BaseMultiplierLow}";
                     }
                 }
                 else
                 {
-                    Multiplier.text = GuiltMultiplierLow.ToString();
+                    Multiplier.text = $"x{GuiltMultiplierLow}";
                 }
             }
             

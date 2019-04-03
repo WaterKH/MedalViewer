@@ -111,7 +111,8 @@ public class ImagePaths {
         {
 			"HEAL", new Dictionary<string, string>()
 			{
-				{ "Slightly", "Heal/Heal1" }, { "Moderately", "Heal/Heal2" }, { "Greatly", "Heal/Heal3" }, { "Significantly", "Heal/Heal4" }, { "MAX", "Heal/HealMax" },
+                { "slightly", "Heal/Heal1" }, { "moderately", "Heal/Heal2" }, { "greatly", "Heal/Heal3" }, { "significantly", "Heal/Heal4" },
+                { "Slightly", "Heal/Heal1" }, { "Moderately", "Heal/Heal2" }, { "Greatly", "Heal/Heal3" }, { "Significantly", "Heal/Heal4" }, { "MAX", "Heal/HealMax" },
 			    { "1", "Heal/Heal1" }, { "2", "Heal/Heal2" }, { "3", "Heal/Heal3" }, { "4", "Heal/Heal4" },
             }
 		},

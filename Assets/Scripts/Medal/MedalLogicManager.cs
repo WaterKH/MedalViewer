@@ -26,7 +26,13 @@ namespace MedalViewer.Medal
                 if (!medals.ContainsKey(medal.Tier))
                     medals.Add(medal.Tier, new Dictionary<double, GameObject>());
 
-                var multiplier = medal.GuiltMultiplierHigh != 0.0f ? medal.GuiltMultiplierHigh : medal.GuiltMultiplierLow;
+                var multiplier = medal.GuiltMultiplierHigh != 0.0f ? medal.GuiltMultiplierHigh : 
+                                 medal.GuiltMultiplierLow != 0.0f ? medal.GuiltMultiplierLow : 
+                                 medal.MaxMultiplierHigh != 0.0f ? medal.MaxMultiplierHigh :
+                                 medal.MaxMultiplierLow != 0.0f ? medal.MaxMultiplierLow :
+                                 medal.BaseMultiplierHigh != 0.0f ? medal.BaseMultiplierHigh :
+                                 medal.BaseMultiplierLow;
+
                 if (!medals[medal.Tier].ContainsKey(multiplier))
                 {
                     var guiltIndex = (int)multiplier < 0 ? 0 : (int)multiplier;
@@ -38,7 +44,7 @@ namespace MedalViewer.Medal
                         tempObject = Instantiate(Resources.Load("MedalDisplay") as GameObject);
 
                     tempObject.name = multiplier.ToString("0.00");
-
+                    //print(tempObject.name);
                     tempObject.transform.position = new Vector3(XParents.First(x => x.name == medal.Tier.ToString()).transform.position.x, YParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
                     
                     tempObject.transform.SetParent(MedalContentHolder);

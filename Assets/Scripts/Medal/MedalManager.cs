@@ -17,10 +17,10 @@ namespace MedalViewer.Medal
         public Loading Loading;
         public MedalLogicManager MedalLogicManager;
         public MedalGraphViewLogic MedalGraphViewLogic;
+        public bool IsRunningClient = false;
 
         private readonly string selectFilteredMedalsPHP = "https://mvphp.azurewebsites.net/selectFilteredMedals.php";
         private readonly string connectionString = "Server=tcp:medalviewer.database.windows.net,1433;Initial Catalog=medalviewer;Persist Security Info=False;User ID=MedalViewer;Password=Password1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        private bool client = false;
 
         void Awake()
         {
@@ -30,18 +30,25 @@ namespace MedalViewer.Medal
 
         public void Initialize()
         {
-            Loading.StartLoading();
-
             #region Retrieve Medals from Database
 
             MedalFilter.DefaultFilters();
 
-            if (client)
+            HandleGetMedals(MedalFilter);
+
+            #endregion
+        }
+
+        public void HandleGetMedals(MedalFilter medalFilter)
+        {
+            Loading.StartLoading();
+
+            Globals.Medals.Clear();
+
+            if (IsRunningClient)
                 GetMedals(MedalFilter);
             else
                 StartCoroutine(GetMedalsFromPHP(MedalFilter));
-
-            #endregion
 
             #region Display Medals
 
@@ -49,7 +56,7 @@ namespace MedalViewer.Medal
 
             #endregion
         }
-        
+
         public void GetMedals(MedalFilter medalFilter)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -113,7 +120,8 @@ namespace MedalViewer.Medal
         public IEnumerator GetMedalsFromPHP(MedalFilter medalFilter)
         {
             WWWForm form = new WWWForm();
-            form.AddField("sqlQuery", medalFilter.GenerateFilterQuery());
+            var query = medalFilter.GenerateFilterQuery();
+            form.AddField("sqlQuery", query);
 
             using (UnityWebRequest www = UnityWebRequest.Post(selectFilteredMedalsPHP, form))
             {

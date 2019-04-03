@@ -1050,7 +1050,7 @@ namespace MedalViewer.Medal
 
         #region Reset Attributes
 
-        public void Reset()
+        public void ResetDisplay()
         {
             ResetIcons();
             ResetMedalName();
@@ -1563,14 +1563,14 @@ namespace MedalViewer.Medal
 
         void Awake()
         {
-            Reset();
+            ResetDisplay();
         }
 
         public IEnumerator Display(GameObject medalObject)
         {
             yield return null;
             Loading.StartLoading();
-            Reset();
+            ResetDisplay();
 
             isDisplayingMedal = true;
             if(currSublistMedal != null)

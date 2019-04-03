@@ -21,12 +21,13 @@ namespace MedalViewer.Medal
         public Transform ParentX;
 
         public Transform MedalContent;
+        public Transform InitialMedalContent;
 
         public ScrollRect MedalView;
         public ScrollRect Vertical;
         public ScrollRect Horizontal;
         
-        public Dictionary<int, Dictionary<double, GameObject>> MedalGameObjects;
+        public Dictionary<int, Dictionary<double, GameObject>> MedalGameObjects = new Dictionary<int, Dictionary<double, GameObject>>();
 
         private readonly int yOffset = 250;
         private readonly int xOffset = 500;
@@ -43,7 +44,7 @@ namespace MedalViewer.Medal
             
             Loading.StartLoading();
 
-            this.Reset();
+            this.ResetGraph();
 
             #region Y Row Creation
             
@@ -118,19 +119,39 @@ namespace MedalViewer.Medal
             MedalCycleLogic.Instance.StartCycleMedals();
         }
 
-        public void Reset()
+        public void ResetGraph()
         {
+            MedalContent.GetComponent<RectTransform>().offsetMax = InitialMedalContent.GetComponent<RectTransform>().offsetMax;
+            MedalContent.position = InitialMedalContent.position;
+
             Globals.CycleMedals.Clear();
+            MedalCycleLogic.Instance.StopCycleMedals();
 
             foreach (var row in RowsY)
             {
                 Destroy(row);
             }
 
+            RowsY.Clear();
+
             foreach(var column in ColumnsX)
             {
                 Destroy(column);
             }
+
+            ColumnsX.Clear();
+
+            foreach(var kv in MedalGameObjects)
+            {
+                foreach(var kv2 in kv.Value)
+                {
+                    Destroy(kv2.Value);
+                }
+
+                kv.Value.Clear();
+            }
+
+            MedalGameObjects.Clear();
         }
         
         public void UpdateScrollBars(Vector2 vector)

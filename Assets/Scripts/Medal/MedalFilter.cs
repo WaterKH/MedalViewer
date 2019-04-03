@@ -99,6 +99,9 @@ namespace MedalViewer.Medal
 
         #endregion
 
+        private int currentLowestRange = 1;
+        private int currentHighestRange = 66;
+
         private void Awake()
         {
             DefaultFilters();
@@ -131,11 +134,14 @@ namespace MedalViewer.Medal
             LowRange = 16;
             HighRange = 65;
 
+            Tiers.Clear();
             Tiers.AddRange(new int[] { 6, 7, 8, 9 });
         }
 
         public string GenerateFilterQuery()
         {
+            Tiers.Clear();
+
             var query = "Select * From Medal Where ";
 
             var psm = "";
@@ -208,36 +214,66 @@ namespace MedalViewer.Medal
             #endregion
             query += string.IsNullOrEmpty(type) ? "" : $"({type}) AND ";
 
+            // TODO Is adding the tiers into the Tiers variable appropriate here?
             var tier = "";
             #region Tier
             if (Tier1)
+            {
                 tier += " Tier = 1";
+                Tiers.Add(1);
+            }
 
             if (Tier2)
+            {
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 2" : @" OR Tier = 2";
+                Tiers.Add(2);
+            }
 
             if (Tier3)
+            {
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 3" : @" OR Tier = 3";
+                Tiers.Add(3);
+            }
 
             if (Tier4)
+            {
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 4" : @" OR Tier = 4";
+                Tiers.Add(4);
+            }
 
             if (Tier5)
+            {
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 5" : @" OR Tier = 5";
+                Tiers.Add(5);
+            }
 
             if (Tier6)
+            {
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 6" : @" OR Tier = 6";
+                Tiers.Add(6);
+            }
 
             if (Tier7)
+            {
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 7" : @" OR Tier = 7";
+                Tiers.Add(7);
+            }
 
             if (Tier8)
+            {
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 8" : @" OR Tier = 8";
+                Tiers.Add(8);
+            }
 
             if (Tier9)
+            {
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 9" : @" OR Tier = 9";
+                Tiers.Add(9);
+            }
             #endregion
             query += string.IsNullOrEmpty(tier) ? "" : $"({tier}) AND ";
+            if (string.IsNullOrEmpty(tier))
+                Tiers.AddRange(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 
             var target = "";
             #region Target
@@ -254,20 +290,22 @@ namespace MedalViewer.Medal
 
             var range = "";
             #region Range
-            if (LowRange > 0 && HighRange > 0)
+            if (LowRange >= currentLowestRange && HighRange <= currentHighestRange)
                 range += $"(BaseMultiplierLow Between {LowRange} AND {HighRange}) OR (BaseMultiplierHigh Between {LowRange} AND {HighRange}) OR" +
                     $"(MaxMultiplierLow Between {LowRange} AND {HighRange}) OR (MaxMultiplierHigh Between {LowRange} AND {HighRange}) OR" +
                     $"(GuiltMultiplierLow Between {LowRange} AND {HighRange}) OR (GuiltMultiplierHigh Between {LowRange} AND {HighRange})";
+            //else
+                // TODO Do something for fixed damage here?
             #endregion
             query += string.IsNullOrEmpty(range) ? "" : $"({range})";
 
-            var querySplit = query.Split(' ');
+            var querySplit = query.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var checkResult = querySplit[querySplit.Length - 1];
 
             if (checkResult == "Where" || checkResult == "AND")
                 query = query.Substring(0, query.Length - checkResult.Length - 1);
             //Debug.Log(checkResult);
-            //Debug.Log(query);
+            Debug.Log(query);
             return query;
         }
     }

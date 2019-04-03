@@ -66,6 +66,9 @@ namespace MedalViewer.Medal
 
         public void StopCycleMedals()
         {
+            if (lastRoutine == null)
+                return;
+
             stopped = true;
             firstPass = false;
             StopCoroutine(lastRoutine);

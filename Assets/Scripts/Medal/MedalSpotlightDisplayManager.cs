@@ -172,12 +172,12 @@ namespace MedalViewer.Medal
             Tuple.Create(200, 280)
         };
 
-        public string BaseMultiplierLow;
-        public string BaseMultiplierHigh;
-        public string MaxMultiplierLow;
-        public string MaxMultiplierHigh;
-        public string GuiltMultiplierLow;
-        public string GuiltMultiplierHigh;
+        private string BaseMultiplierLow;
+        private string BaseMultiplierHigh;
+        private string MaxMultiplierLow;
+        private string MaxMultiplierHigh;
+        private string GuiltMultiplierLow;
+        private string GuiltMultiplierHigh;
 
         #endregion
 
@@ -259,7 +259,7 @@ namespace MedalViewer.Medal
         #endregion
 
 
-        #region Colors
+        #region Multiplier Colors
 
         public Color NormalColor;
         public Color SelectedColor;
@@ -324,7 +324,7 @@ namespace MedalViewer.Medal
             AssignSkill();
             AssignTraits(medalDisplay);
             AssignPetTrait();
-            AssignStats(medalDisplay);
+            AssignStats(medalDisplay, medalAbility);
             //AssignSlots(medalDisplay);
 
             AssignVars(medalDisplay, medalAbility);
@@ -423,10 +423,10 @@ namespace MedalViewer.Medal
             // TODO Account for player saps
             
             if (CheckPlayer())
-                Player.SetCanvasGroupActive();
+                Player.SetCanvasGroupInactive();
 
             if (CheckEnemy())
-                Enemy.SetCanvasGroupActive();
+                Enemy.SetCanvasGroupInactive();
         }
 
         private void AssignEffects(MedalAbility medalAbility)
@@ -443,7 +443,7 @@ namespace MedalViewer.Medal
             }
 
             if (CheckEffects())
-                Effects.SetCanvasGroupActive();
+                Effects.SetCanvasGroupInactive();
         }
 
         private void AssignSkill()
@@ -466,7 +466,7 @@ namespace MedalViewer.Medal
             PetTraitSlot.enabled = true;
         }
 
-        private void AssignStats(MedalDisplay medalDisplay/*, MedalAbility medalAbility*/)
+        private void AssignStats(MedalDisplay medalDisplay, MedalAbility medalAbility)
         {
             Defense.text = medalDisplay.MaxDefense.ToString();
             Strength.text = medalDisplay.MaxStrength.ToString();
@@ -486,7 +486,8 @@ namespace MedalViewer.Medal
             GuiltMultiplierLow = medalDisplay.GuiltMultiplierLow;
             GuiltMultiplierHigh = medalDisplay.GuiltMultiplierHigh;
             
-            if(Effects.alpha != 0)
+            // ? TODO This doesn't make sense, we may not have an Inflict or 
+            if(Effects.alpha != 1 && (medalAbility.Inflicts != "" || medalAbility.DamagePlus != ""))
             {
                 SwapMultiplier.GetComponent<Image>().enabled = true;
                 SwapMultiplier.enabled = true;
@@ -687,10 +688,10 @@ namespace MedalViewer.Medal
             // TODO Account for player saps
 
             if (CheckSupernovaPlayer())
-                SupernovaPlayer.SetCanvasGroupActive();
+                SupernovaPlayer.SetCanvasGroupInactive();
 
             if (CheckSupernovaEnemy())
-                SupernovaEnemy.SetCanvasGroupActive();
+                SupernovaEnemy.SetCanvasGroupInactive();
         }
 
         private void AssignSupernovaEffects(MedalAbility medalAbility)
@@ -707,7 +708,7 @@ namespace MedalViewer.Medal
             }
 
             if (CheckSupernovaEffects())
-                SupernovaEffects.SetCanvasGroupActive();
+                SupernovaEffects.SetCanvasGroupInactive();
         }
 
         #endregion
@@ -934,7 +935,7 @@ namespace MedalViewer.Medal
 
             var str = StrengthSlider.value;//int.Parse(Strength.text);
             var addedStr = int.Parse(AddedStrength.text);
-            var mult = float.Parse(Multiplier.text);
+            var mult = float.Parse(Multiplier.text.Substring(1));
             var guilt = GuiltSlider.value;
             var deals = int.Parse(Deals.text);
             var spBonus = int.Parse(SPABonusValues[(int)SPABonusSlider.value]);
@@ -1133,8 +1134,8 @@ namespace MedalViewer.Medal
             foreach (var dSM in EnemyDefenseMults)
                 dSM.text = "";
 
-            Player.SetCanvasGroupInactive();
-            Enemy.SetCanvasGroupInactive();
+            Player.SetCanvasGroupActive();
+            Enemy.SetCanvasGroupActive();
         }
 
         public void ResetEffects()
@@ -1150,7 +1151,7 @@ namespace MedalViewer.Medal
             //    effectText.text = "";
             //}
 
-            Effects.SetCanvasGroupInactive();
+            Effects.SetCanvasGroupActive();
         }
 
         public void ResetSkill()
@@ -1276,8 +1277,8 @@ namespace MedalViewer.Medal
             foreach (var dSM in SupernovaEnemyDefenseMults)
                 dSM.text = "";
 
-            SupernovaPlayer.SetCanvasGroupInactive();
-            SupernovaEnemy.SetCanvasGroupInactive();
+            SupernovaPlayer.SetCanvasGroupActive();
+            SupernovaEnemy.SetCanvasGroupActive();
         }
 
         public void ResetSupernovaEffects()
@@ -1293,7 +1294,7 @@ namespace MedalViewer.Medal
             //    effectText.text = "";
             //}
 
-            SupernovaEffects.SetCanvasGroupInactive();
+            SupernovaEffects.SetCanvasGroupActive();
         }
 
         #endregion

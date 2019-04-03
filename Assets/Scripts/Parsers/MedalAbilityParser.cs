@@ -237,7 +237,7 @@ public class MedalAbilityParser
                         Debug.Log("ERROR: " + item);
                         break;
                 }
-                break;
+                //break;
             }
         }
 

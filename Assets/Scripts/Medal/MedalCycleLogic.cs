@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 namespace MedalViewer.Medal
 {
@@ -33,23 +34,106 @@ namespace MedalViewer.Medal
         // Instance method, this method can be accesed through the singleton instance
         public IEnumerator CycleMedals(Dictionary<GameObject, int> medals)
         {
+            int count = 0;
             while (!stopped)
             {
                 // TODO Do fades for medals
                 foreach (var m in medals)
                 {
+                    var texture1 = m.Key.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "MedalImage");
+                    var texture2 = m.Key.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "AltMedalImage");
+
                     var currMedal = m.Key.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent").GetChild(m.Value);
 
-                    m.Key.GetComponent<RawImage>().texture = currMedal.GetComponent<RawImage>().texture;
+                    // Display MedalImage
+                    if (count == 1)
+                    {
+                        StartCoroutine(SwapImageCanvasGroup(texture1, texture2));
+                        //m.Key.GetComponent<RawImage>().texture = currMedal.GetComponent<RawImage>().texture;
+                    }
+                    // Display AltMedalImage
+                    else
+                    {
+                        StartCoroutine(SwapImageCanvasGroup(texture2, texture1));
+                    }
                 }
 
                 List<GameObject> keys = new List<GameObject>(medals.Keys);
                 foreach (var key in keys)
                 {
-                    medals[key] = (medals[key] + 1) % key.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent").childCount;
+                    var mod = key.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent").childCount;
+                    medals[key] = (medals[key] + 1) % mod;
+
+                    var nextMedal = key.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent").GetChild((medals[key] + 1) % mod);
+
+                    // MedalImage is displaying
+                    if (count == 0)
+                    {
+                        key.GetComponentsInChildren<RawImage>().First(x => x.name == "AltMedalImage").texture = nextMedal.GetComponent<RawImage>().texture;
+                    }
+                    // AltMedalImage is displaying
+                    else
+                    {
+                        key.GetComponentsInChildren<RawImage>().First(x => x.name == "MedalImage").texture = nextMedal.GetComponent<RawImage>().texture;
+                    }
+                }
+                
+                count++;
+                if (count % 2 == 0)
+                    count = 0;
+
+                yield return new WaitForSeconds(1.7f);
+            }
+        }
+
+        public IEnumerator SwapImageCanvasGroup(CanvasGroup texture1, CanvasGroup texture2)
+        {
+            StartCoroutine(ShowDisplay(texture1));
+            StartCoroutine(HideDisplay(texture2));
+            yield return null;
+        }
+
+        private IEnumerator ShowDisplay(CanvasGroup canvasGroup)
+        {
+            var isTransition = true;
+            var elapsedTime = 0.0f;
+
+            while (isTransition)
+            {
+                elapsedTime += Time.deltaTime / 2;
+
+                canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 1, elapsedTime);
+                
+                if (canvasGroup.alpha >= 0.999f)
+                {
+                    canvasGroup.alpha = 1;
+
+                    isTransition = false;
+                }
+                
+                yield return null;
+            }
+        }
+
+        private IEnumerator HideDisplay(CanvasGroup canvasGroup)
+        {
+            var isTransition = true;
+            var elapsedTime = 0.0f;
+
+            while (isTransition)
+            {
+                elapsedTime += Time.deltaTime / 2;
+                
+                canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0, elapsedTime);
+
+                if (canvasGroup.alpha <= 0.001f)
+                {
+                    canvasGroup.alpha = 0;
+
+                    isTransition = false;
                 }
 
-                yield return new WaitForSeconds(1.5f);
+                yield return null;
             }
         }
 

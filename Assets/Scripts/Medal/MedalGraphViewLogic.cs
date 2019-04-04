@@ -104,15 +104,28 @@ namespace MedalViewer.Medal
             MedalPositionLogic.PlaceMedals(RowsY, ColumnsX, MedalGameObjects);
         }
         
-        public void PopulateCycleMedals()
+        public IEnumerator PopulateCycleMedals()
         {
+            while(Loading.IsLoading)
+            {
+                yield return null;
+            }
+
+            Loading.StartLoading();
+
             foreach(var tier in MedalGameObjects)
             {
                 foreach(var mult in tier.Value)
                 {
                     var medal = mult.Value;
+                    var subContent = medal.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent");
+                    var subTexture = subContent.GetComponentInChildren<RawImage>().texture;
+                    var medalTexture = medal.GetComponentsInChildren<RawImage>().First(x => x.name == "MedalImage").texture;
 
-                    Globals.CycleMedals.Add(medal, 0);// medal.transform.childCount);
+                    medal.GetComponentsInChildren<RawImage>().First(x => x.name == "MedalImage").texture = subContent.GetComponentInChildren<RawImage>().texture;
+
+                    if (subContent.childCount > 1)
+                        Globals.CycleMedals.Add(medal, 0);// medal.transform.childCount);
                 }
             }
 

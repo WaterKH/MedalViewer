@@ -62,7 +62,24 @@ namespace MedalViewer.Medal
                 }
             }
 
-            foreach(var kv in medals)
+            #region Sort Base On Name
+
+            List<Transform> children = new List<Transform>();
+            for (int i = MedalContentHolder.childCount - 1; i >= 0; i--)
+            {
+                Transform child = MedalContentHolder.GetChild(i);
+                children.Add(child);
+                child.SetParent(null);
+            }
+            children.Sort((Transform t1, Transform t2) => { return t1.name.CompareTo(t2.name); });
+            foreach (Transform child in children)
+            {
+                child.SetParent(MedalContentHolder);
+            }
+
+            #endregion
+
+            foreach (var kv in medals)
             {
                 foreach (var kv2 in kv.Value)
                 {

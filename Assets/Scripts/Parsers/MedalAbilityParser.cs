@@ -50,7 +50,7 @@ public class MedalAbilityParser
     #region RECOVER/CURE
 
     private static readonly Regex RecoverAndCureRegex = new Regex(@"(\w+) recovers HP(?: and (cures))?");
-    private static readonly Regex CuresRegex = new Regex(@"(?:C|c)ures(?: own status)? ailments(?: and (\w+) recovers HP)");
+    private static readonly Regex CuresRegex = new Regex(@"(?:C|c)ures(?: own status)? ailments(?: and (\w+) recovers HP)?");
     private static readonly Regex HpRecoveryRegex = new Regex(@"HP (?:recovery LV (\d+|MAX))");
     //private static readonly Regex HpMaxRegex = new Regex(@"^HP (MAX)");
 

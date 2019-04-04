@@ -264,7 +264,9 @@ namespace MedalViewer.Medal
         public Color NormalColor;
         public Color SelectedColor;
         public Color MultiplierOn;
+        public Color MultiplierOnHighlight;
         public Color MultiplierOff;
+        public Color MultiplierOffHighlight;
 
         #endregion
         
@@ -308,7 +310,7 @@ namespace MedalViewer.Medal
 
             Tier.texture = Resources.Load("Tier/Black/" + medalDisplay.Tier) as Texture2D;
             Target.texture = Resources.Load("Target/" + medalDisplay.Target) as Texture2D;
-            Gauges.texture = Resources.Load("Gauges/Uses/GU" + medalDisplay.Gauge) as Texture2D;
+            Gauges.texture = Resources.Load("Gauges/" + medalDisplay.Gauge) as Texture2D;
         }
 
         private void AssignMedalName(MedalDisplay medalDisplay)
@@ -485,12 +487,20 @@ namespace MedalViewer.Medal
             MaxMultiplierHigh = medalDisplay.MaxMultiplierHigh;
             GuiltMultiplierLow = medalDisplay.GuiltMultiplierLow;
             GuiltMultiplierHigh = medalDisplay.GuiltMultiplierHigh;
+
+            var Tier = medalDisplay.Tier;
             
             // ? TODO This doesn't make sense, we may not have an Inflict or 
             if(Effects.alpha != 1 && (medalAbility.Inflicts != "" || medalAbility.DamagePlus != ""))
             {
-                SwapMultiplier.GetComponent<Image>().enabled = true;
+                var image = medalAbility.Inflicts != "" ? medalAbility.MiscImages["INFL"] :
+                            medalAbility.MiscImages["DAMAGE+"];
+
+                SwapMultiplier.GetComponent<RawImage>().enabled = true;
+                SwapMultiplier.GetComponent<RawImage>().texture = image;
                 SwapMultiplier.enabled = true;
+                SwapMultiplier.transform.parent.GetComponent<Image>().enabled = true;
+                MultiplierIdentifier.enabled = true;
 
                 // Change to Max 
                 UpdateMultiplier();
@@ -500,11 +510,15 @@ namespace MedalViewer.Medal
             {
                 case 1:
                 case 2:
-                    Multiplier.text = medalDisplay.BaseMultiplierLow;
+                    Multiplier.text = "x" + (BaseMultiplierHigh != "" ? BaseMultiplierHigh : 
+                                            BaseMultiplierLow);
                     
                     break;
                 case 3:
-                    Multiplier.text = medalDisplay.BaseMultiplierLow;
+                    Multiplier.text = "x" + (MaxMultiplierHigh != "" ? MaxMultiplierHigh : 
+                                            MaxMultiplierLow != "" ? MaxMultiplierLow :
+                                            BaseMultiplierHigh != "" ? BaseMultiplierHigh : 
+                                            BaseMultiplierLow);
 
                     for (int i = 0; i < 1; ++i)
                     {
@@ -518,7 +532,10 @@ namespace MedalViewer.Medal
                     
                     break;
                 case 4:
-                    Multiplier.text = medalDisplay.BaseMultiplierLow;
+                    Multiplier.text = "x" + (MaxMultiplierHigh != "" ? MaxMultiplierHigh :
+                                            MaxMultiplierLow != "" ? MaxMultiplierLow :
+                                            BaseMultiplierHigh != "" ? BaseMultiplierHigh :
+                                            BaseMultiplierLow);
 
                     for (int i = 0; i < 2; ++i)
                     {
@@ -532,7 +549,10 @@ namespace MedalViewer.Medal
                     
                     break;
                 case 5:
-                    Multiplier.text = medalDisplay.BaseMultiplierLow;
+                    Multiplier.text = "x" + (MaxMultiplierHigh != "" ? MaxMultiplierHigh :
+                                            MaxMultiplierLow != "" ? MaxMultiplierLow :
+                                            BaseMultiplierHigh != "" ? BaseMultiplierHigh :
+                                            BaseMultiplierLow);
 
                     for (int i = 0; i < 3; ++i)
                     {
@@ -546,7 +566,12 @@ namespace MedalViewer.Medal
                     
                     break;
                 case 6:
-                    Multiplier.text = medalDisplay.BaseMultiplierLow;
+                    Multiplier.text = "x" + (GuiltMultiplierHigh != "" ? GuiltMultiplierHigh :
+                                            GuiltMultiplierLow != "" ? GuiltMultiplierLow :
+                                            MaxMultiplierHigh != "" ? MaxMultiplierHigh :
+                                            MaxMultiplierLow != "" ? MaxMultiplierLow :
+                                            BaseMultiplierHigh != "" ? BaseMultiplierHigh :
+                                            BaseMultiplierLow);
 
                     for (int i = 0; i < 5; ++i)
                     {
@@ -561,24 +586,25 @@ namespace MedalViewer.Medal
                     GuiltButtons[2].enabled = true;
                     GuiltButtons[2].GetComponent<RawImage>().enabled = true;
                     
-                    GuiltButtons[0].GetComponent<RawImage>().texture = Resources.Load($"Tier/Inactive-Guilt/{medalDisplay.Tier}") as Texture2D;
-                    GuiltButtons[1].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-White/{medalDisplay.Tier}") as Texture2D;
-                    GuiltButtons[2].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-Black/{medalDisplay.Tier}") as Texture2D;
+                    GuiltButtons[0].GetComponent<RawImage>().texture = Resources.Load($"Tier/Inactive-Guilt/{Tier}") as Texture2D;
+                    GuiltButtons[1].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-White/{Tier}") as Texture2D;
+                    GuiltButtons[2].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-Black/{Tier}") as Texture2D;
 
-                    GuiltSlider.minValue = GuiltByTier[medalDisplay.Tier - 1].Item1;
-                    GuiltSlider.maxValue = GuiltByTier[medalDisplay.Tier - 1].Item2;
+                    GuiltSlider.minValue = GuiltByTier[Tier - 1].Item1;
+                    GuiltSlider.maxValue = GuiltByTier[Tier - 1].Item2;
 
                     GuiltSlider.value = GuiltSlider.maxValue;
 
-                    Guilt.alpha = 1;
-                    Guilt.interactable = true;
-                    Guilt.blocksRaycasts = true;
+                    Guilt.SetCanvasGroupActive();
 
                     GuiltValue.text = GuiltSlider.maxValue.ToString();
                     
                     break;
                 case 7:
-                    Multiplier.text = medalDisplay.MaxMultiplierLow;
+                    Multiplier.text = "x" + (GuiltMultiplierHigh != "" && GuiltMultiplierHigh != "0" ? GuiltMultiplierHigh :
+                                            GuiltMultiplierLow != "" ? GuiltMultiplierLow : 
+                                            MaxMultiplierHigh != "" ? MaxMultiplierHigh :
+                                            MaxMultiplierLow);
 
                     for (int i = 0; i < 5; ++i)
                     {
@@ -593,18 +619,16 @@ namespace MedalViewer.Medal
                     GuiltButtons[2].enabled = true;
                     GuiltButtons[2].GetComponent<RawImage>().enabled = true;
                     
-                    GuiltButtons[0].GetComponent<RawImage>().texture = Resources.Load($"Tier/Inactive-Guilt/{medalDisplay.Tier}") as Texture2D;
-                    GuiltButtons[1].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-White/{medalDisplay.Tier}") as Texture2D;
-                    GuiltButtons[2].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-Black/{medalDisplay.Tier}") as Texture2D;
+                    GuiltButtons[0].GetComponent<RawImage>().texture = Resources.Load($"Tier/Inactive-Guilt/{Tier}") as Texture2D;
+                    GuiltButtons[1].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-White/{Tier}") as Texture2D;
+                    GuiltButtons[2].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-Black/{Tier}") as Texture2D;
 
-                    GuiltSlider.minValue = GuiltByTier[medalDisplay.Tier - 1].Item1;
-                    GuiltSlider.maxValue = GuiltByTier[medalDisplay.Tier - 1].Item2;
+                    GuiltSlider.minValue = GuiltByTier[Tier - 1].Item1;
+                    GuiltSlider.maxValue = GuiltByTier[Tier - 1].Item2;
 
                     GuiltSlider.value = GuiltSlider.maxValue;
 
-                    Guilt.alpha = 1;
-                    Guilt.interactable = true;
-                    Guilt.blocksRaycasts = true;
+                    Guilt.SetCanvasGroupActive();
 
                     GuiltValue.text = GuiltSlider.maxValue.ToString();
                     
@@ -796,7 +820,7 @@ namespace MedalViewer.Medal
                 MultiplierIdentifier.text = "Max";
 
                 colors.normalColor = MultiplierOn;
-                colors.highlightedColor = MultiplierOff;
+                colors.highlightedColor = MultiplierOnHighlight;
 
                 if(GuiltButtons[0].enabled == true)
                 {
@@ -819,7 +843,7 @@ namespace MedalViewer.Medal
                 MultiplierIdentifier.text = "Base";
                 
                 colors.normalColor = MultiplierOff;
-                colors.highlightedColor = MultiplierOn;
+                colors.highlightedColor = MultiplierOffHighlight;
 
                 if (GuiltButtons[0].enabled == true)
                 {
@@ -874,36 +898,39 @@ namespace MedalViewer.Medal
                 }
 
                 GuiltButtons[0].enabled = false;
-                GuiltButtons[0].GetComponent<Image>().enabled = false;
+                GuiltButtons[0].GetComponent<RawImage>().enabled = false;
 
                 GuiltButtons[1].enabled = true;
                 GuiltButtons[2].enabled = true;
-                GuiltButtons[1].GetComponent<Image>().enabled = true;
-                GuiltButtons[2].GetComponent<Image>().enabled = true;
+                GuiltButtons[1].GetComponent<RawImage>().enabled = true;
+                GuiltButtons[2].GetComponent<RawImage>().enabled = true;
 
-                if (SwapMultiplier.colors.normalColor == SelectedColor)
-                    Multiplier.text = GuiltMultiplierHigh;
+                if (SwapMultiplier.colors.normalColor == MultiplierOn)
+                    Multiplier.text = $"x{GuiltMultiplierHigh}";
                 else
-                    Multiplier.text = GuiltMultiplierLow;
+                    Multiplier.text = $"x{GuiltMultiplierLow}";
 
-                GuiltSlider.interactable = true;
+                Guilt.SetCanvasGroupActive();
+                //GuiltSlider.interactable = true;
             }
             else if (GuiltButtons[1].enabled == true || GuiltButtons[2].enabled == true)
             {
                 GuiltButtons[0].enabled = true;
-                GuiltButtons[0].GetComponent<Image>().enabled = true;
+                GuiltButtons[0].GetComponent<RawImage>().enabled = true;
 
                 GuiltButtons[1].enabled = false;
                 GuiltButtons[2].enabled = false;
-                GuiltButtons[1].GetComponent<Image>().enabled = false;
-                GuiltButtons[2].GetComponent<Image>().enabled = false;
+                GuiltButtons[1].GetComponent<RawImage>().enabled = false;
+                GuiltButtons[2].GetComponent<RawImage>().enabled = false;
 
-                if (SwapMultiplier.colors.normalColor == SelectedColor)
-                    Multiplier.text = MaxMultiplierHigh;
+                // TODO Fix this later because we may have to go back to base, and not max Multiplier
+                if (SwapMultiplier.colors.normalColor == MultiplierOn)
+                    Multiplier.text = $"x{MaxMultiplierHigh}";
                 else
-                    Multiplier.text = MaxMultiplierLow;
+                    Multiplier.text = $"x{MaxMultiplierLow}";
 
-                GuiltSlider.interactable = false;
+                Guilt.SetCanvasGroupInactive();
+                //GuiltSlider.interactable = false;
             }
 
             UpdateTotal();
@@ -945,8 +972,6 @@ namespace MedalViewer.Medal
             var extraAttack = 0.0f;
 
             var totalStr = str + addedStr;
-
-            // TODO Add pet trait slot value
 
             if (TraitValues[0].text.Length > 2)
             {
@@ -1027,20 +1052,38 @@ namespace MedalViewer.Medal
                     extraAttack = 0.40f;
                 }
             }
-            
+
+            if (PetTraitValue.text.Length > 2)
+            {
+                if (PetTraitValue.text[PetTraitValue.text.Length - 1] == 'S')
+                {
+                    totalStr += int.Parse(PetTraitValue.text.Substring(1, PetTraitValue.text.Length - 2));// 1000;
+                }
+                else if (PetTraitValue.text[PetTraitValue.text.Length - 1] == 'R')
+                {
+                    totalRaids += float.Parse(PetTraitValue.text.Substring(1, PetTraitValue.text.Length - 3));// 0.40f;
+                }
+                else if (PetTraitValue.text.Substring(PetTraitValue.text.Length - 2) == "EA")
+                {
+                    var temp = float.Parse(PetTraitValue.text.Substring(1, PetTraitValue.text.Length - 4));
+                    extraAttack = temp > extraAttack ? temp : extraAttack; //0.40f;
+                }
+            }
+
             var totalMult = guilt != 0.0f && spBonus != 0 ? mult * ((guilt / 100) + 1.0f) * (((float)spBonus / 100) + 1.0f) :
                             guilt != 0.0f ? mult * ((guilt / 100) + 1.0f) :
                             spBonus != 0 ? mult * (((float)spBonus / 100) + 1.0f) :
                             mult;
 
             var totalMultTimesStrength = totalStr * totalMult;
-            
-            var total = skill != 0 && totalRaids != 0.0f && extraAttack != 0.0f ? deals * skill * (totalRaids + extraAttack + 1.0f) * totalMultTimesStrength :
-                        skill != 0 && extraAttack != 0.0f ? deals * skill * (extraAttack + 1.0f) * totalMultTimesStrength :
-                        totalRaids != 0.0f && extraAttack != 0.0f ? deals * (totalRaids + extraAttack + 1.0f) * totalMultTimesStrength :
+
+            var total = skill != 0 && totalRaids != 0.0f && extraAttack != 0.0f ? deals * skill * (((totalRaids / 100) + 1.0f) + ((extraAttack / 100) + 1.0f)) * totalMultTimesStrength :
+                        skill != 0 && extraAttack != 0.0f ? deals * skill * ((extraAttack / 100) + 1.0f) * totalMultTimesStrength :
+                        skill != 0 && totalRaids != 0.0f ? deals * skill * ((totalRaids / 100) + 1.0f) * totalMultTimesStrength :
+                        totalRaids != 0.0f && extraAttack != 0.0f ? deals * (((totalRaids / 100) + 1.0f) + ((extraAttack / 100) + 1.0f)) * totalMultTimesStrength :
                         skill != 0 ? deals * skill * totalMultTimesStrength :
-                        totalRaids != 0.0f ? deals * (totalRaids + 1.0f) * totalMultTimesStrength :
-                        extraAttack != 0.0f ? deals * (extraAttack + 1.0f) * totalMultTimesStrength :
+                        totalRaids != 0.0f ? deals * ((totalRaids / 100) + 1.0f) * totalMultTimesStrength :
+                        extraAttack != 0.0f ? deals * ((extraAttack / 100) + 1.0f) * totalMultTimesStrength :
                         deals * totalMultTimesStrength;
 
             FinalDamageOutput.text = String.Format("{0:#,#.##}", (int)Math.Ceiling(total));
@@ -1186,13 +1229,15 @@ namespace MedalViewer.Medal
             var multColors = SwapMultiplier.colors;
             multColors.normalColor = MultiplierOff;
             SwapMultiplier.colors = multColors;
-            SwapMultiplier.GetComponent<Image>().enabled = false;
+            SwapMultiplier.GetComponent<RawImage>().enabled = false;
             SwapMultiplier.enabled = false;
+            SwapMultiplier.transform.parent.GetComponent<Image>().enabled = false;
 
             DefenseSlider.value = 0;
             StrengthSlider.value = 0;
            
             MultiplierIdentifier.text = "Base";
+            MultiplierIdentifier.enabled = false;
             AddedDefense.text = "0";
             AddedStrength.text = "0";
 
@@ -1210,6 +1255,7 @@ namespace MedalViewer.Medal
             {
                 guilt.GetComponent<RawImage>().enabled = false;
                 guilt.GetComponent<RawImage>().texture = null;
+                guilt.enabled = false;
             }
             Guilt.alpha = 0;
             Guilt.interactable = false;
@@ -1584,7 +1630,7 @@ namespace MedalViewer.Medal
             {
                 medalAbility = MedalAbilityParser.Parser(medalDisplay.AbilityDescription);
 
-                if(medalDisplay.IsSupernova)
+                if (medalDisplay.IsSupernova)
                 {
                     medalAbilitySupernova = MedalAbilityParser.Parser(medalDisplay.SupernovaDescription);
                 }

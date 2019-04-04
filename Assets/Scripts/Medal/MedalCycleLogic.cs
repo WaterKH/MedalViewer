@@ -22,16 +22,12 @@ namespace MedalViewer.Medal
         // Static singleton property
         public static MedalCycleLogic Instance
         {
-            // Here we use the ?? operator, to return 'instance' if 'instance' does not equal null
-            // otherwise we assign instance to a new component and return that
             get { return instance ?? (instance = new GameObject("MedalCycleLogic").AddComponent<MedalCycleLogic>()); }
         }
 
         void Start()
         {
             MedalLogicManager = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalLogicManager>();
-
-            //StartCoroutine(CycleMedals(Globals.CycleMedals));
         }
 
         // Instance method, this method can be accesed through the singleton instance

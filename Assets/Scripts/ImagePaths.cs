@@ -64,26 +64,26 @@ public class ImagePaths {
 		{
 			"INFL", new Dictionary<string, string>()
 			{
-                { "poisoned targets", "Inflict/StatusEffect/ATKpoison" }, { "sleeping targets", "Inflict/StatusEffect/ATKsleep" }, { "paralyzed targets", "Inflict/StatusEffect/ATKparal" },
-                { "target is paralyzed", "Inflict/StatusEffect/ATKparal" },
+                { "poisoned targets", "Inflict/ATKpoison" }, { "sleeping targets", "Inflict/ATKsleep" }, { "paralyzed targets", "Inflict/ATKparal" },
+                { "target is paralyzed", "Inflict/ATKparal" },
 
-                { "higher the slot number", "Inflict/Slots/plus" }, { "higher your HP", "Inflict/HP/ATKhealthfull" },
+                { "higher the slot number", "Inflict/plus" }, { "higher your HP", "Inflict/ATKhealthfull" },
                 
-                { "more enemies defeated in that stage", "Inflict/ATKkills" }, { "more gauges used", "Inflict/SP/ATKspmore" },  { "more gauges used this turn", "Inflict/SP/ATKspturn" },
-                { "more gauges are full", "Inflict/SP/ATKspmore" }, { "more gauges required for the next Medal", "Inflict/SP/ATKspmore" }, { "more gauges required for the previous Medal", "Inflict/SP/ATKspmore" },
-                { "more Lux collected in that stage", "Inflict/Lux/ATKluxplus" }, { "more SP attacks used in succession", "Inflict/SP/ATKspsuccALT" }, { "more special attacks used in succession", "Inflict/SP/ATKspsuccALT" },
+                { "more enemies defeated in that stage", "Inflict/ATKkills" }, { "more gauges used", "Inflict/ATKspmore" },  { "more gauges used this turn", "Inflict/ATKspturn" },
+                { "more gauges are full", "Inflict/ATKspmore" }, { "more gauges required for the next Medal", "Inflict/ATKspmore" }, { "more gauges required for the previous Medal", "Inflict/ATKspmore" },
+                { "more Lux collected in that stage", "Inflict/ATKluxplus" }, { "more SP attacks used in succession", "Inflict/ATKspsuccALT" }, { "more special attacks used in succession", "Inflict/ATKspsuccALT" },
                 { "more skills triggered in that stage", "Inflict/ATKskills2" }, { "more turns have passed", "Inflict/ATKturns" },
 
-                { "bigger your party", "Inflict/ATKparty" }, { "bigger the slot number", "Inflict/Slots/plus" },
+                { "bigger your party", "Inflict/ATKparty" }, { "bigger the slot number", "Inflict/plus" },
 
-                { "lower your HP", "Inflict/HP/ATKhealthlow" }, { "lower the slot number", "Inflict/Slots/minus" },
+                { "lower your HP", "Inflict/ATKhealthlow" }, { "lower the slot number", "Inflict/minus" },
 
-                { "less Lux collected in that stage", "Inflict/Lux/ATKluxminus" },
+                { "less Lux collected in that stage", "Inflict/ATKluxminus" },
                 
                 { "1 enemy left (incl raid boss parts)", "Inflict/ATKsingleboss" }, { "1 enemy left (incl raid boss)", "Inflict/ATKsingleboss" },
 
-                { "slot 1", "Inflict/Slots/1" }, { "slot 2", "Inflict/Slots/2" }, { "slot 3", "Inflict/Slots/3" },
-                { "slot 4", "Inflict/Slots/4" }, { "slot 5", "Inflict/Slots/5" }, { "slot 6", "Inflict/Slots/6" },
+                { "slot 1", "Inflict/1" }, { "slot 2", "Inflict/2" }, { "slot 3", "Inflict/3" },
+                { "slot 4", "Inflict/4" }, { "slot 5", "Inflict/5" }, { "slot 6", "Inflict/6" },
 
                 { "exchange for defense", "Inflict/ATKexchangeDefense" }, { "exchange for HP", "Inflict/ATKexchangeHP" },
 
@@ -93,13 +93,13 @@ public class ImagePaths {
         {
             "DAMAGE+", new Dictionary<string, string>()
             {
-                { "the more gauges are full", "Inflict/SP/ATKspmore" },
+                { "the more gauges are full", "Inflict/ATKspmore" },
                 { "1 enemy or 0 parts left", "Inflict/ATKsingleboss" },
-                { "the more SP attacks used in succession", "Inflict/SP/ATKspsuccALT" },
+                { "the more SP attacks used in succession", "Inflict/ATKspsuccALT" },
                 { "the bigger your party", "Inflict/ATKparty" },
-                { "Higher HP", "Inflict/HP/ATKhealthfull" },
-                { "Higher slot number", "Inflict/Slots/plus" },
-                { "Lower slot number", "Inflict/Slots/minus" },
+                { "Higher HP", "Inflict/ATKhealthfull" },
+                { "Higher slot number", "Inflict/plus" },
+                { "Lower slot number", "Inflict/minus" },
             }
         },
         {
@@ -119,7 +119,7 @@ public class ImagePaths {
         {
             "ESUNA", new Dictionary<string, string>()
             {
-                { "cures", "Heal/HealEsuna" }
+                { "cures", "StatusEffect/esuna" }
             }
         },
         {

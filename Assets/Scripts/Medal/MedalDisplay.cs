@@ -68,6 +68,7 @@ namespace MedalViewer.Medal
                 BaseMultiplierHigh = convertedMedal.BaseMultiplierHigh.ToString();
                 Target = convertedMedal.Target;
                 Gauge = convertedMedal.Gauge;
+                Tier = convertedMedal.Tier;
             }
             else if (medal.Star == 3 || medal.Star == 4 || medal.Star == 5)
             {
@@ -88,6 +89,7 @@ namespace MedalViewer.Medal
                 MaxMultiplierHigh = convertedMedal.MaxMultiplierHigh.ToString();
                 Target = convertedMedal.Target;
                 Gauge = convertedMedal.Gauge;
+                Tier = convertedMedal.Tier;
             }
             else if (medal.Star == 6)
             {

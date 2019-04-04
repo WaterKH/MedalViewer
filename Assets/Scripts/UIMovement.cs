@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class UIMovement : MonoBehaviour {
 
+    public GameObject MedalContent;
+
 	#region public vars
 	public Camera MainCamera;
     public MedalPositionLogic MedalPositionLogic;
@@ -25,13 +27,13 @@ public class UIMovement : MonoBehaviour {
 
 	void Awake()
 	{
-        MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, -2500);
+        //MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, -2500);
 
         min = 50;
         max = 110;
-        zoomValue = 5;
+        zoomValue = 500;
 
-        MainCamera.fieldOfView = 60;
+        //MainCamera.fieldOfView = 60;
 	}
 
 	// Update is called once per frame
@@ -39,26 +41,37 @@ public class UIMovement : MonoBehaviour {
 	{
         if(Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            if(MainCamera.fieldOfView > min)
-            {
-                MainCamera.fieldOfView -= zoomValue;
-            }
-            else
-            {
-                MainCamera.fieldOfView = min;
-            }
+            var offsetMax = MedalContent.GetComponent<RectTransform>().offsetMax;
+            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(offsetMax.x + zoomValue, offsetMax.y + zoomValue);
         }
         else if(Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            if (MainCamera.fieldOfView < max)
-            {
-                MainCamera.fieldOfView += zoomValue;
-            }
-            else
-            {
-                MainCamera.fieldOfView = max;
-            }
+            var offsetMax = MedalContent.GetComponent<RectTransform>().offsetMax;
+            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(offsetMax.x - zoomValue, offsetMax.y - zoomValue);
         }
+
+        //if(Input.GetAxis("Mouse ScrollWheel") > 0)
+        //{
+        //    if(MainCamera.fieldOfView > min)
+        //    {
+        //        MainCamera.fieldOfView -= zoomValue;
+        //    }
+        //    else
+        //    {
+        //        MainCamera.fieldOfView = min;
+        //    }
+        //}
+        //else if(Input.GetAxis("Mouse ScrollWheel") < 0)
+        //{
+        //    if (MainCamera.fieldOfView < max)
+        //    {
+        //        MainCamera.fieldOfView += zoomValue;
+        //    }
+        //    else
+        //    {
+        //        MainCamera.fieldOfView = max;
+        //    }
+        //}
 	}
 
 	public void ChangeYRowSize(Scrollbar scroller)

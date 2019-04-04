@@ -55,9 +55,12 @@ namespace MedalViewer.Medal
 
         public void StartCycleMedals()
         {
-            stopped = false;
-            firstPass = true;
-            lastRoutine = StartCoroutine(CycleMedals(Globals.CycleMedals));
+            if (stopped || firstPass)
+            {
+                stopped = false;
+                firstPass = false;
+                lastRoutine = StartCoroutine(CycleMedals(Globals.CycleMedals));
+            }
         }
 
         public void StopCycleMedals()
@@ -66,7 +69,7 @@ namespace MedalViewer.Medal
                 return;
 
             stopped = true;
-            firstPass = false;
+            //firstPass = false;
             StopCoroutine(lastRoutine);
         }
     }

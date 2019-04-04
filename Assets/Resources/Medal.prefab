@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 114446966211665736}
   - component: {fileID: 114601201871682850}
   - component: {fileID: 114749228010191982}
+  - component: {fileID: 5115189523383436935}
   m_Layer: 8
   m_Name: Medal
   m_TagString: Untagged
@@ -168,14 +169,32 @@ MonoBehaviour:
   MaxPetPoints: 0
   Ability: 
   AbilityDescription: 
-  BaseMultiplier: 
+  BaseMultiplierLow: 
+  BaseMultiplierHigh: 
   Target: 
-  MaxMultiplier: 
+  MaxMultiplierLow: 
+  MaxMultiplierHigh: 
   Gauge: 0
-  GuiltMultiplier: 
+  GuiltMultiplierLow: 
+  GuiltMultiplierHigh: 
   Tier: 0
-  SubslotMultiplier: 
+  SubslotMultiplier: 0
   IsSupernova: 0
+  SupernovaName: 
   SupernovaDescription: 
+  SupernovaDamage: 
+  SupernovaTarget: 
   Effect: 
   Effect_Description: 
+--- !u!225 &5115189523383436935
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429573386684586}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

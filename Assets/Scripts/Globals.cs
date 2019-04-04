@@ -9,9 +9,10 @@ public static class Globals
 
     public static Dictionary<int, Medal> Medals = new Dictionary<int, Medal>();
     public static Dictionary<GameObject, int> CycleMedals = new Dictionary<GameObject, int>();
+    public static Dictionary<int, Medal> SearchMedals = new Dictionary<int, Medal>();
 
     #endregion
-    
+
 
     #region Settings
 

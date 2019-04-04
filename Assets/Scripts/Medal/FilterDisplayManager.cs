@@ -10,8 +10,11 @@ namespace MedalViewer.Medal
         public MedalFilter MedalFilter;
         public MedalManager MedalManager;
         public MedalGraphViewLogic MedalGraphViewLogic;
+        public SearchManager SearchManager;
 
         public CanvasGroup FilterMenu;
+
+        public bool IsDisplayingFilters;
 
         #region Tier
 
@@ -100,7 +103,6 @@ namespace MedalViewer.Medal
         #endregion
 
 
-        private bool isDisplayingFilters;
         private int currentMaxMultiplier = 66;
 
         private void Awake()
@@ -166,7 +168,7 @@ namespace MedalViewer.Medal
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (this.isDisplayingFilters)
+                if (this.IsDisplayingFilters)
                 {
                     HideFilterMenu();
                 }
@@ -203,20 +205,17 @@ namespace MedalViewer.Medal
 
         public void DisplayFilterMenu()
         {
-            isDisplayingFilters = true;
+            IsDisplayingFilters = true;
+            SearchManager.HideSearch();
 
-            FilterMenu.alpha = 1;
-            FilterMenu.interactable = true;
-            FilterMenu.blocksRaycasts = true;
+            FilterMenu.SetCanvasGroupActive();
         }
 
         public void HideFilterMenu()
         {
-            isDisplayingFilters = false;
+            IsDisplayingFilters = false;
 
-            FilterMenu.alpha = 0;
-            FilterMenu.interactable = false;
-            FilterMenu.blocksRaycasts = false;
+            FilterMenu.SetCanvasGroupInactive();
         }
 
         public void DefaultFilters()

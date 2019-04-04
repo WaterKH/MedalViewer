@@ -20,8 +20,8 @@ public class MedalAbilityParser
 
     #region BUFFS/DEBUFFS
     
-    private static readonly Regex RaisedBasedRegex = new Regex(@"(Raises) (?:(Power|Speed|Magic)-?(?:based )?(strength|defense|STR|DEF)?(?: and | & ))?(?:(Power|Speed|Magic)-?(?:based )?)?(strength|defense|STR|DEF)( of all attributes)(?: by)? (\d+) tiers? for (\d+ turns?|attacks?)");
-    private static readonly Regex LowerBasedRegex = new Regex(@"(Lowers) (target's )?(?:(Power|Speed|Magic)-based )?(strength|defense|STR|DEF) (of all targets )?by (\d+) tiers? for (\d+ turns?|attacks?)");
+    private static readonly Regex RaisedBasedRegex = new Regex(@"(Raises) (?:(P|S|M)(?:\w+)?-?(?:based )?(strength|defense|STR|DEF)?(?: and | & ))?(?:(P|S|M)(?:\w+)?-?(?:based )?)?(strength|defense|STR|DEF)( of all attributes)?(?: by)? (\d+) tiers? for (\d+ turns?|attacks?)");
+    private static readonly Regex LowerBasedRegex = new Regex(@"(Lowers) (target's )?(?:(P|S|M)(?:\w+)?-based )?(strength|defense|STR|DEF) (of all targets )?by (\d+) tiers? for (\d+ turns?|attacks?)");
 
     private static readonly Regex RaiseLowerRegex = new Regex(@"(\d+ \w+): (.*)");
     // This is not used in the enumerations
@@ -207,7 +207,7 @@ public class MedalAbilityParser
                         ability.Copy = result.Groups[1].Value;
                         break;
                     case 16: // 16 If None
-                        ParseRaiseLower(result.Groups, ability);
+                        //ParseRaiseLower(result.Groups, ability);
                         //ability.IfNone = result.Groups[1].Value;
                         // TODO Pass result to boost/sap parser
                         break;

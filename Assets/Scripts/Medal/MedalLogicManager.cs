@@ -10,9 +10,12 @@ namespace MedalViewer.Medal
 {
     public class MedalLogicManager : MonoBehaviour
     {
+        public Loading Loading;
+
         private bool cyclesOn = true;
         private readonly string url = "https://medalviewer.blob.core.windows.net/thumbnails/";
-        
+        private readonly string urlHighQuality = "https://medalviewer.blob.core.windows.net/images/";
+
         public Dictionary<int, Dictionary<double, GameObject>> GenerateMedals(List<GameObject> YParents, List<GameObject> XParents, Transform MedalContentHolder)
         {
             var medals = new Dictionary<int, Dictionary<double, GameObject>>();
@@ -47,7 +50,7 @@ namespace MedalViewer.Medal
                     //print(tempObject.name);
                     tempObject.transform.position = new Vector3(XParents.First(x => x.name == medal.Tier.ToString()).transform.position.x, YParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
                     
-                    tempObject.transform.SetParent(MedalContentHolder);
+                    tempObject.transform.SetParent(MedalContentHolder, false);
 
                     medals[medal.Tier].Add(multiplier, tempObject);
                 }
@@ -60,6 +63,8 @@ namespace MedalViewer.Medal
                 {
                     medalGameObject.transform.SetParent(medals[medal.Tier][multiplier].GetComponentsInChildren<RectTransform>().First(x => x.name == "Content"), true);
                 }
+
+                medalGameObject.GetComponent<CanvasGroup>().SetCanvasGroupActive();
             }
 
             #region Sort Base On Name
@@ -94,22 +99,57 @@ namespace MedalViewer.Medal
             return medals;
         }
 
-        public GameObject CreateMedal(Medal medal)
+        // TODO Do a sub loading to generate the images and *THEN* display them
+        public List<GameObject> GenerateSearchMedals(Transform MedalContentHolder)
+        {
+            var medals = new List<GameObject>();
+
+            foreach (var kv in Globals.SearchMedals)
+            {
+                var medal = kv.Value;
+
+                var medalGameObject = this.CreateMedal(medal, true);
+
+                medalGameObject.transform.SetParent(MedalContentHolder, false);
+
+                medalGameObject.GetComponent<CanvasGroup>().SetCanvasGroupActive();
+
+                medals.Add(medalGameObject);
+            }
+
+            //foreach (var kv in medals)
+            //{
+            //        if (cyclesOn)
+            //            this.UpdateMedalCycleContent(kv2.Value.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent"));
+            //        //this.UpdateMedalHolderContent(kv2.Value.GetComponentsInChildren<RectTransform>().First(x => x.name == "Content"));
+            //        else
+            //            this.UpdateMedalHolderContent(kv2.Value.GetComponentsInChildren<RectTransform>().First(x => x.name == "Content"));
+            //}
+            
+            Loading.FinishLoading();
+
+            return medals;
+        }
+
+        public GameObject CreateMedal(Medal medal, bool highQuality = false)
         {
             var medalGameObject = Instantiate(Resources.Load("Medal") as GameObject);
-            
+            medalGameObject.GetComponent<CanvasGroup>().SetCanvasGroupInactive();
+
             medalGameObject.name = medal.Name;
             
-            SetMedalImage(medal, medalGameObject, medal.ImageURL);
+            SetMedalImage(medal, medalGameObject, medal.ImageURL, highQuality);
 
             medalGameObject.GetComponent<MedalDisplay>().MapVariables(medal);
             
             return medalGameObject;
         }
         
-        private void SetMedalImage(Medal medalItem, GameObject medalObject, string prevImg)
+        private void SetMedalImage(Medal medalItem, GameObject medalObject, string prevImg, bool highQuality = false)
         {
-            var fileName = medalItem.ImageURL.Replace(".png", "_tn.png");
+            var fileName = medalItem.ImageURL;
+            if (!highQuality)
+                fileName = fileName.Replace(".png", "_tn.png");
 
             if (fileName == "NULL")
             {
@@ -117,7 +157,11 @@ namespace MedalViewer.Medal
                 fileName = prevImg;
             }
 
-            var path = url + fileName;
+            var path = "";
+            if (!highQuality)
+                path = url + fileName;
+            else
+                path = urlHighQuality + fileName;
 
             StartCoroutine(LoadImage(path, medalObject));
         }

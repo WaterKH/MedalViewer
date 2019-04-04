@@ -12,6 +12,7 @@ namespace MedalViewer.Medal
     {
         MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
         public Loading Loading;
+        public SearchManager SearchManager;
 
         public CanvasGroup MedalHighlight;
         public CanvasGroup MedalSupernova;
@@ -1376,8 +1377,11 @@ namespace MedalViewer.Medal
             elapsedTime = 0.0f;
 
             StartCoroutine(HideDisplay(MedalHighlight));
-            
-            MedalCycleLogic.Instance.StartCycleMedals();
+
+            if (!SearchManager.IsDisplayingSearch)
+            {
+                MedalCycleLogic.Instance.StartCycleMedals();
+            }
         }
 
         public void ShowSupernova()

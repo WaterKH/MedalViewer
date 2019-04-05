@@ -14,6 +14,7 @@ namespace MedalViewer.Medal
         // This field can be accesed through our singleton instance,
         // but it can't be set in the inspector, because we use lazy instantiation
         public bool stopped;
+        public bool loadInitial = true;
         public bool firstPass = true;
         private Coroutine lastRoutine = null;
 
@@ -40,6 +41,9 @@ namespace MedalViewer.Medal
                 // TODO Do fades for medals
                 foreach (var m in medals)
                 {
+                    if (m.Key.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent").childCount == 1)
+                        continue;
+
                     var texture1 = m.Key.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "MedalImage");
                     var texture2 = m.Key.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "AltMedalImage");
 
@@ -82,7 +86,10 @@ namespace MedalViewer.Medal
                 if (count % 2 == 0)
                     count = 0;
 
-                yield return new WaitForSeconds(1.7f);
+                if (loadInitial)
+                    loadInitial = false;
+                else
+                    yield return new WaitForSeconds(1.5f);
             }
         }
 

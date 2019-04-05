@@ -93,8 +93,8 @@ namespace MedalViewer.Medal
             MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 3), yOffset * (MedalFilter.HighRange - MedalFilter.LowRange + 2));
 
             PopulateMedals();
-            PopulateCycleMedals();
-            
+            StartCoroutine(PopulateCycleMedals());
+
             Loading.FinishLoading();
         }
 
@@ -122,14 +122,12 @@ namespace MedalViewer.Medal
                     var subTexture = subContent.GetComponentInChildren<RawImage>().texture;
                     var medalTexture = medal.GetComponentsInChildren<RawImage>().First(x => x.name == "MedalImage").texture;
 
-                    medal.GetComponentsInChildren<RawImage>().First(x => x.name == "MedalImage").texture = subContent.GetComponentInChildren<RawImage>().texture;
-
-                    if (subContent.childCount > 1)
-                        Globals.CycleMedals.Add(medal, 0);// medal.transform.childCount);
+                    Globals.CycleMedals.Add(medal, 0);
                 }
             }
 
             MedalCycleLogic.Instance.StartCycleMedals();
+            Loading.FinishLoading();
         }
 
         public void ResetGraph()

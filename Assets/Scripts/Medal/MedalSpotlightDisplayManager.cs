@@ -1616,9 +1616,12 @@ namespace MedalViewer.Medal
             ResetDisplay();
         }
 
-        public IEnumerator Display(GameObject medalObject)
+        public IEnumerator Display(GameObject medalObject, MedalDisplay medal = null)
         {
-            yield return null;
+            while (Loading.IsLoading)
+            {
+                yield return null;
+            }
             Loading.StartLoading();
             ResetDisplay();
 
@@ -1626,7 +1629,13 @@ namespace MedalViewer.Medal
             if(currSublistMedal != null)
                 this.HideSublistOfMedals();
 
-            MedalDisplay medalDisplay = medalObject.GetComponent<MedalDisplay>();
+            MedalDisplay medalDisplay = null;
+
+            if (medalObject != null)
+                medalDisplay = medalObject.GetComponent<MedalDisplay>();
+            else if (medal != null)
+                medalDisplay = medal;
+
             MedalAbility medalAbility = new MedalAbility();
             MedalAbility medalAbilitySupernova = new MedalAbility();
 
@@ -1751,9 +1760,11 @@ namespace MedalViewer.Medal
 
             currSublistMedal = clickedOn;
 
-            clickedOn.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            clickedOn.GetComponentInChildren<CanvasGroup>().blocksRaycasts = true;
-            clickedOn.GetComponentInChildren<CanvasGroup>().interactable = true;
+            var canvasGroup = clickedOn.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "Content");
+
+            canvasGroup.alpha = 1;
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.interactable = true;
         }
 
         public void HideSublistOfMedals(bool closed = false)

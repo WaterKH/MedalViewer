@@ -13,6 +13,7 @@ namespace MedalViewer.Medal
         MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
         public Loading Loading;
         public SearchManager SearchManager;
+        public DamoEasterEgg DamoEasterEgg;
 
         public CanvasGroup MedalHighlight;
         public CanvasGroup MedalSupernova;
@@ -1679,6 +1680,7 @@ namespace MedalViewer.Medal
             elapsedTime = 0.0f;
 
             StartCoroutine(ShowDisplay(MedalHighlight));
+            DamoEasterEgg.SummonDamo();
         }
 
         IEnumerator LoadImage(string imageUrl, GameObject medalObject)
@@ -1704,7 +1706,7 @@ namespace MedalViewer.Medal
         {
             //print("Test");
             StopCoroutine(HideDisplay(canvasGroup));
-            elapsedTime = 0;
+            elapsedTime = 0.0f;
             //print(isTransition);
             while (isTransition)
             {

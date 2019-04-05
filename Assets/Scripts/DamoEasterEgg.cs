@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 namespace MedalViewer.Medal
 {
@@ -14,11 +15,17 @@ namespace MedalViewer.Medal
 
         public Loading Loading;
         public MedalSpotlightDisplayManager MedalSpotlightDisplayManager;
+        public bool Clicked;
+
+        private int framesPerSecond = 30;
+        public Texture2D[] IdleFrames;
+        public RawImage Image;
 
         public void SummonDamo()
         {
-            var sql = "Select * From Medal Where Id = 0";
-            StartCoroutine(GetMedal(sql));
+            StartCoroutine(Idle());
+            //var sql = "Select * From Medal Where Id = 0";
+            //StartCoroutine(GetMedal(sql));
         }
         
         public IEnumerator GetMedal(string query)
@@ -89,6 +96,24 @@ namespace MedalViewer.Medal
             Loading.FinishLoading();
 
             StartCoroutine(MedalSpotlightDisplayManager.Display(null, MedalDisplay));
+        }
+
+        IEnumerator Idle()
+        {
+            while (!Clicked)
+            {
+                //print(IsLoading);
+                int index = (int)(Time.time * framesPerSecond);
+                index %= IdleFrames.Length;
+                Image.texture = IdleFrames[index];
+
+                if (index == 4 || index == 16)
+                    yield return new WaitForSeconds(1f);
+                else if(index == 7 || index == 12)
+                    yield return new WaitForSeconds(0.5f);
+                else
+                    yield return new WaitForSeconds(0.1f);
+            }
         }
     }
 }

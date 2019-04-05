@@ -1760,7 +1760,7 @@ namespace MedalViewer.Medal
 
             currSublistMedal = clickedOn;
 
-            var canvasGroup = clickedOn.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "Content");
+            var canvasGroup = clickedOn.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "SublistContent");
 
             canvasGroup.alpha = 1;
             canvasGroup.blocksRaycasts = true;

@@ -1603,6 +1603,7 @@ namespace MedalViewer.Medal
                     else
                     {
                         HideCurrentMedal();
+                        DamoEasterEgg.DesummonDamo();
                     }
                 }
                 else if(isDisplayingSublist)

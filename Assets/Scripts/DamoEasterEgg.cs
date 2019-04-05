@@ -16,20 +16,72 @@ namespace MedalViewer.Medal
         public Loading Loading;
         public MedalSpotlightDisplayManager MedalSpotlightDisplayManager;
         public bool Clicked;
+        public bool Speaking;
+        public bool Transitioning;
 
         private int framesPerSecond = 30;
         public Texture2D[] IdleFrames;
+        public Texture2D[] HeyImDamoFrames;
+        public Texture2D[] HeyThereGuysFrames;
+        public Texture2D[] HowsItGoingFrames;
+        public Texture2D[] SaveYourJewelsFrames;
+        public Texture2D[] BeCarefulOutThereFrames;
+        public Texture2D[] AllTheBestFrames;
         public RawImage Image;
+        public int CurrentDamoThing = 1;
 
         public void SummonDamo()
         {
             StartCoroutine(Idle());
-            //var sql = "Select * From Medal Where Id = 0";
-            //StartCoroutine(GetMedal(sql));
         }
-        
+
+        public void InteractWithDamo()
+        {
+            if (Speaking || Transitioning)
+                return;
+
+            Clicked = true;
+            switch (CurrentDamoThing)
+            {
+                case 1:
+                    StartCoroutine(Speech(HeyImDamoFrames, 19));
+                    break;
+                case 2:
+                    StartCoroutine(Speech(HeyThereGuysFrames, 23));
+                    break;
+                case 3:
+                    StartCoroutine(Speech(HowsItGoingFrames, 20));
+                    break;
+                case 4:
+                    StartCoroutine(Speech(SaveYourJewelsFrames, 22));
+                    break;
+                case 5:
+                    StartCoroutine(Speech(BeCarefulOutThereFrames, 25));
+                    break;
+                case 6:
+                    StartCoroutine(Speech(AllTheBestFrames, 17));
+                    break;
+                case 7:
+                    var sql = "Select * From Medal Where Id = 0";
+                    StartCoroutine(GetMedal(sql));
+                    break;
+                default:
+                    StartCoroutine(Idle());
+                    break;
+            }   
+        }
+
+        public void DesummonDamo()
+        {
+            StopCoroutine(Idle());
+            Speaking = false;
+            Clicked = false;
+        }
+
         public IEnumerator GetMedal(string query)
         {
+            CurrentDamoThing = 1;
+            Transitioning = true;
             Loading.StartLoading();
 
             WWWForm form = new WWWForm();
@@ -96,24 +148,51 @@ namespace MedalViewer.Medal
             Loading.FinishLoading();
 
             StartCoroutine(MedalSpotlightDisplayManager.Display(null, MedalDisplay));
+            Transitioning = false;
+            StartCoroutine(Idle());
         }
 
         IEnumerator Idle()
         {
+            int index = 0;
             while (!Clicked)
             {
-                //print(IsLoading);
-                int index = (int)(Time.time * framesPerSecond);
                 index %= IdleFrames.Length;
                 Image.texture = IdleFrames[index];
-
-                if (index == 4 || index == 16)
+                
+                if (index == 4 || index == 17)
                     yield return new WaitForSeconds(1f);
-                else if(index == 7 || index == 12)
+                else if (index == 8 || index == 13)
                     yield return new WaitForSeconds(0.5f);
                 else
                     yield return new WaitForSeconds(0.1f);
+
+                index += 1;
             }
+        }
+
+        IEnumerator Speech(Texture2D[] anim, int pause)
+        {
+            Speaking = true;
+
+            int index = 0;
+            while (index < anim.Length)
+            {
+                //print(IsLoading);
+                Image.texture = anim[index];
+
+                if (index == pause)
+                    yield return new WaitForSeconds(3f);
+                else
+                    yield return new WaitForSeconds(0.1f);
+
+                index += 1;
+            }
+
+            Speaking = false;
+            Clicked = false;
+            CurrentDamoThing++;
+            StartCoroutine(Idle());
         }
     }
 }

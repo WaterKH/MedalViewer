@@ -117,14 +117,11 @@ namespace MedalViewer.Medal
                 medals.Add(medalGameObject);
             }
 
-            //foreach (var kv in medals)
-            //{
-            //        if (cyclesOn)
-            //            this.UpdateMedalCycleContent(kv2.Value.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent"));
-            //        //this.UpdateMedalHolderContent(kv2.Value.GetComponentsInChildren<RectTransform>().First(x => x.name == "Content"));
-            //        else
-            //            this.UpdateMedalHolderContent(kv2.Value.GetComponentsInChildren<RectTransform>().First(x => x.name == "Content"));
-            //}
+            var maxY = (MedalContentHolder.childCount / 2) * (MedalContentHolder.GetComponent<GridLayoutGroup>().cellSize.y + MedalContentHolder.GetComponent<GridLayoutGroup>().spacing.y);
+            // Resize
+            MedalContentHolder.GetComponent<RectTransform>().offsetMin = new Vector2(MedalContentHolder.GetComponent<RectTransform>().offsetMax.x, -maxY);
+
+            MedalContentHolder.GetComponent<GridLayoutGroup>().enabled = true;
             
             Loading.FinishLoading();
 
@@ -211,9 +208,9 @@ namespace MedalViewer.Medal
             children.ForEach(x => x.SetParent(content.parent));
 
             parentGridLayout.enabled = false;
-            var updateX = (children.Count + 1) * gridLayout.cellSize.x + children.Count * gridLayout.spacing.x;
+            var updateY = (children.Count / 2) * (gridLayout.cellSize.y + gridLayout.spacing.y);
 
-            content.sizeDelta = new Vector2(updateX, content.sizeDelta.y);
+            content.sizeDelta = new Vector2(content.sizeDelta.x, updateY);
 
             parentGridLayout.enabled = true;
             children.ForEach(x => x.SetParent(content));

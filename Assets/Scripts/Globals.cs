@@ -13,15 +13,7 @@ public static class Globals
 
     #endregion
 
-
-    #region Settings
-
-    public static ToggleFilterLogic TierFilter;
-    public static ToggleFilterLogic PSM_URFilter;
-    public static ToggleFilterLogic StarFilter;
-    public static SliderFilterLogic MultiplierFilter;
-
-    #endregion
-
     public static string PointerObjectName;
+    public static int OffsetY = 250;
+    public static GameObject CurrSublistMedal;
 }

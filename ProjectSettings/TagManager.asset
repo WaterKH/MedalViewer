@@ -15,6 +15,7 @@ TagManager:
   - PrevRow
   - MedalHighlight
   - Damo
+  - Loading
   layers:
   - Default
   - TransparentFX

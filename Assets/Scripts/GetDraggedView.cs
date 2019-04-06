@@ -1,13 +1,22 @@
-﻿using System.Collections;
+﻿using MedalViewer.Medal;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GetDraggedView : MonoBehaviour, IBeginDragHandler//, IDragHandler, IEndDragHandler
+namespace MedalViewer
 {
-    public void OnBeginDrag(PointerEventData eventData)
+    public class GetDraggedView : MonoBehaviour, IBeginDragHandler//, IDragHandler, IEndDragHandler
     {
-        if(eventData.pointerDrag != null)
-            Globals.PointerObjectName = eventData.pointerDrag.name;
+        public MedalSpotlightDisplayManager MedalSpotlightDisplayManager;
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            if (Globals.CurrSublistMedal != null)
+                MedalSpotlightDisplayManager.HideSublistOfMedals(true);
+
+            if (eventData.pointerDrag != null)
+                Globals.PointerObjectName = eventData.pointerDrag.name;
+        }
     }
 }

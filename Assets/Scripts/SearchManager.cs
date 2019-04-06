@@ -30,7 +30,7 @@ namespace MedalViewer
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.C))
             {
                 if (this.IsDisplayingSearch)
                 {
@@ -75,6 +75,9 @@ namespace MedalViewer
 
         public void GetMedals(string lookFor)
         {
+            if (lookFor.Length < 3)
+                return;
+
             ClearSearch();
 
             var sqlStatement = $"Select * From Medal Where Name Like '%{lookFor}%' Order By Id Desc";

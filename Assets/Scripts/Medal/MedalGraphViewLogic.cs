@@ -14,6 +14,7 @@ namespace MedalViewer.Medal
         public MedalLogicManager MedalLogicManager;
         public MedalPositionLogic MedalPositionLogic;
         public Loading Loading;
+        public UIMovement UIMovement;
 
         public Transform StartPositionY;
         public Transform StartPositionX;
@@ -30,10 +31,10 @@ namespace MedalViewer.Medal
         public Dictionary<int, Dictionary<double, GameObject>> MedalGameObjects = new Dictionary<int, Dictionary<double, GameObject>>();
 
         private readonly int yOffset = 250;
-        private readonly int xOffset = 500;
+        private readonly int xOffset = 250;
 
-        private List<GameObject> RowsY = new List<GameObject>();
-        private List<GameObject> ColumnsX = new List<GameObject>();
+        public List<GameObject> RowsY = new List<GameObject>();
+        public List<GameObject> ColumnsX = new List<GameObject>();
         
         public IEnumerator Display()
         {
@@ -46,51 +47,10 @@ namespace MedalViewer.Medal
 
             this.ResetGraph();
 
-            #region Y Row Creation
-            
-            int tempYOffset = 400;
-            
-            ParentY.GetComponent<RectTransform>().offsetMax = new Vector2(ParentY.GetComponent<RectTransform>().offsetMax.x, yOffset * (MedalFilter.HighRange - MedalFilter.LowRange + 2));
-            
-            for (int i = MedalFilter.LowRange; i <= MedalFilter.HighRange; ++i)
-            {
-                var pos = new Vector2(StartPositionY.position.x, StartPositionY.position.y + tempYOffset);
-                var row = Instantiate(Resources.Load("NumberY") as GameObject, pos, Quaternion.identity, ParentY.parent);
+            RowsY = MedalPositionLogic.PlaceYRows(StartPositionY, ParentY, yOffset);
+            ColumnsX = MedalPositionLogic.PlaceXColumns(StartPositionX, ParentX, xOffset);
 
-                row.name = i.ToString();
-                row.GetComponent<Text>().text = i.ToString();
-                
-                tempYOffset += yOffset;
-                RowsY.Add(row);
-            }
-            
-            ParentY.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" || x.name != "Content" || x.name != "InitialYPosition").ToList().ForEach(x => x.transform.SetParent(ParentY));
-
-            #endregion
-
-            #region X Column Creation
-
-            int tempXOffset = 300;
-
-            ParentX.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 3), ParentX.GetComponent<RectTransform>().offsetMax.y);
-
-            foreach (var tier in MedalFilter.Tiers)
-            {
-                var pos = new Vector2(StartPositionX.position.x + tempXOffset, StartPositionX.position.y);
-                var column = Instantiate(Resources.Load("NumberX") as GameObject, pos, Quaternion.identity, ParentX.parent);
-
-                column.name = tier.ToString();
-                column.GetComponent<Text>().text = tier.ToString();
-                
-                tempXOffset += xOffset;
-                ColumnsX.Add(column);
-            }
-
-            ParentX.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" || x.name != "Content" || x.name != "InitialXPosition").ToList().ForEach(x => x.transform.SetParent(ParentX));
-
-            #endregion
-
-            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(xOffset * (MedalFilter.Tiers.Count - 3), yOffset * (MedalFilter.HighRange - MedalFilter.LowRange + 2));
+            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(ParentX.GetComponent<RectTransform>().offsetMax.x, ParentY.GetComponent<RectTransform>().offsetMax.y);
 
             PopulateMedals();
             StartCoroutine(PopulateCycleMedals());
@@ -98,10 +58,20 @@ namespace MedalViewer.Medal
             Loading.FinishLoading();
         }
 
-        public void PopulateMedals()
+        public void UpdateYRows(int changeValue = 250)
         {
-            MedalGameObjects = MedalLogicManager.GenerateMedals(RowsY, ColumnsX, MedalContent);
+            RowsY = MedalPositionLogic.PlaceYRows(StartPositionY, ParentY, changeValue);
+        }
+
+        public void PopulateMedals(bool generate = true)
+        {
+            //UIMovement.UpdateViewWindow(1080);
+            if(generate)
+                MedalGameObjects = MedalLogicManager.GenerateMedals(RowsY, ColumnsX, MedalContent);
+
             MedalPositionLogic.PlaceMedals(RowsY, ColumnsX, MedalGameObjects);
+
+            //UIMovement.UpdateViewWindow();
         }
         
         public IEnumerator PopulateCycleMedals()
@@ -127,7 +97,7 @@ namespace MedalViewer.Medal
             }
 
             MedalCycleLogic.Instance.StartCycleMedals();
-            Loading.FinishLoading();
+            //Loading.FinishLoading();
         }
 
         public void ResetGraph()

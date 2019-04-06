@@ -84,16 +84,7 @@
     <Compile Include="Assets\Scripts\Medal\MedalSublistHandler.cs" />
     <Compile Include="Assets\Scripts\Parsers\MedalAbilityParser.cs" />
     <Compile Include="Assets\Scripts\Parsers\Parser.cs" />
-    <Compile Include="Assets\Scripts\RowResizer.cs" />
     <Compile Include="Assets\Scripts\SearchManager.cs" />
-    <Compile Include="Assets\Scripts\SelectionLogic.cs" />
-    <Compile Include="Assets\Scripts\SettingsManager.cs" />
-    <Compile Include="Assets\Scripts\SliderFilterLogic.cs" />
-    <Compile Include="Assets\Scripts\SPATKBonusManager.cs" />
-    <Compile Include="Assets\Scripts\StateManager.cs" />
-    <Compile Include="Assets\Scripts\ToggleFilterLogic.cs" />
-    <Compile Include="Assets\Scripts\TraitManager.cs" />
-    <Compile Include="Assets\Scripts\UIGuiltSlider.cs" />
     <Compile Include="Assets\Scripts\UIMovement.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/water/Documents/GitHub/MedalViewer/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

@@ -233,6 +233,7 @@ namespace MedalViewer.Medal
             AssignStars();
 
             MedalManager.HandleGetMedals(MedalFilter);
+            MedalCycleLogic.Instance.loadInitial = true;
 
             HideFilterMenu();
         }

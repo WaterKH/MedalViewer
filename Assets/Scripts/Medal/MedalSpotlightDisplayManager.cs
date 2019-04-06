@@ -276,7 +276,7 @@ namespace MedalViewer.Medal
 
         private readonly string url = "https://medalviewer.blob.core.windows.net/images/";
 
-        private GameObject currSublistMedal;
+        //private GameObject currSublistMedal;
 
         private Transform prevParent;
         private float prevScale;
@@ -367,6 +367,8 @@ namespace MedalViewer.Medal
 
         private void AssignPlayerEnemy(MedalAbility medalAbility)
         {
+            var ability = medalAbility.STR.First() != null ? medalAbility.STR.First() : medalAbility.DEF.First() != null ? medalAbility.DEF.First() : null;
+
             var strPlayerCounter = 0;
             var defPlayerCounter = 0;
             var strEnemyCounter = 0;
@@ -425,12 +427,22 @@ namespace MedalViewer.Medal
             }
 
             // TODO Account for player saps
-            
+
             if (CheckPlayer())
+            {
                 Player.SetCanvasGroupInactive();
 
+                if (ability != null)
+                    PlayerTurns.text = ability.Duration;
+            }
+
             if (CheckEnemy())
+            {
                 Enemy.SetCanvasGroupInactive();
+
+                if (ability != null)
+                    EnemyTurns.text = ability.Duration;
+            }
         }
 
         private void AssignEffects(MedalAbility medalAbility)
@@ -654,6 +666,8 @@ namespace MedalViewer.Medal
 
         private void AssignSupernovaPlayerEnemy(MedalAbility medalAbility)
         {
+            var ability = medalAbility.STR.First() != null ? medalAbility.STR.First() : medalAbility.DEF.First() != null ? medalAbility.DEF.First() : null;
+
             var strPlayerCounter = 0;
             var defPlayerCounter = 0;
             var strEnemyCounter = 0;
@@ -714,10 +728,18 @@ namespace MedalViewer.Medal
             // TODO Account for player saps
 
             if (CheckSupernovaPlayer())
+            {
                 SupernovaPlayer.SetCanvasGroupInactive();
+                if (ability != null)
+                    SupernovaPlayerTurns.text = ability.Duration;
+            }
 
             if (CheckSupernovaEnemy())
+            {
                 SupernovaEnemy.SetCanvasGroupInactive();
+                if (ability != null)
+                    SupernovaEnemyTurns.text = ability.Duration;
+            }
         }
 
         private void AssignSupernovaEffects(MedalAbility medalAbility)
@@ -1586,7 +1608,7 @@ namespace MedalViewer.Medal
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.C))
             {
                 if (isDisplayingMedal)
                 {
@@ -1628,7 +1650,7 @@ namespace MedalViewer.Medal
             ResetDisplay();
 
             isDisplayingMedal = true;
-            if(currSublistMedal != null)
+            if(Globals.CurrSublistMedal != null)
                 this.HideSublistOfMedals();
 
             MedalDisplay medalDisplay = null;
@@ -1638,8 +1660,8 @@ namespace MedalViewer.Medal
             else if (medal != null)
                 medalDisplay = medal;
 
-            MedalAbility medalAbility = new MedalAbility();
-            MedalAbility medalAbilitySupernova = new MedalAbility();
+            MedalAbility medalAbility = null;
+            MedalAbility medalAbilitySupernova = null;
 
             try
             {
@@ -1761,24 +1783,25 @@ namespace MedalViewer.Medal
         {
             isDisplayingSublist = true;
 
-            currSublistMedal = clickedOn;
+            if (Globals.CurrSublistMedal != null)
+                HideSublistOfMedals();
+
+            Globals.CurrSublistMedal = clickedOn;
 
             var canvasGroup = clickedOn.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "SublistContent");
 
-            canvasGroup.alpha = 1;
-            canvasGroup.blocksRaycasts = true;
-            canvasGroup.interactable = true;
+            canvasGroup.SetCanvasGroupActive();
         }
 
         public void HideSublistOfMedals(bool closed = false)
         {
             isDisplayingSublist = false;
 
-            currSublistMedal.GetComponentInChildren<CanvasGroup>().alpha = 0;
-            currSublistMedal.GetComponentInChildren<CanvasGroup>().blocksRaycasts = false;
-            currSublistMedal.GetComponentInChildren<CanvasGroup>().interactable = false;
+            var canvasGroup = Globals.CurrSublistMedal.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "SublistContent");
 
-            currSublistMedal = null;
+            canvasGroup.SetCanvasGroupInactive();
+
+            Globals.CurrSublistMedal = null;
 
             if (closed)
             {

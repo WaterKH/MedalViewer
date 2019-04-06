@@ -141,6 +141,7 @@ namespace MedalViewer.Medal
         public string GenerateFilterQuery()
         {
             Tiers.Clear();
+            Globals.OffsetY = 250;
 
             var query = "Select * From Medal Where ";
 

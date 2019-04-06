@@ -6,83 +6,87 @@ using UnityEngine.UI;
 
 public class UIMovement : MonoBehaviour {
 
-    public GameObject MedalContent;
+    public MedalGraphViewLogic MedalGraphViewLogic;
+    //public GameObject MedalContent;
+    public CanvasScaler MedalDisplayCanvasScaler;
+    public CanvasScaler OverlayCanvasScaler;
 
-	#region public vars
-	public Camera MainCamera;
+
+    #region public vars
+    //public Camera MainCamera;
     public MedalPositionLogic MedalPositionLogic;
 
-	public GameObject YRows;
-	#endregion
+	///public GameObject YRows;
+    #endregion
 
-	#region private vars
-	private float max;
-	private float min;
-
-    private float zoomValue;
-
-	private bool isFilterDisplay;
-	private bool isSearchDisplay;
-	#endregion
+    private int min = 50;
+    private int max = 600;
 
 	void Awake()
 	{
-        //MainCamera.transform.position = new Vector3(MainCamera.transform.position.x, MainCamera.transform.position.y, -2500);
-
-        min = 50;
-        max = 110;
-        zoomValue = 500;
-
-        //MainCamera.fieldOfView = 60;
+        //min = 2530;
+        //max = 11500;
+        //zoomValue = 2000;
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-        if(Input.GetAxis("Mouse ScrollWheel") > 0)
-        {
-            var offsetMax = MedalContent.GetComponent<RectTransform>().offsetMax;
-            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(offsetMax.x + zoomValue, offsetMax.y + zoomValue);
-        }
-        else if(Input.GetAxis("Mouse ScrollWheel") < 0)
-        {
-            var offsetMax = MedalContent.GetComponent<RectTransform>().offsetMax;
-            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(offsetMax.x - zoomValue, offsetMax.y - zoomValue);
-        }
+        //var input = Input.GetAxis("Mouse ScrollWheel");
 
-        //if(Input.GetAxis("Mouse ScrollWheel") > 0)
+        //if (input > 0 || input < 0)
         //{
-        //    if(MainCamera.fieldOfView > min)
-        //    {
-        //        MainCamera.fieldOfView -= zoomValue;
-        //    }
-        //    else
-        //    {
-        //        MainCamera.fieldOfView = min;
-        //    }
+        //    MedalDisplayCanvasScaler.referenceResolution = new Vector2(MedalDisplayCanvasScaler.referenceResolution.x,
+        //                                                               MedalDisplayCanvasScaler.referenceResolution.y + (zoomValue * -input));
+
+        //    OverlayCanvasScaler.referenceResolution = new Vector2(OverlayCanvasScaler.referenceResolution.x,
+        //                                                          OverlayCanvasScaler.referenceResolution.y + (zoomValue * -input));
         //}
-        //else if(Input.GetAxis("Mouse ScrollWheel") < 0)
-        //{
-        //    if (MainCamera.fieldOfView < max)
-        //    {
-        //        MainCamera.fieldOfView += zoomValue;
-        //    }
-        //    else
-        //    {
-        //        MainCamera.fieldOfView = max;
-        //    }
-        //}
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if(Input.GetKeyDown(KeyCode.Equals))
+            {
+                print("Pressed +");
+                if (Globals.OffsetY + min > max)
+                    Globals.OffsetY = max;
+                else
+                    Globals.OffsetY += min;
+
+                ChangeYRowSize(Globals.OffsetY);
+            }
+            else if(Input.GetKeyDown(KeyCode.Minus))
+            {
+                print("Pressed -");
+                if (Globals.OffsetY - min < min)
+                    Globals.OffsetY = min;
+                else
+                    Globals.OffsetY -= min;
+
+                ChangeYRowSize(Globals.OffsetY);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                print("Pressed R");
+                Globals.OffsetY = 250;
+                ChangeYRowSize(Globals.OffsetY);
+            }
+        }
 	}
 
-	public void ChangeYRowSize(Scrollbar scroller)
+    public void UpdateViewWindow(int value = 3680)
+    {
+        //MedalDisplayCanvasScaler.referenceResolution = new Vector2(MedalDisplayCanvasScaler.referenceResolution.x, value);
+        //OverlayCanvasScaler.referenceResolution = new Vector2(OverlayCanvasScaler.referenceResolution.x, value);
+    }
+
+	public void ChangeYRowSize(int changeValue)
 	{
-		var localScale = YRows.transform.localScale;
-		YRows.transform.localScale = new Vector2(1, scroller.value);
-		var children = YRows.GetComponentsInChildren<Text>();
-		foreach(var child in children)
-		{
-			var childScale = child.transform.localScale;
-			child.transform.localScale = new Vector2(1, float.Parse("1" + (1 - scroller.value).ToString().Substring(1)));
-		}
+        MedalGraphViewLogic.RowsY.ForEach(x => Destroy(x));
+        MedalGraphViewLogic.RowsY.Clear();
+
+        MedalGraphViewLogic.UpdateYRows(changeValue);
+
+        MedalGraphViewLogic.PopulateMedals(false);
 	}
 }

@@ -11,6 +11,7 @@ namespace MedalViewer.Medal
 {
     public class MedalPositionLogic : MonoBehaviour
     {
+        public MedalFilter MedalFilter;
         //public Dictionary<int, RectTransform> vert_children = new Dictionary<int, RectTransform>();
         //public Dictionary<int, RectTransform> hori_children = new Dictionary<int, RectTransform>();
 
@@ -44,6 +45,60 @@ namespace MedalViewer.Medal
                     medal.transform.position = new Vector2(xPosition.x, yTransform.y + (nextY * (float)yAfterDecimal));
                 }
             }
+        }
+
+        public List<GameObject> PlaceYRows(Transform StartPositionY, Transform ParentY, int yOffset)
+        {
+            var RowsY = new List<GameObject>();
+            int tempYOffset = 300;
+            var maxY = 0.0f;
+
+            for (int i = MedalFilter.LowRange; i <= MedalFilter.HighRange; ++i)
+            {
+                var pos = new Vector2(StartPositionY.position.x, StartPositionY.position.y + tempYOffset);
+                var row = Instantiate(Resources.Load("NumberY") as GameObject, pos, Quaternion.identity, ParentY.parent);
+
+                row.name = i.ToString();
+                row.GetComponent<Text>().text = i.ToString();
+
+                tempYOffset += yOffset;
+                RowsY.Add(row);
+
+                maxY = row.GetComponent<RectTransform>().offsetMax.y;
+            }
+
+            ParentY.GetComponent<RectTransform>().offsetMax = new Vector2(ParentY.GetComponent<RectTransform>().offsetMax.x, maxY - 500);
+
+            ParentY.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" || x.name != "Content" || x.name != "InitialYPosition").ToList().ForEach(x => x.transform.SetParent(ParentY));
+
+            return RowsY;
+        }
+
+        public List<GameObject> PlaceXColumns(Transform StartPositionX, Transform ParentX, int xOffset)
+        {
+            var ColumnsX = new List<GameObject>();
+            int tempXOffset = 150;
+            var maxX = 0.0f;
+
+            foreach (var tier in MedalFilter.Tiers)
+            {
+                var pos = new Vector2(StartPositionX.position.x + tempXOffset, StartPositionX.position.y);
+                var column = Instantiate(Resources.Load("NumberX") as GameObject, pos, Quaternion.identity, ParentX.parent);
+
+                column.name = tier.ToString();
+                column.GetComponent<Text>().text = tier.ToString();
+
+                tempXOffset += xOffset;
+                ColumnsX.Add(column);
+
+                maxX = column.GetComponent<RectTransform>().offsetMax.x;
+            }
+
+            ParentX.GetComponent<RectTransform>().offsetMax = new Vector2(maxX - 1500, ParentX.GetComponent<RectTransform>().offsetMax.y);
+
+            ParentX.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" || x.name != "Content" || x.name != "InitialXPosition").ToList().ForEach(x => x.transform.SetParent(ParentX));
+
+            return ColumnsX;
         }
     }
 }

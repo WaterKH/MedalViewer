@@ -19,7 +19,6 @@ namespace MedalViewer.Medal
         public bool Speaking;
         public bool Transitioning;
 
-        private int framesPerSecond = 30;
         public Texture2D[] IdleFrames;
         public Texture2D[] HeyImDamoFrames;
         public Texture2D[] HeyThereGuysFrames;

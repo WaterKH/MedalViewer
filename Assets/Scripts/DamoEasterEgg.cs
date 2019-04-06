@@ -40,25 +40,30 @@ namespace MedalViewer.Medal
             if (Speaking || Transitioning)
                 return;
 
-            Clicked = true;
             switch (CurrentDamoThing)
             {
                 case 1:
+                    Clicked = true;
                     StartCoroutine(Speech(HeyImDamoFrames, 19));
                     break;
                 case 2:
+                    Clicked = true;
                     StartCoroutine(Speech(HeyThereGuysFrames, 23));
                     break;
                 case 3:
+                    Clicked = true;
                     StartCoroutine(Speech(HowsItGoingFrames, 20));
                     break;
                 case 4:
+                    Clicked = true;
                     StartCoroutine(Speech(SaveYourJewelsFrames, 22));
                     break;
                 case 5:
+                    Clicked = true;
                     StartCoroutine(Speech(BeCarefulOutThereFrames, 25));
                     break;
                 case 6:
+                    Clicked = true;
                     StartCoroutine(Speech(AllTheBestFrames, 17));
                     break;
                 case 7:
@@ -149,7 +154,7 @@ namespace MedalViewer.Medal
 
             StartCoroutine(MedalSpotlightDisplayManager.Display(null, MedalDisplay));
             Transitioning = false;
-            StartCoroutine(Idle());
+            //StartCoroutine(Idle());
         }
 
         IEnumerator Idle()

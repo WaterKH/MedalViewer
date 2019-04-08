@@ -367,7 +367,8 @@ namespace MedalViewer.Medal
 
         private void AssignPlayerEnemy(MedalAbility medalAbility)
         {
-            var ability = medalAbility.STR.First() != null ? medalAbility.STR.First() : medalAbility.DEF.First() != null ? medalAbility.DEF.First() : null;
+            var ability = medalAbility.STR.FirstOrDefault() != null ? medalAbility.STR.FirstOrDefault() : 
+                medalAbility.DEF.FirstOrDefault() != null ? medalAbility.DEF.FirstOrDefault() : null;
 
             var strPlayerCounter = 0;
             var defPlayerCounter = 0;
@@ -666,7 +667,8 @@ namespace MedalViewer.Medal
 
         private void AssignSupernovaPlayerEnemy(MedalAbility medalAbility)
         {
-            var ability = medalAbility.STR.First() != null ? medalAbility.STR.First() : medalAbility.DEF.First() != null ? medalAbility.DEF.First() : null;
+            var ability = medalAbility.STR.FirstOrDefault() != null ? medalAbility.STR.FirstOrDefault() : 
+                medalAbility.DEF.FirstOrDefault() != null ? medalAbility.DEF.FirstOrDefault() : null;
 
             var strPlayerCounter = 0;
             var defPlayerCounter = 0;

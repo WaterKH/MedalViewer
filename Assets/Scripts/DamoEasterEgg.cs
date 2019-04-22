@@ -29,9 +29,12 @@ namespace MedalViewer.Medal
         public RawImage Image;
         public int CurrentDamoThing = 1;
 
+        Coroutine damoAnim;
+
         public void SummonDamo()
         {
-            StartCoroutine(Idle());
+            if(damoAnim == null)
+                damoAnim = StartCoroutine(Idle());
         }
 
         public void InteractWithDamo()
@@ -43,41 +46,43 @@ namespace MedalViewer.Medal
             {
                 case 1:
                     Clicked = true;
-                    StartCoroutine(Speech(HeyImDamoFrames, 19));
+                    damoAnim = StartCoroutine(Speech(HeyImDamoFrames, 19));
                     break;
                 case 2:
                     Clicked = true;
-                    StartCoroutine(Speech(HeyThereGuysFrames, 23));
+                    damoAnim = StartCoroutine(Speech(HeyThereGuysFrames, 23));
                     break;
                 case 3:
                     Clicked = true;
-                    StartCoroutine(Speech(HowsItGoingFrames, 20));
+                    damoAnim = StartCoroutine(Speech(HowsItGoingFrames, 20));
                     break;
                 case 4:
                     Clicked = true;
-                    StartCoroutine(Speech(SaveYourJewelsFrames, 22));
+                    damoAnim = StartCoroutine(Speech(SaveYourJewelsFrames, 22));
                     break;
                 case 5:
                     Clicked = true;
-                    StartCoroutine(Speech(BeCarefulOutThereFrames, 25));
+                    damoAnim = StartCoroutine(Speech(BeCarefulOutThereFrames, 25));
                     break;
                 case 6:
                     Clicked = true;
-                    StartCoroutine(Speech(AllTheBestFrames, 17));
+                    damoAnim = StartCoroutine(Speech(AllTheBestFrames, 17));
                     break;
                 case 7:
                     var sql = "Select * From Medal Where Id = 0";
-                    StartCoroutine(GetMedal(sql));
+                    damoAnim = StartCoroutine(GetMedal(sql));
                     break;
                 default:
-                    StartCoroutine(Idle());
+                    damoAnim = StartCoroutine(Idle());
                     break;
             }   
         }
 
         public void DesummonDamo()
         {
-            StopCoroutine(Idle());
+            StopCoroutine(damoAnim);
+            damoAnim = null;
+
             Speaking = false;
             Clicked = false;
         }
@@ -196,7 +201,7 @@ namespace MedalViewer.Medal
             Speaking = false;
             Clicked = false;
             CurrentDamoThing++;
-            StartCoroutine(Idle());
+            damoAnim = StartCoroutine(Idle());
         }
     }
 }

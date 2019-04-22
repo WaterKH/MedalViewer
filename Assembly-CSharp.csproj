@@ -299,6 +299,24 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.8f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="I18N.CJK">
+      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.CJK.dll</HintPath>
+    </Reference>
+    <Reference Include="I18N">
+      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.dll</HintPath>
+    </Reference>
+    <Reference Include="I18N.MidEast">
+      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.MidEast.dll</HintPath>
+    </Reference>
+    <Reference Include="I18N.Other">
+      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.Other.dll</HintPath>
+    </Reference>
+    <Reference Include="I18N.Rare">
+      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.Rare.dll</HintPath>
+    </Reference>
+    <Reference Include="I18N.West">
+      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.West.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Data.Sqlite">
       <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
     </Reference>
@@ -310,24 +328,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="I18N.MidEast">
-      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.MidEast.dll</HintPath>
-    </Reference>
-    <Reference Include="I18N.Other">
-      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.Other.dll</HintPath>
-    </Reference>
-    <Reference Include="I18N">
-      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.dll</HintPath>
-    </Reference>
-    <Reference Include="I18N.Rare">
-      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.Rare.dll</HintPath>
-    </Reference>
-    <Reference Include="I18N.CJK">
-      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.CJK.dll</HintPath>
-    </Reference>
-    <Reference Include="I18N.West">
-      <HintPath>C:/Users/Jacob.Clark/Documents/GitHub/MedalViewerLatest/MedalViewer/Assets/Plugins/I18N.West.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.8f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

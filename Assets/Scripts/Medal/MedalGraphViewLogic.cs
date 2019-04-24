@@ -20,6 +20,8 @@ namespace MedalViewer.Medal
         public Transform StartPositionX;
         public Transform ParentY;
         public Transform ParentX;
+        public Transform GraphElementsY;
+        public Transform GraphElementsX;
 
         public Transform MedalContent;
         public Transform InitialMedalContent;
@@ -52,8 +54,8 @@ namespace MedalViewer.Medal
 
             MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(ParentX.GetComponent<RectTransform>().offsetMax.x, ParentY.GetComponent<RectTransform>().offsetMax.y);
 
-            PopulateMedals();
-            StartCoroutine(PopulateCycleMedals());
+            this.PopulateMedals();
+            StartCoroutine(this.PopulateCycleMedals());
 
             Loading.FinishLoading();
         }
@@ -71,6 +73,7 @@ namespace MedalViewer.Medal
 
             MedalPositionLogic.PlaceMedals(RowsY, ColumnsX, MedalGameObjects);
 
+            this.PlaceGraphLines();
             //UIMovement.UpdateViewWindow();
         }
         
@@ -132,6 +135,12 @@ namespace MedalViewer.Medal
                 kv.Value.Clear();
             }
 
+            GraphElementsX.GetComponentsInChildren<Image>().ToList().ForEach(x => Destroy(x));
+            GraphElementsY.GetComponentsInChildren<Image>().ToList().ForEach(x => Destroy(x));
+
+            GraphElementsX.SetParent(InitialMedalContent, false);
+            GraphElementsY.SetParent(InitialMedalContent, false);
+
             MedalGameObjects.Clear();
         }
         
@@ -154,6 +163,37 @@ namespace MedalViewer.Medal
         {
             if (Globals.PointerObjectName == "Vertical")
                 MedalView.verticalNormalizedPosition = vector.y;
+        }
+
+        public void PlaceGraphLines()
+        {
+            GraphElementsX.SetParent(MedalContent, true);
+            GraphElementsY.SetParent(MedalContent, true);
+
+            GraphElementsX.SetAsFirstSibling();
+            GraphElementsY.SetAsFirstSibling();
+
+            foreach (var x in ParentX.GetComponentsInChildren<Text>())
+            {
+                var p = Instantiate(Resources.Load("ColumnTemplate") as GameObject);
+                p.transform.SetParent(GraphElementsX, false);
+
+                p.GetComponent<RectTransform>().position = x.GetComponent<RectTransform>().position;
+
+                p.GetComponent<RectTransform>().offsetMax = new Vector2(p.GetComponent<RectTransform>().offsetMax.x, MedalContent.GetComponent<RectTransform>().offsetMax.y);
+                p.GetComponent<RectTransform>().offsetMin = new Vector2(p.GetComponent<RectTransform>().offsetMin.x, MedalContent.GetComponent<RectTransform>().offsetMin.y);
+            }
+
+            foreach (var x in ParentY.GetComponentsInChildren<Text>())
+            {
+                var p = Instantiate(Resources.Load("RowTemplate") as GameObject);
+                p.transform.SetParent(GraphElementsY, false);
+
+                p.GetComponent<RectTransform>().position = x.GetComponent<RectTransform>().position;
+
+                p.GetComponent<RectTransform>().offsetMax = new Vector2(MedalContent.GetComponent<RectTransform>().offsetMax.x, p.GetComponent<RectTransform>().offsetMax.y);
+                p.GetComponent<RectTransform>().offsetMin = new Vector2(MedalContent.GetComponent<RectTransform>().offsetMin.x, p.GetComponent<RectTransform>().offsetMin.y);
+            }
         }
     }
 }

@@ -69,7 +69,7 @@ namespace MedalViewer.Medal
 
             ParentY.GetComponent<RectTransform>().offsetMax = new Vector2(ParentY.GetComponent<RectTransform>().offsetMax.x, maxY - 500);
 
-            ParentY.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" || x.name != "Content" || x.name != "InitialYPosition").ToList().ForEach(x => x.transform.SetParent(ParentY));
+            ParentY.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" && x.name != "Content" && x.name != "InitialYPosition").ToList().ForEach(x => x.transform.SetParent(ParentY));
 
             return RowsY;
         }
@@ -96,7 +96,7 @@ namespace MedalViewer.Medal
 
             ParentX.GetComponent<RectTransform>().offsetMax = new Vector2(maxX - 1500, ParentX.GetComponent<RectTransform>().offsetMax.y);
 
-            ParentX.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" || x.name != "Content" || x.name != "InitialXPosition").ToList().ForEach(x => x.transform.SetParent(ParentX));
+            ParentX.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" && x.name != "Content" && x.name != "InitialXPosition").ToList().ForEach(x => x.transform.SetParent(ParentX));
 
             return ColumnsX;
         }

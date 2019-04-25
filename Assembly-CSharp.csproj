@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\Medal\MedalSublistHandler.cs" />
     <Compile Include="Assets\Scripts\Parsers\MedalAbilityParser.cs" />
     <Compile Include="Assets\Scripts\Parsers\Parser.cs" />
+    <Compile Include="Assets\Scripts\PresenterManager.cs" />
     <Compile Include="Assets\Scripts\SearchManager.cs" />
     <Compile Include="Assets\Scripts\UIMovement.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />

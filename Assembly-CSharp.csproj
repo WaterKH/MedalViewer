@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\Medal\MedalLogicManager.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalManager.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalPositionLogic.cs" />
+    <Compile Include="Assets\Scripts\Medal\MedalPresenterDisplayManager.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalSortLogic.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalSpotlight.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalSpotlightDisplayManager.cs" />

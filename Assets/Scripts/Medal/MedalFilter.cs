@@ -143,28 +143,28 @@ namespace MedalViewer.Medal
             Tiers.Clear();
             Globals.OffsetY = 250;
 
-            var query = "Select * From Medal Where ";
+            var query = "Select * From MedalUpdated MU, AttributeLookup AL, ClassTypeLookup CTL, PetPointsLookup PPL, SupernovaLookup SL, EffectLookup EL WHERE (AL.Id = MU.AttributeId AND CTL.Id = MU.ClassTypeId AND PPL.Id = MU.PetPointsId AND SL.Id = MU.SupernovaId AND EL.Id = MU.EffectId) AND ";
 
             var psm = "";
             #region PSM
             if (Power)
-                psm += @" AttributePSM = 'Power'";
+                psm += @" AL.PSM = 'Power'";
 
             if (Speed)
-                psm += string.IsNullOrEmpty(psm) ? @" AttributePSM = 'Speed'" : @" OR AttributePSM = 'Speed'";
+                psm += string.IsNullOrEmpty(psm) ? @" AL.PSM = 'Speed'" : @" OR AL.PSM = 'Speed'";
 
             if (Magic)
-                psm += string.IsNullOrEmpty(psm) ? @" AttributePSM = 'Magic'" : @" OR AttributePSM = 'Magic'";
+                psm += string.IsNullOrEmpty(psm) ? @" AL.PSM = 'Magic'" : @" OR AL.PSM = 'Magic'";
             #endregion
             query += string.IsNullOrEmpty(psm) ? "" : $"({psm}) AND ";
 
             var ur = "";
             #region UR
             if (Upright)
-                ur += @" AttributeUR = 'Upright'";
+                ur += @" AL.UR = 'Upright'";
 
             if (Reversed)
-                ur += string.IsNullOrEmpty(ur) ? @" AttributeUR = 'Reversed'" : @" OR AttributeUR = 'Reversed'";
+                ur += string.IsNullOrEmpty(ur) ? @" AL.UR = 'Reversed'" : @" OR AL.UR = 'Reversed'";
             #endregion
             query += string.IsNullOrEmpty(ur) ? "" : $"({ur}) AND ";
 
@@ -293,8 +293,8 @@ namespace MedalViewer.Medal
             #region Range
             if (LowRange >= currentLowestRange && HighRange <= currentHighestRange)
                 range += $"(BaseMultiplierLow Between {LowRange} AND {HighRange}) OR (BaseMultiplierHigh Between {LowRange} AND {HighRange}) OR" +
-                    $"(MaxMultiplierLow Between {LowRange} AND {HighRange}) OR (MaxMultiplierHigh Between {LowRange} AND {HighRange}) OR" +
-                    $"(GuiltMultiplierLow Between {LowRange} AND {HighRange}) OR (GuiltMultiplierHigh Between {LowRange} AND {HighRange})";
+                    $"(MaxMultiplierLow Between {LowRange} AND {HighRange}) OR (MaxMultiplierHigh Between {LowRange} AND {HighRange})";// OR" +
+                    //$"(GuiltMultiplierLow Between {LowRange} AND {HighRange}) OR (GuiltMultiplierHigh Between {LowRange} AND {HighRange})";
             //else
                 // TODO Do something for fixed damage here?
             #endregion

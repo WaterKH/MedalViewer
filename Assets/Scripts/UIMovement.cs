@@ -8,8 +8,9 @@ public class UIMovement : MonoBehaviour {
 
     public MedalGraphViewLogic MedalGraphViewLogic;
     //public GameObject MedalContent;
-    public CanvasScaler MedalDisplayCanvasScaler;
-    public CanvasScaler OverlayCanvasScaler;
+    public RectTransform MedalDisplay;
+    public RectTransform OverlayY;
+    public RectTransform OverlayX;
 
 
     #region public vars
@@ -19,29 +20,55 @@ public class UIMovement : MonoBehaviour {
 	///public GameObject YRows;
     #endregion
 
-    private int min = 50;
-    private int max = 600;
+    private float min = 0.2f;
+    private float max = 1.25f;
+    private float zoomValue;
 
 	void Awake()
 	{
         //min = 2530;
         //max = 11500;
-        //zoomValue = 2000;
+        zoomValue = 0.1f;
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-        //var input = Input.GetAxis("Mouse ScrollWheel");
+        var input = Input.GetAxis("Mouse ScrollWheel");
 
-        //if (input > 0 || input < 0)
-        //{
-        //    MedalDisplayCanvasScaler.referenceResolution = new Vector2(MedalDisplayCanvasScaler.referenceResolution.x,
-        //                                                               MedalDisplayCanvasScaler.referenceResolution.y + (zoomValue * -input));
+        if (input > 0 || input < 0)
+        {
+            if (MedalDisplay.localScale.y <= max && MedalDisplay.localScale.y >= min)
+            {
+                var inputZoomCalculation = (zoomValue * input);
+                var y = MedalDisplay.localScale.y + inputZoomCalculation;
+                var x = MedalDisplay.localScale.x + inputZoomCalculation;
+                MedalDisplay.localScale = new Vector2(x, y);
 
-        //    OverlayCanvasScaler.referenceResolution = new Vector2(OverlayCanvasScaler.referenceResolution.x,
-        //                                                          OverlayCanvasScaler.referenceResolution.y + (zoomValue * -input));
-        //}
+                //var overlayY1 = OverlayY.localScale.y + inputZoomCalculation;
+                //var overlayX1 = OverlayY.localScale.x + inputZoomCalculation;
+                OverlayY.localScale = new Vector2(x, y);
+
+                //var overlayY2 = OverlayX.localScale.y + inputZoomCalculation;
+                //var overlayX2 = OverlayX.localScale.x + inputZoomCalculation;
+                OverlayX.localScale = new Vector2(x, y);
+            }
+            else
+            {
+                if (MedalDisplay.localScale.y > max)
+                {
+                    MedalDisplay.localScale = new Vector2(max, max);
+                    OverlayY.localScale = new Vector2(max, max);
+                    OverlayX.localScale = new Vector2(max, max);
+                }
+                else if (MedalDisplay.localScale.y < min)
+                {
+                    MedalDisplay.localScale = new Vector2(min, min);
+                    OverlayY.localScale = new Vector2(min, min);
+                    OverlayX.localScale = new Vector2(min, min);
+                }
+            }
+        }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -80,7 +107,7 @@ public class UIMovement : MonoBehaviour {
         //OverlayCanvasScaler.referenceResolution = new Vector2(OverlayCanvasScaler.referenceResolution.x, value);
     }
 
-	public void ChangeYRowSize(int changeValue)
+	public void ChangeYRowSize(float changeValue)
 	{
         MedalGraphViewLogic.RowsY.ForEach(x => Destroy(x));
         MedalGraphViewLogic.RowsY.Clear();

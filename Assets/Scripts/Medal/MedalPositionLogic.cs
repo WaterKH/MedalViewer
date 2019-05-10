@@ -47,10 +47,10 @@ namespace MedalViewer.Medal
             }
         }
 
-        public List<GameObject> PlaceYRows(Transform StartPositionY, Transform ParentY, int yOffset)
+        public List<GameObject> PlaceYRows(Transform StartPositionY, Transform ParentY, float yOffset)
         {
             var RowsY = new List<GameObject>();
-            int tempYOffset = 300;
+            float tempYOffset = 300;
             var maxY = 0.0f;
 
             for (int i = MedalFilter.LowRange; i <= MedalFilter.HighRange; ++i)

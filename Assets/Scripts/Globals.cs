@@ -14,6 +14,6 @@ public static class Globals
     #endregion
 
     public static string PointerObjectName;
-    public static int OffsetY = 250;
+    public static float OffsetY = 250;
     public static GameObject CurrSublistMedal;
 }

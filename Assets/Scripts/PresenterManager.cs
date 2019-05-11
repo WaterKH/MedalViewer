@@ -31,6 +31,7 @@ public class PresenterManager : MonoBehaviour
     public Color CurrentPageColor;
 
     private bool firstPass = true;
+    private MedalPresenterDisplayManager currMedalPresenterDisplayManager;
 
     public List<GameObject> medalList = new List<GameObject>();
 
@@ -90,7 +91,7 @@ public class PresenterManager : MonoBehaviour
 
     public void AddPage()
     {
-        HidePage();
+        HidePage(CurrentPage);
         CurrentPage = Pages.Count + 1;
 
         var page = Instantiate(Resources.Load("Page")) as GameObject;
@@ -103,7 +104,9 @@ public class PresenterManager : MonoBehaviour
         pageButton.transform.SetSiblingIndex(CurrentPage - 1);
         pageButton.GetComponentInChildren<Text>().text = CurrentPage.ToString();
         pageButton.GetComponent<Image>().color = CurrentPageColor;
+
         pageButton.GetComponent<Button>().onClick.AddListener(delegate { DisplayPage(int.Parse(pageButton.GetComponentInChildren<Text>().text)); });
+        pageButton.GetComponentsInChildren<Button>()[1].onClick.AddListener(delegate { DeletePage(pageButton); });
 
         var templates = Pages[CurrentPage - 1].GetComponentsInChildren<Image>().ToList().Where(x => x.name.Contains("Template")).ToList();
 
@@ -124,7 +127,7 @@ public class PresenterManager : MonoBehaviour
         {
             foreach(var c in t.Value)
             {
-                c.GetComponentsInChildren<Button>().ToList().ForEach(x => x.onClick.AddListener(delegate { DisplayMedals(); }));
+                c.GetComponentsInChildren<Button>().Where(x => x.name != "Delete").ToList().ForEach(x => x.onClick.AddListener(delegate { DisplayMedals(x.transform.parent.GetComponent<MedalPresenterDisplayManager>()); }));
             }
         }
 
@@ -133,33 +136,68 @@ public class PresenterManager : MonoBehaviour
 
         CurrTemplate[CurrentPage] = Templates[CurrentPage][3];
         Templates[CurrentPage][3].SetCanvasGroupActive();
-        DisplayPage(CurrentPage);
+        DisplayPage(CurrentPage, false);
     }
 
-    public void DisplayPage(int i)
+    public void DeletePage(GameObject button)
     {
-        HidePage();
+        var index = int.Parse(button.GetComponentInChildren<Text>().text) - 1;
+        CurrentPage -= 1;
+
+        GameObject.Destroy(Pages[index]);
+        Pages.RemoveAt(index);
+
+        GameObject.Destroy(PageButtons[index]);
+        PageButtons.RemoveAt(index);
+
+        Templates.Remove(index + 1);
+        CurrTemplate.Remove(index + 1);
+
+        for(int i = index; i < Pages.Count; ++i)
+        {
+            PageButtons[i].GetComponentInChildren<Text>().text = (i + 1).ToString();
+
+            Templates.Add(i + 1, Templates[i + 2]);
+            Templates.Remove(i + 2);
+
+            CurrTemplate.Add(i + 1, CurrTemplate[i + 2]);
+            CurrTemplate.Remove(i + 2);
+        }
+    }
+
+    public void DisplayPage(int i, bool hide = true)
+    {
+        if(hide)
+            HidePage(CurrentPage);
         CurrentPage = i;
 
         Pages[CurrentPage - 1].GetComponent<CanvasGroup>().SetCanvasGroupActive();
         PageButtons[CurrentPage - 1].GetComponent<Image>().color = CurrentPageColor;
     }
 
-    public void HidePage()
+    public void HidePage(int i)
     {
-        if ((CurrentPage - 1) < Pages.Count && (CurrentPage - 1) >= 0)
+        if ((i - 1) < Pages.Count && (i - 1) >= 0)
         {
-            Pages[CurrentPage - 1].GetComponent<CanvasGroup>().SetCanvasGroupInactive();
-            PageButtons[CurrentPage - 1].GetComponent<Image>().color = PageColor;
+            Pages[i - 1].GetComponent<CanvasGroup>().SetCanvasGroupInactive();
+            PageButtons[i - 1].GetComponent<Image>().color = PageColor;
         }
     }
 
     #endregion
 
     #region Medal Presenter
-    public void DisplayMedals()
+    public void DisplayMedals(MedalPresenterDisplayManager manager)
     {
+        currMedalPresenterDisplayManager = manager;
+        
         PresenterMedals.SetCanvasGroupActive();
+    }
+
+    public void SelectMedal(MedalDisplay medalDisplay)
+    {
+        StartCoroutine(currMedalPresenterDisplayManager.Display(null, medalDisplay));
+        this.HideMedals();
     }
 
     public void HideMedals()
@@ -247,6 +285,8 @@ public class PresenterManager : MonoBehaviour
             var medalObject = CreateMedal(medal.Value);
             medalObject.transform.SetParent(MedalPresenterParent.transform, false);
             medalList.Add(medalObject);
+
+            medalObject.GetComponent<Button>().onClick.AddListener(delegate { SelectMedal(medalObject.GetComponent<MedalDisplay>()); });
         }
 
         var y = (MedalPresenterParent.GetComponent<GridLayoutGroup>().cellSize.y + MedalPresenterParent.GetComponent<GridLayoutGroup>().spacing.y) * ((medals.Values.Count / 5) + 1);

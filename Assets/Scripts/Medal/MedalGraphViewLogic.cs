@@ -60,7 +60,7 @@ namespace MedalViewer.Medal
             Loading.FinishLoading();
         }
 
-        public void UpdateYRows(int changeValue = 250)
+        public void UpdateYRows(float changeValue = 250)
         {
             RowsY = MedalPositionLogic.PlaceYRows(StartPositionY, ParentY, changeValue);
         }

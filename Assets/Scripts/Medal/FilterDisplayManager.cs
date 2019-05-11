@@ -166,7 +166,7 @@ namespace MedalViewer.Medal
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.C))
             {
                 if (this.IsDisplayingFilters)
                 {

@@ -581,8 +581,8 @@ namespace MedalViewer.Medal
                     
                     break;
                 case 6:
-                    Multiplier.text = "x" + (GuiltMultiplierHigh != "" ? GuiltMultiplierHigh :
-                                            GuiltMultiplierLow != "" ? GuiltMultiplierLow :
+                    Multiplier.text = "x" + (GuiltMultiplierHigh != "0" ? GuiltMultiplierHigh :
+                                            GuiltMultiplierLow != "0" ? GuiltMultiplierLow :
                                             MaxMultiplierHigh != "" ? MaxMultiplierHigh :
                                             MaxMultiplierLow != "" ? MaxMultiplierLow :
                                             BaseMultiplierHigh != "" ? BaseMultiplierHigh :

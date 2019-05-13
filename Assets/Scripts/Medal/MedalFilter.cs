@@ -143,7 +143,12 @@ namespace MedalViewer.Medal
             Tiers.Clear();
             Globals.OffsetY = 250;
 
-            var query = "Select * From MedalUpdated MU, AttributeLookup AL, ClassTypeLookup CTL, PetPointsLookup PPL, SupernovaLookup SL, EffectLookup EL WHERE (AL.Id = MU.AttributeId AND CTL.Id = MU.ClassTypeId AND PPL.Id = MU.PetPointsId AND SL.Id = MU.SupernovaId AND EL.Id = MU.EffectId) AND ";
+            var selections = "MU.Id MUId, MU.Name MUName, MU.Image, MU.Star, CTL.Class Class, CTL.Type Type, AL.PSM PSM, AL.UR UR, MU.BaseAttack, MU.MaxAttack, MU.BaseDefense, MU.MaxDefense, MU.TraitSlots, " +
+                "PPL.BasePoints, PPL.MaxPoints, MU.Ability, MU.AbilityDescription, MU.Target MUTarget, MU.Gauge, MU.BaseMultiplierLow, MU.BaseMultiplierHigh, MU.MaxMultiplierLow, MU.MaxMultiplierHigh, " +
+                "MU.SubslotMultiplier, MU.Tier, SL.Name SLName, SL.Description SLDescription, SL.Damage SLDamage, SL.Target SLTarget, EL.Description ELDescription";
+
+            var query = $"Select {selections} From MedalUpdated MU, AttributeLookup AL, ClassTypeLookup CTL, PetPointsLookup PPL, SupernovaLookup SL, EffectLookup EL, TierLookup TL WHERE " +
+                $"(AL.Id = MU.AttributeId AND CTL.Id = MU.ClassTypeId AND PPL.Id = MU.PetPointsId AND SL.Id = MU.SupernovaId AND EL.Id = MU.EffectId AND TL.Id = MU.Tier) AND ";
 
             var psm = "";
             #region PSM
@@ -279,21 +284,21 @@ namespace MedalViewer.Medal
             var target = "";
             #region Target
             if (Single)
-                target += " Target = 'Single'";
+                target += " MU.Target = 'Single'";
 
             if (All)
-                target += string.IsNullOrEmpty(target) ? @" Target = 'All'" : @" OR Target = 'All'";
+                target += string.IsNullOrEmpty(target) ? @" MU.Target = 'All'" : @" OR MU.Target = 'All'";
 
             if (Random)
-                target += string.IsNullOrEmpty(target) ? @" Target = 'Random'" : @" OR Target = 'Random'";
+                target += string.IsNullOrEmpty(target) ? @" MU.Target = 'Random'" : @" OR MU.Target = 'Random'";
             #endregion
             query += string.IsNullOrEmpty(target) ? "" : $"({target}) AND ";
 
             var range = "";
             #region Range
             if (LowRange >= currentLowestRange && HighRange <= currentHighestRange)
-                range += $"(BaseMultiplierLow Between {LowRange} AND {HighRange}) OR (BaseMultiplierHigh Between {LowRange} AND {HighRange}) OR" +
-                    $"(MaxMultiplierLow Between {LowRange} AND {HighRange}) OR (MaxMultiplierHigh Between {LowRange} AND {HighRange})";// OR" +
+                range += $"(BaseMultiplierLow * TL.Multiplier Between {LowRange} AND {HighRange}) AND (BaseMultiplierHigh IS NULL OR BaseMultiplierHigh * TL.Multiplier Between {LowRange} AND {HighRange}) OR" +
+                    $"(MaxMultiplierLow * TL.Multiplier Between {LowRange} AND {HighRange}) AND (MaxMultiplierHigh IS NULL OR MaxMultiplierHigh * TL.Multiplier Between {LowRange} AND {HighRange})";// OR" +
                     //$"(GuiltMultiplierLow Between {LowRange} AND {HighRange}) OR (GuiltMultiplierHigh Between {LowRange} AND {HighRange})";
             //else
                 // TODO Do something for fixed damage here?

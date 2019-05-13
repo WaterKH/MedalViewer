@@ -132,7 +132,7 @@ namespace MedalViewer.Medal
                 }
                 else
                 {
-                    //Debug.Log(www.downloadHandler.text);
+                    Debug.Log(www.downloadHandler.text);
                     var rows = www.downloadHandler.text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var row in rows)
                     {
@@ -148,34 +148,38 @@ namespace MedalViewer.Medal
                             Type = string.IsNullOrEmpty(splitRow[5]) ? "" : splitRow[5],
                             Attribute_PSM = string.IsNullOrEmpty(splitRow[6]) ? "" : splitRow[6],
                             Attribute_UR = string.IsNullOrEmpty(splitRow[7]) ? "" : splitRow[7],
-                            Discriminator = string.IsNullOrEmpty(splitRow[8]) ? "" : splitRow[8],
-                            BaseAttack = string.IsNullOrWhiteSpace(splitRow[9]) ? 0 : int.Parse(splitRow[9]),
-                            MaxAttack = string.IsNullOrEmpty(splitRow[10]) ? 0 : int.Parse(splitRow[10]),
-                            BaseDefense = string.IsNullOrEmpty(splitRow[11]) ? 0 : int.Parse(splitRow[11]),
-                            MaxDefense = string.IsNullOrEmpty(splitRow[12]) ? 0 : int.Parse(splitRow[12]),
-                            TraitSlots = string.IsNullOrEmpty(splitRow[13]) ? 0 : int.Parse(splitRow[13]),
-                            BasePetPoints = string.IsNullOrEmpty(splitRow[14]) ? 0 : int.Parse(splitRow[14]),
-                            MaxPetPoints = string.IsNullOrEmpty(splitRow[15]) ? 0 : int.Parse(splitRow[15]),
-                            Ability = string.IsNullOrEmpty(splitRow[16]) ? "" : splitRow[16],
-                            AbilityDescription = string.IsNullOrEmpty(splitRow[17]) ? "" : splitRow[17],
-                            Target = string.IsNullOrEmpty(splitRow[18]) ? "" : splitRow[18],
-                            Gauge = string.IsNullOrEmpty(splitRow[19]) ? 0 : int.Parse(splitRow[19]),
-                            BaseMultiplierLow = string.IsNullOrEmpty(splitRow[20]) ? 0.0 : double.Parse(splitRow[20]),
-                            BaseMultiplierHigh = string.IsNullOrEmpty(splitRow[21]) ? 0.0 : double.Parse(splitRow[21]),
-                            MaxMultiplierLow = string.IsNullOrEmpty(splitRow[22]) ? 0.0 : double.Parse(splitRow[22]),
-                            MaxMultiplierHigh = string.IsNullOrEmpty(splitRow[23]) ? 0.0 : double.Parse(splitRow[23]),
-                            GuiltMultiplierLow = string.IsNullOrEmpty(splitRow[24]) ? 0.0 : double.Parse(splitRow[24]),
-                            GuiltMultiplierHigh = string.IsNullOrEmpty(splitRow[25]) ? 0.0 : double.Parse(splitRow[25]),
-                            SubslotMultiplier = string.IsNullOrEmpty(splitRow[26]) ? 0.0 : double.Parse(splitRow[26]),
-                            Tier = string.IsNullOrEmpty(splitRow[27]) ? 0 : int.Parse(splitRow[27]),
-                            SupernovaName = string.IsNullOrEmpty(splitRow[28]) ? "" : splitRow[28],
-                            SupernovaDescription = string.IsNullOrEmpty(splitRow[29]) ? "" : splitRow[29],
-                            SupernovaDamage = string.IsNullOrEmpty(splitRow[30]) ? "" : splitRow[30],
-                            SupernovaTarget = string.IsNullOrEmpty(splitRow[31]) ? "" : splitRow[31],
-                            Effect = string.IsNullOrEmpty(splitRow[32]) ? "" : splitRow[32],
-                            Effect_Description = string.IsNullOrEmpty(splitRow[33]) ? "" : splitRow[33]
+                            BaseAttack = string.IsNullOrWhiteSpace(splitRow[8]) ? 0 : int.Parse(splitRow[8]),
+                            MaxAttack = string.IsNullOrEmpty(splitRow[9]) ? 0 : int.Parse(splitRow[9]),
+                            BaseDefense = string.IsNullOrEmpty(splitRow[10]) ? 0 : int.Parse(splitRow[10]),
+                            MaxDefense = string.IsNullOrEmpty(splitRow[11]) ? 0 : int.Parse(splitRow[11]),
+                            TraitSlots = string.IsNullOrEmpty(splitRow[12]) ? 0 : int.Parse(splitRow[12]),
+                            BasePetPoints = string.IsNullOrEmpty(splitRow[13]) ? 0 : int.Parse(splitRow[13]),
+                            MaxPetPoints = string.IsNullOrEmpty(splitRow[14]) ? 0 : int.Parse(splitRow[14]),
+                            Ability = string.IsNullOrEmpty(splitRow[15]) ? "" : splitRow[15],
+                            AbilityDescription = string.IsNullOrEmpty(splitRow[16]) ? "" : splitRow[16],
+                            Target = string.IsNullOrEmpty(splitRow[17]) ? "" : splitRow[17],
+                            Gauge = string.IsNullOrEmpty(splitRow[18]) ? 0 : int.Parse(splitRow[18]),
+                            BaseMultiplierLow = string.IsNullOrEmpty(splitRow[19]) ? 0.0 : double.Parse(splitRow[19]),
+                            BaseMultiplierHigh = string.IsNullOrEmpty(splitRow[20]) ? 0.0 : double.Parse(splitRow[20]),
+                            MaxMultiplierLow = string.IsNullOrEmpty(splitRow[21]) ? 0.0 : double.Parse(splitRow[21]),
+                            MaxMultiplierHigh = string.IsNullOrEmpty(splitRow[22]) ? 0.0 : double.Parse(splitRow[22]),
+                            SubslotMultiplier = string.IsNullOrEmpty(splitRow[23]) ? 0.0 : double.Parse(splitRow[23]),
+                            Tier = string.IsNullOrEmpty(splitRow[24]) ? 0 : int.Parse(splitRow[24]),
+                            SupernovaName = string.IsNullOrEmpty(splitRow[25]) ? "" : splitRow[25],
+                            SupernovaDescription = string.IsNullOrEmpty(splitRow[26]) ? "" : splitRow[26],
+                            SupernovaDamage = string.IsNullOrEmpty(splitRow[27]) ? "" : splitRow[27],
+                            SupernovaTarget = string.IsNullOrEmpty(splitRow[28]) ? "" : splitRow[28],
+                            Effect_Description = string.IsNullOrEmpty(splitRow[29]) ? "" : splitRow[29]
                         };
-                        
+
+                        medal.GuiltMultiplierLow = medal.MaxMultiplierLow != 0 ? medal.MaxMultiplierLow * Globals.TierConversion[medal.Tier] : 
+                                                   medal.BaseMultiplierLow * Globals.TierConversion[medal.Tier];
+                        medal.GuiltMultiplierHigh = medal.MaxMultiplierHigh != 0 ? medal.MaxMultiplierHigh * Globals.TierConversion[medal.Tier] :
+                                                   medal.BaseMultiplierHigh * Globals.TierConversion[medal.Tier];
+
+                        medal.GuiltMultiplierLow = Math.Round(medal.GuiltMultiplierLow, 2);
+                        medal.GuiltMultiplierHigh = Math.Round(medal.GuiltMultiplierHigh, 2);
+
                         Globals.Medals.Add(medal.Id, medal);
                     }
                 }

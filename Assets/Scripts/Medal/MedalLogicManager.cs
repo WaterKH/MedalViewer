@@ -47,8 +47,9 @@ namespace MedalViewer.Medal
                         tempObject = Instantiate(Resources.Load("MedalDisplay") as GameObject);
 
                     tempObject.name = multiplier.ToString("0.00");
-                    //print(tempObject.name);
-                    tempObject.transform.position = new Vector3(XParents.First(x => x.name == medal.Tier.ToString()).transform.position.x, YParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
+                    print(medal.Name +  " " + medal.Tier + " " + guiltIndex);
+                    tempObject.transform.position = new Vector3(XParents.First(x => x.name == medal.Tier.ToString()).transform.position.x, 
+                                                                YParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
                     
                     tempObject.transform.SetParent(MedalContentHolder, false);
 

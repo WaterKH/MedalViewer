@@ -12,12 +12,9 @@ namespace MedalViewer.Medal
         public MedalSpotlightDisplayManager medalSpotlightDisplayManager;
         //MedalLogic medalLogic;
 
-        // Use this for initialization
         void Start()
         {
             medalSpotlightDisplayManager = GameObject.FindGameObjectWithTag("MedalHighlight").GetComponent<MedalSpotlightDisplayManager>();
-            //print(medalSpotlightDisplayManager);
-            //medalLogic = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalLogic>();
         }
 
         public void HandleDisplay()

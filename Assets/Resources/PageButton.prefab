@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1658953999631856900}
   - component: {fileID: 1658953999631856901}
   - component: {fileID: 7913630918945665206}
+  - component: {fileID: 8147496796563747881}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -118,6 +119,18 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!225 &8147496796563747881
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658953999631856903}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1658954000991724639
 GameObject:
   m_ObjectHideFlags: 0

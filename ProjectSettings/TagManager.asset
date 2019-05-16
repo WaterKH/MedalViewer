@@ -16,6 +16,7 @@ TagManager:
   - MedalHighlight
   - Damo
   - Loading
+  - RemoveMedal
   layers:
   - Default
   - TransparentFX

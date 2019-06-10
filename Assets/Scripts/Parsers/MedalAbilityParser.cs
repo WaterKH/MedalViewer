@@ -139,7 +139,7 @@ public class MedalAbilityParser
 
         foreach (var item in parts)
         {
-            var trimmedItem = item.Trim();
+            var trimmedItem = item.Trim().Replace("↑", "Raises").Replace("↓", "Lowers");
             if (trimmedItem.Length == 0) continue;
             Debug.Log(trimmedItem);
 

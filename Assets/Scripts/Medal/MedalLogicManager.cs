@@ -146,8 +146,9 @@ namespace MedalViewer.Medal
         private void SetMedalImage(Medal medalItem, GameObject medalObject, string prevImg, bool highQuality = false)
         {
             var fileName = medalItem.ImageURL;
-            if (!highQuality)
-                fileName = fileName.Replace(".png", "_tn.png");
+            // TODO Add thumbnails back?
+            //if (!highQuality)
+            //    fileName = fileName.Replace(".png", "_tn.png");
 
             if (fileName == "NULL")
             {
@@ -156,9 +157,9 @@ namespace MedalViewer.Medal
             }
 
             var path = "";
-            if (!highQuality)
-                path = url + fileName;
-            else
+            //if (!highQuality)
+            //    path = url + fileName;
+            //else
                 path = urlHighQuality + fileName;
 
             StartCoroutine(LoadImage(path, medalObject));

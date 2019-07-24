@@ -13,6 +13,8 @@ public static class Globals
 
     #endregion
 
+    public static Dictionary<string, List<KeybladeMultiplierSlot>> MultiplierSlots = new Dictionary<string, List<KeybladeMultiplierSlot>>();
+
     public static string PointerObjectName;
     public static float OffsetY = 250;
     public static GameObject CurrSublistMedal;

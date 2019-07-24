@@ -17,6 +17,7 @@ TagManager:
   - Damo
   - Loading
   - RemoveMedal
+  - SlotHolder
   layers:
   - Default
   - TransparentFX

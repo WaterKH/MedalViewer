@@ -11,6 +11,8 @@ namespace MedalViewer.Medal
         public List<MedalCombatAbility> STR = new List<MedalCombatAbility>();
         public List<MedalCombatAbility> DEF = new List<MedalCombatAbility>();
 
+        public Dictionary<string, int> StrengthIncrease = new Dictionary<string, int>();
+        public int DefenseIncrease = 0;
 
         public string Deal = "";
         public string IgnoreAttributes = "";
@@ -40,6 +42,8 @@ namespace MedalViewer.Medal
 
         // Key: STR/DEF - Key: Raise/Lower/LowerPlayer - Value: Images
         public Dictionary<string, Dictionary<string, List<Texture2D>>> CombatImages;
+        // Key: (URPSM)-STR/DEF - Value: Images
+        public Dictionary<string, Texture2D> IncreaseImages;
         public Dictionary<string, Texture2D> MiscImages;
 
         public void SetUpDisplayAbility()
@@ -56,6 +60,18 @@ namespace MedalViewer.Medal
             {
                 var def_image = Resources.Load(ImagePaths.CombatPaths["DEF"][def.Direction][def.Attribute]) as Texture2D;
                 CombatImages["DEF"][def.Direction].Add(def_image);
+            }
+
+            foreach(var increaseStr in StrengthIncrease)
+            {
+                var str_image = Resources.Load($"{ImagePaths.IncreasePaths[increaseStr.Key]}{increaseStr.Value}") as Texture2D;
+                IncreaseImages.Add(increaseStr.Key, str_image);
+            }
+
+            if (DefenseIncrease > 0)
+            {
+                var def_image = Resources.Load($"{ImagePaths.IncreasePaths["DEF"]}{DefenseIncrease}") as Texture2D;
+                IncreaseImages.Add("DEF", def_image);
             }
 
             if (Inflicts != "")
@@ -150,6 +166,8 @@ namespace MedalViewer.Medal
             CombatImages["DEF"].Add("Raises", new List<Texture2D>());
             CombatImages["DEF"].Add("Lowers", new List<Texture2D>());
             CombatImages["DEF"].Add("PlayerLowers", new List<Texture2D>()); // TODO Redesign backend to account for player
+
+            IncreaseImages = new Dictionary<string, Texture2D>();
 
             MiscImages = new Dictionary<string, Texture2D>
             {

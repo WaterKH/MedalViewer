@@ -25,6 +25,7 @@ namespace MedalViewer.Medal
 
         public Transform MedalContent;
         public Transform InitialMedalContent;
+        public Transform InitialGraphContent;
 
         public ScrollRect MedalView;
         public ScrollRect Vertical;
@@ -37,7 +38,9 @@ namespace MedalViewer.Medal
 
         public List<GameObject> RowsY = new List<GameObject>();
         public List<GameObject> ColumnsX = new List<GameObject>();
-        
+
+        private bool firstPass = false;
+
         public IEnumerator Display()
         {
             while(Loading.IsLoading)
@@ -52,11 +55,13 @@ namespace MedalViewer.Medal
             RowsY = MedalPositionLogic.PlaceYRows(StartPositionY, ParentY, yOffset);
             ColumnsX = MedalPositionLogic.PlaceXColumns(StartPositionX, ParentX, xOffset);
 
+
             MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(ParentX.GetComponent<RectTransform>().offsetMax.x, ParentY.GetComponent<RectTransform>().offsetMax.y);
 
             this.PopulateMedals();
             StartCoroutine(this.PopulateCycleMedals());
 
+            this.PlaceGraphLines();
             Loading.FinishLoading();
         }
 
@@ -72,8 +77,8 @@ namespace MedalViewer.Medal
                 MedalGameObjects = MedalLogicManager.GenerateMedals(RowsY, ColumnsX, MedalContent);
 
             MedalPositionLogic.PlaceMedals(RowsY, ColumnsX, MedalGameObjects);
-
-            this.PlaceGraphLines();
+            
+            //this.PlaceGraphLines();
             //UIMovement.UpdateViewWindow();
         }
         
@@ -103,46 +108,6 @@ namespace MedalViewer.Medal
             //Loading.FinishLoading();
         }
 
-        public void ResetGraph()
-        {
-            MedalContent.GetComponent<RectTransform>().offsetMax = InitialMedalContent.GetComponent<RectTransform>().offsetMax;
-            MedalContent.position = InitialMedalContent.position;
-
-            Globals.CycleMedals.Clear();
-            MedalCycleLogic.Instance.StopCycleMedals();
-
-            foreach (var row in RowsY)
-            {
-                Destroy(row);
-            }
-
-            RowsY.Clear();
-
-            foreach(var column in ColumnsX)
-            {
-                Destroy(column);
-            }
-
-            ColumnsX.Clear();
-
-            foreach(var kv in MedalGameObjects)
-            {
-                foreach(var kv2 in kv.Value)
-                {
-                    Destroy(kv2.Value);
-                }
-
-                kv.Value.Clear();
-            }
-
-            GraphElementsX.GetComponentsInChildren<Image>().ToList().ForEach(x => Destroy(x));
-            GraphElementsY.GetComponentsInChildren<Image>().ToList().ForEach(x => Destroy(x));
-
-            GraphElementsX.SetParent(InitialMedalContent, false);
-            GraphElementsY.SetParent(InitialMedalContent, false);
-
-            MedalGameObjects.Clear();
-        }
         
         public void UpdateScrollBars(Vector2 vector)
         {
@@ -173,6 +138,9 @@ namespace MedalViewer.Medal
             GraphElementsX.SetAsFirstSibling();
             GraphElementsY.SetAsFirstSibling();
 
+            //print("X " + MedalContent.GetComponent<RectTransform>().offsetMax.y + " " + MedalContent.GetComponent<RectTransform>().offsetMin.y);
+            //print("Y " + MedalContent.GetComponent<RectTransform>().offsetMax.x + " " + MedalContent.GetComponent<RectTransform>().offsetMin.x);
+
             foreach (var x in ParentX.GetComponentsInChildren<Text>())
             {
                 var p = Instantiate(Resources.Load("ColumnTemplate") as GameObject);
@@ -182,6 +150,7 @@ namespace MedalViewer.Medal
 
                 p.GetComponent<RectTransform>().offsetMax = new Vector2(p.GetComponent<RectTransform>().offsetMax.x, MedalContent.GetComponent<RectTransform>().offsetMax.y);
                 p.GetComponent<RectTransform>().offsetMin = new Vector2(p.GetComponent<RectTransform>().offsetMin.x, MedalContent.GetComponent<RectTransform>().offsetMin.y);
+                //print(p.GetComponent<RectTransform>().offsetMax.x + " " + p.GetComponent<RectTransform>().offsetMin.x);
             }
 
             foreach (var x in ParentY.GetComponentsInChildren<Text>())
@@ -190,10 +159,77 @@ namespace MedalViewer.Medal
                 p.transform.SetParent(GraphElementsY, false);
 
                 p.GetComponent<RectTransform>().position = x.GetComponent<RectTransform>().position;
-
+                
                 p.GetComponent<RectTransform>().offsetMax = new Vector2(MedalContent.GetComponent<RectTransform>().offsetMax.x, p.GetComponent<RectTransform>().offsetMax.y);
                 p.GetComponent<RectTransform>().offsetMin = new Vector2(MedalContent.GetComponent<RectTransform>().offsetMin.x, p.GetComponent<RectTransform>().offsetMin.y);
+                //print(p.GetComponent<RectTransform>().offsetMax.y + " " + p.GetComponent<RectTransform>().offsetMin.y);
             }
+        }
+
+        public void ResetGraph()
+        {
+            MedalContent.GetComponent<RectTransform>().offsetMax = InitialMedalContent.GetComponent<RectTransform>().offsetMax;
+            MedalContent.GetComponent<RectTransform>().offsetMin = InitialMedalContent.GetComponent<RectTransform>().offsetMin;
+            //MedalContent.position = InitialMedalContent.position;
+            GraphElementsX.position = InitialGraphContent.position;
+            GraphElementsY.position = InitialGraphContent.position;
+
+            MedalCycleLogic.Instance.StopCycleMedals();
+            Globals.CycleMedals.Clear();
+
+            foreach (var child in ParentX.GetComponentsInChildren<Text>())
+            {
+                GameObject.DestroyImmediate(child.gameObject);
+            }
+
+            foreach (var child in ParentY.GetComponentsInChildren<Text>())
+            {
+                GameObject.DestroyImmediate(child.gameObject);
+            }
+
+            RowsY.Clear();
+            ColumnsX.Clear();
+
+            foreach (var kv in MedalGameObjects)
+            {
+                foreach (var kv2 in kv.Value)
+                {
+                    Destroy(kv2.Value);
+                }
+
+                kv.Value.Clear();
+            }
+
+            //var xElems = GraphElementsX.GetComponentsInChildren<Image>();
+            //var yElems = GraphElementsY.GetComponentsInChildren<Image>();
+
+            foreach (var child in GraphElementsX.GetComponentsInChildren<Image>())
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+
+            foreach (var child in GraphElementsY.GetComponentsInChildren<Image>())
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+
+            //var xParent = ParentX.GetComponentsInChildren<Text>();
+            //var yParent = ParentY.GetComponentsInChildren<Text>();
+
+            foreach (var child in ParentX.GetComponentsInChildren<Text>())
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+
+            foreach (var child in ParentY.GetComponentsInChildren<Text>())
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+
+            GraphElementsX.SetParent(InitialMedalContent, false);
+            GraphElementsY.SetParent(InitialMedalContent, false);
+
+            MedalGameObjects.Clear();
         }
     }
 }

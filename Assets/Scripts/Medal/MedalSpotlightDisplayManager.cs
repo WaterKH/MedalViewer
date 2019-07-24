@@ -39,7 +39,7 @@ namespace MedalViewer.Medal
         public RawImage Tier;
         public RawImage Target;
         public RawImage Gauges;
-        
+
         #endregion
 
         #region MedalName
@@ -49,20 +49,20 @@ namespace MedalViewer.Medal
         #endregion
 
         #region Content
-        
+
         #region Player
-        
+
         public Text PlayerTurns;
 
         public RawImage[] PlayerAttack;
         public Text[] PlayerAttackMults;
         public RawImage[] PlayerDefense;
         public Text[] PlayerDefenseMults;
-        
+
         #endregion
 
         #region Enemy
-        
+
         public Text EnemyTurns;
 
         public RawImage[] EnemyAttack;
@@ -71,7 +71,7 @@ namespace MedalViewer.Medal
         public Text[] EnemyDefenseMults;
 
         #endregion
-        
+
         #region Effects
 
         public RawImage[] EffectImages;
@@ -114,7 +114,7 @@ namespace MedalViewer.Medal
         public RawImage[] TraitSlots;
         //public Text[] TraitSlotsText;
         public RawImage CurrentTraitSlot;
-        
+
         public RawImage InitialImage;
 
         public Dictionary<string, string> TraitConversion = new Dictionary<string, string>
@@ -128,7 +128,7 @@ namespace MedalViewer.Medal
         #endregion Traits
 
         #region Pet Trait
-        
+
         public RawImage PetTraitSlot;
 
         public Dictionary<string, string> PetTraitConversion = new Dictionary<string, string>
@@ -142,6 +142,13 @@ namespace MedalViewer.Medal
         };
 
         #endregion
+
+        #region Slots
+
+        public List<KeybladeMultiplierSlot> Slots;
+
+        #endregion
+
 
         #region Stats
 
@@ -162,7 +169,7 @@ namespace MedalViewer.Medal
         public Slider GuiltSlider;
         public Text GuiltValue;
 
-        public Tuple<int, int>[] GuiltByTier = { 
+        public Tuple<int, int>[] GuiltByTier = {
             Tuple.Create(10, 25),
             Tuple.Create(20, 50),
             Tuple.Create(40, 100),
@@ -205,9 +212,9 @@ namespace MedalViewer.Medal
         #endregion
 
         #region Total
-        
+
         public Text FinalDamageOutput;
-        
+
         #endregion
 
         #endregion
@@ -271,11 +278,14 @@ namespace MedalViewer.Medal
         public Color MultiplierOffHighlight;
 
         #endregion
-        
+
         #region Private 
 
         private readonly string url = "https://medalviewer.blob.core.windows.net/images/";
 
+        private GameObject SlotHolder;
+        //private Vector2 initialSlotPosition;
+        //private Vector2 initialSlotSize;
         //private GameObject currSublistMedal;
 
         private Transform prevParent;
@@ -294,11 +304,11 @@ namespace MedalViewer.Medal
 
         private Color32 visible = new Color(1f, 1f, 1f, 1f);
         private Color32 invisible = new Color(0f, 0f, 0f, 0f);
-        
+
         //private string initialTraitSlotText = "N/A";
 
         #endregion
-            
+
 
         #region Assign Attributes
 
@@ -329,7 +339,7 @@ namespace MedalViewer.Medal
             AssignTraits(medalDisplay);
             AssignPetTrait();
             AssignStats(medalDisplay, medalAbility);
-            //AssignSlots(medalDisplay);
+            AssignSlots(medalDisplay);
 
             AssignVars(medalDisplay, medalAbility);
             AssignTotal();
@@ -341,7 +351,7 @@ namespace MedalViewer.Medal
         {
             var imageUrl = url + medalDisplay.ImageURL;
             StartCoroutine(LoadImage(imageUrl, MedalPlaceholder.gameObject));
-            
+
             Ability.text = medalDisplay.Ability;
             AbilityDescription.text = medalDisplay.AbilityDescription;
 
@@ -367,7 +377,7 @@ namespace MedalViewer.Medal
 
         private void AssignPlayerEnemy(MedalAbility medalAbility)
         {
-            var ability = medalAbility.STR.FirstOrDefault() != null ? medalAbility.STR.FirstOrDefault() : 
+            var ability = medalAbility.STR.FirstOrDefault() != null ? medalAbility.STR.FirstOrDefault() :
                 medalAbility.DEF.FirstOrDefault() != null ? medalAbility.DEF.FirstOrDefault() : null;
 
             var strPlayerCounter = 0;
@@ -459,8 +469,52 @@ namespace MedalViewer.Medal
                 EffectImages[effectCounter++].texture = effect.Value;
             }
 
+            foreach(var increase in medalAbility.IncreaseImages)
+            {
+                if (increase.Value == null)
+                    continue;
+
+                EffectImages[effectCounter].enabled = true;
+                EffectImages[effectCounter++].texture = increase.Value;
+            }
+
             if (CheckEffects())
                 Effects.SetCanvasGroupInactive();
+        }
+
+        // TODO Beta - This will only pick the highest multipliers with the correct PSM
+        // TODO Account for PSM buffs (further up the keyblade) and Effects (multiplier higher on different slots)
+        private void AssignSlots(MedalDisplay medalDisplay)
+        {
+            //var slotCount = 0;
+
+            foreach(var key in Globals.MultiplierSlots.Keys)
+            {
+                var value = Globals.MultiplierSlots[key].OrderByDescending(x => x.Multiplier).FirstOrDefault(x => x.PSM == medalDisplay.Attribute_PSM && 
+                                                                                                                 (x.UR == medalDisplay.Attribute_UR || string.IsNullOrEmpty(x.UR)));
+
+                if(value != null)
+                {
+                    var slot = Instantiate(Resources.Load("Slot") as GameObject);
+                    slot.transform.SetParent(SlotHolder.transform, false);
+
+                    slot.GetComponent<SlotDisplay>().AssignSlot(value);
+
+                    //slotCount++;
+                }
+            }
+
+            var slots = SlotHolder.GetComponentsInChildren<SlotDisplay>().OrderByDescending(x => double.Parse(x.Multiplier.text.Substring(1))).ToList();
+            for(int i = 0; i < slots.Count; ++i)
+            {
+                slots[i].transform.SetSiblingIndex(i);
+            }
+
+            // Resize
+            var maxY = (SlotHolder.transform.childCount - 1) * (SlotHolder.GetComponent<GridLayoutGroup>().cellSize.y + SlotHolder.GetComponent<GridLayoutGroup>().spacing.y);
+            SlotHolder.GetComponent<RectTransform>().offsetMin = new Vector2(SlotHolder.GetComponent<RectTransform>().offsetMax.x, -maxY);
+
+            //initialSlotPosition = SlotHolder.GetComponent<RectTransform>().position;
         }
 
         private void AssignSkill()
@@ -504,9 +558,9 @@ namespace MedalViewer.Medal
             GuiltMultiplierHigh = medalDisplay.GuiltMultiplierHigh;
 
             var Tier = medalDisplay.Tier;
-            
+
             // ? TODO This doesn't make sense, we may not have an Inflict or 
-            if(Effects.alpha != 1 && (medalAbility.Inflicts != "" || medalAbility.DamagePlus != ""))
+            if (Effects.alpha != 1 && (medalAbility.Inflicts != "" || medalAbility.DamagePlus != ""))
             {
                 var image = medalAbility.Inflicts != "" ? medalAbility.MiscImages["INFL"] :
                             medalAbility.MiscImages["DAMAGE+"];
@@ -525,14 +579,14 @@ namespace MedalViewer.Medal
             {
                 case 1:
                 case 2:
-                    Multiplier.text = "x" + (BaseMultiplierHigh != "" ? BaseMultiplierHigh : 
+                    Multiplier.text = "x" + (BaseMultiplierHigh != "" ? BaseMultiplierHigh :
                                             BaseMultiplierLow);
-                    
+
                     break;
                 case 3:
-                    Multiplier.text = "x" + (MaxMultiplierHigh != "" ? MaxMultiplierHigh : 
+                    Multiplier.text = "x" + (MaxMultiplierHigh != "" ? MaxMultiplierHigh :
                                             MaxMultiplierLow != "" ? MaxMultiplierLow :
-                                            BaseMultiplierHigh != "" ? BaseMultiplierHigh : 
+                                            BaseMultiplierHigh != "" ? BaseMultiplierHigh :
                                             BaseMultiplierLow);
 
                     for (int i = 0; i < 1; ++i)
@@ -544,7 +598,7 @@ namespace MedalViewer.Medal
                         MultiplierOrbs[i].enabled = true;
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
-                    
+
                     break;
                 case 4:
                     Multiplier.text = "x" + (MaxMultiplierHigh != "" ? MaxMultiplierHigh :
@@ -561,7 +615,7 @@ namespace MedalViewer.Medal
                         MultiplierOrbs[i].enabled = true;
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
-                    
+
                     break;
                 case 5:
                     Multiplier.text = "x" + (MaxMultiplierHigh != "" ? MaxMultiplierHigh :
@@ -578,7 +632,7 @@ namespace MedalViewer.Medal
                         MultiplierOrbs[i].enabled = true;
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
-                    
+
                     break;
                 case 6:
                     Multiplier.text = "x" + (GuiltMultiplierHigh != "0" ? GuiltMultiplierHigh :
@@ -600,7 +654,7 @@ namespace MedalViewer.Medal
 
                     GuiltButtons[2].enabled = true;
                     GuiltButtons[2].GetComponent<RawImage>().enabled = true;
-                    
+
                     GuiltButtons[0].GetComponent<RawImage>().texture = Resources.Load($"Tier/Inactive-Guilt/{Tier}") as Texture2D;
                     GuiltButtons[1].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-White/{Tier}") as Texture2D;
                     GuiltButtons[2].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-Black/{Tier}") as Texture2D;
@@ -613,11 +667,11 @@ namespace MedalViewer.Medal
                     Guilt.SetCanvasGroupActive();
 
                     GuiltValue.text = GuiltSlider.maxValue.ToString();
-                    
+
                     break;
                 case 7:
                     Multiplier.text = "x" + (GuiltMultiplierHigh != "" && GuiltMultiplierHigh != "0" ? GuiltMultiplierHigh :
-                                            GuiltMultiplierLow != "" ? GuiltMultiplierLow : 
+                                            GuiltMultiplierLow != "" ? GuiltMultiplierLow :
                                             MaxMultiplierHigh != "" ? MaxMultiplierHigh :
                                             MaxMultiplierLow);
 
@@ -630,10 +684,10 @@ namespace MedalViewer.Medal
                         MultiplierOrbs[i].enabled = true;
                         MultiplierOrbs[i].GetComponent<Image>().enabled = true;
                     }
-                    
+
                     GuiltButtons[2].enabled = true;
                     GuiltButtons[2].GetComponent<RawImage>().enabled = true;
-                    
+
                     GuiltButtons[0].GetComponent<RawImage>().texture = Resources.Load($"Tier/Inactive-Guilt/{Tier}") as Texture2D;
                     GuiltButtons[1].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-White/{Tier}") as Texture2D;
                     GuiltButtons[2].GetComponent<RawImage>().texture = Resources.Load($"Tier/Active-Black/{Tier}") as Texture2D;
@@ -646,7 +700,7 @@ namespace MedalViewer.Medal
                     Guilt.SetCanvasGroupActive();
 
                     GuiltValue.text = GuiltSlider.maxValue.ToString();
-                    
+
                     break;
                 default:
                     break;
@@ -667,7 +721,7 @@ namespace MedalViewer.Medal
 
         private void AssignSupernovaPlayerEnemy(MedalAbility medalAbility)
         {
-            var ability = medalAbility.STR.FirstOrDefault() != null ? medalAbility.STR.FirstOrDefault() : 
+            var ability = medalAbility.STR.FirstOrDefault() != null ? medalAbility.STR.FirstOrDefault() :
                 medalAbility.DEF.FirstOrDefault() != null ? medalAbility.DEF.FirstOrDefault() : null;
 
             var strPlayerCounter = 0;
@@ -773,7 +827,7 @@ namespace MedalViewer.Medal
             SkillText.text = value.name == "Null" ? "" : value.name;
 
             Skill.text = SkillConversion[value.name];
-            
+
             UpdateTotal();
 
             HideSkills();
@@ -794,7 +848,7 @@ namespace MedalViewer.Medal
         public void UpdatePetTrait(GameObject value)
         {
             PetTraitSlot.texture = value.GetComponent<RawImage>().texture;
-            
+
             PetTraitValue.text = PetTraitConversion[value.name];
 
             UpdateTotal();
@@ -848,9 +902,9 @@ namespace MedalViewer.Medal
                 colors.normalColor = MultiplierOn;
                 colors.highlightedColor = MultiplierOnHighlight;
 
-                if(GuiltButtons[0].enabled == true)
+                if (GuiltButtons[0].enabled == true)
                 {
-                    if(MultiplierOrbs[4].enabled == true)
+                    if (MultiplierOrbs[4].enabled == true)
                     {
                         Multiplier.text = $"x{MaxMultiplierHigh}";
                     }
@@ -867,7 +921,7 @@ namespace MedalViewer.Medal
             else
             {
                 MultiplierIdentifier.text = "Base";
-                
+
                 colors.normalColor = MultiplierOff;
                 colors.highlightedColor = MultiplierOffHighlight;
 
@@ -887,7 +941,7 @@ namespace MedalViewer.Medal
                     Multiplier.text = $"x{GuiltMultiplierLow}";
                 }
             }
-            
+
             SwapMultiplier.colors = colors;
 
             UpdateTotal();
@@ -895,14 +949,14 @@ namespace MedalViewer.Medal
 
         public void UpdateMultiplierOrb(int orbIndex)
         {
-            for(int i = orbIndex; i < MultiplierOrbs.Length; ++i)
+            for (int i = orbIndex; i < MultiplierOrbs.Length; ++i)
             {
                 var colors = MultiplierOrbs[i].colors;
                 colors.normalColor = NormalColor;
                 MultiplierOrbs[i].colors = colors;
             }
 
-            for(int i = 0; i < orbIndex; ++i)
+            for (int i = 0; i < orbIndex; ++i)
             {
                 var colors = MultiplierOrbs[i].colors;
                 colors.normalColor = SelectedColor;
@@ -914,9 +968,9 @@ namespace MedalViewer.Medal
 
         public void UpdateGuilt()
         {
-            if(GuiltButtons[0].enabled == true)
+            if (GuiltButtons[0].enabled == true)
             {
-                foreach(var orb in MultiplierOrbs)
+                foreach (var orb in MultiplierOrbs)
                 {
                     var colors = orb.colors;
                     colors.normalColor = SelectedColor;
@@ -993,7 +1047,7 @@ namespace MedalViewer.Medal
             var deals = int.Parse(Deals.text);
             var spBonus = int.Parse(SPABonusValues[(int)SPABonusSlider.value]);
             var skill = Skill.text.Length > 0 ? float.Parse(Skill.text) : 0.0f;
-            
+
             var totalRaids = 0.0f;
             var extraAttack = 0.0f;
 
@@ -1005,11 +1059,11 @@ namespace MedalViewer.Medal
                 {
                     totalStr += 1000;
                 }
-                else if(TraitValues[0].text[TraitValues[0].text.Length - 1] == 'R')
+                else if (TraitValues[0].text[TraitValues[0].text.Length - 1] == 'R')
                 {
                     totalRaids += 0.40f;
                 }
-                else if(TraitValues[0].text.Substring(TraitValues[0].text.Length - 2) == "EA")
+                else if (TraitValues[0].text.Substring(TraitValues[0].text.Length - 2) == "EA")
                 {
                     extraAttack = 0.40f;
                 }
@@ -1114,7 +1168,7 @@ namespace MedalViewer.Medal
 
             FinalDamageOutput.text = String.Format("{0:#,#.##}", (int)Math.Ceiling(total));
         }
-        
+
         #endregion
 
         #region Reset Attributes
@@ -1150,7 +1204,7 @@ namespace MedalViewer.Medal
         {
             MedalPlaceholder.texture = Resources.Load("Placeholder") as Texture2D;
             MedalPlaceholderShadow.texture = MedalPlaceholder.texture;
-            
+
             Ability.text = "ABILITY";
             AbilityDescription.text = "ABILITY DESCRIPTION";
 
@@ -1168,7 +1222,7 @@ namespace MedalViewer.Medal
             ResetTraits();
             ResetPetTrait();
             ResetStats();
-            //ResetSlots();
+            ResetSlots();
 
             ResetVars();
             ResetTotal();
@@ -1245,13 +1299,13 @@ namespace MedalViewer.Medal
             PetTraitSlot.texture = InitialImage.texture;
             PetTraitSlot.enabled = false;
         }
-        
+
         public void ResetStats()
         {
             Multiplier.text = "";
             Defense.text = "";
             Strength.text = "";
-            
+
             var multColors = SwapMultiplier.colors;
             multColors.normalColor = MultiplierOff;
             SwapMultiplier.colors = multColors;
@@ -1261,7 +1315,7 @@ namespace MedalViewer.Medal
 
             DefenseSlider.value = 0;
             StrengthSlider.value = 0;
-           
+
             MultiplierIdentifier.text = "Base";
             MultiplierIdentifier.enabled = false;
             AddedDefense.text = "0";
@@ -1276,8 +1330,8 @@ namespace MedalViewer.Medal
                 orb.enabled = false;
                 orb.GetComponent<Image>().enabled = false;
             }
-            
-            foreach(var guilt in GuiltButtons)
+
+            foreach (var guilt in GuiltButtons)
             {
                 guilt.GetComponent<RawImage>().enabled = false;
                 guilt.GetComponent<RawImage>().texture = null;
@@ -1288,6 +1342,16 @@ namespace MedalViewer.Medal
             Guilt.blocksRaycasts = false;
             GuiltSlider.value = 0;
             GuiltValue.text = "0%";
+        }
+
+        public void ResetSlots()
+        {
+            //SlotHolder.GetComponent<RectTransform>().offsetMin = initialSlotSize;
+            //SlotHolder.GetComponent<RectTransform>().position = initialSlotPosition;
+            foreach (var go in SlotHolder.GetComponentsInChildren<SlotDisplay>())
+            {
+                Destroy(go.gameObject);
+            }
         }
 
         public void ResetVars()
@@ -1378,7 +1442,7 @@ namespace MedalViewer.Medal
         public void HandleDisplay(GameObject clickedOn)
         {
             MedalCycleLogic.Instance.StopCycleMedals();
-            
+
             if (clickedOn.GetComponentInChildren<GridLayoutGroup>().transform.childCount > 1)
             {
                 DisplaySublistOfMedals(clickedOn);
@@ -1388,7 +1452,7 @@ namespace MedalViewer.Medal
                 StartCoroutine(Display(clickedOn.GetComponentInChildren<GridLayoutGroup>().transform.GetChild(0).gameObject));
             }
         }
-        
+
         public void HideCurrentMedal()
         {
             isDisplayingMedal = false;
@@ -1440,7 +1504,7 @@ namespace MedalViewer.Medal
             elapsedTime = 0.0f;
 
             CurrentTraitSlot = value;
-            
+
             StartCoroutine(ShowDisplay(MedalTraits));
         }
 
@@ -1630,7 +1694,7 @@ namespace MedalViewer.Medal
                         DamoEasterEgg.DesummonDamo();
                     }
                 }
-                else if(isDisplayingSublist)
+                else if (isDisplayingSublist)
                 {
                     this.HideSublistOfMedals(true);
                 }
@@ -1639,6 +1703,9 @@ namespace MedalViewer.Medal
 
         void Awake()
         {
+            SlotHolder = GameObject.FindGameObjectWithTag("SlotHolder");
+            //initialSlotPosition = SlotHolder.GetComponent<RectTransform>().position;
+            //initialSlotSize = SlotHolder.GetComponent<RectTransform>().offsetMin;
             ResetDisplay();
         }
 
@@ -1652,7 +1719,7 @@ namespace MedalViewer.Medal
             ResetDisplay();
 
             isDisplayingMedal = true;
-            if(Globals.CurrSublistMedal != null)
+            if (Globals.CurrSublistMedal != null)
                 this.HideSublistOfMedals();
 
             MedalDisplay medalDisplay = null;
@@ -1692,7 +1759,7 @@ namespace MedalViewer.Medal
                 AssignContent(medalDisplay, medalAbility);
             }
 
-            if(medalAbilitySupernova != null)
+            if (medalAbilitySupernova != null)
             {
                 medalAbilitySupernova.SetUpDisplayAbility();
 
@@ -1710,12 +1777,12 @@ namespace MedalViewer.Medal
 
         IEnumerator LoadImage(string imageUrl, GameObject medalObject)
         {
-            Debug.Log(imageUrl);
+            //Debug.Log(imageUrl);
             //yield return 0;
             UnityWebRequest image = UnityWebRequestTexture.GetTexture(imageUrl);
             yield return image.SendWebRequest();
             if (image.isNetworkError || image.isHttpError)
-                Debug.Log(image.error);
+                Debug.Log("ERROR: " + image.error);
             else
             {
                 medalObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)image.downloadHandler).texture;

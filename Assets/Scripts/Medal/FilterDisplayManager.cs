@@ -103,7 +103,7 @@ namespace MedalViewer.Medal
         #endregion
 
 
-        private int currentMaxMultiplier = 66;
+        private int currentMaxMultiplier = 75;
 
         private void Awake()
         {

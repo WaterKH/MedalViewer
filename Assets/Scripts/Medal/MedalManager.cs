@@ -20,6 +20,7 @@ namespace MedalViewer.Medal
         public bool IsRunningClient = false;
 
         private readonly string selectFilteredMedalsPHP = "https://mvphp.azurewebsites.net/selectFilteredMedals.php";
+        private readonly string getMultiplierSlotsPHP = "https://mvphp.azurewebsites.net/getMultiplierSlots.php";
         private readonly string connectionString = "Server=tcp:medalviewer.database.windows.net,1433;Initial Catalog=medalviewer;Persist Security Info=False;User ID=MedalViewer;Password=Password1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         void Awake()
@@ -50,6 +51,8 @@ namespace MedalViewer.Medal
             else
                 StartCoroutine(GetMedalsFromPHP(MedalFilter));
 
+            StartCoroutine(GetMultiplierSlotsPHP());
+
             #region Display Medals
 
             StartCoroutine(MedalGraphViewLogic.Display());
@@ -62,7 +65,7 @@ namespace MedalViewer.Medal
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 var commandString = medalFilter.GenerateFilterQuery();
-                
+
                 using (SqlCommand command = new SqlCommand(commandString, conn))
                 {
                     conn.Open();
@@ -117,6 +120,47 @@ namespace MedalViewer.Medal
             Loading.FinishLoading();
         }
 
+        public IEnumerator GetMultiplierSlotsPHP()
+        {
+            var query = "SELECT KSM.[Id], KS.SlotNumber, AL.PSM, AL.UR, K.[Name], [KeybladeLevel], [Multiplier] FROM[dbo].[KeybladeSlotMultiplier] KSM, Keyblade K, KeybladeSlot KS, AttributeLookup AL Where KSM.KeybladeId = K.Id AND KSM.SlotId = KS.Id AND KS.AttributeId = AL.Id";
+            WWWForm form = new WWWForm();
+            form.AddField("sqlQuery", query);
+
+            using (UnityWebRequest www = UnityWebRequest.Post(getMultiplierSlotsPHP, form))
+            {
+                yield return www.SendWebRequest();
+                if (www.isNetworkError || www.isHttpError)
+                {
+                    Debug.Log("ERROR:: " + www.error);
+                }
+                else
+                {
+                    //Debug.Log(www.downloadHandler.text);
+                    var rows = www.downloadHandler.text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var row in rows)
+                    {
+                        var splitRow = row.Split(new char[] { '|' }, StringSplitOptions.None);
+
+                        var keybladeMultiplierSlot = new KeybladeMultiplierSlot
+                        {
+                            Id = string.IsNullOrEmpty(splitRow[0]) ? -1 : int.Parse(splitRow[0]),
+                            Name = string.IsNullOrEmpty(splitRow[1]) ? "" : splitRow[1],
+                            SlotNumber = string.IsNullOrEmpty(splitRow[2]) ? -1 : int.Parse(splitRow[2]),
+                            PSM = string.IsNullOrEmpty(splitRow[3]) ? "" : splitRow[3],
+                            UR = string.IsNullOrEmpty(splitRow[4]) ? "" : splitRow[4],
+                            KeybladeLevel = string.IsNullOrEmpty(splitRow[5]) ? -1 : double.Parse(splitRow[5]),
+                            Multiplier = string.IsNullOrEmpty(splitRow[6]) ? -1 : double.Parse(splitRow[6])
+                        };
+
+                        if (!Globals.MultiplierSlots.ContainsKey(keybladeMultiplierSlot.Name))
+                            Globals.MultiplierSlots.Add(keybladeMultiplierSlot.Name, new List<KeybladeMultiplierSlot>());
+
+                        Globals.MultiplierSlots[keybladeMultiplierSlot.Name].Add(keybladeMultiplierSlot);
+                    }
+                }
+            }
+        }
+
         public IEnumerator GetMedalsFromPHP(MedalFilter medalFilter)
         {
             WWWForm form = new WWWForm();
@@ -132,12 +176,12 @@ namespace MedalViewer.Medal
                 }
                 else
                 {
-                    Debug.Log(www.downloadHandler.text);
+                    //Debug.Log(www.downloadHandler.text);
                     var rows = www.downloadHandler.text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var row in rows)
                     {
                         var splitRow = row.Split(new char[] { '|' }, StringSplitOptions.None);
-                        
+
                         var medal = new Medal
                         {
                             Id = string.IsNullOrEmpty(splitRow[0]) ? -1 : int.Parse(splitRow[0]),
@@ -172,7 +216,7 @@ namespace MedalViewer.Medal
                             Effect_Description = string.IsNullOrEmpty(splitRow[29]) ? "" : splitRow[29]
                         };
 
-                        medal.GuiltMultiplierLow = medal.MaxMultiplierLow != 0 ? medal.MaxMultiplierLow * Globals.TierConversion[medal.Tier] : 
+                        medal.GuiltMultiplierLow = medal.MaxMultiplierLow != 0 ? medal.MaxMultiplierLow * Globals.TierConversion[medal.Tier] :
                                                    medal.BaseMultiplierLow * Globals.TierConversion[medal.Tier];
                         medal.GuiltMultiplierHigh = medal.MaxMultiplierHigh != 0 ? medal.MaxMultiplierHigh * Globals.TierConversion[medal.Tier] :
                                                    medal.BaseMultiplierHigh * Globals.TierConversion[medal.Tier];
@@ -209,53 +253,55 @@ namespace MedalViewer.Medal
                     foreach (var row in rows)
                     {
                         var splitRow = row.Split(new char[] { '|' }, StringSplitOptions.None);
-
-                        if (splitRow.Length == 34)
+                        //Debug.Log(splitRow.Length);
+                        var medal = new Medal
                         {
-                            var medal = new Medal
-                            {
-                                Id = string.IsNullOrEmpty(splitRow[0]) ? -1 : int.Parse(splitRow[0]),
-                                Name = string.IsNullOrEmpty(splitRow[1]) ? "" : splitRow[1],
-                                ImageURL = string.IsNullOrEmpty(splitRow[2]) ? "" : splitRow[2],
-                                Star = string.IsNullOrEmpty(splitRow[3]) ? 0 : int.Parse(splitRow[3]),
-                                Class = string.IsNullOrEmpty(splitRow[4]) ? "" : splitRow[4],
-                                Type = string.IsNullOrEmpty(splitRow[5]) ? "" : splitRow[5],
-                                Attribute_PSM = string.IsNullOrEmpty(splitRow[6]) ? "" : splitRow[6],
-                                Attribute_UR = string.IsNullOrEmpty(splitRow[7]) ? "" : splitRow[7],
-                                Discriminator = string.IsNullOrEmpty(splitRow[8]) ? "" : splitRow[8],
-                                BaseAttack = string.IsNullOrWhiteSpace(splitRow[9]) ? 0 : int.Parse(splitRow[9]),
-                                MaxAttack = string.IsNullOrEmpty(splitRow[10]) ? 0 : int.Parse(splitRow[10]),
-                                BaseDefense = string.IsNullOrEmpty(splitRow[11]) ? 0 : int.Parse(splitRow[11]),
-                                MaxDefense = string.IsNullOrEmpty(splitRow[12]) ? 0 : int.Parse(splitRow[12]),
-                                TraitSlots = string.IsNullOrEmpty(splitRow[13]) ? 0 : int.Parse(splitRow[13]),
-                                BasePetPoints = string.IsNullOrEmpty(splitRow[14]) ? 0 : int.Parse(splitRow[14]),
-                                MaxPetPoints = string.IsNullOrEmpty(splitRow[15]) ? 0 : int.Parse(splitRow[15]),
-                                Ability = string.IsNullOrEmpty(splitRow[16]) ? "" : splitRow[16],
-                                AbilityDescription = string.IsNullOrEmpty(splitRow[17]) ? "" : splitRow[17],
-                                Target = string.IsNullOrEmpty(splitRow[18]) ? "" : splitRow[18],
-                                Gauge = string.IsNullOrEmpty(splitRow[19]) ? 0 : int.Parse(splitRow[19]),
-                                BaseMultiplierLow = string.IsNullOrEmpty(splitRow[20]) ? 0.0 : double.Parse(splitRow[20]),
-                                BaseMultiplierHigh = string.IsNullOrEmpty(splitRow[21]) ? 0.0 : double.Parse(splitRow[21]),
-                                MaxMultiplierLow = string.IsNullOrEmpty(splitRow[22]) ? 0.0 : double.Parse(splitRow[22]),
-                                MaxMultiplierHigh = string.IsNullOrEmpty(splitRow[23]) ? 0.0 : double.Parse(splitRow[23]),
-                                GuiltMultiplierLow = string.IsNullOrEmpty(splitRow[24]) ? 0.0 : double.Parse(splitRow[24]),
-                                GuiltMultiplierHigh = string.IsNullOrEmpty(splitRow[25]) ? 0.0 : double.Parse(splitRow[25]),
-                                SubslotMultiplier = string.IsNullOrEmpty(splitRow[26]) ? 0.0 : double.Parse(splitRow[26]),
-                                Tier = string.IsNullOrEmpty(splitRow[27]) ? 0 : int.Parse(splitRow[27]),
-                                SupernovaName = string.IsNullOrEmpty(splitRow[28]) ? "" : splitRow[28],
-                                SupernovaDescription = string.IsNullOrEmpty(splitRow[29]) ? "" : splitRow[29],
-                                SupernovaDamage = string.IsNullOrEmpty(splitRow[30]) ? "" : splitRow[30],
-                                SupernovaTarget = string.IsNullOrEmpty(splitRow[31]) ? "" : splitRow[31],
-                                Effect = string.IsNullOrEmpty(splitRow[32]) ? "" : splitRow[32],
-                                Effect_Description = string.IsNullOrEmpty(splitRow[33]) ? "" : splitRow[33]
-                            };
+                            Id = string.IsNullOrEmpty(splitRow[0]) ? -1 : int.Parse(splitRow[0]),
+                            Name = string.IsNullOrEmpty(splitRow[1]) ? "" : splitRow[1],
+                            ImageURL = string.IsNullOrEmpty(splitRow[2]) ? "" : splitRow[2],
+                            Star = string.IsNullOrEmpty(splitRow[3]) ? 0 : int.Parse(splitRow[3]),
+                            Class = string.IsNullOrEmpty(splitRow[4]) ? "" : splitRow[4],
+                            Type = string.IsNullOrEmpty(splitRow[5]) ? "" : splitRow[5],
+                            Attribute_PSM = string.IsNullOrEmpty(splitRow[6]) ? "" : splitRow[6],
+                            Attribute_UR = string.IsNullOrEmpty(splitRow[7]) ? "" : splitRow[7],
+                            BaseAttack = string.IsNullOrWhiteSpace(splitRow[8]) ? 0 : int.Parse(splitRow[8]),
+                            MaxAttack = string.IsNullOrEmpty(splitRow[9]) ? 0 : int.Parse(splitRow[9]),
+                            BaseDefense = string.IsNullOrEmpty(splitRow[10]) ? 0 : int.Parse(splitRow[10]),
+                            MaxDefense = string.IsNullOrEmpty(splitRow[11]) ? 0 : int.Parse(splitRow[11]),
+                            TraitSlots = string.IsNullOrEmpty(splitRow[12]) ? 0 : int.Parse(splitRow[12]),
+                            BasePetPoints = string.IsNullOrEmpty(splitRow[13]) ? 0 : int.Parse(splitRow[13]),
+                            MaxPetPoints = string.IsNullOrEmpty(splitRow[14]) ? 0 : int.Parse(splitRow[14]),
+                            Ability = string.IsNullOrEmpty(splitRow[15]) ? "" : splitRow[15],
+                            AbilityDescription = string.IsNullOrEmpty(splitRow[16]) ? "" : splitRow[16],
+                            Target = string.IsNullOrEmpty(splitRow[17]) ? "" : splitRow[17],
+                            Gauge = string.IsNullOrEmpty(splitRow[18]) ? 0 : int.Parse(splitRow[18]),
+                            BaseMultiplierLow = string.IsNullOrEmpty(splitRow[19]) ? 0.0 : double.Parse(splitRow[19]),
+                            BaseMultiplierHigh = string.IsNullOrEmpty(splitRow[20]) ? 0.0 : double.Parse(splitRow[20]),
+                            MaxMultiplierLow = string.IsNullOrEmpty(splitRow[21]) ? 0.0 : double.Parse(splitRow[21]),
+                            MaxMultiplierHigh = string.IsNullOrEmpty(splitRow[22]) ? 0.0 : double.Parse(splitRow[22]),
+                            SubslotMultiplier = string.IsNullOrEmpty(splitRow[23]) ? 0.0 : double.Parse(splitRow[23]),
+                            Tier = string.IsNullOrEmpty(splitRow[24]) ? 0 : int.Parse(splitRow[24]),
+                            SupernovaName = string.IsNullOrEmpty(splitRow[25]) ? "" : splitRow[25],
+                            SupernovaDescription = string.IsNullOrEmpty(splitRow[26]) ? "" : splitRow[26],
+                            SupernovaDamage = string.IsNullOrEmpty(splitRow[27]) ? "" : splitRow[27],
+                            SupernovaTarget = string.IsNullOrEmpty(splitRow[28]) ? "" : splitRow[28],
+                            Effect_Description = string.IsNullOrEmpty(splitRow[29]) ? "" : splitRow[29]
+                        };
 
-                            Globals.SearchMedals.Add(medal.Id, medal);
-                        }
+                        medal.GuiltMultiplierLow = medal.MaxMultiplierLow != 0 ? medal.MaxMultiplierLow * Globals.TierConversion[medal.Tier] :
+                                                   medal.BaseMultiplierLow * Globals.TierConversion[medal.Tier];
+                        medal.GuiltMultiplierHigh = medal.MaxMultiplierHigh != 0 ? medal.MaxMultiplierHigh * Globals.TierConversion[medal.Tier] :
+                                                   medal.BaseMultiplierHigh * Globals.TierConversion[medal.Tier];
+
+                        medal.GuiltMultiplierLow = Math.Round(medal.GuiltMultiplierLow, 2);
+                        medal.GuiltMultiplierHigh = Math.Round(medal.GuiltMultiplierHigh, 2);
+
+                        //Debug.Log("Adding: " + medal.Name + " " + medal.Id);
+                        Globals.SearchMedals.Add(medal.Id, medal);
+
                     }
                 }
             }
-
             Loading.FinishLoading();
         }
     }

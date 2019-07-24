@@ -167,6 +167,7 @@ namespace MedalViewer.Medal
             stopped = true;
             //firstPass = false;
             StopCoroutine(lastRoutine);
+            StopAllCoroutines();
         }
     }
 }

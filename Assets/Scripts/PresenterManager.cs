@@ -386,7 +386,7 @@ public class PresenterManager : MonoBehaviour
         
         yield return image.SendWebRequest();
         if (image.isNetworkError || image.isHttpError)
-            Debug.Log(imageUrl + " " + image.error);
+            Debug.Log("ERROR: " + imageUrl + " " + image.error);
         else
             medalObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)image.downloadHandler).texture;
     }

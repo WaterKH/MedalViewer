@@ -100,7 +100,7 @@ namespace MedalViewer.Medal
         #endregion
 
         private int currentLowestRange = 1;
-        private int currentHighestRange = 66;
+        private int currentHighestRange = 75;
 
         private void Awake()
         {
@@ -132,7 +132,7 @@ namespace MedalViewer.Medal
             Random = true;
 
             LowRange = 16;
-            HighRange = 65;
+            HighRange = 75;
 
             Tiers.Clear();
             Tiers.AddRange(new int[] { 6, 7, 8, 9 });
@@ -311,7 +311,7 @@ namespace MedalViewer.Medal
             if (checkResult == "Where" || checkResult == "AND")
                 query = query.Substring(0, query.Length - checkResult.Length - 1);
             //Debug.Log(checkResult);
-            Debug.Log(query);
+            //Debug.Log(query);
             return query;
         }
     }

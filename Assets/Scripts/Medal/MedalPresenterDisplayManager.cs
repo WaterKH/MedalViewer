@@ -895,12 +895,12 @@ namespace MedalViewer.Medal
 
         IEnumerator LoadImage(string imageUrl, GameObject medalObject)
         {
-            Debug.Log(imageUrl);
+            //Debug.Log(imageUrl);
             //yield return 0;
             UnityWebRequest image = UnityWebRequestTexture.GetTexture(imageUrl);
             yield return image.SendWebRequest();
             if (image.isNetworkError || image.isHttpError)
-                Debug.Log(image.error);
+                Debug.Log("ERROR: " + image.error);
             else
             {
                 medalObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)image.downloadHandler).texture;

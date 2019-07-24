@@ -47,7 +47,7 @@ namespace MedalViewer.Medal
                         tempObject = Instantiate(Resources.Load("MedalDisplay") as GameObject);
 
                     tempObject.name = multiplier.ToString("0.00");
-                    print(medal.Name +  " " + medal.Tier + " " + guiltIndex);
+                    //print(medal.Name +  " " + medal.Tier + " " + guiltIndex);
                     tempObject.transform.position = new Vector3(XParents.First(x => x.name == medal.Tier.ToString()).transform.position.x, 
                                                                 YParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
                     
@@ -172,7 +172,8 @@ namespace MedalViewer.Medal
             if (image.isNetworkError || image.isHttpError)
                 Debug.Log(imageUrl + " " + image.error);
             else
-                medalObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)image.downloadHandler).texture;
+                if(medalObject != null)
+                    medalObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)image.downloadHandler).texture;
         }
 
         public void UpdateMedalHolderContent(RectTransform content)

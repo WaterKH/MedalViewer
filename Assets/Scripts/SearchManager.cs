@@ -21,6 +21,12 @@ namespace MedalViewer
 
         public bool IsDisplayingSearch;
 
+        private string selections = "MU.Id MUId, MU.Name MUName, MU.Image, MU.Star, CTL.Class Class, CTL.Type Type, AL.PSM PSM, AL.UR UR, MU.BaseAttack, MU.MaxAttack, MU.BaseDefense, MU.MaxDefense, MU.TraitSlots, " +
+                "PPL.BasePoints, PPL.MaxPoints, MU.Ability, MU.AbilityDescription, MU.Target MUTarget, MU.Gauge, MU.BaseMultiplierLow, MU.BaseMultiplierHigh, MU.MaxMultiplierLow, MU.MaxMultiplierHigh, " +
+                "MU.SubslotMultiplier, MU.Tier, SL.Name SLName, SL.Description SLDescription, SL.Damage SLDamage, SL.Target SLTarget, EL.Description ELDescription";
+
+        private string from = "MedalUpdated MU, AttributeLookup AL, ClassTypeLookup CTL, PetPointsLookup PPL, SupernovaLookup SL, EffectLookup EL, TierLookup TL";
+        private string where = "(AL.Id = MU.AttributeId AND CTL.Id = MU.ClassTypeId AND PPL.Id = MU.PetPointsId AND SL.Id = MU.SupernovaId AND EL.Id = MU.EffectId AND TL.Id = MU.Tier)";
         // Start is called before the first frame update
         void Awake()
         {
@@ -67,7 +73,7 @@ namespace MedalViewer
         {
             ClearSearch();
 
-            var sqlStatement = "Select TOP(10) * From Medal Order By Id Desc";
+            var sqlStatement = $"Select TOP(10) {selections} From {from} WHERE {where} Order By MUId Desc";
             StartCoroutine(MedalManager.GetSearchMedalsFromPHP(sqlStatement));
 
             StartCoroutine(Display());
@@ -80,9 +86,9 @@ namespace MedalViewer
 
             ClearSearch();
 
-            var sqlStatement = $"Select * From Medal Where Name Like '%{lookFor}%' Order By Id Desc";
+            var sqlStatement = $"Select TOP(10) {selections} From {from} WHERE {where} AND MU.Name Like '%{lookFor}%' Order By MUId Desc";
             StartCoroutine(MedalManager.GetSearchMedalsFromPHP(sqlStatement));
-
+            
             StartCoroutine(Display());
         }
 

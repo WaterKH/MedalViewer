@@ -59,6 +59,12 @@ public class ImagePaths {
 		}
 	};
 
+    public static Dictionary<string, string> IncreasePaths = new Dictionary<string, string>()
+    {
+        { "U-STR", "Increase/U-STR" }, { "R-STR", "Increase/R-STR" },
+        { "DEF", "Increase/DEF" }
+    };
+
 	public static Dictionary<string, Dictionary<string, string>> MiscPaths = new Dictionary<string, Dictionary<string, string>>()
 	{
 		{

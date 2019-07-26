@@ -16,20 +16,26 @@ public class UIMovement : MonoBehaviour {
     #region public vars
     //public Camera MainCamera;
     public MedalPositionLogic MedalPositionLogic;
-
-	///public GameObject YRows;
+    public Vector3 InitialZoomScale;
+    public Vector3 InitialOverlayX;
+    public Vector3 InitialOverlayY;
+    ///public GameObject YRows;
     #endregion
 
     private float min = 0.2f;
     private float max = 1.25f;
     private float zoomValue;
 
+
 	void Awake()
 	{
         //min = 2530;
         //max = 11500;
         zoomValue = 0.1f;
-	}
+        //InitialZoomScale = MedalDisplay.localScale;
+        //InitialOverlayX = OverlayX.localScale;
+        //InitialOverlayY = OverlayY.localScale;
+    }
 
 	// Update is called once per frame
 	void Update () 
@@ -105,6 +111,13 @@ public class UIMovement : MonoBehaviour {
     {
         //MedalDisplayCanvasScaler.referenceResolution = new Vector2(MedalDisplayCanvasScaler.referenceResolution.x, value);
         //OverlayCanvasScaler.referenceResolution = new Vector2(OverlayCanvasScaler.referenceResolution.x, value);
+    }
+
+    public void ResetViewWindow()
+    {
+        MedalDisplay.localScale = InitialZoomScale;
+        OverlayX.localScale = InitialOverlayX;
+        OverlayY.localScale = InitialOverlayY;
     }
 
 	public void ChangeYRowSize(float changeValue)

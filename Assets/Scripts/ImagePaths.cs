@@ -62,6 +62,7 @@ public class ImagePaths {
     public static Dictionary<string, string> IncreasePaths = new Dictionary<string, string>()
     {
         { "U-STR", "Increase/U-STR" }, { "R-STR", "Increase/R-STR" },
+        { "P-STR", "Increase/U-STR" }, { "S-STR", "Increase/R-STR" }, { "M-STR", "Increase/U-STR" },
         { "DEF", "Increase/DEF" }
     };
 

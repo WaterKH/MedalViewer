@@ -168,6 +168,8 @@ namespace MedalViewer.Medal
 
         public void ResetGraph()
         {
+            UIMovement.ResetViewWindow();
+
             MedalContent.GetComponent<RectTransform>().offsetMax = InitialMedalContent.GetComponent<RectTransform>().offsetMax;
             MedalContent.GetComponent<RectTransform>().offsetMin = InitialMedalContent.GetComponent<RectTransform>().offsetMin;
             //MedalContent.position = InitialMedalContent.position;

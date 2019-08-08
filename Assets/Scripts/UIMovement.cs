@@ -25,7 +25,7 @@ public class UIMovement : MonoBehaviour {
     private float min = 0.2f;
     private float max = 1.25f;
     private float zoomValue;
-
+    private float test = 0.0f;
 
 	void Awake()
 	{

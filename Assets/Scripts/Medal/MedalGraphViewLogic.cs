@@ -32,12 +32,15 @@ namespace MedalViewer.Medal
         public ScrollRect Horizontal;
         
         public Dictionary<int, Dictionary<double, GameObject>> MedalGameObjects = new Dictionary<int, Dictionary<double, GameObject>>();
+        public Dictionary<GameObject, int> CycleMedals = new Dictionary<GameObject, int>();
 
         private readonly int yOffset = 250;
         private readonly int xOffset = 250;
 
         public List<GameObject> RowsY = new List<GameObject>();
         public List<GameObject> ColumnsX = new List<GameObject>();
+
+        public string PointerObjectName = "";
 
         private bool firstPass = false;
 
@@ -100,7 +103,8 @@ namespace MedalViewer.Medal
                     var subTexture = subContent.GetComponentInChildren<RawImage>().texture;
                     var medalTexture = medal.GetComponentsInChildren<RawImage>().First(x => x.name == "MedalImage").texture;
 
-                    Globals.CycleMedals.Add(medal, 0);
+                    //Globals.CycleMedals.Add(medal, 0);
+                    CycleMedals.Add(medal, 0);
                 }
             }
 
@@ -111,7 +115,7 @@ namespace MedalViewer.Medal
         
         public void UpdateScrollBars(Vector2 vector)
         {
-            if (Globals.PointerObjectName == "Scroll View")
+            if (PointerObjectName == "Scroll View")
             {
                 Horizontal.horizontalNormalizedPosition = vector.x;
                 Vertical.verticalNormalizedPosition = vector.y;
@@ -120,13 +124,13 @@ namespace MedalViewer.Medal
 
         public void UpdateScrollMedalViewX(Vector2 vector)
         {
-            if (Globals.PointerObjectName == "Horizontal")
+            if (PointerObjectName == "Horizontal")
                 MedalView.horizontalNormalizedPosition = vector.x;
         }
 
         public void UpdateScrollMedalViewY(Vector2 vector)
         {
-            if (Globals.PointerObjectName == "Vertical")
+            if (PointerObjectName == "Vertical")
                 MedalView.verticalNormalizedPosition = vector.y;
         }
 
@@ -177,7 +181,8 @@ namespace MedalViewer.Medal
             GraphElementsY.position = InitialGraphContent.position;
 
             MedalCycleLogic.Instance.StopCycleMedals();
-            Globals.CycleMedals.Clear();
+            //Globals.CycleMedals.Clear();
+            CycleMedals.Clear();
 
             foreach (var child in ParentX.GetComponentsInChildren<Text>())
             {

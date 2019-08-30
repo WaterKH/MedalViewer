@@ -9,7 +9,7 @@ namespace MedalViewer.Medal
 {
     public class MedalCycleLogic : MonoBehaviour
     {
-        MedalLogicManager MedalLogicManager;
+        MedalGraphViewLogic MedalGraphViewLogic;
         Loading Loading;
 
         // This field can be accesed through our singleton instance,
@@ -30,7 +30,7 @@ namespace MedalViewer.Medal
 
         void Start()
         {
-            MedalLogicManager = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalLogicManager>();
+            MedalGraphViewLogic = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalGraphViewLogic>();
             Loading = GameObject.FindGameObjectWithTag("Loading").GetComponent<Loading>();
         }
 
@@ -155,7 +155,7 @@ namespace MedalViewer.Medal
             {
                 stopped = false;
                 firstPass = false;
-                lastRoutine = StartCoroutine(CycleMedals(Globals.CycleMedals));
+                lastRoutine = StartCoroutine(CycleMedals(MedalGraphViewLogic.CycleMedals));
             }
         }
 

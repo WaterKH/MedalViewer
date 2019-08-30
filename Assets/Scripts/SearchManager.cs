@@ -74,9 +74,9 @@ namespace MedalViewer
             ClearSearch();
 
             var sqlStatement = $"Select TOP(10) {selections} From {from} WHERE {where} Order By MUId Desc";
-            StartCoroutine(MedalManager.GetSearchMedalsFromPHP(sqlStatement));
+            StartCoroutine(MedalManager.GetSearchMedalsFromPHP(sqlStatement, result => StartCoroutine(Display(result))));
 
-            StartCoroutine(Display());
+            //StartCoroutine(Display());
         }
 
         public void GetMedals(string lookFor)
@@ -87,20 +87,20 @@ namespace MedalViewer
             ClearSearch();
 
             var sqlStatement = $"Select TOP(10) {selections} From {from} WHERE {where} AND MU.Name Like '%{lookFor}%' Order By MUId Desc";
-            StartCoroutine(MedalManager.GetSearchMedalsFromPHP(sqlStatement));
+            StartCoroutine(MedalManager.GetSearchMedalsFromPHP(sqlStatement, result => StartCoroutine(Display(result))));
             
-            StartCoroutine(Display());
+            //StartCoroutine(Display());
         }
 
         public void ClearSearch()
         {
-            Globals.SearchMedals.Clear();
+            //Globals.SearchMedals.Clear();
 
             SearchMedalObjects.ForEach(x => Destroy(x));
             SearchMedalObjects.Clear();
         }
 
-        public IEnumerator Display()
+        public IEnumerator Display(Dictionary<int, Medal.Medal> SearchMedals)
         {
             while (Loading.IsLoading)
             {
@@ -109,7 +109,36 @@ namespace MedalViewer
 
             Loading.StartLoading();
 
-            SearchMedalObjects = MedalLogicManager.GenerateSearchMedals(Content);
+            SearchMedalObjects = this.GenerateSearchMedals(Content, SearchMedals);
+        }
+
+        // TODO Do a sub loading to generate the images and *THEN* display them
+        public List<GameObject> GenerateSearchMedals(Transform MedalContentHolder, Dictionary<int, Medal.Medal> SearchMedals)
+        {
+            var medals = new List<GameObject>();
+
+            foreach (var kv in SearchMedals)
+            {
+                var medal = kv.Value;
+
+                var medalGameObject = MedalLogicManager.CreateMedal(medal, true);
+
+                medalGameObject.transform.SetParent(MedalContentHolder, false);
+
+                medalGameObject.GetComponent<CanvasGroup>().SetCanvasGroupActive();
+
+                medals.Add(medalGameObject);
+            }
+
+            var maxY = (MedalContentHolder.childCount / 2) * (MedalContentHolder.GetComponent<GridLayoutGroup>().cellSize.y + MedalContentHolder.GetComponent<GridLayoutGroup>().spacing.y);
+            // Resize
+            MedalContentHolder.GetComponent<RectTransform>().offsetMin = new Vector2(MedalContentHolder.GetComponent<RectTransform>().offsetMax.x, -maxY);
+
+            MedalContentHolder.GetComponent<GridLayoutGroup>().enabled = true;
+
+            Loading.FinishLoading();
+
+            return medals;
         }
     }
 }

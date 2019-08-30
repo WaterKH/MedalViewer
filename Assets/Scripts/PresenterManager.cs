@@ -290,48 +290,8 @@ public class PresenterManager : MonoBehaviour
 
                     if (splitRow.Length == 30)
                     {
-                        var medal = new Medal
-                        {
-                            Id = string.IsNullOrEmpty(splitRow[0]) ? -1 : int.Parse(splitRow[0]),
-                            Name = string.IsNullOrEmpty(splitRow[1]) ? "" : splitRow[1],
-                            ImageURL = string.IsNullOrEmpty(splitRow[2]) ? "" : splitRow[2],
-                            Star = string.IsNullOrEmpty(splitRow[3]) ? 0 : int.Parse(splitRow[3]),
-                            Class = string.IsNullOrEmpty(splitRow[4]) ? "" : splitRow[4],
-                            Type = string.IsNullOrEmpty(splitRow[5]) ? "" : splitRow[5],
-                            Attribute_PSM = string.IsNullOrEmpty(splitRow[6]) ? "" : splitRow[6],
-                            Attribute_UR = string.IsNullOrEmpty(splitRow[7]) ? "" : splitRow[7],
-                            BaseAttack = string.IsNullOrWhiteSpace(splitRow[8]) ? 0 : int.Parse(splitRow[8]),
-                            MaxAttack = string.IsNullOrEmpty(splitRow[9]) ? 0 : int.Parse(splitRow[9]),
-                            BaseDefense = string.IsNullOrEmpty(splitRow[10]) ? 0 : int.Parse(splitRow[10]),
-                            MaxDefense = string.IsNullOrEmpty(splitRow[11]) ? 0 : int.Parse(splitRow[11]),
-                            TraitSlots = string.IsNullOrEmpty(splitRow[12]) ? 0 : int.Parse(splitRow[12]),
-                            BasePetPoints = string.IsNullOrEmpty(splitRow[13]) ? 0 : int.Parse(splitRow[13]),
-                            MaxPetPoints = string.IsNullOrEmpty(splitRow[14]) ? 0 : int.Parse(splitRow[14]),
-                            Ability = string.IsNullOrEmpty(splitRow[15]) ? "" : splitRow[15],
-                            AbilityDescription = string.IsNullOrEmpty(splitRow[16]) ? "" : splitRow[16],
-                            Target = string.IsNullOrEmpty(splitRow[17]) ? "" : splitRow[17],
-                            Gauge = string.IsNullOrEmpty(splitRow[18]) ? 0 : int.Parse(splitRow[18]),
-                            BaseMultiplierLow = string.IsNullOrEmpty(splitRow[19]) ? 0.0 : double.Parse(splitRow[19]),
-                            BaseMultiplierHigh = string.IsNullOrEmpty(splitRow[20]) ? 0.0 : double.Parse(splitRow[20]),
-                            MaxMultiplierLow = string.IsNullOrEmpty(splitRow[21]) ? 0.0 : double.Parse(splitRow[21]),
-                            MaxMultiplierHigh = string.IsNullOrEmpty(splitRow[22]) ? 0.0 : double.Parse(splitRow[22]),
-                            SubslotMultiplier = string.IsNullOrEmpty(splitRow[23]) ? 0.0 : double.Parse(splitRow[23]),
-                            Tier = string.IsNullOrEmpty(splitRow[24]) ? 0 : int.Parse(splitRow[24]),
-                            SupernovaName = string.IsNullOrEmpty(splitRow[25]) ? "" : splitRow[25],
-                            SupernovaDescription = string.IsNullOrEmpty(splitRow[26]) ? "" : splitRow[26],
-                            SupernovaDamage = string.IsNullOrEmpty(splitRow[27]) ? "" : splitRow[27],
-                            SupernovaTarget = string.IsNullOrEmpty(splitRow[28]) ? "" : splitRow[28],
-                            Effect_Description = string.IsNullOrEmpty(splitRow[29]) ? "" : splitRow[29]
-                        };
-
-                        medal.GuiltMultiplierLow = medal.MaxMultiplierLow != 0 ? medal.MaxMultiplierLow * Globals.TierConversion[medal.Tier] :
-                                                   medal.BaseMultiplierLow * Globals.TierConversion[medal.Tier];
-                        medal.GuiltMultiplierHigh = medal.MaxMultiplierHigh != 0 ? medal.MaxMultiplierHigh * Globals.TierConversion[medal.Tier] :
-                                                   medal.BaseMultiplierHigh * Globals.TierConversion[medal.Tier];
-
-                        medal.GuiltMultiplierLow = Math.Round(medal.GuiltMultiplierLow, 2);
-                        medal.GuiltMultiplierHigh = Math.Round(medal.GuiltMultiplierHigh, 2);
-
+                        var medal = new Medal(splitRow);
+                        
                         medals.Add(medal.Id, medal);
                     }
                 }

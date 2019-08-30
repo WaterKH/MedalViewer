@@ -9,14 +9,15 @@ namespace MedalViewer
     public class GetDraggedView : MonoBehaviour, IBeginDragHandler//, IDragHandler, IEndDragHandler
     {
         public MedalSpotlightDisplayManager MedalSpotlightDisplayManager;
+        public MedalGraphViewLogic MedalGraphViewLogic;
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (Globals.CurrSublistMedal != null)
+            if (MedalSpotlightDisplayManager.CurrSublistMedal != null)
                 MedalSpotlightDisplayManager.HideSublistOfMedals(true);
 
             if (eventData.pointerDrag != null)
-                Globals.PointerObjectName = eventData.pointerDrag.name;
+                MedalGraphViewLogic.PointerObjectName = eventData.pointerDrag.name;
         }
     }
 }

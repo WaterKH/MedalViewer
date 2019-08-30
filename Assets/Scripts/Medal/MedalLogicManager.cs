@@ -10,6 +10,7 @@ namespace MedalViewer.Medal
 {
     public class MedalLogicManager : MonoBehaviour
     {
+        public MedalManager MedalManager;
         public Loading Loading;
 
         private bool cyclesOn = true;
@@ -20,7 +21,7 @@ namespace MedalViewer.Medal
         {
             var medals = new Dictionary<int, Dictionary<double, GameObject>>();
 
-            foreach (var kv in Globals.Medals.OrderBy(x => x.Value.GuiltMultiplierLow))
+            foreach (var kv in MedalManager.Medals.OrderBy(x => x.Value.GuiltMultiplierLow))
             {
                 var medal = kv.Value;
 
@@ -30,10 +31,10 @@ namespace MedalViewer.Medal
                     medals.Add(medal.Tier, new Dictionary<double, GameObject>());
 
                 var multiplier = medal.GuiltMultiplierHigh != 0.0f ? medal.GuiltMultiplierHigh : 
-                                 medal.GuiltMultiplierLow != 0.0f ? medal.GuiltMultiplierLow : 
-                                 medal.MaxMultiplierHigh != 0.0f ? medal.MaxMultiplierHigh :
-                                 medal.MaxMultiplierLow != 0.0f ? medal.MaxMultiplierLow :
-                                 medal.BaseMultiplierHigh != 0.0f ? medal.BaseMultiplierHigh :
+                                 medal.GuiltMultiplierLow  != 0.0f ? medal.GuiltMultiplierLow : 
+                                 medal.MaxMultiplierHigh   != 0.0f ? medal.MaxMultiplierHigh :
+                                 medal.MaxMultiplierLow    != 0.0f ? medal.MaxMultiplierLow :
+                                 medal.BaseMultiplierHigh  != 0.0f ? medal.BaseMultiplierHigh :
                                  medal.BaseMultiplierLow;
 
                 if (!medals[medal.Tier].ContainsKey(multiplier))
@@ -96,35 +97,6 @@ namespace MedalViewer.Medal
                         this.UpdateMedalHolderContent(kv2.Value.GetComponentsInChildren<RectTransform>().First(x => x.name == "Content"));
                 }
             }
-
-            return medals;
-        }
-
-        // TODO Do a sub loading to generate the images and *THEN* display them
-        public List<GameObject> GenerateSearchMedals(Transform MedalContentHolder)
-        {
-            var medals = new List<GameObject>();
-
-            foreach (var kv in Globals.SearchMedals)
-            {
-                var medal = kv.Value;
-
-                var medalGameObject = this.CreateMedal(medal, true);
-
-                medalGameObject.transform.SetParent(MedalContentHolder, false);
-
-                medalGameObject.GetComponent<CanvasGroup>().SetCanvasGroupActive();
-
-                medals.Add(medalGameObject);
-            }
-
-            var maxY = (MedalContentHolder.childCount / 2) * (MedalContentHolder.GetComponent<GridLayoutGroup>().cellSize.y + MedalContentHolder.GetComponent<GridLayoutGroup>().spacing.y);
-            // Resize
-            MedalContentHolder.GetComponent<RectTransform>().offsetMin = new Vector2(MedalContentHolder.GetComponent<RectTransform>().offsetMax.x, -maxY);
-
-            MedalContentHolder.GetComponent<GridLayoutGroup>().enabled = true;
-            
-            Loading.FinishLoading();
 
             return medals;
         }

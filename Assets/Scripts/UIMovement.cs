@@ -12,6 +12,7 @@ public class UIMovement : MonoBehaviour {
     public RectTransform OverlayY;
     public RectTransform OverlayX;
 
+    public float OffsetY = 250;
 
     #region public vars
     //public Camera MainCamera;
@@ -81,28 +82,28 @@ public class UIMovement : MonoBehaviour {
             if(Input.GetKeyDown(KeyCode.Equals))
             {
                 print("Pressed +");
-                if (Globals.OffsetY + min > max)
-                    Globals.OffsetY = max;
+                if (OffsetY + min > max)
+                    OffsetY = max;
                 else
-                    Globals.OffsetY += min;
+                    OffsetY += min;
 
-                ChangeYRowSize(Globals.OffsetY);
+                ChangeYRowSize(OffsetY);
             }
             else if(Input.GetKeyDown(KeyCode.Minus))
             {
                 print("Pressed -");
-                if (Globals.OffsetY - min < min)
-                    Globals.OffsetY = min;
+                if (OffsetY - min < min)
+                    OffsetY = min;
                 else
-                    Globals.OffsetY -= min;
+                    OffsetY -= min;
 
-                ChangeYRowSize(Globals.OffsetY);
+                ChangeYRowSize(OffsetY);
             }
             else if(Input.GetKeyDown(KeyCode.Alpha0))
             {
                 print("Pressed R");
-                Globals.OffsetY = 250;
-                ChangeYRowSize(Globals.OffsetY);
+                OffsetY = 250;
+                ChangeYRowSize(OffsetY);
             }
         }
 	}

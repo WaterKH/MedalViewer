@@ -14,6 +14,7 @@ namespace MedalViewer.Medal
         public Loading Loading;
         public SearchManager SearchManager;
         public DamoEasterEgg DamoEasterEgg;
+        public MedalManager MedalManager;
 
         public CanvasGroup MedalHighlight;
         public CanvasGroup MedalSupernova;
@@ -29,6 +30,8 @@ namespace MedalViewer.Medal
         public CanvasGroup SupernovaPlayer;
         public CanvasGroup SupernovaEnemy;
         public CanvasGroup SupernovaEffects;
+
+        public GameObject CurrSublistMedal;
 
         #region Icons
 
@@ -267,7 +270,6 @@ namespace MedalViewer.Medal
 
         #endregion
 
-
         #region Multiplier Colors
 
         public Color NormalColor;
@@ -488,9 +490,9 @@ namespace MedalViewer.Medal
         {
             //var slotCount = 0;
 
-            foreach(var key in Globals.MultiplierSlots.Keys)
+            foreach(var key in MedalManager.MultiplierSlots.Keys)
             {
-                var value = Globals.MultiplierSlots[key].OrderByDescending(x => x.Multiplier).FirstOrDefault(x => x.PSM == medalDisplay.Attribute_PSM && 
+                var value = MedalManager.MultiplierSlots[key].OrderByDescending(x => x.Multiplier).FirstOrDefault(x => x.PSM == medalDisplay.Attribute_PSM && 
                                                                                                                  (x.UR == medalDisplay.Attribute_UR || string.IsNullOrEmpty(x.UR)));
 
                 if(value != null)
@@ -1719,7 +1721,7 @@ namespace MedalViewer.Medal
             ResetDisplay();
 
             isDisplayingMedal = true;
-            if (Globals.CurrSublistMedal != null)
+            if (CurrSublistMedal != null)
                 this.HideSublistOfMedals();
 
             MedalDisplay medalDisplay = null;
@@ -1852,10 +1854,10 @@ namespace MedalViewer.Medal
         {
             isDisplayingSublist = true;
 
-            if (Globals.CurrSublistMedal != null)
+            if (CurrSublistMedal != null)
                 HideSublistOfMedals();
 
-            Globals.CurrSublistMedal = clickedOn;
+            CurrSublistMedal = clickedOn;
 
             var canvasGroup = clickedOn.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "SublistContent");
 
@@ -1866,11 +1868,11 @@ namespace MedalViewer.Medal
         {
             isDisplayingSublist = false;
 
-            var canvasGroup = Globals.CurrSublistMedal.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "SublistContent");
+            var canvasGroup = CurrSublistMedal.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "SublistContent");
 
             canvasGroup.SetCanvasGroupInactive();
 
-            Globals.CurrSublistMedal = null;
+            CurrSublistMedal = null;
 
             if (closed)
             {

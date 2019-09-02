@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIMovement : MonoBehaviour {
 
-    public MedalGraphViewLogic MedalGraphViewLogic;
+    public MedalGraphViewManager MedalGraphViewManager;
     //public GameObject MedalContent;
     public RectTransform MedalDisplay;
     public RectTransform OverlayY;
@@ -123,11 +123,11 @@ public class UIMovement : MonoBehaviour {
 
 	public void ChangeYRowSize(float changeValue)
 	{
-        MedalGraphViewLogic.RowsY.ForEach(x => Destroy(x));
-        MedalGraphViewLogic.RowsY.Clear();
+        MedalGraphViewManager.RowsY.ForEach(x => Destroy(x));
+        MedalGraphViewManager.RowsY.Clear();
 
-        MedalGraphViewLogic.UpdateYRows(changeValue);
+        MedalGraphViewManager.UpdateYRows(changeValue);
 
-        MedalGraphViewLogic.PopulateMedals(false);
+        MedalGraphViewManager.PopulateMedals(false);
 	}
 }

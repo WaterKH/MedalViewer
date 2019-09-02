@@ -8,16 +8,16 @@ namespace MedalViewer
 {
     public class GetDraggedView : MonoBehaviour, IBeginDragHandler//, IDragHandler, IEndDragHandler
     {
-        public MedalSpotlightDisplayManager MedalSpotlightDisplayManager;
-        public MedalGraphViewLogic MedalGraphViewLogic;
+        //public MedalSpotlightDisplayManager MedalSpotlightDisplayManager;
+        public MedalGraphViewManager MedalGraphViewManager;
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (MedalSpotlightDisplayManager.CurrSublistMedal != null)
-                MedalSpotlightDisplayManager.HideSublistOfMedals(true);
+            if (MedalGraphViewManager.CurrSublistMedal != null)
+                MedalGraphViewManager.HideSublistOfMedals(true);
 
             if (eventData.pointerDrag != null)
-                MedalGraphViewLogic.PointerObjectName = eventData.pointerDrag.name;
+                MedalGraphViewManager.PointerObjectName = eventData.pointerDrag.name;
         }
     }
 }

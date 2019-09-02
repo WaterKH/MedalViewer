@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -72,7 +72,7 @@ LightmapSettings:
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
-    m_BakeBackend: 0
+    m_BakeBackend: 1
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
@@ -1058,6 +1058,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1129172181}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1168,10 +1172,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -5118,6 +5118,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 620607636}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5228,10 +5232,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -5372,6 +5372,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 781787605}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5482,10 +5486,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -6908,6 +6908,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1089697576}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7018,10 +7022,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7190,7 +7190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec4e0879b7f0ed4bb82ca220c9a66bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MedalSpotlightDisplayManager: {fileID: 1935925466}
+  MedalGraphViewManager: {fileID: 0}
 --- !u!1 &182823924
 GameObject:
   m_ObjectHideFlags: 0
@@ -7630,6 +7630,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1209979358}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7740,10 +7744,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7785,6 +7785,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 455678857}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7895,10 +7899,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -8786,6 +8786,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 261629683}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8896,10 +8900,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -9433,7 +9433,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 670820286}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10753,6 +10753,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 261629683}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10863,10 +10867,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -11371,6 +11371,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1129172181}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11481,10 +11485,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -11944,6 +11944,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1613825724}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12054,10 +12058,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -13290,6 +13290,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1232890881}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13400,10 +13404,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -13880,6 +13880,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2142864056}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13990,10 +13994,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -14355,6 +14355,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1209979358}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14465,10 +14469,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -15871,6 +15871,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 531840354}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15981,10 +15985,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -17519,6 +17519,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1145812891}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17629,10 +17633,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -18833,6 +18833,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1232890881}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18943,10 +18947,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -19524,7 +19524,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 425615806}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -19576,6 +19576,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1510187978}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19686,10 +19690,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -21087,6 +21087,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1089697576}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -21197,10 +21201,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -21735,6 +21735,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 867281110}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -21845,10 +21849,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -22222,6 +22222,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 649081657}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22332,10 +22336,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -22734,6 +22734,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 455678857}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22844,10 +22848,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -23041,6 +23041,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1676004042}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23151,10 +23155,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -23452,7 +23452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec4e0879b7f0ed4bb82ca220c9a66bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MedalSpotlightDisplayManager: {fileID: 1935925466}
+  MedalGraphViewManager: {fileID: 2073629962}
 --- !u!1 &498012909
 GameObject:
   m_ObjectHideFlags: 0
@@ -23957,6 +23957,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 463531501}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24067,10 +24071,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -24112,6 +24112,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1209979358}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24222,10 +24226,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -24355,6 +24355,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1099062111}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24465,10 +24469,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -24625,6 +24625,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 317458472}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24735,10 +24739,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -26346,6 +26346,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 76828397}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -26456,10 +26460,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -26553,6 +26553,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 261629683}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -26663,10 +26667,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -27018,6 +27018,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1145812891}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27128,10 +27132,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -27664,6 +27664,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1129172181}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27774,10 +27778,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -28491,6 +28491,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 76828397}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -28601,10 +28605,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -29805,6 +29805,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1676004042}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -29915,10 +29919,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -30237,7 +30237,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &629156892
 GameObject:
@@ -31437,6 +31437,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2142864056}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -31547,10 +31551,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -31592,6 +31592,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1324361570}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -31702,10 +31706,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -32624,6 +32624,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 463531501}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -32734,10 +32738,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -33193,6 +33193,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1099062111}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -33303,10 +33307,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -33716,6 +33716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb0d89311518134d8740e63b11171a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UIMovement: {fileID: 2073629954}
   Tiers: 
 --- !u!114 &704959257
 MonoBehaviour:
@@ -33731,7 +33732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MedalFilter: {fileID: 704959256}
   MedalManager: {fileID: 2073629952}
-  MedalGraphViewLogic: {fileID: 2073629962}
+  MedalGraphViewManager: {fileID: 2073629962}
   SearchManager: {fileID: 955109837}
   FilterMenu: {fileID: 704959255}
   IsDisplayingFilters: 0
@@ -33902,6 +33903,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 781787605}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -34012,10 +34017,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -34057,6 +34058,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 649081657}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -34167,10 +34172,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -34540,7 +34541,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.28340015, y: 0.037207328}
   m_AnchorMax: {x: 0.4297001, y: 0.35720736}
-  m_AnchoredPosition: {x: 0.40625, y: 0.3125}
+  m_AnchoredPosition: {x: 0.40621948, y: 0.3125}
   m_SizeDelta: {x: -0.9960003, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &717660312
@@ -35594,6 +35595,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 649081657}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35704,10 +35709,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -36729,6 +36730,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 867281110}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -36839,10 +36844,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -37442,6 +37443,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 620607636}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -37552,10 +37557,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -38483,6 +38484,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1676004042}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38593,10 +38598,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -39179,6 +39180,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1129172181}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -39289,10 +39294,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -39700,7 +39701,7 @@ RectTransform:
   - {fileID: 385361247}
   - {fileID: 1052566259}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -39783,7 +39784,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -4.46875, y: 0}
+  m_AnchoredPosition: {x: -4.4687576, y: 0}
   m_SizeDelta: {x: 4.579, y: 6.739}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &807075538
@@ -40782,6 +40783,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 620607636}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -40892,10 +40897,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -42251,6 +42252,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 959876610}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -42361,10 +42366,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -42430,6 +42431,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1676004042}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -42540,10 +42545,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -43300,7 +43301,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0001365121, y: 0.023539625}
+  m_AnchoredPosition: {x: -0.0001365121, y: 3.880168}
   m_SizeDelta: {x: 0, y: 1010.3}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &861900566
@@ -44065,7 +44066,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.84373015, y: 0.06583866}
   m_AnchorMax: {x: 0.9850001, y: 0.54131544}
-  m_AnchoredPosition: {x: 0, y: -0.140625}
+  m_AnchoredPosition: {x: 0, y: -0.14062881}
   m_SizeDelta: {x: -0.961, y: -0.063835}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &883397883
@@ -44903,6 +44904,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 620607636}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -45013,10 +45018,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -45278,6 +45279,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1145812891}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -45388,10 +45393,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -47836,6 +47837,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 531840354}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -47946,10 +47951,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -48430,6 +48431,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1676004042}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -48540,10 +48545,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -49722,6 +49723,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1324361570}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -49832,10 +49837,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -50484,6 +50485,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1232890881}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -50594,10 +50599,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -50663,6 +50664,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1324361570}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -50773,10 +50778,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -52632,6 +52633,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 76828397}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -52742,10 +52747,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -54060,6 +54061,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 781787605}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -54170,10 +54175,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -54556,6 +54557,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 781787605}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -54666,10 +54671,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -59421,6 +59422,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 993336300}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -59531,10 +59536,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -61448,6 +61449,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 867281110}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -61558,10 +61563,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -61880,6 +61881,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 781787605}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -61990,10 +61995,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -62350,6 +62351,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1510187978}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -62460,10 +62465,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -62505,6 +62506,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1145812891}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -62615,10 +62620,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -62739,6 +62740,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1145812891}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -62849,10 +62854,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -62974,6 +62975,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 317458472}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -63084,10 +63089,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -64324,7 +64325,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1367220439}
   m_HandleRect: {fileID: 1367220438}
   m_Direction: 2
-  m_Value: 0.99993545
+  m_Value: 0.98934
   m_Size: 0.63972086
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -64746,6 +64747,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1186712323}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -64856,10 +64861,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -65088,6 +65089,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 867281110}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65198,10 +65203,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -65318,6 +65319,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1089697576}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65428,10 +65433,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -66266,6 +66267,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1613825724}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -66376,10 +66381,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -67804,7 +67805,7 @@ RectTransform:
   m_Children:
   - {fileID: 338698519}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -68005,6 +68006,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 531840354}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -68115,10 +68120,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -69284,7 +69285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec4e0879b7f0ed4bb82ca220c9a66bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MedalSpotlightDisplayManager: {fileID: 1935925466}
+  MedalGraphViewManager: {fileID: 0}
 --- !u!1 &1406139068
 GameObject:
   m_ObjectHideFlags: 0
@@ -69371,6 +69372,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1186712323}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -69481,10 +69486,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -69629,6 +69630,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 455678857}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -69739,10 +69744,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -69824,6 +69825,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 959876610}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -69934,10 +69939,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -71823,6 +71824,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1186712323}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -71933,10 +71938,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -72408,6 +72409,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 76828397}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -72518,10 +72523,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -73441,6 +73442,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 455678857}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -73551,10 +73556,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -74203,6 +74204,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 76828397}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -74313,10 +74318,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -74495,6 +74496,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 261629683}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -74605,10 +74610,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -75324,6 +75325,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 993336300}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -75434,10 +75439,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -75825,6 +75826,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 463531501}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -75935,10 +75940,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -76432,6 +76433,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2142864056}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -76542,10 +76547,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -76587,6 +76588,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1099062111}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -76697,10 +76702,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -78482,6 +78483,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1324361570}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -78592,10 +78597,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -79393,7 +79394,7 @@ RectTransform:
   m_Children:
   - {fileID: 386349906}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -79554,6 +79555,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1510187978}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -79664,10 +79669,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -79747,6 +79748,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1510187978}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -79857,10 +79862,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -79902,6 +79903,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 781787605}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -80012,10 +80017,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -80287,6 +80288,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1676004042}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -80397,10 +80402,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -81802,6 +81803,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1129172181}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -81912,10 +81917,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -82135,6 +82136,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2142864056}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -82245,10 +82250,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -82662,6 +82663,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1613825724}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -82772,10 +82777,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -83100,6 +83101,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1209979358}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -83210,10 +83215,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -83804,6 +83805,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 261629683}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_4
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -83914,10 +83919,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_4
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -84226,6 +84227,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1209979358}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -84336,10 +84341,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -85013,6 +85014,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1089697576}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -85123,10 +85128,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -85591,6 +85592,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1186712323}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -85701,10 +85706,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -86830,6 +86831,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 993336300}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -86940,10 +86945,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -87367,6 +87368,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 76828397}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -87477,10 +87482,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -87703,6 +87704,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 867281110}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -87813,10 +87818,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -87992,6 +87993,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 317458472}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -88102,10 +88107,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -88430,6 +88431,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1186712323}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -88540,10 +88545,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -88789,6 +88790,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 531840354}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -88899,10 +88904,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -88968,6 +88969,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1209979358}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -89078,10 +89083,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -89123,6 +89124,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 993336300}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -89233,10 +89238,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -89472,6 +89473,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 959876610}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -89582,10 +89587,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -90226,6 +90227,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 455678857}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -90336,10 +90341,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -90452,7 +90453,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1786876531
 MonoBehaviour:
@@ -90723,8 +90724,8 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787100317}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
+  m_Alpha: 0
+  m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &1787290594
@@ -90952,6 +90953,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1324361570}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -91062,10 +91067,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -91524,7 +91525,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.21022595, y: 0.2}
   m_AnchorMax: {x: 0.38862902, y: 0.90000004}
-  m_AnchoredPosition: {x: -0.23999023, y: 0.038658142}
+  m_AnchoredPosition: {x: -0.23998642, y: 0.038658142}
   m_SizeDelta: {x: -0.003, y: 0.0000019073}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1803692946
@@ -91784,6 +91785,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 993336300}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -91894,10 +91899,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -92523,6 +92524,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1232890881}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -92633,10 +92638,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -93323,6 +93324,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1613825724}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -93433,10 +93438,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -93884,6 +93885,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 649081657}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -93994,10 +93999,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -94566,6 +94567,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 867281110}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -94676,10 +94681,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -94793,6 +94794,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1099062111}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -94903,10 +94908,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -97039,6 +97040,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 620607636}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -97149,10 +97154,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -97740,7 +97741,7 @@ GameObject:
   - component: {fileID: 1935925467}
   - component: {fileID: 1935925466}
   m_Layer: 5
-  m_Name: MedalHighlight
+  m_Name: MedalSpotlightDisplay
   m_TagString: MedalHighlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97759,8 +97760,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Loading: {fileID: 945104728}
-  SearchManager: {fileID: 955109837}
   DamoEasterEgg: {fileID: 1786876531}
+  MedalManager: {fileID: 2073629952}
+  MedalGraphViewManager: {fileID: 2073629962}
   MedalHighlight: {fileID: 1935925467}
   MedalSupernova: {fileID: 878011839}
   MedalTraits: {fileID: 306971687}
@@ -98139,6 +98141,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 959876610}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -98249,10 +98255,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -99135,6 +99137,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 463531501}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -99245,10 +99251,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -100244,7 +100246,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 4.25, y: 0}
+  m_AnchoredPosition: {x: 4.2500153, y: 0}
   m_SizeDelta: {x: 4.975, y: 6.739}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1983237387
@@ -101310,6 +101312,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 317458472}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -101420,10 +101426,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -101694,6 +101696,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1186712323}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_3
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -101804,10 +101810,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_3
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -102811,6 +102813,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2142864056}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_1
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -102921,10 +102927,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_1
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -103254,6 +103256,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2142864056}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -103364,10 +103370,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -103509,6 +103511,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 261629683}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -103619,10 +103625,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -103668,6 +103670,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 455678857}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -103778,10 +103784,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -104308,6 +104310,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1145812891}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -104418,10 +104424,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -104463,6 +104465,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 620607636}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -104573,10 +104579,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -105192,6 +105194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87fbe0ad73a9e47769be084924334b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MedalManager: {fileID: 2073629952}
   Loading: {fileID: 945104728}
 --- !u!114 &2073629952
 MonoBehaviour:
@@ -105208,7 +105211,7 @@ MonoBehaviour:
   MedalFilter: {fileID: 704959256}
   Loading: {fileID: 945104728}
   MedalLogicManager: {fileID: 2073629951}
-  MedalGraphViewLogic: {fileID: 2073629962}
+  MedalGraphViewManager: {fileID: 2073629962}
   IsRunningClient: 0
 --- !u!4 &2073629953
 Transform:
@@ -105222,7 +105225,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2073629954
 MonoBehaviour:
@@ -105236,10 +105239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76468c6cea141498094e71d0a2846ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MedalGraphViewLogic: {fileID: 2073629962}
+  MedalGraphViewManager: {fileID: 2073629962}
   MedalDisplay: {fileID: 2086384884}
   OverlayY: {fileID: 670986617}
   OverlayX: {fileID: 1180701473}
+  OffsetY: 250
   MedalPositionLogic: {fileID: 2073629959}
   InitialZoomScale: {x: 1, y: 1, z: 1}
   InitialOverlayX: {x: 1, y: 1, z: 1}
@@ -105276,6 +105280,7 @@ MonoBehaviour:
   MedalPositionLogic: {fileID: 2073629959}
   Loading: {fileID: 945104728}
   UIMovement: {fileID: 2073629954}
+  MedalSpotlightDisplayManager: {fileID: 1935925466}
   StartPositionY: {fileID: 587229893}
   StartPositionX: {fileID: 1080680565}
   ParentY: {fileID: 670986617}
@@ -105288,8 +105293,11 @@ MonoBehaviour:
   MedalView: {fileID: 497040702}
   Vertical: {fileID: 178922113}
   Horizontal: {fileID: 1405685494}
+  CurrSublistMedal: {fileID: 0}
   RowsY: []
   ColumnsX: []
+  PointerObjectName: 
+  IsDisplayingMedal: 0
 --- !u!1 &2073744558
 GameObject:
   m_ObjectHideFlags: 0
@@ -105608,6 +105616,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1324361570}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_5
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -105718,10 +105730,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_5
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -106643,6 +106651,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1129172181}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_0
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -106753,10 +106765,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_0
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -106969,6 +106977,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 993336300}
     m_Modifications:
+    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
+      propertyPath: m_Name
+      value: Effect_2
+      objectReference: {fileID: 0}
     - target: {fileID: 224504781737619720, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -107079,10 +107091,6 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 40c0503c65f94004099390df85e201ac, type: 3}
-    - target: {fileID: 1759845673680868, guid: 3ae62c0c5b78444a58491e9a96b06c6f, type: 3}
-      propertyPath: m_Name
-      value: Effect_2
-      objectReference: {fileID: 0}
     - target: {fileID: 224946813461728568, guid: 3ae62c0c5b78444a58491e9a96b06c6f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -112505,6 +112513,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1246923308}
     m_Modifications:
+    - target: {fileID: 2349227115526001298, guid: 74c4ede36aa753a46a62df57fd58ce35,
+        type: 3}
+      propertyPath: m_Name
+      value: RowTemplate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2349227115526001298, guid: 74c4ede36aa753a46a62df57fd58ce35,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1540520012451983371, guid: 74c4ede36aa753a46a62df57fd58ce35,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -112610,16 +112628,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 2349227115526001298, guid: 74c4ede36aa753a46a62df57fd58ce35,
-        type: 3}
-      propertyPath: m_Name
-      value: RowTemplate
-      objectReference: {fileID: 0}
-    - target: {fileID: 2349227115526001298, guid: 74c4ede36aa753a46a62df57fd58ce35,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74c4ede36aa753a46a62df57fd58ce35, type: 3}
 --- !u!1001 &6253724624025887143
@@ -112629,6 +112637,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 962568976}
     m_Modifications:
+    - target: {fileID: 5630959391170801579, guid: 4f6fe85ce27dde84da425222a14e56e4,
+        type: 3}
+      propertyPath: m_Name
+      value: ColumnTemplate
+      objectReference: {fileID: 0}
+    - target: {fileID: 5630959391170801579, guid: 4f6fe85ce27dde84da425222a14e56e4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3365982046488635909, guid: 4f6fe85ce27dde84da425222a14e56e4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -112733,16 +112751,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630959391170801579, guid: 4f6fe85ce27dde84da425222a14e56e4,
-        type: 3}
-      propertyPath: m_Name
-      value: ColumnTemplate
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630959391170801579, guid: 4f6fe85ce27dde84da425222a14e56e4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f6fe85ce27dde84da425222a14e56e4, type: 3}

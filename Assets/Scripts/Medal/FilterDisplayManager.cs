@@ -9,7 +9,7 @@ namespace MedalViewer.Medal
     {
         public MedalFilter MedalFilter;
         public MedalManager MedalManager;
-        public MedalGraphViewLogic MedalGraphViewLogic;
+        public MedalGraphViewManager MedalGraphViewManager;
         public SearchManager SearchManager;
 
         public CanvasGroup FilterMenu;

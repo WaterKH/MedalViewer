@@ -12,9 +12,10 @@ namespace MedalViewer.Medal
     {
         MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
         public Loading Loading;
-        public SearchManager SearchManager;
+        //public SearchManager SearchManager;
         public DamoEasterEgg DamoEasterEgg;
         public MedalManager MedalManager;
+        public MedalGraphViewManager MedalGraphViewManager;
 
         public CanvasGroup MedalHighlight;
         public CanvasGroup MedalSupernova;
@@ -30,8 +31,6 @@ namespace MedalViewer.Medal
         public CanvasGroup SupernovaPlayer;
         public CanvasGroup SupernovaEnemy;
         public CanvasGroup SupernovaEffects;
-
-        public GameObject CurrSublistMedal;
 
         #region Icons
 
@@ -148,6 +147,7 @@ namespace MedalViewer.Medal
 
         #region Slots
 
+        public Dictionary<string, List<KeybladeMultiplierSlot>> MultiplierSlots = new Dictionary<string, List<KeybladeMultiplierSlot>>();
         public List<KeybladeMultiplierSlot> Slots;
 
         #endregion
@@ -297,8 +297,8 @@ namespace MedalViewer.Medal
 
         private bool isTransition = false;
 
-        private bool isDisplayingMedal = false;
-        private bool isDisplayingSublist = false;
+        //private bool isDisplayingMedal = false;
+        //private bool isDisplayingSublist = false;
         private bool isDisplayingSupernova = false;
         private bool isDisplayingSkills = false;
         private bool isDisplayingTraits = false;
@@ -308,6 +308,8 @@ namespace MedalViewer.Medal
         private Color32 invisible = new Color(0f, 0f, 0f, 0f);
 
         //private string initialTraitSlotText = "N/A";
+
+        private readonly string getMultiplierSlotsPHP = "https://mvphp.azurewebsites.net/getMultiplierSlots.php";
 
         #endregion
 
@@ -490,9 +492,9 @@ namespace MedalViewer.Medal
         {
             //var slotCount = 0;
 
-            foreach(var key in MedalManager.MultiplierSlots.Keys)
+            foreach(var key in this.MultiplierSlots.Keys)
             {
-                var value = MedalManager.MultiplierSlots[key].OrderByDescending(x => x.Multiplier).FirstOrDefault(x => x.PSM == medalDisplay.Attribute_PSM && 
+                var value = this.MultiplierSlots[key].OrderByDescending(x => x.Multiplier).FirstOrDefault(x => x.PSM == medalDisplay.Attribute_PSM && 
                                                                                                                  (x.UR == medalDisplay.Attribute_UR || string.IsNullOrEmpty(x.UR)));
 
                 if(value != null)
@@ -1441,23 +1443,9 @@ namespace MedalViewer.Medal
 
         #region Display Methods
 
-        public void HandleDisplay(GameObject clickedOn)
-        {
-            MedalCycleLogic.Instance.StopCycleMedals();
-
-            if (clickedOn.GetComponentInChildren<GridLayoutGroup>().transform.childCount > 1)
-            {
-                DisplaySublistOfMedals(clickedOn);
-            }
-            else
-            {
-                StartCoroutine(Display(clickedOn.GetComponentInChildren<GridLayoutGroup>().transform.GetChild(0).gameObject));
-            }
-        }
-
         public void HideCurrentMedal()
         {
-            isDisplayingMedal = false;
+            MedalGraphViewManager.IsDisplayingMedal = false;
 
             HideSkills();
             HideTraits();
@@ -1467,12 +1455,13 @@ namespace MedalViewer.Medal
             isTransition = true;
             elapsedTime = 0.0f;
 
-            StartCoroutine(HideDisplay(MedalHighlight));
+            StartCoroutine(this.HideDisplay(MedalHighlight));
 
-            if (!SearchManager.IsDisplayingSearch)
-            {
-                MedalCycleLogic.Instance.StartCycleMedals();
-            }
+            // TODO If you click on a search item, it should close the search window/ Handle it over there
+            //if (!SearchManager.IsDisplayingSearch)
+            //{
+            //    MedalCycleLogic.Instance.StartCycleMedals();
+            //}
         }
 
         public void ShowSupernova()
@@ -1481,7 +1470,7 @@ namespace MedalViewer.Medal
             isDisplayingSupernova = true;
             elapsedTime = 0.0f;
 
-            StartCoroutine(ShowDisplay(MedalSupernova));
+            StartCoroutine(this.ShowDisplay(MedalSupernova));
         }
 
         public void ShowSkills()
@@ -1493,7 +1482,7 @@ namespace MedalViewer.Medal
             isDisplayingSkills = true;
             elapsedTime = 0.0f;
 
-            StartCoroutine(ShowDisplay(MedalSkills));
+            StartCoroutine(this.ShowDisplay(MedalSkills));
         }
 
         public void ShowTraits(RawImage value)
@@ -1507,7 +1496,7 @@ namespace MedalViewer.Medal
 
             CurrentTraitSlot = value;
 
-            StartCoroutine(ShowDisplay(MedalTraits));
+            StartCoroutine(this.ShowDisplay(MedalTraits));
         }
 
         public void ShowPetTraits()
@@ -1519,7 +1508,7 @@ namespace MedalViewer.Medal
             isDisplayingPetTraits = true;
             elapsedTime = 0.0f;
 
-            StartCoroutine(ShowDisplay(PetTraits));
+            StartCoroutine(this.ShowDisplay(PetTraits));
         }
 
         public void HideSupernova()
@@ -1531,7 +1520,7 @@ namespace MedalViewer.Medal
             isDisplayingSupernova = false;
             elapsedTime = 0.0f;
 
-            StartCoroutine(HideDisplay(MedalSupernova));
+            StartCoroutine(this.HideDisplay(MedalSupernova));
         }
 
         public void HideSkills()
@@ -1543,7 +1532,7 @@ namespace MedalViewer.Medal
             isDisplayingSkills = false;
             elapsedTime = 0.0f;
 
-            StartCoroutine(HideDisplay(MedalSkills));
+            StartCoroutine(this.HideDisplay(MedalSkills));
         }
 
         public void HideTraits()
@@ -1555,7 +1544,7 @@ namespace MedalViewer.Medal
             isDisplayingTraits = false;
             elapsedTime = 0.0f;
 
-            StartCoroutine(HideDisplay(MedalTraits));
+            StartCoroutine(this.HideDisplay(MedalTraits));
         }
 
         public void HidePetTraits()
@@ -1567,7 +1556,7 @@ namespace MedalViewer.Medal
             isDisplayingTraits = false;
             elapsedTime = 0.0f;
 
-            StartCoroutine(HideDisplay(PetTraits));
+            StartCoroutine(this.HideDisplay(PetTraits));
         }
 
         #endregion Display Methods
@@ -1678,7 +1667,7 @@ namespace MedalViewer.Medal
         {
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.C))
             {
-                if (isDisplayingMedal)
+                if (MedalGraphViewManager.IsDisplayingMedal)
                 {
                     if (this.isDisplayingSkills || this.isDisplayingTraits || this.isDisplayingPetTraits)
                     {
@@ -1696,10 +1685,6 @@ namespace MedalViewer.Medal
                         DamoEasterEgg.DesummonDamo();
                     }
                 }
-                else if (isDisplayingSublist)
-                {
-                    this.HideSublistOfMedals(true);
-                }
             }
         }
 
@@ -1709,6 +1694,8 @@ namespace MedalViewer.Medal
             //initialSlotPosition = SlotHolder.GetComponent<RectTransform>().position;
             //initialSlotSize = SlotHolder.GetComponent<RectTransform>().offsetMin;
             ResetDisplay();
+
+            StartCoroutine(this.GetMultiplierSlotsPHP());
         }
 
         public IEnumerator Display(GameObject medalObject, MedalDisplay medal = null)
@@ -1719,10 +1706,6 @@ namespace MedalViewer.Medal
             }
             Loading.StartLoading();
             ResetDisplay();
-
-            isDisplayingMedal = true;
-            if (CurrSublistMedal != null)
-                this.HideSublistOfMedals();
 
             MedalDisplay medalDisplay = null;
 
@@ -1850,33 +1833,44 @@ namespace MedalViewer.Medal
             }
         }
 
-        public void DisplaySublistOfMedals(GameObject clickedOn)
+        public IEnumerator GetMultiplierSlotsPHP()
         {
-            isDisplayingSublist = true;
+            var query = "SELECT KSM.[Id], KS.SlotNumber, AL.PSM, AL.UR, K.[Name], [KeybladeLevel], [Multiplier] FROM[dbo].[KeybladeSlotMultiplier] KSM, Keyblade K, KeybladeSlot KS, AttributeLookup AL Where KSM.KeybladeId = K.Id AND KSM.SlotId = KS.Id AND KS.AttributeId = AL.Id";
+            WWWForm form = new WWWForm();
+            form.AddField("sqlQuery", query);
 
-            if (CurrSublistMedal != null)
-                HideSublistOfMedals();
-
-            CurrSublistMedal = clickedOn;
-
-            var canvasGroup = clickedOn.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "SublistContent");
-
-            canvasGroup.SetCanvasGroupActive();
-        }
-
-        public void HideSublistOfMedals(bool closed = false)
-        {
-            isDisplayingSublist = false;
-
-            var canvasGroup = CurrSublistMedal.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "SublistContent");
-
-            canvasGroup.SetCanvasGroupInactive();
-
-            CurrSublistMedal = null;
-
-            if (closed)
+            using (UnityWebRequest www = UnityWebRequest.Post(getMultiplierSlotsPHP, form))
             {
-                MedalCycleLogic.Instance.StartCycleMedals();
+                yield return www.SendWebRequest();
+                if (www.isNetworkError || www.isHttpError)
+                {
+                    Debug.Log("ERROR:: " + www.error);
+                }
+                else
+                {
+                    //Debug.Log(www.downloadHandler.text);
+                    var rows = www.downloadHandler.text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var row in rows)
+                    {
+                        var splitRow = row.Split(new char[] { '|' }, StringSplitOptions.None);
+
+                        var keybladeMultiplierSlot = new KeybladeMultiplierSlot
+                        {
+                            Id = string.IsNullOrEmpty(splitRow[0]) ? -1 : int.Parse(splitRow[0]),
+                            Name = string.IsNullOrEmpty(splitRow[1]) ? "" : splitRow[1],
+                            SlotNumber = string.IsNullOrEmpty(splitRow[2]) ? -1 : int.Parse(splitRow[2]),
+                            PSM = string.IsNullOrEmpty(splitRow[3]) ? "" : splitRow[3],
+                            UR = string.IsNullOrEmpty(splitRow[4]) ? "" : splitRow[4],
+                            KeybladeLevel = string.IsNullOrEmpty(splitRow[5]) ? -1 : double.Parse(splitRow[5]),
+                            Multiplier = string.IsNullOrEmpty(splitRow[6]) ? -1 : double.Parse(splitRow[6])
+                        };
+
+                        if (!this.MultiplierSlots.ContainsKey(keybladeMultiplierSlot.Name))
+                            this.MultiplierSlots.Add(keybladeMultiplierSlot.Name, new List<KeybladeMultiplierSlot>());
+
+                        this.MultiplierSlots[keybladeMultiplierSlot.Name].Add(keybladeMultiplierSlot);
+                    }
+                }
             }
         }
     }

@@ -9,7 +9,6 @@ namespace MedalViewer.Medal
 {
     public class MedalCycleLogic : MonoBehaviour
     {
-        MedalGraphViewLogic MedalGraphViewLogic;
         Loading Loading;
 
         // This field can be accesed through our singleton instance,
@@ -17,20 +16,21 @@ namespace MedalViewer.Medal
         public bool stopped;
         public bool loadInitial = true;
         public bool firstPass = true;
-        private Coroutine lastRoutine = null;
+        
+        public Dictionary<GameObject, int> CycleMedalsList = new Dictionary<GameObject, int>();
 
         // Static singleton instance
         private static MedalCycleLogic instance;
-        
+        private Coroutine lastRoutine = null;
+
         // Static singleton property
         public static MedalCycleLogic Instance
         {
             get { return instance ?? (instance = new GameObject("MedalCycleLogic").AddComponent<MedalCycleLogic>()); }
         }
 
-        void Start()
+        void Awake()
         {
-            MedalGraphViewLogic = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalGraphViewLogic>();
             Loading = GameObject.FindGameObjectWithTag("Loading").GetComponent<Loading>();
         }
 
@@ -149,13 +149,40 @@ namespace MedalViewer.Medal
             }
         }
 
+        public IEnumerator PopulateCycleMedals(Dictionary<int, Dictionary<double, GameObject>> MedalGameObjects)
+        {
+            while (Loading.IsLoading)
+            {
+                yield return null;
+            }
+
+            Loading.StartLoading();
+
+            foreach (var tier in MedalGameObjects)
+            {
+                foreach (var mult in tier.Value)
+                {
+                    var medal = mult.Value;
+                    var subContent = medal.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent");
+                    var subTexture = subContent.GetComponentInChildren<RawImage>().texture;
+                    var medalTexture = medal.GetComponentsInChildren<RawImage>().First(x => x.name == "MedalImage").texture;
+
+                    //Globals.CycleMedals.Add(medal, 0);
+                    CycleMedalsList.Add(medal, 0);
+                }
+            }
+
+            MedalCycleLogic.Instance.StartCycleMedals();
+            //Loading.FinishLoading();
+        }
+
         public void StartCycleMedals()
         {
             if (stopped || firstPass)
             {
                 stopped = false;
                 firstPass = false;
-                lastRoutine = StartCoroutine(CycleMedals(MedalGraphViewLogic.CycleMedals));
+                lastRoutine = StartCoroutine(CycleMedals(this.CycleMedalsList));
             }
         }
 
@@ -164,6 +191,7 @@ namespace MedalViewer.Medal
             if (lastRoutine == null)
                 return;
 
+            this.CycleMedalsList.Clear();
             stopped = true;
             //firstPass = false;
             StopCoroutine(lastRoutine);

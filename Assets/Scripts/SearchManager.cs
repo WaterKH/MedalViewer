@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MedalViewer.Medal;
+using System;
+using UnityEngine.Networking;
 
 namespace MedalViewer
 {
@@ -20,6 +22,8 @@ namespace MedalViewer
         public List<GameObject> SearchMedalObjects = new List<GameObject>();
 
         public bool IsDisplayingSearch;
+
+        private readonly string selectFilteredMedalsPHP = "https://mvphp.azurewebsites.net/selectFilteredMedals.php";
 
         private string selections = "MU.Id MUId, MU.Name MUName, MU.Image, MU.Star, CTL.Class Class, CTL.Type Type, AL.PSM PSM, AL.UR UR, MU.BaseAttack, MU.MaxAttack, MU.BaseDefense, MU.MaxDefense, MU.TraitSlots, " +
                 "PPL.BasePoints, PPL.MaxPoints, MU.Ability, MU.AbilityDescription, MU.Target MUTarget, MU.Gauge, MU.BaseMultiplierLow, MU.BaseMultiplierHigh, MU.MaxMultiplierLow, MU.MaxMultiplierHigh, " +
@@ -74,7 +78,7 @@ namespace MedalViewer
             ClearSearch();
 
             var sqlStatement = $"Select TOP(10) {selections} From {from} WHERE {where} Order By MUId Desc";
-            StartCoroutine(MedalManager.GetSearchMedalsFromPHP(sqlStatement, result => StartCoroutine(Display(result))));
+            StartCoroutine(this.GetSearchMedalsFromPHP(sqlStatement, result => StartCoroutine(Display(result))));
 
             //StartCoroutine(Display());
         }
@@ -87,7 +91,7 @@ namespace MedalViewer
             ClearSearch();
 
             var sqlStatement = $"Select TOP(10) {selections} From {from} WHERE {where} AND MU.Name Like '%{lookFor}%' Order By MUId Desc";
-            StartCoroutine(MedalManager.GetSearchMedalsFromPHP(sqlStatement, result => StartCoroutine(Display(result))));
+            StartCoroutine(this.GetSearchMedalsFromPHP(sqlStatement, result => StartCoroutine(Display(result))));
             
             //StartCoroutine(Display());
         }
@@ -139,6 +143,43 @@ namespace MedalViewer
             Loading.FinishLoading();
 
             return medals;
+        }
+
+
+        public IEnumerator GetSearchMedalsFromPHP(string query, Action<Dictionary<int, Medal.Medal>> result)
+        {
+            Loading.StartLoading();
+
+            WWWForm form = new WWWForm();
+            form.AddField("sqlQuery", query);
+
+            using (UnityWebRequest www = UnityWebRequest.Post(selectFilteredMedalsPHP, form))
+            {
+                yield return www.SendWebRequest();
+                if (www.isNetworkError || www.isHttpError)
+                {
+                    Debug.Log("ERROR:: " + www.error);
+                }
+                else
+                {
+                    var medals = new Dictionary<int, Medal.Medal>();
+                    //Debug.Log(www.downloadHandler.text);
+                    var rows = www.downloadHandler.text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var row in rows)
+                    {
+                        var splitRow = row.Split(new char[] { '|' }, StringSplitOptions.None);
+                        //Debug.Log(splitRow.Length);
+                        var medal = new Medal.Medal(splitRow);
+
+                        //Debug.Log("Adding: " + medal.Name + " " + medal.Id);
+                        //Globals.SearchMedals.Add(medal.Id, medal);
+                        medals.Add(medal.Id, medal);
+                    }
+
+                    result(medals);
+                }
+            }
+            Loading.FinishLoading();
         }
     }
 }

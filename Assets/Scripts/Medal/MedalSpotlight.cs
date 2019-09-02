@@ -9,22 +9,22 @@ namespace MedalViewer.Medal
     public class MedalSpotlight : MonoBehaviour
     {
 
-        public MedalSpotlightDisplayManager medalSpotlightDisplayManager;
+        public MedalGraphViewManager MedalGraphViewManager;
         //MedalLogic medalLogic;
 
         void Start()
         {
-            medalSpotlightDisplayManager = GameObject.FindGameObjectWithTag("MedalHighlight").GetComponent<MedalSpotlightDisplayManager>();
+            MedalGraphViewManager = GameObject.FindGameObjectWithTag("ScriptHolder").GetComponent<MedalGraphViewManager>();
         }
 
         public void HandleDisplay()
         {
-            medalSpotlightDisplayManager.HandleDisplay(gameObject);
+            MedalGraphViewManager.HandleDisplay(gameObject);
         }
 
-        public void DisplayCurrentMedal()
-        {
-            StartCoroutine(medalSpotlightDisplayManager.Display(gameObject));
-        }
+        //public void DisplayCurrentMedal()
+        //{
+        //    StartCoroutine(MedalSpotlightDisplayManager.Display(gameObject));
+        //}
     }
 }

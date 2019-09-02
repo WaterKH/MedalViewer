@@ -8,13 +8,14 @@ using UnityEngine.EventSystems;
 
 namespace MedalViewer.Medal
 {
-    public class MedalGraphViewLogic : MonoBehaviour
+    public class MedalGraphViewManager : MonoBehaviour
     {
         public MedalFilter MedalFilter;
         public MedalLogicManager MedalLogicManager;
         public MedalPositionLogic MedalPositionLogic;
         public Loading Loading;
         public UIMovement UIMovement;
+        public MedalSpotlightDisplayManager MedalSpotlightDisplayManager;
 
         public Transform StartPositionY;
         public Transform StartPositionX;
@@ -30,9 +31,11 @@ namespace MedalViewer.Medal
         public ScrollRect MedalView;
         public ScrollRect Vertical;
         public ScrollRect Horizontal;
-        
+
+        public GameObject CurrSublistMedal;
+
         public Dictionary<int, Dictionary<double, GameObject>> MedalGameObjects = new Dictionary<int, Dictionary<double, GameObject>>();
-        public Dictionary<GameObject, int> CycleMedals = new Dictionary<GameObject, int>();
+        //public Dictionary<GameObject, int> CycleMedals = new Dictionary<GameObject, int>();
 
         private readonly int yOffset = 250;
         private readonly int xOffset = 250;
@@ -43,29 +46,51 @@ namespace MedalViewer.Medal
         public string PointerObjectName = "";
 
         private bool firstPass = false;
+        private bool isDisplayingSublist = false;
 
-        public IEnumerator Display()
+        public bool IsDisplayingMedal = false;
+
+        private void Update()
         {
-            while(Loading.IsLoading)
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.C))
             {
-                yield return null;
+                if (isDisplayingSublist)
+                {
+                    this.HideSublistOfMedals(true);
+                }
             }
-            
-            Loading.StartLoading();
-
-            this.ResetGraph();
-
-            RowsY = MedalPositionLogic.PlaceYRows(StartPositionY, ParentY, yOffset);
-            ColumnsX = MedalPositionLogic.PlaceXColumns(StartPositionX, ParentX, xOffset);
+        }
 
 
-            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(ParentX.GetComponent<RectTransform>().offsetMax.x, ParentY.GetComponent<RectTransform>().offsetMax.y);
+        public void HandleDisplay(GameObject clickedOn)
+        {
+            MedalCycleLogic.Instance.StopCycleMedals();
+            var medalHolder = clickedOn.GetComponentInChildren<GridLayoutGroup>();
 
-            this.PopulateMedals();
-            StartCoroutine(this.PopulateCycleMedals());
+            if (medalHolder != null)
+            {
+                if (medalHolder.transform.childCount > 1)
+                {
+                    this.DisplaySublistOfMedals(clickedOn);
+                }
+                else
+                {
+                    this.Display(medalHolder.transform.GetChild(0).gameObject);
+                }
+            }
+            else
+            {
+                this.Display(clickedOn);
+            }
+        }
 
-            this.PlaceGraphLines();
-            Loading.FinishLoading();
+        public void Display(GameObject medal)
+        {
+            IsDisplayingMedal = true;
+            if (CurrSublistMedal != null)
+                this.HideSublistOfMedals();
+
+            StartCoroutine(MedalSpotlightDisplayManager.Display(medal));
         }
 
         public void UpdateYRows(float changeValue = 250)
@@ -85,32 +110,6 @@ namespace MedalViewer.Medal
             //UIMovement.UpdateViewWindow();
         }
         
-        public IEnumerator PopulateCycleMedals()
-        {
-            while(Loading.IsLoading)
-            {
-                yield return null;
-            }
-
-            Loading.StartLoading();
-
-            foreach(var tier in MedalGameObjects)
-            {
-                foreach(var mult in tier.Value)
-                {
-                    var medal = mult.Value;
-                    var subContent = medal.GetComponentsInChildren<RectTransform>().First(x => x.name == "SubContent");
-                    var subTexture = subContent.GetComponentInChildren<RawImage>().texture;
-                    var medalTexture = medal.GetComponentsInChildren<RawImage>().First(x => x.name == "MedalImage").texture;
-
-                    //Globals.CycleMedals.Add(medal, 0);
-                    CycleMedals.Add(medal, 0);
-                }
-            }
-
-            MedalCycleLogic.Instance.StartCycleMedals();
-            //Loading.FinishLoading();
-        }
 
         
         public void UpdateScrollBars(Vector2 vector)
@@ -182,7 +181,6 @@ namespace MedalViewer.Medal
 
             MedalCycleLogic.Instance.StopCycleMedals();
             //Globals.CycleMedals.Clear();
-            CycleMedals.Clear();
 
             foreach (var child in ParentX.GetComponentsInChildren<Text>())
             {
@@ -238,5 +236,61 @@ namespace MedalViewer.Medal
 
             MedalGameObjects.Clear();
         }
+
+        public void DisplaySublistOfMedals(GameObject clickedOn)
+        {
+            isDisplayingSublist = true;
+
+            if (CurrSublistMedal != null)
+                HideSublistOfMedals();
+
+            CurrSublistMedal = clickedOn;
+
+            var canvasGroup = clickedOn.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "SublistContent");
+
+            canvasGroup.SetCanvasGroupActive();
+        }
+
+        public void HideSublistOfMedals(bool closed = false)
+        {
+            isDisplayingSublist = false;
+
+            var canvasGroup = CurrSublistMedal.GetComponentsInChildren<CanvasGroup>().First(x => x.name == "SublistContent");
+
+            canvasGroup.SetCanvasGroupInactive();
+
+            CurrSublistMedal = null;
+
+            if (closed)
+            {
+                MedalCycleLogic.Instance.StartCycleMedals();
+            }
+        }
+
+
+        public IEnumerator Display()
+        {
+            while (Loading.IsLoading)
+            {
+                yield return null;
+            }
+
+            Loading.StartLoading();
+
+            this.ResetGraph();
+
+            RowsY = MedalPositionLogic.PlaceYRows(StartPositionY, ParentY, yOffset);
+            ColumnsX = MedalPositionLogic.PlaceXColumns(StartPositionX, ParentX, xOffset);
+
+            MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(ParentX.GetComponent<RectTransform>().offsetMax.x, ParentY.GetComponent<RectTransform>().offsetMax.y);
+
+            this.PopulateMedals();
+            StartCoroutine(MedalCycleLogic.Instance.PopulateCycleMedals(MedalGameObjects));
+
+            this.PlaceGraphLines();
+            Loading.FinishLoading();
+        }
+
+        
     }
 }

@@ -267,7 +267,6 @@ namespace MedalViewer.Medal
             }
         }
 
-
         public IEnumerator Display()
         {
             while (Loading.IsLoading)

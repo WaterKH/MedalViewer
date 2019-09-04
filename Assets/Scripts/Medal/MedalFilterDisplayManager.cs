@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 namespace MedalViewer.Medal
 {
-    public class FilterDisplayManager : MonoBehaviour
+    public class MedalFilterDisplayManager : MonoBehaviour
     {
         public MedalFilter MedalFilter;
         public MedalManager MedalManager;
-        public MedalGraphViewManager MedalGraphViewManager;
+        //public MedalGraphViewManager MedalGraphViewManager;
         public SearchManager SearchManager;
 
         public CanvasGroup FilterMenu;

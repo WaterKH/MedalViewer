@@ -10,11 +10,11 @@ namespace MedalViewer.Medal
 {
     public class MedalSpotlightDisplayManager : MonoBehaviour
     {
-        MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
-        public Loading Loading;
+        //MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
+        public LoadManager LoadManager;
         //public SearchManager SearchManager;
         public DamoEasterEgg DamoEasterEgg;
-        public MedalManager MedalManager;
+        //public MedalManager MedalManager;
         public MedalGraphViewManager MedalGraphViewManager;
 
         public CanvasGroup MedalHighlight;
@@ -1700,11 +1700,11 @@ namespace MedalViewer.Medal
 
         public IEnumerator Display(GameObject medalObject, MedalDisplay medal = null)
         {
-            while (Loading.IsLoading)
+            while (LoadManager.IsLoading)
             {
                 yield return null;
             }
-            Loading.StartLoading();
+            LoadManager.StartLoading();
             ResetDisplay();
 
             MedalDisplay medalDisplay = null;
@@ -1719,11 +1719,11 @@ namespace MedalViewer.Medal
 
             try
             {
-                medalAbility = MedalAbilityParser.Parser(medalDisplay.AbilityDescription);
+                medalAbility = MedalAbilityParser.Instance.Parser(medalDisplay.AbilityDescription);
 
                 if (medalDisplay.IsSupernova)
                 {
-                    medalAbilitySupernova = MedalAbilityParser.Parser(medalDisplay.SupernovaDescription);
+                    medalAbilitySupernova = MedalAbilityParser.Instance.Parser(medalDisplay.SupernovaDescription);
                 }
             }
             catch
@@ -1776,7 +1776,7 @@ namespace MedalViewer.Medal
                 //print("Finished");
             }
 
-            Loading.FinishLoading();
+            LoadManager.FinishLoading();
         }
 
         public IEnumerator ShowDisplay(CanvasGroup canvasGroup)
@@ -1788,7 +1788,7 @@ namespace MedalViewer.Medal
             while (isTransition)
             {
                 //print("Transition");
-                if (!Loading.IsLoading)
+                if (!LoadManager.IsLoading)
                 {
                     //print("Tranisitioning");
                     elapsedTime += Time.deltaTime;

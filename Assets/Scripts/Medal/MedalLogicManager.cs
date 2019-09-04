@@ -11,7 +11,7 @@ namespace MedalViewer.Medal
     public class MedalLogicManager : MonoBehaviour
     {
         public MedalManager MedalManager;
-        public Loading Loading;
+        //public LoadManager LoadManager;
 
         private bool cyclesOn = true;
         private readonly string url = "https://medalviewer.blob.core.windows.net/thumbnails/";

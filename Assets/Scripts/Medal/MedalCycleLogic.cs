@@ -9,7 +9,7 @@ namespace MedalViewer.Medal
 {
     public class MedalCycleLogic : MonoBehaviour
     {
-        Loading Loading;
+        LoadManager LoadManager;
 
         // This field can be accesed through our singleton instance,
         // but it can't be set in the inspector, because we use lazy instantiation
@@ -31,7 +31,7 @@ namespace MedalViewer.Medal
 
         void Awake()
         {
-            Loading = GameObject.FindGameObjectWithTag("Loading").GetComponent<Loading>();
+            LoadManager = GameObject.FindGameObjectWithTag("Loading").GetComponent<LoadManager>();
         }
 
         // Instance method, this method can be accesed through the singleton instance
@@ -91,7 +91,7 @@ namespace MedalViewer.Medal
                 if (loadInitial)
                 {
                     loadInitial = false;
-                    Loading.FinishLoading();
+                    LoadManager.FinishLoading();
                 }
 
                 yield return new WaitForSeconds(1.5f);
@@ -151,12 +151,12 @@ namespace MedalViewer.Medal
 
         public IEnumerator PopulateCycleMedals(Dictionary<int, Dictionary<double, GameObject>> MedalGameObjects)
         {
-            while (Loading.IsLoading)
+            while (LoadManager.IsLoading)
             {
                 yield return null;
             }
 
-            Loading.StartLoading();
+            LoadManager.StartLoading();
 
             foreach (var tier in MedalGameObjects)
             {

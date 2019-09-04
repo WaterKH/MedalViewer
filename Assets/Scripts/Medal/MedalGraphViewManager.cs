@@ -10,11 +10,14 @@ namespace MedalViewer.Medal
 {
     public class MedalGraphViewManager : MonoBehaviour
     {
-        public MedalFilter MedalFilter;
+        //public MedalFilterDisplayManager MedalFilterDisplayManager;
         public MedalLogicManager MedalLogicManager;
+
+        //This should really be in the MedalLogicManager?
         public MedalPositionLogic MedalPositionLogic;
-        public Loading Loading;
-        public UIMovement UIMovement;
+
+        public LoadManager LoadManager;
+        public UIController UIController;
         public MedalSpotlightDisplayManager MedalSpotlightDisplayManager;
 
         public Transform StartPositionY;
@@ -171,7 +174,7 @@ namespace MedalViewer.Medal
 
         public void ResetGraph()
         {
-            UIMovement.ResetViewWindow();
+            UIController.ResetViewWindow();
 
             MedalContent.GetComponent<RectTransform>().offsetMax = InitialMedalContent.GetComponent<RectTransform>().offsetMax;
             MedalContent.GetComponent<RectTransform>().offsetMin = InitialMedalContent.GetComponent<RectTransform>().offsetMin;
@@ -269,12 +272,12 @@ namespace MedalViewer.Medal
 
         public IEnumerator Display()
         {
-            while (Loading.IsLoading)
+            while (LoadManager.IsLoading)
             {
                 yield return null;
             }
 
-            Loading.StartLoading();
+            LoadManager.StartLoading();
 
             this.ResetGraph();
 
@@ -287,9 +290,7 @@ namespace MedalViewer.Medal
             StartCoroutine(MedalCycleLogic.Instance.PopulateCycleMedals(MedalGameObjects));
 
             this.PlaceGraphLines();
-            Loading.FinishLoading();
+            LoadManager.FinishLoading();
         }
-
-        
     }
 }

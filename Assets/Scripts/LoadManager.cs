@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Loading : MonoBehaviour
+public class LoadManager : MonoBehaviour
 {
     public CanvasGroup LoadingGroup;
     public Texture2D[] frames;

@@ -7,8 +7,18 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class MedalAbilityParser
+public class MedalAbilityParser : MonoBehaviour
 {
+    // Static singleton instance
+    private static MedalAbilityParser instance;
+    private Coroutine lastRoutine = null;
+
+    // Static singleton property
+    public static MedalAbilityParser Instance
+    {
+        get { return instance ?? (instance = new GameObject("MedalAbilityParser").AddComponent<MedalAbilityParser>()); }
+    }
+
     #region Parser Vars
 
     #region DEALS

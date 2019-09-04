@@ -13,7 +13,7 @@ namespace MedalViewer.Medal
         private Medal DamoMedal;
         private MedalDisplay MedalDisplay;
 
-        public Loading Loading;
+        public LoadManager LoadManager;
         public MedalSpotlightDisplayManager MedalSpotlightDisplayManager;
         public bool Clicked;
         public bool Speaking;
@@ -91,7 +91,7 @@ namespace MedalViewer.Medal
         {
             CurrentDamoThing = 1;
             Transitioning = true;
-            Loading.StartLoading();
+            LoadManager.StartLoading();
 
             WWWForm form = new WWWForm();
             form.AddField("sqlQuery", query);
@@ -154,7 +154,7 @@ namespace MedalViewer.Medal
                 }
             }
 
-            Loading.FinishLoading();
+            LoadManager.FinishLoading();
 
             StartCoroutine(MedalSpotlightDisplayManager.Display(null, MedalDisplay));
             Transitioning = false;

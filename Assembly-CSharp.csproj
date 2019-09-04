@@ -68,16 +68,16 @@
     <Compile Include="Assets\Scripts\GetDraggedView.cs" />
     <Compile Include="Assets\Scripts\ImagePaths.cs" />
     <Compile Include="Assets\Scripts\KHUtilitiesx.cs" />
-    <Compile Include="Assets\Scripts\Loading.cs" />
+    <Compile Include="Assets\Scripts\LoadManager.cs" />
     <Compile Include="Assets\Scripts\Medal\Classes\Keyblade.cs" />
     <Compile Include="Assets\Scripts\Medal\Classes\KeybladeMultiplierSlot.cs" />
     <Compile Include="Assets\Scripts\Medal\Classes\Medal.cs" />
     <Compile Include="Assets\Scripts\Medal\Classes\MedalAbility.cs" />
     <Compile Include="Assets\Scripts\Medal\Classes\MedalCombatAbility.cs" />
-    <Compile Include="Assets\Scripts\Medal\FilterDisplayManager.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalCycleLogic.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalDisplay.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalFilter.cs" />
+    <Compile Include="Assets\Scripts\Medal\MedalFilterDisplayManager.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalGraphViewManager.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalLogicManager.cs" />
     <Compile Include="Assets\Scripts\Medal\MedalManager.cs" />
@@ -92,7 +92,7 @@
     <Compile Include="Assets\Scripts\Parsers\Parser.cs" />
     <Compile Include="Assets\Scripts\PresenterManager.cs" />
     <Compile Include="Assets\Scripts\SearchManager.cs" />
-    <Compile Include="Assets\Scripts\UIMovement.cs" />
+    <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -173,6 +173,9 @@
     </Reference>
     <Reference Include="UnityEngine.AccessibilityModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a11/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AndroidJNIModule">
+      <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a11/Editor/Data/Managed/UnityEngine/UnityEngine.AndroidJNIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a11/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>

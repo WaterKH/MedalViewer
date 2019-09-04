@@ -11,9 +11,9 @@ namespace MedalViewer.Medal
 {
     public class MedalPresenterDisplayManager : MonoBehaviour
     {
-        MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
+        //MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
         //public SearchManager SearchManager;
-        public Loading Loading;
+        public LoadManager LoadManager;
 
         public CanvasGroup MedalHighlight;
         public CanvasGroup ButtonCanvasGroup;
@@ -823,18 +823,18 @@ namespace MedalViewer.Medal
 
         void Awake()
         {
-            Loading = GameObject.FindGameObjectWithTag("Loading").GetComponent<Loading>();
+            LoadManager = GameObject.FindGameObjectWithTag("Loading").GetComponent<LoadManager>();
 
             ResetDisplay();
         }
 
         public IEnumerator Display(GameObject medalObject, MedalDisplay medal = null)
         {
-            while (Loading.IsLoading)
+            while (LoadManager.IsLoading)
             {
                 yield return null;
             }
-            Loading.StartLoading();
+            LoadManager.StartLoading();
             ResetDisplay();
 
             isDisplayingMedal = true;
@@ -851,11 +851,11 @@ namespace MedalViewer.Medal
 
             try
             {
-                medalAbility = MedalAbilityParser.Parser(medalDisplay.AbilityDescription);
+                medalAbility = MedalAbilityParser.Instance.Parser(medalDisplay.AbilityDescription);
 
                 if (medalDisplay.IsSupernova)
                 {
-                    medalAbilitySupernova = MedalAbilityParser.Parser(medalDisplay.SupernovaDescription);
+                    medalAbilitySupernova = MedalAbilityParser.Instance.Parser(medalDisplay.SupernovaDescription);
                 }
             }
             catch
@@ -909,7 +909,7 @@ namespace MedalViewer.Medal
                 //print("Finished");
             }
 
-            Loading.FinishLoading();
+            LoadManager.FinishLoading();
         }
 
         //public IEnumerator ShowDisplay(CanvasGroup canvasGroup)

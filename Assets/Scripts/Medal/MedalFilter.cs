@@ -71,7 +71,7 @@ namespace MedalViewer.Medal
 
         #endregion
 
-        public UIMovement UIMovement;
+        public UIController UIController;
 
         public List<int> Tiers = new List<int>();
 
@@ -143,7 +143,7 @@ namespace MedalViewer.Medal
         public string GenerateFilterQuery()
         {
             Tiers.Clear();
-            UIMovement.OffsetY = 250;
+            UIController.ResetViewWindow();//.OffsetY = 250;
 
             var selections = "MU.Id MUId, MU.Name MUName, MU.Image, MU.Star, CTL.Class Class, CTL.Type Type, AL.PSM PSM, AL.UR UR, MU.BaseAttack, MU.MaxAttack, MU.BaseDefense, MU.MaxDefense, MU.TraitSlots, " +
                 "PPL.BasePoints, PPL.MaxPoints, MU.Ability, MU.AbilityDescription, MU.Target MUTarget, MU.Gauge, MU.BaseMultiplierLow, MU.BaseMultiplierHigh, MU.MaxMultiplierLow, MU.MaxMultiplierHigh, " +

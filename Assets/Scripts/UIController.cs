@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIMovement : MonoBehaviour {
+public class UIController : MonoBehaviour {
 
+    #region public vars
     public MedalGraphViewManager MedalGraphViewManager;
     //public GameObject MedalContent;
     public RectTransform MedalDisplay;
@@ -14,7 +15,6 @@ public class UIMovement : MonoBehaviour {
 
     public float OffsetY = 250;
 
-    #region public vars
     //public Camera MainCamera;
     public MedalPositionLogic MedalPositionLogic;
     public Vector3 InitialZoomScale;
@@ -29,15 +29,16 @@ public class UIMovement : MonoBehaviour {
     private float Test = 0.0f;
 
 	void Awake()
-	{
+    {
+        zoomValue = 0.1f;
         //min = 2530;
         //max = 11500;
-        zoomValue = 0.1f;
         //InitialZoomScale = MedalDisplay.localScale;
         //InitialOverlayX = OverlayX.localScale;
         //InitialOverlayY = OverlayY.localScale;
     }
 
+    // TODO Rework UIMovement
 	// Update is called once per frame
 	void Update () 
 	{
@@ -50,30 +51,15 @@ public class UIMovement : MonoBehaviour {
                 var inputZoomCalculation = (zoomValue * input);
                 var y = MedalDisplay.localScale.y + inputZoomCalculation;
                 var x = MedalDisplay.localScale.x + inputZoomCalculation;
-                MedalDisplay.localScale = new Vector2(x, y);
 
-                //var overlayY1 = OverlayY.localScale.y + inputZoomCalculation;
-                //var overlayX1 = OverlayY.localScale.x + inputZoomCalculation;
-                OverlayY.localScale = new Vector2(x, y);
-
-                //var overlayY2 = OverlayX.localScale.y + inputZoomCalculation;
-                //var overlayX2 = OverlayX.localScale.x + inputZoomCalculation;
-                OverlayX.localScale = new Vector2(x, y);
+                this.UpdateViewWindow(x, y);
             }
             else
             {
                 if (MedalDisplay.localScale.y > max)
-                {
-                    MedalDisplay.localScale = new Vector2(max, max);
-                    OverlayY.localScale = new Vector2(max, max);
-                    OverlayX.localScale = new Vector2(max, max);
-                }
+                    this.UpdateViewWindow(max, max);
                 else if (MedalDisplay.localScale.y < min)
-                {
-                    MedalDisplay.localScale = new Vector2(min, min);
-                    OverlayY.localScale = new Vector2(min, min);
-                    OverlayX.localScale = new Vector2(min, min);
-                }
+                    this.UpdateViewWindow(min, min);
             }
         }
 
@@ -108,19 +94,30 @@ public class UIMovement : MonoBehaviour {
         }
 	}
 
-    public void UpdateViewWindow(int value = 3680)
-    {
-        //MedalDisplayCanvasScaler.referenceResolution = new Vector2(MedalDisplayCanvasScaler.referenceResolution.x, value);
-        //OverlayCanvasScaler.referenceResolution = new Vector2(OverlayCanvasScaler.referenceResolution.x, value);
-    }
+    //public void UpdateViewWindow(int value = 3680)
+    //{
+    //    //MedalDisplayCanvasScaler.referenceResolution = new Vector2(MedalDisplayCanvasScaler.referenceResolution.x, value);
+    //    //OverlayCanvasScaler.referenceResolution = new Vector2(OverlayCanvasScaler.referenceResolution.x, value);
+    //}
 
     public void ResetViewWindow()
     {
         MedalDisplay.localScale = InitialZoomScale;
+
         OverlayX.localScale = InitialOverlayX;
         OverlayY.localScale = InitialOverlayY;
+
+        OffsetY = 250;
     }
 
+    public void UpdateViewWindow(float x, float y)
+    {
+        MedalDisplay.localScale = new Vector2(x, y);
+
+        OverlayY.localScale = new Vector2(x, y);
+        OverlayX.localScale = new Vector2(x, y);
+    }
+    
 	public void ChangeYRowSize(float changeValue)
 	{
         MedalGraphViewManager.RowsY.ForEach(x => Destroy(x));

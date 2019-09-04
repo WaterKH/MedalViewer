@@ -11,9 +11,9 @@ namespace MedalViewer
     public class SearchManager : MonoBehaviour
     {
         public MedalManager MedalManager;
-        public FilterDisplayManager FilterDisplayManager;
+        public MedalFilterDisplayManager MedalFilterDisplayManager;
         public MedalLogicManager MedalLogicManager;
-        public Loading Loading;
+        public LoadManager LoadManager;
 
         public CanvasGroup Search;
         public InputField SearchBar;
@@ -52,7 +52,7 @@ namespace MedalViewer
         public void DisplaySearch()
         {
             IsDisplayingSearch = true;
-            FilterDisplayManager.HideFilterMenu();
+            MedalFilterDisplayManager.HideFilterMenu();
 
             Search.SetCanvasGroupActive();
 
@@ -106,12 +106,12 @@ namespace MedalViewer
 
         public IEnumerator Display(Dictionary<int, Medal.Medal> SearchMedals)
         {
-            while (Loading.IsLoading)
+            while (LoadManager.IsLoading)
             {
                 yield return null;
             }
 
-            Loading.StartLoading();
+            LoadManager.StartLoading();
 
             SearchMedalObjects = this.GenerateSearchMedals(Content, SearchMedals);
         }
@@ -140,7 +140,7 @@ namespace MedalViewer
 
             MedalContentHolder.GetComponent<GridLayoutGroup>().enabled = true;
 
-            Loading.FinishLoading();
+            LoadManager.FinishLoading();
 
             return medals;
         }
@@ -148,7 +148,7 @@ namespace MedalViewer
 
         public IEnumerator GetSearchMedalsFromPHP(string query, Action<Dictionary<int, Medal.Medal>> result)
         {
-            Loading.StartLoading();
+            LoadManager.StartLoading();
 
             WWWForm form = new WWWForm();
             form.AddField("sqlQuery", query);
@@ -179,7 +179,8 @@ namespace MedalViewer
                     result(medals);
                 }
             }
-            Loading.FinishLoading();
+
+            LoadManager.FinishLoading();
         }
     }
 }

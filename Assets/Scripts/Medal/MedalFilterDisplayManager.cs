@@ -7,7 +7,7 @@ namespace MedalViewer.Medal
 {
     public class MedalFilterDisplayManager : MonoBehaviour
     {
-        public MedalFilter MedalFilter;
+        public MedalFilterManager MedalFilterManager;
         public MedalManager MedalManager;
         //public MedalGraphViewManager MedalGraphViewManager;
         public SearchManager SearchManager;
@@ -220,7 +220,7 @@ namespace MedalViewer.Medal
 
         public void DefaultFilters()
         {
-            MedalFilter.DefaultFilters();
+            MedalFilterManager.DefaultFilters();
         }
 
         public void ApplyFilters()
@@ -232,7 +232,7 @@ namespace MedalViewer.Medal
             //AssignTypes();
             AssignStars();
 
-            MedalManager.HandleGetMedals(MedalFilter);
+            MedalManager.HandleGetMedals(MedalFilterManager);
             MedalCycleLogic.Instance.loadInitial = true;
 
             HideFilterMenu();
@@ -242,37 +242,37 @@ namespace MedalViewer.Medal
 
         public void AssignTiers()
         {
-            MedalFilter.Tier1 = Tier1.isOn;
-            MedalFilter.Tier2 = Tier2.isOn;
-            MedalFilter.Tier3 = Tier3.isOn;
-            MedalFilter.Tier4 = Tier4.isOn;
-            MedalFilter.Tier5 = Tier5.isOn;
-            MedalFilter.Tier6 = Tier6.isOn;
-            MedalFilter.Tier7 = Tier7.isOn;
-            MedalFilter.Tier8 = Tier8.isOn;
-            MedalFilter.Tier9 = Tier9.isOn;
+            MedalFilterManager.Tier1 = Tier1.isOn;
+            MedalFilterManager.Tier2 = Tier2.isOn;
+            MedalFilterManager.Tier3 = Tier3.isOn;
+            MedalFilterManager.Tier4 = Tier4.isOn;
+            MedalFilterManager.Tier5 = Tier5.isOn;
+            MedalFilterManager.Tier6 = Tier6.isOn;
+            MedalFilterManager.Tier7 = Tier7.isOn;
+            MedalFilterManager.Tier8 = Tier8.isOn;
+            MedalFilterManager.Tier9 = Tier9.isOn;
         }
 
         public void AssignRange()
         {
-            MedalFilter.LowRange = (int)RangeMin.value;
-            MedalFilter.HighRange = currentMaxMultiplier - (int)RangeMax.value; 
+            MedalFilterManager.LowRange = (int)RangeMin.value;
+            MedalFilterManager.HighRange = currentMaxMultiplier - (int)RangeMax.value; 
         }
 
         public void AssignAttributes()
         {
-            MedalFilter.Power = Power.isOn;
-            MedalFilter.Speed = Speed.isOn;
-            MedalFilter.Magic = Magic.isOn;
-            MedalFilter.Upright = Upright.isOn;
-            MedalFilter.Reversed = Reversed.isOn;
+            MedalFilterManager.Power = Power.isOn;
+            MedalFilterManager.Speed = Speed.isOn;
+            MedalFilterManager.Magic = Magic.isOn;
+            MedalFilterManager.Upright = Upright.isOn;
+            MedalFilterManager.Reversed = Reversed.isOn;
         }
 
         public void AssignTarget()
         {
-            MedalFilter.Single = Single.isOn;
-            MedalFilter.Random = Random.isOn;
-            MedalFilter.All = All.isOn;
+            MedalFilterManager.Single = Single.isOn;
+            MedalFilterManager.Random = Random.isOn;
+            MedalFilterManager.All = All.isOn;
         }
 
         public void AssignTypes()
@@ -282,13 +282,13 @@ namespace MedalViewer.Medal
 
         public void AssignStars()
         {
-            MedalFilter.OneStar = Star1.isOn;
-            MedalFilter.TwoStar = Star2.isOn;
-            MedalFilter.ThreeStar = Star3.isOn;
-            MedalFilter.FourStar = Star4.isOn;
-            MedalFilter.FiveStar = Star5.isOn;
-            MedalFilter.SixStar = Star6.isOn;
-            MedalFilter.SevenStar = Star7.isOn;
+            MedalFilterManager.OneStar = Star1.isOn;
+            MedalFilterManager.TwoStar = Star2.isOn;
+            MedalFilterManager.ThreeStar = Star3.isOn;
+            MedalFilterManager.FourStar = Star4.isOn;
+            MedalFilterManager.FiveStar = Star5.isOn;
+            MedalFilterManager.SixStar = Star6.isOn;
+            MedalFilterManager.SevenStar = Star7.isOn;
         }
 
         #endregion

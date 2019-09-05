@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CreditsHandler : MonoBehaviour
+public class CreditsDisplayManager : MonoBehaviour
 {
     public CanvasGroup Credits;
     public CanvasGroup Extras;

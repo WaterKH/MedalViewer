@@ -259,7 +259,8 @@ public class PresenterManager : MonoBehaviour
     }
 
     private readonly string selectFilteredMedalsPHP = "https://mvphp.azurewebsites.net/selectFilteredMedals.php";
-    private MedalFilter medalFilter = new MedalFilter
+    // TODO Fix this, we should have multiple instances of a MedalFilterManager
+    private MedalFilterManager medalFilter = new MedalFilterManager
     {
         SixStar = true,
         SevenStar = true

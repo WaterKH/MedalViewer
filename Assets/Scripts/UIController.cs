@@ -16,7 +16,7 @@ public class UIController : MonoBehaviour {
     public float OffsetY = 250;
 
     //public Camera MainCamera;
-    public MedalPositionLogic MedalPositionLogic;
+    //public MedalPositionLogic MedalPositionLogic;
     public Vector3 InitialZoomScale;
     public Vector3 InitialOverlayX;
     public Vector3 InitialOverlayY;
@@ -42,24 +42,27 @@ public class UIController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-        var input = Input.GetAxis("Mouse ScrollWheel");
-
-        if (input > 0 || input < 0)
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            if (MedalDisplay.localScale.y <= max && MedalDisplay.localScale.y >= min)
-            {
-                var inputZoomCalculation = (zoomValue * input);
-                var y = MedalDisplay.localScale.y + inputZoomCalculation;
-                var x = MedalDisplay.localScale.x + inputZoomCalculation;
+            var input = Input.GetAxis("Mouse ScrollWheel");
 
-                this.UpdateViewWindow(x, y);
-            }
-            else
+            if (input > 0 || input < 0)
             {
-                if (MedalDisplay.localScale.y > max)
-                    this.UpdateViewWindow(max, max);
-                else if (MedalDisplay.localScale.y < min)
-                    this.UpdateViewWindow(min, min);
+                if (MedalDisplay.localScale.y <= max && MedalDisplay.localScale.y >= min)
+                {
+                    var inputZoomCalculation = (zoomValue * input);
+                    var y = MedalDisplay.localScale.y + inputZoomCalculation;
+                    var x = MedalDisplay.localScale.x + inputZoomCalculation;
+
+                    this.UpdateViewWindow(x, y);
+                }
+                else
+                {
+                    if (MedalDisplay.localScale.y > max)
+                        this.UpdateViewWindow(max, max);
+                    else if (MedalDisplay.localScale.y < min)
+                        this.UpdateViewWindow(min, min);
+                }
             }
         }
 

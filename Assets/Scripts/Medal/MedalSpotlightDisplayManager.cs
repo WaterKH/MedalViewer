@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 namespace MedalViewer.Medal
 {
+    // TODO Potential idea - weigh the pros/ cons of segregating this manager into
+    // pieces that would get called on each of the sections that are segregrated into
+    // regions right now.
     public class MedalSpotlightDisplayManager : MonoBehaviour
     {
         //MedalAbilityParser MedalAbilityParser = new MedalAbilityParser();
@@ -148,7 +151,7 @@ namespace MedalViewer.Medal
         #region Slots
 
         public Dictionary<string, List<KeybladeMultiplierSlot>> MultiplierSlots = new Dictionary<string, List<KeybladeMultiplierSlot>>();
-        public List<KeybladeMultiplierSlot> Slots;
+        //public List<KeybladeMultiplierSlot> Slots;
 
         #endregion
 

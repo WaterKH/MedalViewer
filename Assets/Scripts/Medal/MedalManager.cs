@@ -13,7 +13,7 @@ namespace MedalViewer.Medal
 {
     public class MedalManager : MonoBehaviour
     {
-        public MedalFilterDisplayManager MedalFilterDisplayManager;
+        public MedalFilterManager MedalFilterManager;
         public LoadManager LoadManager;
         public MedalLogicManager MedalLogicManager;
         public MedalGraphViewManager MedalGraphViewManager;
@@ -34,9 +34,9 @@ namespace MedalViewer.Medal
         {
             #region Retrieve Medals from Database
 
-            MedalFilterDisplayManager.MedalFilter.DefaultFilters();
+            MedalFilterManager.DefaultFilters();
 
-            HandleGetMedals(MedalFilterDisplayManager.MedalFilter);
+            HandleGetMedals(MedalFilterManager);
 
             #endregion
 
@@ -47,16 +47,16 @@ namespace MedalViewer.Medal
             #endregion
         }
 
-        public void HandleGetMedals(MedalFilter medalFilter)
+        public void HandleGetMedals(MedalFilterManager medalFilter)
         {
             LoadManager.StartLoading();
 
             Medals.Clear();
 
-            StartCoroutine(GetMedalsFromPHP(MedalFilterDisplayManager.MedalFilter));
+            StartCoroutine(GetMedalsFromPHP(medalFilter));
         }
 
-        public IEnumerator GetMedalsFromPHP(MedalFilter medalFilter)
+        public IEnumerator GetMedalsFromPHP(MedalFilterManager medalFilter)
         {
             WWWForm form = new WWWForm();
             var query = medalFilter.GenerateFilterQuery();

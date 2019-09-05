@@ -13,12 +13,14 @@ namespace MedalViewer.Medal
         //public MedalFilterDisplayManager MedalFilterDisplayManager;
         public MedalLogicManager MedalLogicManager;
 
+
         //This should really be in the MedalLogicManager?
-        public MedalPositionLogic MedalPositionLogic;
+        //public MedalPositionLogic MedalPositionLogic;
 
         public LoadManager LoadManager;
         public UIController UIController;
         public MedalSpotlightDisplayManager MedalSpotlightDisplayManager;
+        public MedalFilterManager MedalFilterManager;
 
         public Transform StartPositionY;
         public Transform StartPositionX;
@@ -98,7 +100,10 @@ namespace MedalViewer.Medal
 
         public void UpdateYRows(float changeValue = 250)
         {
-            RowsY = MedalPositionLogic.PlaceYRows(StartPositionY, ParentY, changeValue);
+            var lowRange = MedalFilterManager.LowRange;
+            var highRange = MedalFilterManager.HighRange;
+
+            RowsY = MedalLogicManager.PlaceYRows(lowRange, highRange, StartPositionY, ParentY, changeValue);
         }
 
         public void PopulateMedals(bool generate = true)
@@ -107,14 +112,25 @@ namespace MedalViewer.Medal
             if(generate)
                 MedalGameObjects = MedalLogicManager.GenerateMedals(RowsY, ColumnsX, MedalContent);
 
-            MedalPositionLogic.PlaceMedals(RowsY, ColumnsX, MedalGameObjects);
-            
+            MedalLogicManager.PlaceMedals(RowsY, ColumnsX, MedalGameObjects);
+
             //this.PlaceGraphLines();
             //UIMovement.UpdateViewWindow();
         }
-        
 
-        
+        // https://stackoverflow.com/questions/30766020/how-to-scroll-to-a-specific-element-in-scrollrect-with-unity-ui
+        public Vector2 CenterToItem(RectTransform child)
+        {
+            Canvas.ForceUpdateCanvases();
+            Vector2 viewportLocalPosition = MedalView.viewport.localPosition;
+            Vector2 childLocalPosition = child.localPosition;
+            Vector2 result = new Vector2(
+                0 - (viewportLocalPosition.x + childLocalPosition.x),
+                0 - (viewportLocalPosition.y + childLocalPosition.y)
+            );
+            return result;
+        }
+
         public void UpdateScrollBars(Vector2 vector)
         {
             if (PointerObjectName == "Scroll View")
@@ -122,6 +138,12 @@ namespace MedalViewer.Medal
                 Horizontal.horizontalNormalizedPosition = vector.x;
                 Vertical.verticalNormalizedPosition = vector.y;
             }
+        }
+
+        public void UpdateScrollMedalView(Vector2 vector)
+        {
+            MedalView.horizontalNormalizedPosition = vector.x;
+            MedalView.verticalNormalizedPosition = vector.y;
         }
 
         public void UpdateScrollMedalViewX(Vector2 vector)
@@ -281,8 +303,12 @@ namespace MedalViewer.Medal
 
             this.ResetGraph();
 
-            RowsY = MedalPositionLogic.PlaceYRows(StartPositionY, ParentY, yOffset);
-            ColumnsX = MedalPositionLogic.PlaceXColumns(StartPositionX, ParentX, xOffset);
+            var lowRange = MedalFilterManager.LowRange;
+            var highRange = MedalFilterManager.HighRange;
+            var tiers = MedalFilterManager.Tiers;
+
+            RowsY = MedalLogicManager.PlaceYRows(lowRange, highRange, StartPositionY, ParentY, yOffset);
+            ColumnsX = MedalLogicManager.PlaceXColumns(tiers, StartPositionX, ParentX, xOffset);
 
             MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(ParentX.GetComponent<RectTransform>().offsetMax.x, ParentY.GetComponent<RectTransform>().offsetMax.y);
 
@@ -290,6 +316,15 @@ namespace MedalViewer.Medal
             StartCoroutine(MedalCycleLogic.Instance.PopulateCycleMedals(MedalGameObjects));
 
             this.PlaceGraphLines();
+
+            // Shift placement to display latest medal
+            var latestMedal = MedalLogicManager.GetLatestMedal();
+
+            var multiplier = MedalLogicManager.GetHighestMultiplier(latestMedal);
+
+            var medalObject = MedalGameObjects[latestMedal.Tier][multiplier].GetComponent<RectTransform>();
+            MedalView.content.localPosition = this.CenterToItem(medalObject);
+
             LoadManager.FinishLoading();
         }
     }

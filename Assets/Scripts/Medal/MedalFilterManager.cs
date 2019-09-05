@@ -7,7 +7,8 @@ using UnityEngine;
 
 namespace MedalViewer.Medal
 {
-    public class MedalFilter : MonoBehaviour
+    // TODO Why is this a MonoBehaviour?
+    public class MedalFilterManager : MonoBehaviour
     {
         #region PSMUR
 

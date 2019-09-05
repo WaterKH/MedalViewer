@@ -13,9 +13,28 @@ namespace MedalViewer.Medal
         public MedalManager MedalManager;
         //public LoadManager LoadManager;
 
+        public List<Vector3> VerticalPositions = new List<Vector3>();
+        public List<Vector3> HorizontalPositions = new List<Vector3>();
+
+        private readonly float yOffset = 250;
         private bool cyclesOn = true;
         private readonly string url = "https://medalviewer.blob.core.windows.net/thumbnails/";
         private readonly string urlHighQuality = "https://medalviewer.blob.core.windows.net/images/";
+
+        public Medal GetLatestMedal()
+        {
+            return MedalManager.Medals.LastOrDefault().Value;
+        }
+
+        public double GetHighestMultiplier(Medal medal)
+        {
+            return medal.GuiltMultiplierHigh != 0.0f ? medal.GuiltMultiplierHigh :
+                    medal.GuiltMultiplierLow != 0.0f ? medal.GuiltMultiplierLow :
+                    medal.MaxMultiplierHigh  != 0.0f ? medal.MaxMultiplierHigh :
+                    medal.MaxMultiplierLow   != 0.0f ? medal.MaxMultiplierLow :
+                    medal.BaseMultiplierHigh != 0.0f ? medal.BaseMultiplierHigh :
+                    medal.BaseMultiplierLow;
+        }
 
         public Dictionary<int, Dictionary<double, GameObject>> GenerateMedals(List<GameObject> YParents, List<GameObject> XParents, Transform MedalContentHolder)
         {
@@ -30,12 +49,7 @@ namespace MedalViewer.Medal
                 if (!medals.ContainsKey(medal.Tier))
                     medals.Add(medal.Tier, new Dictionary<double, GameObject>());
 
-                var multiplier = medal.GuiltMultiplierHigh != 0.0f ? medal.GuiltMultiplierHigh : 
-                                 medal.GuiltMultiplierLow  != 0.0f ? medal.GuiltMultiplierLow : 
-                                 medal.MaxMultiplierHigh   != 0.0f ? medal.MaxMultiplierHigh :
-                                 medal.MaxMultiplierLow    != 0.0f ? medal.MaxMultiplierLow :
-                                 medal.BaseMultiplierHigh  != 0.0f ? medal.BaseMultiplierHigh :
-                                 medal.BaseMultiplierLow;
+                var multiplier = this.GetHighestMultiplier(medal);
 
                 if (!medals[medal.Tier].ContainsKey(multiplier))
                 {
@@ -194,6 +208,91 @@ namespace MedalViewer.Medal
             {
                 content.parent.GetComponent<RectTransform>().sizeDelta = content.sizeDelta;
             }
+        }
+
+        public void PlaceMedals(List<GameObject> Rows, List<GameObject> Columns, Dictionary<int, Dictionary<double, GameObject>> Medals)
+        {
+            foreach (var tier in Medals)
+            {
+                foreach (var multiplier in tier.Value)
+                {
+                    var medal = multiplier.Value;
+
+                    var yIndex = (int)multiplier.Key;
+                    double yAfterDecimal = multiplier.Key - yIndex;
+
+                    var yTransform = Rows.FirstOrDefault(x => x.name == yIndex.ToString()).transform.position;
+                    var xPosition = Columns.FirstOrDefault(x => x.name == tier.Key.ToString()).transform.position;
+
+                    var nextY = yOffset;
+
+                    // TODO FIX THIS
+                    //if (yIndex + 1 < Rows.Count)
+                    //{
+                    //    nextY = RowsyIndex + 1].position.y - yTransform.y;
+                    //}
+
+                    medal.transform.position = new Vector2(xPosition.x, yTransform.y + (nextY * (float)yAfterDecimal));
+                }
+            }
+        }
+
+        public List<GameObject> PlaceYRows(int lowRange, int highRange, Transform StartPositionY, Transform ParentY, float yOffset)
+        {
+            var RowsY = new List<GameObject>();
+            float tempYOffset = 300;
+            var maxY = 0.0f;
+
+            for (int i = lowRange; i <= highRange; ++i)
+            {
+                var pos = new Vector2(StartPositionY.position.x, StartPositionY.position.y + tempYOffset);
+                var row = Instantiate(Resources.Load("NumberY") as GameObject, pos, Quaternion.identity, ParentY.parent);
+
+                row.name = i.ToString();
+                row.GetComponent<Text>().text = i.ToString();
+
+                tempYOffset += yOffset;
+                RowsY.Add(row);
+
+                maxY = row.GetComponent<RectTransform>().offsetMax.y;
+            }
+
+            ParentY.GetComponent<RectTransform>().offsetMax = new Vector2(ParentY.GetComponent<RectTransform>().offsetMax.x, maxY - 500);
+
+            ParentY.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" && x.name != "Content" && x.name != "InitialYPosition").ToList().ForEach(x => {
+                x.transform.SetParent(ParentY);
+            });
+
+            return RowsY;
+        }
+
+        public List<GameObject> PlaceXColumns(List<int> tiers, Transform StartPositionX, Transform ParentX, int xOffset)
+        {
+            var ColumnsX = new List<GameObject>();
+            int tempXOffset = 150;
+            var maxX = 0.0f;
+
+            foreach (var tier in tiers)
+            {
+                var pos = new Vector2(StartPositionX.position.x + tempXOffset, StartPositionX.position.y);
+                var column = Instantiate(Resources.Load("NumberX") as GameObject, pos, Quaternion.identity, ParentX.parent);
+
+                column.name = tier.ToString();
+                column.GetComponent<Text>().text = tier.ToString();
+
+                tempXOffset += xOffset;
+                ColumnsX.Add(column);
+
+                maxX = column.GetComponent<RectTransform>().offsetMax.x;
+            }
+
+            ParentX.GetComponent<RectTransform>().offsetMax = new Vector2(maxX - 1500, ParentX.GetComponent<RectTransform>().offsetMax.y);
+
+            ParentX.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" && x.name != "Content" && x.name != "InitialXPosition").ToList().ForEach(x => {
+                x.transform.SetParent(ParentX);
+            });
+
+            return ColumnsX;
         }
     }
 }

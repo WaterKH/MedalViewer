@@ -7,7 +7,6 @@ namespace MedalViewer.Medal
 {
     public class Medal
     {
-
         public int Id { get; set; }
         public string Name { get; set; }
         public string ImageURL { get; set; }
@@ -46,6 +45,13 @@ namespace MedalViewer.Medal
         public string Effect { get; set; }
         public string Effect_Description { get; set; }
 
+        public Dictionary<int, float> TierConversion = new Dictionary<int, float>
+        {
+            { 1, 1.25f }, { 2, 1.5f }, { 3, 2f }, { 4, 2.3f },
+            { 5,  2.5f }, { 6, 2.8f }, { 7, 3f }, { 8, 3.3f },
+            { 9,  3.8f }
+        };
+
         public Medal() { }
 
         public Medal(string[] medalInfo)
@@ -81,10 +87,10 @@ namespace MedalViewer.Medal
             SupernovaTarget = string.IsNullOrEmpty(medalInfo[28]) ? "" : medalInfo[28];
             Effect_Description = string.IsNullOrEmpty(medalInfo[29]) ? "" : medalInfo[29];
 
-            GuiltMultiplierLow = MaxMultiplierLow != 0 ? MaxMultiplierLow * Constants.TierConversion[Tier] :
-                                                   BaseMultiplierLow * Constants.TierConversion[Tier];
-            GuiltMultiplierHigh = MaxMultiplierHigh != 0 ? MaxMultiplierHigh * Constants.TierConversion[Tier] :
-                                       BaseMultiplierHigh * Constants.TierConversion[Tier];
+            GuiltMultiplierLow = MaxMultiplierLow != 0 ? MaxMultiplierLow * this.TierConversion[Tier] :
+                                                   BaseMultiplierLow * this.TierConversion[Tier];
+            GuiltMultiplierHigh = MaxMultiplierHigh != 0 ? MaxMultiplierHigh * this.TierConversion[Tier] :
+                                       BaseMultiplierHigh * this.TierConversion[Tier];
 
             GuiltMultiplierLow = Math.Round(GuiltMultiplierLow, 2);
             GuiltMultiplierHigh = Math.Round(GuiltMultiplierHigh, 2);

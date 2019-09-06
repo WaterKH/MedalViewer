@@ -59,13 +59,6 @@ public class ImagePaths {
 		}
 	};
 
-    public static Dictionary<string, string> IncreasePaths = new Dictionary<string, string>()
-    {
-        { "U-STR", "Increase/U-STR" }, { "R-STR", "Increase/R-STR" },
-        { "P-STR", "Increase/U-STR" }, { "S-STR", "Increase/R-STR" }, { "M-STR", "Increase/U-STR" },
-        { "DEF", "Increase/DEF" }
-    };
-
 	public static Dictionary<string, Dictionary<string, string>> MiscPaths = new Dictionary<string, Dictionary<string, string>>()
 	{
 		{
@@ -100,6 +93,7 @@ public class ImagePaths {
         {
             "DAMAGE+", new Dictionary<string, string>()
             {
+                { "the more gauges used", "Inflict/ATKspmore" },
                 { "the more gauges are full", "Inflict/ATKspmore" },
                 { "1 enemy or 0 parts left", "Inflict/ATKsingleboss" },
                 { "the more SP attacks used in succession", "Inflict/ATKspsuccALT" },
@@ -180,13 +174,52 @@ public class ImagePaths {
                 { "130", "SPATKBonus/130" }, { "140", "SPATKBonus/140" }, { "150", "SPATKBonus/150" },
                 { "160", "SPATKBonus/160" }, { "170", "SPATKBonus/170" }, { "180", "SPATKBonus/180" },
                 { "190", "SPATKBonus/190" }, { "200", "SPATKBonus/200" }, { "210", "SPATKBonus/210" },
-                { "250", "SPATKBonus/250" }, { "260", "SPATKBonus/260" },
+                { "230", "SPATKBonus/230" }, { "250", "SPATKBonus/250" }, { "260", "SPATKBonus/260" },
             }
         },
         {
             "IGNORE", new Dictionary<string, string>()
             {
                 { "ignore", "Inflict/NoAtt" }
+            }
+        },
+        {
+            "REFLECT", new Dictionary<string, string>()
+            {
+                { "100Power", "Reflect/100Power" }, { "100Speed", "Reflect/100Speed" }, { "100Magic", "Reflect/100Magic" },
+                { "30Power", "Reflect/30Power" }, { "30Speed", "Reflect/30Speed" }, { "30Magic", "Reflect/30Magic" },
+                { "10Power", "Reflect/10Power" }, { "10Speed", "Reflect/10Speed" }, { "10Magic", "Reflect/10Magic" },
+            }
+        },
+        {
+            "STR_DEF+", new Dictionary<string, string>()
+            {
+                { "DEF+500", "StrDefPlus/def500" },{ "DEF+1500", "StrDefPlus/def1500" },{ "DEF+2000", "StrDefPlus/def2000" },
+                { "STR+500", "StrDefPlus/str500" },{ "STR+1500", "StrDefPlus/str1500" },{ "STR+2000", "StrDefPlus/str2000" },
+
+                { "STR+500U", "StrDefPlus/str500u" },{ "STR+1500U", "StrDefPlus/str1500u" },{ "STR+2000U", "StrDefPlus/str2000u" },
+                { "STR+500R", "StrDefPlus/str500r" },{ "STR+1500R", "StrDefPlus/str1500r" },{ "STR+2000R", "StrDefPlus/str2000r" },
+
+                { "STR+500P", "StrDefPlus/str500p" },{ "STR+1500P", "StrDefPlus/str1500p" },{ "STR+2000P", "StrDefPlus/str2000p" },
+                { "STR+500S", "StrDefPlus/str500s" },{ "STR+1500S", "StrDefPlus/str1500s" },{ "STR+2000S", "StrDefPlus/str2000s" },
+                { "STR+500M", "StrDefPlus/str500m" },{ "STR+1500M", "StrDefPlus/str1500m" },{ "STR+2000M", "StrDefPlus/str2000m" },
+
+                //{ "DEF-500", "StrDefPlus/def500" },{ "DEF-1500", "StrDefPlus/def1500" },{ "DEF-2000", "StrDefPlus/def2000" },
+                //{ "STR-500", "StrDefPlus/str500" },{ "STR-1500", "StrDefPlus/str1500" },{ "STR-2000", "StrDefPlus/str2000" },
+
+                { "STR-1000U", "StrDefPlus/str1500u" },
+                
+
+                //{ "STR-500P", "StrDefPlus/str500p" },{ "STR-1500P", "StrDefPlus/str1500p" },{ "STR-2000P", "StrDefPlus/str2000p" },
+                //{ "STR-500S", "StrDefPlus/str500s" },{ "STR-1500S", "StrDefPlus/str1500s" },{ "STR-2000S", "StrDefPlus/str2000s" },
+                //{ "STR-500M", "StrDefPlus/str500m" },{ "STR-1500M", "StrDefPlus/str1500m" },{ "STR-2000M", "StrDefPlus/str2000m" },
+
+            }
+        },
+        {
+            "GUARDBREAK", new Dictionary<string, string>()
+            {
+                { "GuardBreak", "GuardBreak/GuardBreak" }
             }
         }
     };

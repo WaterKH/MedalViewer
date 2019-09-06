@@ -34,9 +34,9 @@ public class MedalAbilityParser : MonoBehaviour
     private static readonly Regex LowerBasedRegex = new Regex(@"(Lowers) (target's )?(?:(P|S|M)(?:\w+)?-based )?(strength|defense|STR|DEF) (of all targets )?by (\d+) tiers? for (\d+ turns?|attacks?)");
 
     private static readonly Regex RaiseLowerRegex = new Regex(@"(\d+ \w+): (.*)");
-    // This is not used in the enumerations
+    // This is not used in the enumerations - used in methods
     private static readonly Regex SubRaiseLowerRegex = new Regex(@"(target's |targets' )?(R?r?aises |L?l?owers |-\d+ |\d+ )?(target's |targets' )?(?:(\w+)?-?(STR|DEF|strength|defense)?(?: by (\d+))?(?: and | & ))?(\w+)?\s?-?(STR|DEF|strength|defense)(?: by)?\s?(\d+)?");
-    private static readonly Regex StrDefRegex = new Regex(@"(?:(\w)-Medal )?(STR|DEF) \+(\d+)");
+    private static readonly Regex StrDefRegex = new Regex(@"(targets’ |target’s )?(?:(\w)-Medal )?(STR|DEF) ((?:\+|\-)\d+)");
 
     #endregion
 
@@ -71,7 +71,7 @@ public class MedalAbilityParser : MonoBehaviour
 
     private static readonly Regex FillAndCureRegex = new Regex(@"^(?:Fills|Restores) (\d+) gauges(?: and (cures))?");
     private static readonly Regex GaugeRegex = new Regex(@"^Gauge \+(\d+)");
-    private static readonly Regex GaugeUseRegex = new Regex(@"^Gauge (use \+\d+)");
+    private static readonly Regex GaugeUseRegex = new Regex(@"(?:^Gauge (use \+\d+)|^(Uses all gauges))");
 
     #endregion
 
@@ -120,6 +120,18 @@ public class MedalAbilityParser : MonoBehaviour
 
     #endregion
 
+    #region REFLECT
+
+    private static readonly Regex ReflectRegex = new Regex(@"Reflects (\d+)% (\w+)");
+
+    #endregion
+
+    #region GUARD BREAK
+
+    private static readonly Regex GuardBreakRegex = new Regex(@"(\d+)% chance to ignore target’s Defense Boost");
+
+    #endregion
+
     #endregion
 
     public static Regex[] Regexes = new Regex[]
@@ -139,7 +151,9 @@ public class MedalAbilityParser : MonoBehaviour
         RaiseLowerRegex, RaisedBasedRegex, LowerBasedRegex,  // 19, 20, 21
         MirrorsRegex,    // 22
         UnleashesRegex,  // 23
-        //StrDefRegex      // 24
+        //StrDefRegex,   // 24
+        ReflectRegex,    // 24
+        GuardBreakRegex  // 25
     };
 
     public MedalAbility Parser(string abilityDescription)
@@ -151,9 +165,9 @@ public class MedalAbilityParser : MonoBehaviour
 
         foreach (var item in parts)
         {
-            var trimmedItem = item.Trim().Replace("↑", "Raises").Replace("↓", "Lowers");
+            var trimmedItem = item.Trim().Replace("↑", "Raises").Replace("↓", "Lowers").Replace("’", "'");
             if (trimmedItem.Length == 0) continue;
-            //Debug.Log(trimmedItem);
+            Debug.Log(trimmedItem);
 
             for (int i = 0; i < Regexes.Length; ++i)
             {
@@ -197,7 +211,7 @@ public class MedalAbilityParser : MonoBehaviour
                         break;
                     case 9:
                     case 10:
-                        ability.Gauge = result.Groups[1].Value;
+                        ability.Gauge = !string.IsNullOrEmpty(result.Groups[1].Value) ? result.Groups[1].Value : result.Groups[2].Value;
                         break;
                     case 11: // 11 Removes/ Dispel
                         var split = result.Groups[1].Value.Split(new[] { " & ", " and " }, StringSplitOptions.RemoveEmptyEntries);
@@ -244,6 +258,12 @@ public class MedalAbilityParser : MonoBehaviour
                     case 23:
                         ability.Deal = "1";
                         ability.IgnoreAttributes = "ignore";
+                        break;
+                    case 24:
+                        ability.Reflect = result.Groups[1].Value + result.Groups[2].Value;
+                        break;
+                    case 25:
+                        ability.GuardBreak = "GuardBreak";
                         break;
                     default:
                         Debug.Log("ERROR: " + item);
@@ -364,13 +384,13 @@ public class MedalAbilityParser : MonoBehaviour
 
             if (strDefResult.Success)
             {
-                if (strDefResult.Groups[2].Value == "STR")
+                if (strDefResult.Groups[3].Value == "STR")
                 {
-                    ability.StrengthIncrease.Add(strDefResult.Groups[1].Value + "-" + strDefResult.Groups[2], int.Parse(strDefResult.Groups[3].Value));
+                    ability.StrUp = "STR" + strDefResult.Groups[4].Value + strDefResult.Groups[2];
                 }
-                else if (strDefResult.Groups[2].Value == "DEF")
+                else if (strDefResult.Groups[3].Value == "DEF")
                 {
-                    ability.DefenseIncrease = int.Parse(strDefResult.Groups[3].Value);
+                    ability.DefUp = "DEF" + strDefResult.Groups[4].Value;
                 }
             }
             else

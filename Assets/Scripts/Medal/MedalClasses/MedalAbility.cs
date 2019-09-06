@@ -39,6 +39,13 @@ namespace MedalViewer.Medal
 
         public string Mirrors = "";
 
+        public string Reflect = "";
+
+        public string StrUp = "";
+        public string DefUp = "";
+
+        public string GuardBreak = "";
+
 
         // Key: STR/DEF - Key: Raise/Lower/LowerPlayer - Value: Images
         public Dictionary<string, Dictionary<string, List<Texture2D>>> CombatImages;
@@ -60,18 +67,6 @@ namespace MedalViewer.Medal
             {
                 var def_image = Resources.Load(ImagePaths.CombatPaths["DEF"][def.Direction][def.Attribute]) as Texture2D;
                 CombatImages["DEF"][def.Direction].Add(def_image);
-            }
-
-            foreach(var increaseStr in StrengthIncrease)
-            {
-                var str_image = Resources.Load($"{ImagePaths.IncreasePaths[increaseStr.Key]}{increaseStr.Value}") as Texture2D;
-                IncreaseImages.Add(increaseStr.Key, str_image);
-            }
-
-            if (DefenseIncrease > 0)
-            {
-                var def_image = Resources.Load($"{ImagePaths.IncreasePaths["DEF"]}{DefenseIncrease}") as Texture2D;
-                IncreaseImages.Add("DEF", def_image);
             }
 
             if (Inflicts != "")
@@ -151,6 +146,30 @@ namespace MedalViewer.Medal
                 var copy_image = Resources.Load(ImagePaths.MiscPaths["COPY"][Copy]) as Texture2D;
                 MiscImages["COPY"] = copy_image;
             }
+
+            if(Reflect != "")
+            {
+                var reflect_image = Resources.Load(ImagePaths.MiscPaths["REFLECT"][Reflect]) as Texture2D;
+                MiscImages["REFLECT"] = reflect_image;
+            }
+
+            if(StrUp != "")
+            {
+                var str_def_up_image = Resources.Load(ImagePaths.MiscPaths["STR_DEF+"][StrUp]) as Texture2D;
+                MiscImages["STR+"] = str_def_up_image;
+            }
+
+            if (DefUp != "")
+            {
+                var str_def_up_image = Resources.Load(ImagePaths.MiscPaths["STR_DEF+"][DefUp]) as Texture2D;
+                MiscImages["DEF+"] = str_def_up_image;
+            }
+
+            if (GuardBreak != "")
+            {
+                var guard_break = Resources.Load(ImagePaths.MiscPaths["GUARDBREAK"][GuardBreak]) as Texture2D;
+                MiscImages["GUARDBREAK"] = guard_break;
+            }
         }
 
         public void InitImages()
@@ -183,7 +202,11 @@ namespace MedalViewer.Medal
                 { "DISPEL", null },
                 { "MIRROR", null },
                 { "IGNORE", null },
-                { "COPY", null }
+                { "COPY", null },
+                { "REFLECT", null },
+                { "STR+", null },
+                { "DEF+", null },
+                { "GUARDBREAK", null }
             };
         }
     }

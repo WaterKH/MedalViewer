@@ -160,8 +160,8 @@ public class ImagePaths {
 		{
 			"NEXTMEDAL", new Dictionary<string, string>()
 			{
-				{ "Group Attack", "NextMedal/NEXTgroup" },
-			    { "turns Magic", "NextMedal/NEXTm" }, { "turns Power", "NextMedal/NEXTp" }, { "turns Speed", "NextMedal/NEXTs" }
+				{ "Group Attack", "NextMedal/NEXTgroup" }, { "group attack", "NextMedal/NEXTgroup" },
+                { "turns Magic", "NextMedal/NEXTm" }, { "turns Power", "NextMedal/NEXTp" }, { "turns Speed", "NextMedal/NEXTs" }
             }
 		},
         {
@@ -175,6 +175,7 @@ public class ImagePaths {
                 { "160", "SPATKBonus/160" }, { "170", "SPATKBonus/170" }, { "180", "SPATKBonus/180" },
                 { "190", "SPATKBonus/190" }, { "200", "SPATKBonus/200" }, { "210", "SPATKBonus/210" },
                 { "230", "SPATKBonus/230" }, { "250", "SPATKBonus/250" }, { "260", "SPATKBonus/260" },
+                { "280", "SPATKBonus/280" },
             }
         },
         {

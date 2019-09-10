@@ -35,7 +35,10 @@ public class MedalAbilityParser : MonoBehaviour
 
     private static readonly Regex RaiseLowerRegex = new Regex(@"(\d+ \w+): (.*)");
     // This is not used in the enumerations - used in methods
+    private static readonly Regex ThreeToAttributeRegex = new Regex(@"(target'?s'? )?(Lowers |Raises )(target'?s'? )?(\w+)(?:, | & )(\w)-(?:\w+)? & (\w)-(?:\w+) (?:by )?(\d+)");
     private static readonly Regex SubRaiseLowerRegex = new Regex(@"(target's |targets' )?(R?r?aises |L?l?owers |-\d+ |\d+ )?(target's |targets' )?(?:(\w+)?-?(STR|DEF|strength|defense)?(?: by (\d+))?(?: and | & ))?(\w+)?\s?-?(STR|DEF|strength|defense)(?: by)?\s?(\d+)?");
+    private static readonly Regex SelfRegex = new Regex(@"self \[(.*)\]");
+    private static readonly Regex TargetRegex = new Regex(@"targets? \[(.*)\]");
     private static readonly Regex StrDefRegex = new Regex(@"(targets’ |target’s )?(?:(\w)-Medal )?(STR|DEF) ((?:\+|\-)\d+)");
 
     #endregion
@@ -380,6 +383,15 @@ public class MedalAbilityParser : MonoBehaviour
 
         foreach (var section in sections)
         {
+            var spAtkBonusResult = SPAtkRegex.Match(section.Trim());
+
+            if (spAtkBonusResult.Success)
+            {
+                ability.SPBonus = spAtkBonusResult.Groups[1].Value;
+
+                continue;
+            }
+
             var strDefResult = StrDefRegex.Match(section.Trim());
 
             if (strDefResult.Success)
@@ -392,123 +404,135 @@ public class MedalAbilityParser : MonoBehaviour
                 {
                     ability.DefUp = "DEF" + strDefResult.Groups[4].Value;
                 }
+
+                continue;
             }
-            else
+
+            var targetResult = TargetRegex.Match(section.Trim());
+            var selfResult = SelfRegex.Match(section.Trim());
+
+            var sectionAlt = targetResult.Success ? targetResult.Groups[1].Value : selfResult.Success ? selfResult.Groups[1].Value : section;
+
+            var threeToAttributeResult = ThreeToAttributeRegex.Match(sectionAlt.Trim());
+
+            if(threeToAttributeResult.Success)
             {
-                var result = SubRaiseLowerRegex.Match(section.Trim());
+                var target = threeToAttributeResult.Groups[1].Value != "" ? threeToAttributeResult.Groups[1].Value.Trim() : threeToAttributeResult.Groups[4].Value.Trim();
+                var amount = threeToAttributeResult.Groups[2].Value != "" ? threeToAttributeResult.Groups[2].Value.Trim() : threeToAttributeResult.Groups[8].Value.Trim();
+                var direction = threeToAttributeResult.Groups[3].Value != "" ? threeToAttributeResult.Groups[3].Value.Trim() : amount[0] == '-' ? "Lowers" : "Raises";
+                var strDef = threeToAttributeResult.Groups[5].Value.Trim();
 
-                if (result.Success)
+
+                var PSMUR_1 = threeToAttributeResult.Groups[6].Value;
+                var PSMUR_2 = threeToAttributeResult.Groups[7].Value;
+
+                // TODO STILL NOT DONE HERE!!
+            }
+
+            var subRaiseLowerResult = SubRaiseLowerRegex.Match(sectionAlt.Trim());
+
+            if (subRaiseLowerResult.Success)
+            {
+                #region Vars
+
+                var target = subRaiseLowerResult.Groups[1].Value != "" ? subRaiseLowerResult.Groups[1].Value.Trim() : subRaiseLowerResult.Groups[3].Value.Trim();
+                var direction = subRaiseLowerResult.Groups[2].Value.Trim();
+
+                var PSMUR_1 = subRaiseLowerResult.Groups[4].Value;
+                var StrDef_1 = subRaiseLowerResult.Groups[5].Value;
+                var amount_1 = subRaiseLowerResult.Groups[6].Value;
+
+                var PSMUR_2 = subRaiseLowerResult.Groups[7].Value;
+                var StrDef_2 = subRaiseLowerResult.Groups[8].Value;
+                var amount_2 = subRaiseLowerResult.Groups[9].Value;
+
+                // If we have a number, parse it into direction and tier
+                if (directionPersist != "" && direction == "")
                 {
-                    #region Vars
+                    direction = directionPersist;
+                }
+                else if (direction.Length < 6 && direction != "")
+                {
+                    amount_1 = direction.Replace("-", "");
+                    amountPersist = amount_1;
 
-                    var target = result.Groups[1].Value != "" ? result.Groups[1].Value.Trim() : result.Groups[3].Value.Trim();
-                    var direction = result.Groups[2].Value.Trim();
+                    if (int.Parse(direction) > 0)
+                        direction = "Raises";
+                    else
+                        direction = "Lowers";
+                }
+                //else if(direction == "")
+                //{
+                //    direction = directionPersist;
+                //}
 
-                    var PSMUR_1 = result.Groups[4].Value;
-                    var StrDef_1 = result.Groups[5].Value;
-                    var amount_1 = result.Groups[6].Value;
+                #endregion
 
-                    var PSMUR_2 = result.Groups[7].Value;
-                    var StrDef_2 = result.Groups[8].Value;
-                    var amount_2 = result.Groups[9].Value;
+                #region First Medal Addition (If Not Null)
 
-                    // If we have a number, parse it into direction and tier
-                    if (directionPersist != "" && direction == "")
+                if (PSMUR_1 != "" || StrDef_1 != "")
+                {
+                    if (StrDef_1 == "")
+                        StrDef_1 = StrDef_2;
+
+                    if (PSMUR_1 == "")
+                        PSMUR_1 = "Normal";
+                    else if (PSMUR_1 == "DEF" || PSMUR_1 == "STR")
                     {
-                        direction = directionPersist;
+                        StrDef_1 = PSMUR_1;
+                        PSMUR_1 = "Normal";
                     }
-                    else if (direction.Length < 6 && direction != "")
-                    {
-                        amount_1 = direction.Replace("-", "");
-                        amountPersist = amount_1;
 
-                        if (int.Parse(direction) > 0)
-                            direction = "Raises";
+                    if (amount_1 == "")
+                        if (amount_2 != "")
+                            amount_1 = amount_2;
                         else
-                            direction = "Lowers";
-                    }
-                    //else if(direction == "")
-                    //{
-                    //    direction = directionPersist;
-                    //}
+                            amount_1 = amountPersist;
 
-                    #endregion
-
-                    #region First Medal Addition (If Not Null)
-
-                    if (PSMUR_1 != "" || StrDef_1 != "")
-                    {
-                        if (StrDef_1 == "")
-                            StrDef_1 = StrDef_2;
-
-                        if (PSMUR_1 == "")
-                            PSMUR_1 = "Normal";
-                        else if (PSMUR_1 == "DEF" || PSMUR_1 == "STR")
-                        {
-                            StrDef_1 = PSMUR_1;
-                            PSMUR_1 = "Normal";
-                        }
-
-                        if (amount_1 == "")
-                            if (amount_2 != "")
-                                amount_1 = amount_2;
-                            else
-                                amount_1 = amountPersist;
-
-                        var medalCombatAbility_1 = new MedalCombatAbility()
-                        {
-                            Direction = direction,
-                            Attribute = PSMUR_1,
-                            Tier = amount_1,
-                            Duration = duration
-                        };
-
-                        // !! Medal Add Here !!
-                        AddMedal(StrDef_1, medalCombatAbility_1, ability);
-                    }
-
-                    #endregion
-
-                    #region Second Medal Addition
-
-                    if (PSMUR_2 == "")
-                        PSMUR_2 = "Normal";
-                    else if (PSMUR_2 == "DEF" || PSMUR_2 == "STR")
-                    {
-                        StrDef_2 = PSMUR_2;
-                        PSMUR_2 = "Normal";
-                    }
-
-                    if (amount_2 == "")
-                        amount_2 = amountPersist;
-
-                    var medalCombatAbility_2 = new MedalCombatAbility()
+                    var medalCombatAbility_1 = new MedalCombatAbility()
                     {
                         Direction = direction,
-                        Attribute = PSMUR_2,
-                        Tier = amount_2,
+                        Attribute = PSMUR_1,
+                        Tier = amount_1,
                         Duration = duration
                     };
 
                     // !! Medal Add Here !!
-                    AddMedal(StrDef_2, medalCombatAbility_2, ability);
-
-                    #endregion
-
-                    directionPersist = direction;
-                    amountPersist = amount_1;
+                    AddMedal(StrDef_1, medalCombatAbility_1, ability);
                 }
 
-                else
+                #endregion
+
+                #region Second Medal Addition
+
+                if (PSMUR_2 == "")
+                    PSMUR_2 = "Normal";
+                else if (PSMUR_2 == "DEF" || PSMUR_2 == "STR")
                 {
-                    var spAtkBonusResult = SPAtkRegex.Match(section.Trim());
-
-                    if (spAtkBonusResult.Success)
-                    {
-                        ability.SPBonus = spAtkBonusResult.Groups[1].Value;
-                    }
+                    StrDef_2 = PSMUR_2;
+                    PSMUR_2 = "Normal";
                 }
+
+                if (amount_2 == "")
+                    amount_2 = amountPersist;
+
+                var medalCombatAbility_2 = new MedalCombatAbility()
+                {
+                    Direction = direction,
+                    Attribute = PSMUR_2,
+                    Tier = amount_2,
+                    Duration = duration
+                };
+
+                // !! Medal Add Here !!
+                AddMedal(StrDef_2, medalCombatAbility_2, ability);
+
+                #endregion
+
+                directionPersist = direction;
+                amountPersist = amount_1;
             }
+
         }
     }
 

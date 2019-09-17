@@ -222,6 +222,12 @@ public class ImagePaths {
             {
                 { "GuardBreak", "GuardBreak/GuardBreak" }
             }
+        },
+        {
+            "SETSTRDEF", new Dictionary<string, string>()
+            {
+                { "SetStrDef", "StatusEffect/BUFFreset" }
+            }
         }
     };
 }

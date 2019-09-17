@@ -30,16 +30,41 @@ public class MedalAbilityParser : MonoBehaviour
 
     #region BUFFS/DEBUFFS
 
-    private static readonly Regex RaisedBasedRegex = new Regex(@"(Raises) (?:(P|S|M)(?:\w+)?-?(?:based )?(strength|defense|STR|DEF)?(?: and | & ))?(?:(P|S|M)(?:\w+)?-?(?:based )?)?(strength|defense|STR|DEF)( of all attributes)?(?: by)? (\d+) tiers? for (\d+ turns?|attacks?)");
-    private static readonly Regex LowerBasedRegex = new Regex(@"(Lowers) (target's )?(?:(P|S|M)(?:\w+)?-based )?(strength|defense|STR|DEF) (of all targets )?by (\d+) tiers? for (\d+ turns?|attacks?)");
+    //private static readonly Regex RaisedBasedRegex = new Regex(@"(Raises) (?:(P|S|M)(?:\w+)?-?(?:based )?(strength|defense|STR|DEF)?(?: and | & ))?(?:(P|S|M)(?:\w+)?-?(?:based )?)?(strength|defense|STR|DEF)( of all attributes)?(?: by)? (\d+) tiers? for (\d+ turns?|attacks?)");
+    //private static readonly Regex LowerBasedRegex = new Regex(@"(Lowers) (target's )?(?:(P|S|M)(?:\w+)?-based )?(strength|defense|STR|DEF) (of all targets )?by (\d+) tiers? for (\d+ turns?|attacks?)");
 
-    private static readonly Regex RaiseLowerRegex = new Regex(@"(\d+ \w+): (.*)");
-    // This is not used in the enumerations - used in methods
-    private static readonly Regex ThreeToAttributeRegex = new Regex(@"(target'?s'? )?(Lowers |Raises )(target'?s'? )?(\w+)(?:, | & )(\w)-(?:\w+)? & (\w)-(?:\w+) (?:by )?(\d+)");
-    private static readonly Regex SubRaiseLowerRegex = new Regex(@"(target's |targets' )?(R?r?aises |L?l?owers |-\d+ |\d+ )?(target's |targets' )?(?:(\w+)?-?(STR|DEF|strength|defense)?(?: by (\d+))?(?: and | & ))?(\w+)?\s?-?(STR|DEF|strength|defense)(?: by)?\s?(\d+)?");
-    private static readonly Regex SelfRegex = new Regex(@"self \[(.*)\]");
-    private static readonly Regex TargetRegex = new Regex(@"targets? \[(.*)\]");
+    //private static readonly Regex RaiseLowerRegex = new Regex(@"(\d+ \w+): (.*)");
+    //// This is not used in the enumerations - used in methods
+    //private static readonly Regex ThreeToAttributeRegex = new Regex(@"(target'?s'? )?(Lowers |Raises )(target'?s'? )?(\w+)(?:, | & )(\w)-(?:\w+)? & (\w)-(?:\w+) (?:by )?(\d+)");
+    //private static readonly Regex SubRaiseLowerRegex = new Regex(@"(target's |targets' )?(R?r?aises |L?l?owers |-\d+ |\d+ )?(target's |targets' )?(?:(\w+)?-?(STR|DEF|strength|defense)?(?: by (\d+))?(?: and | & ))?(\w+)?\s?-?(STR|DEF|strength|defense)(?: by)?\s?(\d+)?");
+    //private static readonly Regex SelfRegex = new Regex(@"self \[(.*)\]");
+    //private static readonly Regex TargetRegex = new Regex(@"targets? \[(.*)\]");
+    
+
+    // Older Raise/Lower Regex
+    private static readonly string RaiseLowerBased = @"(?:(Upright|Reversed?|PSM|P|S|M)(?:\w+)?)?-?(?:based)?\s?(strength|defense|STR|DEF)?( of all attributes| of all targets)?(?: (?:by )?(\d+) tiers?)?";
+    private static readonly Regex RaiseLowerBasedRegex = new Regex($@"(R?r?aises|L?l?owers) (target'?s'? |enemies'? )?(?:{RaiseLowerBased}(?: and | & ))?{RaiseLowerBased}(?: for |\/)(\d+ \w+)");
+
+    // Current Raise/Lower Regex
+    private static readonly Regex GeneralRaiseLowerRegex = new Regex(@"(\d+ \w+): (.*)");
+
+    #region Sub Regexes
+
+    // To be used in conjunction with GeneralRaiseLower Regex - Not to be included in the list
+    private static readonly Regex SelfTargetRegex = new Regex(@"(self |targets? )?\[?(.*)\]?");
+
+    // To be used in conjunction with GeneralRaiseLower/Self/Target Regex - Not to be included in the list
+    private static readonly string AddToRaiseLower = @"(?:(?:(Reversed? |Upright |PSM-|P-|S-|M-|R-|U-))?(STR|DEF)?(?: (?:by )?(\d+))?(?:, | & )?)?";
+    private static readonly Regex AddToRaiseLowerRegex = new Regex($@"(↑|R?r?aises|↓|L?l?owers)( target'?s'?)? {AddToRaiseLower}\s?{AddToRaiseLower}\s?{AddToRaiseLower}");
+
+    // To be used in conjunction with GeneralRaiseLower/Self/Target Regex - Not to be included in the list
+    private static readonly string SetRaiseLower = @"(?:(PSM-|P-|S-|M-|R-|U-))?(STR|DEF)?(?:, | & )?";
+    private static readonly Regex SetRaiseLowerRegex = new Regex($@"(target'?s?'? )?(-?\d+ ){SetRaiseLower}(?:(-?\d+ )?{SetRaiseLower})?(?:(-?\d+ )?{SetRaiseLower})?(?:(-?\d+ )?{SetRaiseLower})?");
+
+    // To be used in conjunction with GeneralRaiseLower Regex - Not to be included in the list
     private static readonly Regex StrDefRegex = new Regex(@"(targets’ |target’s )?(?:(\w)-Medal )?(STR|DEF) ((?:\+|\-)\d+)");
+
+    #endregion
 
     #endregion
 
@@ -151,12 +176,11 @@ public class MedalAbilityParser : MonoBehaviour
         IfNoneRegex,    // 16
         NextMedalRegex, // 17
         SPAtkRegex,     // 18
-        RaiseLowerRegex, RaisedBasedRegex, LowerBasedRegex,  // 19, 20, 21
-        MirrorsRegex,    // 22
-        UnleashesRegex,  // 23
-        //StrDefRegex,   // 24
-        ReflectRegex,    // 24
-        GuardBreakRegex  // 25
+        RaiseLowerBasedRegex, GeneralRaiseLowerRegex,  // 19, 20
+        MirrorsRegex,    // 21
+        UnleashesRegex,  // 22
+        ReflectRegex,    // 23
+        GuardBreakRegex  // 24
     };
 
     public MedalAbility Parser(string abilityDescription)
@@ -247,25 +271,22 @@ public class MedalAbilityParser : MonoBehaviour
                         ability.SPBonus = result.Groups[1].Value;
                         break;
                     case 19: // 19 - 21 Raise/ Lower
-                        ParseRaiseLower(result.Groups, ability);
+                        OlderParseRaiseLowerBased(result.Groups, ability);
                         break;
                     case 20:
-                        ParseRaiseBased(result.Groups, ability);
+                        ParseRaiseLower(result.Groups, ability);
                         break;
-                    case 21:
-                        ParseLowerBased(result.Groups, ability);
-                        break;
-                    case 22: // 22 Mirrors
+                    case 21: // 21 Mirros
                         ability.Mirrors = result.Groups[1].Value;
                         break;
-                    case 23:
+                    case 22: // 22 Ignore Attributes
                         ability.Deal = "1";
                         ability.IgnoreAttributes = "ignore";
                         break;
-                    case 24:
+                    case 23: // 23 Reflect
                         ability.Reflect = result.Groups[1].Value + result.Groups[2].Value;
                         break;
-                    case 25:
+                    case 24: // 24 Guard Break
                         ability.GuardBreak = "GuardBreak";
                         break;
                     default:
@@ -279,261 +300,253 @@ public class MedalAbilityParser : MonoBehaviour
         return ability;
     }
 
-    private void ParseRaiseBased(GroupCollection resultGroups, MedalAbility ability)
+    private void OlderParseRaiseLowerBased(GroupCollection resultGroups, MedalAbility ability)
     {
         #region Vars
 
-        var raise = resultGroups[1].Value;
+        var direction = resultGroups[1].Value;
+        var target = !string.IsNullOrEmpty(resultGroups[1].Value) ? resultGroups[1].Value :
+                     !string.IsNullOrEmpty(resultGroups[5].Value) && resultGroups[5].Value.Contains("target") ? resultGroups[5].Value :
+                     !string.IsNullOrEmpty(resultGroups[9].Value) && resultGroups[9].Value.Contains("target") ? resultGroups[9].Value :
+                     "";
 
-        var PSMUR_1 = resultGroups[2].Value;
-        var StrDef_1 = resultGroups[3].Value;
-        var PSMUR_2 = resultGroups[4].Value;
-        var StrDef_2 = resultGroups[5].Value;
+        //var attribute1 = resultGroups[3].Value;
+        //var strDef1 = resultGroups[4].Value;
 
-        var allAttributes = resultGroups[6].Value;
+        //var attribute2 = resultGroups[7].Value;
+        //var strDef2 = resultGroups[8].Value;
 
-        var amount = resultGroups[7].Value;
-        var duration = resultGroups[8].Value;
+        var allAttributes = !string.IsNullOrEmpty(resultGroups[5].Value) && resultGroups[5].Value.Contains("attribute") ? resultGroups[5].Value :
+                            !string.IsNullOrEmpty(resultGroups[9].Value) && resultGroups[9].Value.Contains("attribute") ? resultGroups[9].Value :
+                            "";
+
+        var duration = resultGroups[11].Value;
 
         #endregion
 
-        #region First Addition (If Not Null)
-
-        if (PSMUR_1 != "" || StrDef_1 != "")
+        var index = 3;
+        for(int i = 0; i < 2; ++i)
         {
-            if (StrDef_1 == "")
-                StrDef_1 = StrDef_2;
-            if (PSMUR_1 == "")
-                PSMUR_1 = "Normal";
+            var attribute = resultGroups[index].Value;
+            var strDef = resultGroups[index + 1].Value;
 
-            var medalCombatAbility_1 = new MedalCombatAbility()
+            if(attribute != "" || strDef != "")
             {
-                Direction = raise,
-                Attribute = PSMUR_1,
-                Tier = amount,
-                Duration = duration
-            };
+                var amount = !string.IsNullOrEmpty(resultGroups[index + 3].Value) ? resultGroups[index + 3].Value :
+                             (index + 3) + 4 < resultGroups.Count && !string.IsNullOrEmpty(resultGroups[(index + 3) + 4].Value) ? resultGroups[(index + 3) + 4].Value : 
+                             "";
 
-            // !! Medal Add Here !!
-            AddMedal(StrDef_1, medalCombatAbility_1, ability);
+                if (attribute == "")
+                    attribute = "Normal";
+                if (strDef == "" && (index + 1) + 4 < resultGroups.Count)
+                    strDef = resultGroups[(index + 1) + 4].Value;
+
+                var medalCombatAbility = new MedalCombatAbility()
+                {
+                    Direction = direction,
+                    Attribute = attribute.Replace("-", ""),
+                    Tier = amount,
+                    Duration = duration,
+                    IsPlayerAffected = string.IsNullOrEmpty(target),
+                    IsEnemyAffected = !string.IsNullOrEmpty(target),
+                };
+
+                // !! Medal Add Here !!
+                AddMedal(strDef, medalCombatAbility, ability);
+            }
+                
+            index += 4;
         }
-
-        #endregion
-
-        #region Second Addition (Should always add one)
-
-        if (PSMUR_2 == "")
-            PSMUR_2 = allAttributes != "" ? "PSM" : "Normal";
-
-        var medalCombatAbility_2 = new MedalCombatAbility()
-        {
-            Direction = raise,
-            Attribute = PSMUR_2,
-            Tier = amount,
-            Duration = duration
-        };
-
-        // !! Medal Add Here !!
-        AddMedal(StrDef_2, medalCombatAbility_2, ability);
-
-        #endregion
-    }
-
-    private void ParseLowerBased(GroupCollection resultGroups, MedalAbility ability)
-    {
-        #region Vars
-
-        var lower = resultGroups[1].Value;
-        var target = resultGroups[2].Value ?? resultGroups[5].Value;
-
-        var PSMUR = resultGroups[3].Value;
-        var StrDef = resultGroups[4].Value;
-
-        var amount = resultGroups[6].Value;
-        var duration = resultGroups[7].Value;
-
-        #endregion
-
-        #region Medal Addition
-
-        if (PSMUR == "")
-            PSMUR = "Normal";
-
-        var medalCombatAbility = new MedalCombatAbility()
-        {
-            Direction = lower,
-            Attribute = PSMUR,
-            Tier = amount,
-            Duration = duration
-        };
-
-        // !! Medal Add Here !!
-        AddMedal(StrDef, medalCombatAbility, ability);
-
-        #endregion
     }
 
     private void ParseRaiseLower(GroupCollection resultGroups, MedalAbility ability)
     {
         var duration = resultGroups[1].Value;
-        var sections = resultGroups[2].Value.Split(',');
+        var section = resultGroups[2].Value;
 
-        var directionPersist = "";
-        var amountPersist = "";
+        #region SP Atk B
 
-        foreach (var section in sections)
+        var spAtkBonusResult = SPAtkRegex.Match(section);
+
+        if (spAtkBonusResult.Success)
         {
-            var spAtkBonusResult = SPAtkRegex.Match(section.Trim());
+            ability.SPBonus = spAtkBonusResult.Groups[1].Value;
+        }
 
-            if (spAtkBonusResult.Success)
+        #endregion
+
+        #region Str Def Increase
+
+        var strDefResult = StrDefRegex.Match(section);
+
+        if (strDefResult.Success)
+        {
+            if (strDefResult.Groups[3].Value == "STR")
             {
-                ability.SPBonus = spAtkBonusResult.Groups[1].Value;
+                ability.StrUp = "STR" + strDefResult.Groups[4].Value + strDefResult.Groups[2];
+            }
+            else if (strDefResult.Groups[3].Value == "DEF")
+            {
+                ability.DefUp = "DEF" + strDefResult.Groups[4].Value;
+            }
+        }
 
-                continue;
+        #endregion
+
+        #region Self/ Target Regex Check
+
+        var selfTargetResults = SelfTargetRegex.Matches(section);
+
+        if (selfTargetResults.Count > 0)
+        {
+            foreach (Match selfTargetResult in selfTargetResults)
+            {
+                var addResult = this.AddToRaiseLowerMedal(duration, selfTargetResult.Groups[2].Value, ability, selfTargetResult.Groups[1].Value);
+                if (addResult)
+                    continue;
+
+                var setResult = this.SetRaiseLowerMedal(duration, selfTargetResult.Groups[2].Value, ability, selfTargetResult.Groups[1].Value);
+                if (setResult)
+                    continue;
             }
 
-            var strDefResult = StrDefRegex.Match(section.Trim());
+            return;
+        }
 
-            if (strDefResult.Success)
+        #endregion
+
+        #region Add Regex Check
+
+        var addCheckResult = this.AddToRaiseLowerMedal(duration, section, ability);
+        if (addCheckResult)
+            return;
+
+        #endregion
+
+        #region Set Regex Check
+
+        var setCheckResult = this.SetRaiseLowerMedal(duration, section, ability);
+        if (setCheckResult)
+            return;
+
+        #endregion
+    }
+
+    public bool AddToRaiseLowerMedal(string duration, string section, MedalAbility ability, string selfTarget = "")
+    {
+        var addResults = AddToRaiseLowerRegex.Matches(section);
+
+        if (addResults.Count > 0)
+        {
+            foreach (Match addResult in addResults)
             {
-                if (strDefResult.Groups[3].Value == "STR")
+                var direction = addResult.Groups[1].Value;
+                var target = !string.IsNullOrEmpty(selfTarget) ? selfTarget : addResult.Groups[2].Value;
+
+                var index = 3;
+                for (int i = 0; i < 3; ++i)
                 {
-                    ability.StrUp = "STR" + strDefResult.Groups[4].Value + strDefResult.Groups[2];
-                }
-                else if (strDefResult.Groups[3].Value == "DEF")
-                {
-                    ability.DefUp = "DEF" + strDefResult.Groups[4].Value;
-                }
+                    var attribute = addResult.Groups[index].Value;
+                    var strDef = addResult.Groups[index + 1].Value;
 
-                continue;
-            }
-
-            var targetResult = TargetRegex.Match(section.Trim());
-            var selfResult = SelfRegex.Match(section.Trim());
-
-            var sectionAlt = targetResult.Success ? targetResult.Groups[1].Value : selfResult.Success ? selfResult.Groups[1].Value : section;
-
-            var threeToAttributeResult = ThreeToAttributeRegex.Match(sectionAlt.Trim());
-
-            if(threeToAttributeResult.Success)
-            {
-                var target = threeToAttributeResult.Groups[1].Value != "" ? threeToAttributeResult.Groups[1].Value.Trim() : threeToAttributeResult.Groups[4].Value.Trim();
-                var amount = threeToAttributeResult.Groups[2].Value != "" ? threeToAttributeResult.Groups[2].Value.Trim() : threeToAttributeResult.Groups[8].Value.Trim();
-                var direction = threeToAttributeResult.Groups[3].Value != "" ? threeToAttributeResult.Groups[3].Value.Trim() : amount[0] == '-' ? "Lowers" : "Raises";
-                var strDef = threeToAttributeResult.Groups[5].Value.Trim();
-
-
-                var PSMUR_1 = threeToAttributeResult.Groups[6].Value;
-                var PSMUR_2 = threeToAttributeResult.Groups[7].Value;
-
-                // TODO STILL NOT DONE HERE!!
-            }
-
-            var subRaiseLowerResult = SubRaiseLowerRegex.Match(sectionAlt.Trim());
-
-            if (subRaiseLowerResult.Success)
-            {
-                #region Vars
-
-                var target = subRaiseLowerResult.Groups[1].Value != "" ? subRaiseLowerResult.Groups[1].Value.Trim() : subRaiseLowerResult.Groups[3].Value.Trim();
-                var direction = subRaiseLowerResult.Groups[2].Value.Trim();
-
-                var PSMUR_1 = subRaiseLowerResult.Groups[4].Value;
-                var StrDef_1 = subRaiseLowerResult.Groups[5].Value;
-                var amount_1 = subRaiseLowerResult.Groups[6].Value;
-
-                var PSMUR_2 = subRaiseLowerResult.Groups[7].Value;
-                var StrDef_2 = subRaiseLowerResult.Groups[8].Value;
-                var amount_2 = subRaiseLowerResult.Groups[9].Value;
-
-                // If we have a number, parse it into direction and tier
-                if (directionPersist != "" && direction == "")
-                {
-                    direction = directionPersist;
-                }
-                else if (direction.Length < 6 && direction != "")
-                {
-                    amount_1 = direction.Replace("-", "");
-                    amountPersist = amount_1;
-
-                    if (int.Parse(direction) > 0)
-                        direction = "Raises";
-                    else
-                        direction = "Lowers";
-                }
-                //else if(direction == "")
-                //{
-                //    direction = directionPersist;
-                //}
-
-                #endregion
-
-                #region First Medal Addition (If Not Null)
-
-                if (PSMUR_1 != "" || StrDef_1 != "")
-                {
-                    if (StrDef_1 == "")
-                        StrDef_1 = StrDef_2;
-
-                    if (PSMUR_1 == "")
-                        PSMUR_1 = "Normal";
-                    else if (PSMUR_1 == "DEF" || PSMUR_1 == "STR")
+                    if (attribute != "" || strDef != "")
                     {
-                        StrDef_1 = PSMUR_1;
-                        PSMUR_1 = "Normal";
+                        var amount = !string.IsNullOrEmpty(addResult.Groups[index + 2].Value) ? addResult.Groups[index + 2].Value :
+                                     (index + 2) + 3 < addResult.Groups.Count && 
+                                     !string.IsNullOrEmpty(addResult.Groups[(index + 2) + 3].Value) ? addResult.Groups[(index + 2) + 3].Value :
+                                     (index + 2) + 6 < addResult.Groups.Count &&
+                                     !string.IsNullOrEmpty(addResult.Groups[(index + 2) + 6].Value) ? addResult.Groups[(index + 2) + 6].Value :
+                                     "";
+
+                        if (attribute == "")
+                            attribute = "Normal";
+
+                        if (strDef == "" && (index + 1) + 3 < addResult.Groups.Count )
+                            strDef = addResult.Groups[(index + 1) + 3].Value;
+                        if (strDef == "" && (index + 1) + 6 < addResult.Groups.Count)
+                            strDef = addResult.Groups[(index + 1) + 6].Value;
+
+                        var medalCombatAbility = new MedalCombatAbility()
+                        {
+                            Direction = direction,
+                            Attribute = attribute.Replace("-", ""),
+                            Tier = amount,
+                            Duration = duration,
+                            IsPlayerAffected = string.IsNullOrEmpty(target),
+                            IsEnemyAffected = !string.IsNullOrEmpty(target),
+                        };
+
+                        // !! Medal Add Here !!
+                        this.AddMedal(strDef, medalCombatAbility, ability);
                     }
 
-                    if (amount_1 == "")
-                        if (amount_2 != "")
-                            amount_1 = amount_2;
-                        else
-                            amount_1 = amountPersist;
-
-                    var medalCombatAbility_1 = new MedalCombatAbility()
-                    {
-                        Direction = direction,
-                        Attribute = PSMUR_1,
-                        Tier = amount_1,
-                        Duration = duration
-                    };
-
-                    // !! Medal Add Here !!
-                    AddMedal(StrDef_1, medalCombatAbility_1, ability);
+                    index += 3;
                 }
-
-                #endregion
-
-                #region Second Medal Addition
-
-                if (PSMUR_2 == "")
-                    PSMUR_2 = "Normal";
-                else if (PSMUR_2 == "DEF" || PSMUR_2 == "STR")
-                {
-                    StrDef_2 = PSMUR_2;
-                    PSMUR_2 = "Normal";
-                }
-
-                if (amount_2 == "")
-                    amount_2 = amountPersist;
-
-                var medalCombatAbility_2 = new MedalCombatAbility()
-                {
-                    Direction = direction,
-                    Attribute = PSMUR_2,
-                    Tier = amount_2,
-                    Duration = duration
-                };
-
-                // !! Medal Add Here !!
-                AddMedal(StrDef_2, medalCombatAbility_2, ability);
-
-                #endregion
-
-                directionPersist = direction;
-                amountPersist = amount_1;
             }
 
+            return true;
         }
+
+        return false;
+    }
+
+    public bool SetRaiseLowerMedal(string duration, string section, MedalAbility ability, string selfTarget = "")
+    {
+        var setResults = SetRaiseLowerRegex.Matches(section);
+
+        if (setResults.Count > 0)
+        {
+            foreach (Match setResult in setResults)
+            {
+                var target = !string.IsNullOrEmpty(selfTarget) ? selfTarget : setResult.Groups[1].Value;
+                int.TryParse(setResult.Groups[2].Value, out var amount);
+                var direction = amount > 0 ? "Raises" : "Lowers";
+
+                var index = 2;
+                for (int i = 0; i < 2; ++i)
+                {
+                    if(index > 2 && !string.IsNullOrEmpty(setResult.Groups[index].Value))
+                    {
+                        int.TryParse(setResult.Groups[index + 3].Value, out amount);
+                        direction = amount > 0 ? "Raises" : "Lowers";
+                    }
+
+                    var attribute = setResult.Groups[index + 1].Value;
+                    var strDef = setResult.Groups[index + 2].Value;
+
+                    if (attribute != "" || strDef != "")
+                    {
+
+                        if (attribute == "")
+                            attribute = "Normal";
+
+                        if (strDef == "" && (index + 2) + 3 < setResult.Groups.Count)
+                            strDef = setResult.Groups[(index + 2) + 3].Value;
+
+                        var medalCombatAbility = new MedalCombatAbility()
+                        {
+                            Direction = direction,
+                            Attribute = attribute.Replace("-", ""),
+                            Tier = amount.ToString().Substring(1),
+                            Duration = duration,
+                            IsPlayerAffected = string.IsNullOrEmpty(target),
+                            IsEnemyAffected = !string.IsNullOrEmpty(target),
+                        };
+
+                        // !! Medal Add Here !!
+                        this.AddMedal(strDef, medalCombatAbility, ability);
+                    }
+
+                    index += 3;
+                }
+            }
+
+            ability.SetStrDef = "SetStrDef";
+
+            return true;
+        }
+
+        return false;
     }
 
     public void AddMedal(string strDef, MedalCombatAbility combatAbility, MedalAbility ability)

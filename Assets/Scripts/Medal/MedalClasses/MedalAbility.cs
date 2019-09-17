@@ -46,6 +46,8 @@ namespace MedalViewer.Medal
 
         public string GuardBreak = "";
 
+        public string SetStrDef = "";
+
 
         // Key: STR/DEF - Key: Raise/Lower/LowerPlayer - Value: Images
         public Dictionary<string, Dictionary<string, List<Texture2D>>> CombatImages;
@@ -170,6 +172,12 @@ namespace MedalViewer.Medal
                 var guard_break = Resources.Load(ImagePaths.MiscPaths["GUARDBREAK"][GuardBreak]) as Texture2D;
                 MiscImages["GUARDBREAK"] = guard_break;
             }
+
+            if(SetStrDef != "")
+            {
+                var set_str_def = Resources.Load(ImagePaths.MiscPaths["SETSTRDEF"][SetStrDef]) as Texture2D;
+                MiscImages["SETSTRDEF"] = set_str_def;
+            }
         }
 
         public void InitImages()
@@ -206,7 +214,8 @@ namespace MedalViewer.Medal
                 { "REFLECT", null },
                 { "STR+", null },
                 { "DEF+", null },
-                { "GUARDBREAK", null }
+                { "GUARDBREAK", null },
+                { "SETSTRDEF", null }
             };
         }
     }

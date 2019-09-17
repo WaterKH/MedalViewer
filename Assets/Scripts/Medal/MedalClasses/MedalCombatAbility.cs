@@ -10,6 +10,8 @@ namespace MedalViewer.Medal
         public string Attribute { get; set; }
         public string Tier { get; set; }
         public string Duration { get; set; } // Turn(s)/ Attack(s)
+        public bool IsPlayerAffected { get; set; }
+        public bool IsEnemyAffected { get; set; }
 
         //public MedalCombatAbility() { }
 

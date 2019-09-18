@@ -51,7 +51,7 @@ public class MedalAbilityParser : MonoBehaviour
     #region Sub Regexes
 
     // To be used in conjunction with GeneralRaiseLower Regex - Not to be included in the list
-    private static readonly Regex SelfTargetRegex = new Regex(@"(self |targets? )?\[?(.*)\]?");
+    private static readonly Regex SelfTargetRegex = new Regex(@"(self |targets? )\[(.*)\]");
 
     // To be used in conjunction with GeneralRaiseLower/Self/Target Regex - Not to be included in the list
     private static readonly string AddToRaiseLower = @"(?:(?:(Reversed? |Upright |PSM-|P-|S-|M-|R-|U-))?(STR|DEF)?(?: (?:by )?(\d+))?(?:, | & )?)?";
@@ -503,9 +503,9 @@ public class MedalAbilityParser : MonoBehaviour
                 var direction = amount > 0 ? "Raises" : "Lowers";
 
                 var index = 2;
-                for (int i = 0; i < 2; ++i)
+                for (int i = 0; i < 4; ++i)
                 {
-                    if(index > 2 && !string.IsNullOrEmpty(setResult.Groups[index].Value))
+                    if(index > 2 && string.IsNullOrEmpty(setResult.Groups[index].Value))
                     {
                         int.TryParse(setResult.Groups[index + 3].Value, out amount);
                         direction = amount > 0 ? "Raises" : "Lowers";
@@ -527,7 +527,7 @@ public class MedalAbilityParser : MonoBehaviour
                         {
                             Direction = direction,
                             Attribute = attribute.Replace("-", ""),
-                            Tier = amount.ToString().Substring(1),
+                            Tier = amount.ToString().Replace("-", ""),
                             Duration = duration,
                             IsPlayerAffected = string.IsNullOrEmpty(target),
                             IsEnemyAffected = !string.IsNullOrEmpty(target),

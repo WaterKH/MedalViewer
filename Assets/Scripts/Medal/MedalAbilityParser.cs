@@ -51,7 +51,7 @@ public class MedalAbilityParser : MonoBehaviour
     #region Sub Regexes
 
     // To be used in conjunction with GeneralRaiseLower Regex - Not to be included in the list
-    private static readonly Regex SelfTargetRegex = new Regex(@"(self |targets? )\[(.*)\]");
+    private static readonly Regex SelfTargetRegex = new Regex(@"(self |targets? )\[(.*?)\]");
 
     // To be used in conjunction with GeneralRaiseLower/Self/Target Regex - Not to be included in the list
     private static readonly string AddToRaiseLower = @"(?:(?:(Reversed? |Upright |PSM-|P-|S-|M-|R-|U-))?(STR|DEF)?(?: (?:by )?(\d+))?(?:, | & )?)?";
@@ -79,8 +79,8 @@ public class MedalAbilityParser : MonoBehaviour
 
 
     //private static readonly Regex MoreDamageRegex = new Regex(@"^More damage (?:with |the ) (slot number|\d+ enemy left)");
-    private static readonly Regex MorePowerfulRegex = new Regex(@"^More powerful when (critical hit)");
-
+    //private static readonly Regex MorePowerfulRegex = new Regex(@"^More powerful when (critical hit)");
+    private static readonly Regex CriticalHitRegex = new Regex(@"^Has a (\d+)% chance of being a critical attack");
 
     private static readonly Regex DamagePlusRegex = new Regex(@"Damage\+: (.*)");
 
@@ -166,7 +166,7 @@ public class MedalAbilityParser : MonoBehaviour
     {
         DealsRegex, // 0
         InflictFixedRegex, InflixtRegex, // 1, 2
-        MorePowerfulRegex,  // 3
+        CriticalHitRegex,  // 3
         DamagePlusRegex,    // 4
         RecoverAndCureRegex, CuresRegex, HpRecoveryRegex,   // 5, 6, 7
         FillAndCureRegex, GaugeRegex, GaugeUseRegex,        // 8, 9, 10
@@ -401,11 +401,11 @@ public class MedalAbilityParser : MonoBehaviour
         {
             foreach (Match selfTargetResult in selfTargetResults)
             {
-                var addResult = this.AddToRaiseLowerMedal(duration, selfTargetResult.Groups[2].Value, ability, selfTargetResult.Groups[1].Value);
+                var addResult = this.AddToRaiseLowerMedal(duration, selfTargetResult.Groups[2].Value, ability, selfTargetResult.Groups[1].Value.Trim());
                 if (addResult)
                     continue;
 
-                var setResult = this.SetRaiseLowerMedal(duration, selfTargetResult.Groups[2].Value, ability, selfTargetResult.Groups[1].Value);
+                var setResult = this.SetRaiseLowerMedal(duration, selfTargetResult.Groups[2].Value, ability, selfTargetResult.Groups[1].Value.Trim());
                 if (setResult)
                     continue;
             }
@@ -441,7 +441,7 @@ public class MedalAbilityParser : MonoBehaviour
             foreach (Match addResult in addResults)
             {
                 var direction = addResult.Groups[1].Value;
-                var target = !string.IsNullOrEmpty(selfTarget) ? selfTarget : addResult.Groups[2].Value;
+                var targetBool = string.IsNullOrEmpty(selfTarget) || selfTarget.Equals("self") ? true : false;
 
                 var index = 3;
                 for (int i = 0; i < 3; ++i)
@@ -472,8 +472,8 @@ public class MedalAbilityParser : MonoBehaviour
                             Attribute = attribute.Replace("-", ""),
                             Tier = amount,
                             Duration = duration,
-                            IsPlayerAffected = string.IsNullOrEmpty(target),
-                            IsEnemyAffected = !string.IsNullOrEmpty(target),
+                            IsPlayerAffected = targetBool,
+                            IsEnemyAffected = !targetBool,
                         };
 
                         // !! Medal Add Here !!
@@ -498,16 +498,16 @@ public class MedalAbilityParser : MonoBehaviour
         {
             foreach (Match setResult in setResults)
             {
-                var target = !string.IsNullOrEmpty(selfTarget) ? selfTarget : setResult.Groups[1].Value;
+                var targetBool = string.IsNullOrEmpty(selfTarget) || selfTarget.Equals("self") ? true : false;
                 int.TryParse(setResult.Groups[2].Value, out var amount);
                 var direction = amount > 0 ? "Raises" : "Lowers";
 
                 var index = 2;
                 for (int i = 0; i < 4; ++i)
                 {
-                    if(index > 2 && string.IsNullOrEmpty(setResult.Groups[index].Value))
+                    if(index > 2 && !string.IsNullOrEmpty(setResult.Groups[index].Value))
                     {
-                        int.TryParse(setResult.Groups[index + 3].Value, out amount);
+                        int.TryParse(setResult.Groups[index].Value, out amount);
                         direction = amount > 0 ? "Raises" : "Lowers";
                     }
 
@@ -522,6 +522,10 @@ public class MedalAbilityParser : MonoBehaviour
 
                         if (strDef == "" && (index + 2) + 3 < setResult.Groups.Count)
                             strDef = setResult.Groups[(index + 2) + 3].Value;
+                        if (strDef == "" && (index + 2) + 6 < setResult.Groups.Count)
+                            strDef = setResult.Groups[(index + 2) + 6].Value;
+                        if (strDef == "" && (index + 2) + 9 < setResult.Groups.Count)
+                            strDef = setResult.Groups[(index + 2) + 9].Value;
 
                         var medalCombatAbility = new MedalCombatAbility()
                         {
@@ -529,8 +533,8 @@ public class MedalAbilityParser : MonoBehaviour
                             Attribute = attribute.Replace("-", ""),
                             Tier = amount.ToString().Replace("-", ""),
                             Duration = duration,
-                            IsPlayerAffected = string.IsNullOrEmpty(target),
-                            IsEnemyAffected = !string.IsNullOrEmpty(target),
+                            IsPlayerAffected = targetBool,
+                            IsEnemyAffected = !targetBool,
                         };
 
                         // !! Medal Add Here !!
@@ -562,7 +566,9 @@ public class MedalAbilityParser : MonoBehaviour
                     Attribute = s.ToString(),
                     Direction = combatAbility.Direction,
                     Duration = combatAbility.Duration,
-                    Tier = combatAbility.Tier
+                    Tier = combatAbility.Tier,
+                    IsPlayerAffected = combatAbility.IsPlayerAffected,
+                    IsEnemyAffected = combatAbility.IsEnemyAffected,
                 });
             }
         }
@@ -575,7 +581,9 @@ public class MedalAbilityParser : MonoBehaviour
                     Attribute = s.ToString(),
                     Direction = combatAbility.Direction,
                     Duration = combatAbility.Duration,
-                    Tier = combatAbility.Tier
+                    Tier = combatAbility.Tier,
+                    IsPlayerAffected = combatAbility.IsPlayerAffected,
+                    IsEnemyAffected = combatAbility.IsEnemyAffected,
                 });
             }
         }

@@ -54,6 +54,7 @@ namespace MedalViewer.Medal
         public bool Tier7 { get; set; }
         public bool Tier8 { get; set; }
         public bool Tier9 { get; set; }
+        public bool Tier10 { get; set; }
 
         #endregion
 
@@ -129,6 +130,7 @@ namespace MedalViewer.Medal
             Tier7 = true;
             Tier8 = true;
             Tier9 = true;
+            Tier10 = true;
 
             Single = true;
             All = true;
@@ -138,7 +140,7 @@ namespace MedalViewer.Medal
             HighRange = 75;
 
             Tiers.Clear();
-            Tiers.AddRange(new int[] { 6, 7, 8, 9 });
+            Tiers.AddRange(new int[] { 6, 7, 8, 9, 10 });
         }
 
         public string GenerateFilterQuery()
@@ -279,10 +281,16 @@ namespace MedalViewer.Medal
                 tier += string.IsNullOrEmpty(tier) ? @" Tier = 9" : @" OR Tier = 9";
                 Tiers.Add(9);
             }
+
+            if (Tier10)
+            {
+                tier += string.IsNullOrEmpty(tier) ? @" Tier = 10" : @" OR Tier = 10";
+                Tiers.Add(10);
+            }
             #endregion
             query += string.IsNullOrEmpty(tier) ? "" : $"({tier}) AND ";
             if (string.IsNullOrEmpty(tier))
-                Tiers.AddRange(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+                Tiers.AddRange(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
 
             var target = "";
             #region Target
@@ -300,8 +308,8 @@ namespace MedalViewer.Medal
             var range = "";
             #region Range
             if (LowRange >= currentLowestRange && HighRange <= currentHighestRange)
-                range += $"(BaseMultiplierLow * TL.Multiplier Between {LowRange} AND {HighRange}) AND (BaseMultiplierHigh IS NULL OR BaseMultiplierHigh * TL.Multiplier Between {LowRange} AND {HighRange}) OR" +
-                    $"(MaxMultiplierLow * TL.Multiplier Between {LowRange} AND {HighRange}) AND (MaxMultiplierHigh IS NULL OR MaxMultiplierHigh * TL.Multiplier Between {LowRange} AND {HighRange})";// OR" +
+                range += $"(((BaseMultiplierLow * TL.Multiplier Between {LowRange} AND {HighRange}) OR (BaseMultiplierHigh * TL.Multiplier Between {LowRange} AND {HighRange})) OR " +
+                    $"((MaxMultiplierLow * TL.Multiplier Between {LowRange} AND {HighRange}) OR (MaxMultiplierHigh * TL.Multiplier Between {LowRange} AND {HighRange})))";// OR" +
                     //$"(GuiltMultiplierLow Between {LowRange} AND {HighRange}) OR (GuiltMultiplierHigh Between {LowRange} AND {HighRange})";
             //else
                 // TODO Do something for fixed damage here?
@@ -314,7 +322,7 @@ namespace MedalViewer.Medal
             if (checkResult == "Where" || checkResult == "AND")
                 query = query.Substring(0, query.Length - checkResult.Length - 1);
             //Debug.Log(checkResult);
-            //Debug.Log(query);
+            Debug.Log(query);
             return query;
         }
     }

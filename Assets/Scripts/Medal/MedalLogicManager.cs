@@ -30,10 +30,10 @@ namespace MedalViewer.Medal
         {
             return medal.GuiltMultiplierHigh != 0.0f ? medal.GuiltMultiplierHigh :
                     medal.GuiltMultiplierLow != 0.0f ? medal.GuiltMultiplierLow :
-                    medal.MaxMultiplierHigh  != 0.0f ? medal.MaxMultiplierHigh :
-                    medal.MaxMultiplierLow   != 0.0f ? medal.MaxMultiplierLow :
-                    medal.BaseMultiplierHigh != 0.0f ? medal.BaseMultiplierHigh :
-                    medal.BaseMultiplierLow;
+                    medal.MaxMultiplierHigh  != 0.0f ? medal.MaxMultiplierHigh * medal.TierConversion[medal.Tier] :
+                    medal.MaxMultiplierLow   != 0.0f ? medal.MaxMultiplierLow * medal.TierConversion[medal.Tier] :
+                    medal.BaseMultiplierHigh != 0.0f ? medal.BaseMultiplierHigh * medal.TierConversion[medal.Tier] :
+                    medal.BaseMultiplierLow * medal.TierConversion[medal.Tier];
         }
 
         public Dictionary<int, Dictionary<double, GameObject>> GenerateMedals(List<GameObject> YParents, List<GameObject> XParents, Transform MedalContentHolder)

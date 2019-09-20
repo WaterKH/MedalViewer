@@ -192,7 +192,7 @@ namespace MedalViewer.Medal
             CombatImages.Add("DEF", new Dictionary<string, List<Texture2D>>());
             CombatImages["DEF"].Add("Raises", new List<Texture2D>());
             CombatImages["DEF"].Add("Lowers", new List<Texture2D>());
-            CombatImages["DEF"].Add("PlayerLowers", new List<Texture2D>()); // TODO Redesign backend to account for player
+            //CombatImages["DEF"].Add("PlayerLowers", new List<Texture2D>()); // TODO Redesign backend to account for player
 
             IncreaseImages = new Dictionary<string, Texture2D>();
 

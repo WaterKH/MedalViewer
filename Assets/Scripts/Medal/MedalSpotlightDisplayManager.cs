@@ -184,7 +184,8 @@ namespace MedalViewer.Medal
             Tuple.Create(100, 180),
             Tuple.Create(120, 200),
             Tuple.Create(150, 230),
-            Tuple.Create(200, 280)
+            Tuple.Create(200, 280),
+            Tuple.Create(280, 320)
         };
 
         private string BaseMultiplierLow;
@@ -385,7 +386,7 @@ namespace MedalViewer.Medal
         private void AssignPlayerEnemy(MedalAbility medalAbility)
         {
             var ability = medalAbility.STR.FirstOrDefault() != null ? medalAbility.STR.FirstOrDefault() :
-                medalAbility.DEF.FirstOrDefault() != null ? medalAbility.DEF.FirstOrDefault() : null;
+                          medalAbility.DEF.FirstOrDefault() != null ? medalAbility.DEF.FirstOrDefault() : null;
 
             var strPlayerCounter = 0;
             var defPlayerCounter = 0;
@@ -399,52 +400,36 @@ namespace MedalViewer.Medal
             {
                 foreach (var raiseLower in strDef.Value)
                 {
-                    if (raiseLower.Key == "Raises")
+                    if (strDef.Key == "STR")
                     {
-                        if (strDef.Key == "STR")
+                        foreach (var str in raiseLower.Value)
                         {
-                            foreach (var strRaise in raiseLower.Value)
+                            if (medalAbility.STR[counterSTR].IsPlayerAffected)
                             {
-                                PlayerAttack[strPlayerCounter].texture = strRaise;
-                                PlayerAttack[strPlayerCounter].color = visible;
-                                PlayerAttackMults[strPlayerCounter++].text = "x" + medalAbility.STR[counterSTR++].Tier;
+                                this.HelperAssignPlayerEnemy(ref PlayerAttack, ref PlayerAttackMults, ref strPlayerCounter, ref counterSTR, medalAbility.STR, str);
                             }
-                        }
-                        else if (strDef.Key == "DEF")
-                        {
-                            foreach (var defRaise in raiseLower.Value)
+                            else if(medalAbility.STR[counterSTR].IsEnemyAffected)
                             {
-                                PlayerDefense[defPlayerCounter].texture = defRaise;
-                                PlayerDefense[defPlayerCounter].color = visible;
-                                PlayerDefenseMults[defPlayerCounter++].text = "x" + medalAbility.DEF[counterDEF++].Tier;
+                                this.HelperAssignPlayerEnemy(ref EnemyAttack, ref EnemyAttackMults, ref strEnemyCounter, ref counterSTR, medalAbility.STR, str);
                             }
                         }
                     }
-                    else if (raiseLower.Key == "Lowers")
+                    else if (strDef.Key == "DEF")
                     {
-                        if (strDef.Key == "STR")
+                        foreach (var def in raiseLower.Value)
                         {
-                            foreach (var strLower in raiseLower.Value)
+                            if (medalAbility.DEF[counterDEF].IsPlayerAffected)
                             {
-                                EnemyAttack[strEnemyCounter].texture = strLower;
-                                EnemyAttack[strEnemyCounter].color = visible;
-                                EnemyAttackMults[strEnemyCounter++].text = "x" + medalAbility.STR[counterSTR++].Tier;
+                                this.HelperAssignPlayerEnemy(ref PlayerDefense, ref PlayerDefenseMults, ref defPlayerCounter, ref counterDEF, medalAbility.DEF, def);
                             }
-                        }
-                        else if (strDef.Key == "DEF")
-                        {
-                            foreach (var defLower in raiseLower.Value)
+                            else if (medalAbility.DEF[counterDEF].IsEnemyAffected)
                             {
-                                EnemyDefense[defEnemyCounter].texture = defLower;
-                                EnemyDefense[defEnemyCounter].color = visible;
-                                EnemyDefenseMults[defEnemyCounter++].text = "x" + medalAbility.DEF[counterDEF++].Tier;
+                                this.HelperAssignPlayerEnemy(ref EnemyDefense, ref EnemyDefenseMults, ref defEnemyCounter, ref counterDEF, medalAbility.DEF, def);
                             }
                         }
                     }
                 }
             }
-
-            // TODO Account for player saps
 
             if (CheckPlayer())
             {
@@ -461,6 +446,13 @@ namespace MedalViewer.Medal
                 if (ability != null)
                     EnemyTurns.text = ability.Duration;
             }
+        }
+
+        private void HelperAssignPlayerEnemy(ref RawImage[] images, ref Text[] multipliers, ref int imageIndex, ref int multiplierIndex, List<MedalCombatAbility> strDef, Texture2D image)
+        {
+            images[imageIndex].texture = image;
+            images[imageIndex].color = visible;
+            multipliers[imageIndex++].text = "x" + strDef[multiplierIndex++].Tier;
         }
 
         private void AssignEffects(MedalAbility medalAbility)

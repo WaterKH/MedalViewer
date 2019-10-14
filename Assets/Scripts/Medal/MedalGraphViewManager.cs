@@ -20,7 +20,7 @@ namespace MedalViewer.Medal
         public LoadManager LoadManager;
         public UIController UIController;
         public MedalSpotlightDisplayManager MedalSpotlightDisplayManager;
-        public MedalFilterManager MedalFilterManager;
+        public MedalFilterManager MedalFilterManager = MedalFilterManager.Instance;
 
         public Transform StartPositionY;
         public Transform StartPositionX;

@@ -13,10 +13,11 @@ namespace MedalViewer.Medal
 {
     public class MedalManager : MonoBehaviour
     {
-        public MedalFilterManager MedalFilterManager;
+        public MedalFilterManager MedalFilterManager = MedalFilterManager.Instance;
         public LoadManager LoadManager;
         public MedalLogicManager MedalLogicManager;
         public MedalGraphViewManager MedalGraphViewManager;
+        public UIController UIController;
 
         public bool IsRunningClient = false;
 
@@ -52,6 +53,8 @@ namespace MedalViewer.Medal
             LoadManager.StartLoading();
 
             Medals.Clear();
+
+            UIController.ResetViewWindow();//.OffsetY = 250;
 
             StartCoroutine(GetMedalsFromPHP(medalFilter));
         }

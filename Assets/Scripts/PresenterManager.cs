@@ -260,11 +260,8 @@ public class PresenterManager : MonoBehaviour
 
     private readonly string selectFilteredMedalsPHP = "https://mvphp.azurewebsites.net/selectFilteredMedals.php";
     // TODO Fix this, we should have multiple instances of a MedalFilterManager
-    private MedalFilterManager medalFilter = new MedalFilterManager
-    {
-        SixStar = true,
-        SevenStar = true
-    };
+    private MedalFilterManager medalFilter = new MedalFilterManager();
+
     private IEnumerator GetSearchMedalsFromPHP()
     {
         Dictionary<int, Medal> medals = new Dictionary<int, Medal>();

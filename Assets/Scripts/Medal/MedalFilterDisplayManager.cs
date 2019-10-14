@@ -7,7 +7,7 @@ namespace MedalViewer.Medal
 {
     public class MedalFilterDisplayManager : MonoBehaviour
     {
-        public MedalFilterManager MedalFilterManager;
+        public MedalFilterManager MedalFilterManager = MedalFilterManager.Instance;
         public MedalManager MedalManager;
         //public MedalGraphViewManager MedalGraphViewManager;
         public SearchManager SearchManager;

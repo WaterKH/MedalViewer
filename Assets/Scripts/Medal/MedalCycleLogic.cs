@@ -24,17 +24,14 @@ namespace MedalViewer.Medal
         private Coroutine lastRoutine = null;
 
         // Static singleton property
-        public static MedalCycleLogic Instance
-        {
-            get { return instance ?? (instance = new GameObject("MedalCycleLogic").AddComponent<MedalCycleLogic>()); }
-        }
+        public static MedalCycleLogic Instance => instance ?? (instance = new GameObject("MedalCycleLogic").AddComponent<MedalCycleLogic>());
 
-        void Awake()
+        private void Awake()
         {
             LoadManager = GameObject.FindGameObjectWithTag("Loading").GetComponent<LoadManager>();
         }
 
-        // Instance method, this method can be accesed through the singleton instance
+        // Instance method, this method can be accessed through the singleton instance
         public IEnumerator CycleMedals(Dictionary<GameObject, int> medals)
         {
             int count = 0;

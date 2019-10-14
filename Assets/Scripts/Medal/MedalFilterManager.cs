@@ -7,8 +7,7 @@ using UnityEngine;
 
 namespace MedalViewer.Medal
 {
-    // TODO Why is this a MonoBehaviour?
-    public class MedalFilterManager : MonoBehaviour
+    public class MedalFilterManager
     {
         #region PSMUR
 
@@ -73,11 +72,10 @@ namespace MedalViewer.Medal
 
         #endregion
 
-        public UIController UIController;
-
         public List<int> Tiers = new List<int>();
 
         // TODO Add more filters, but will need to rework the database if we want to filter by Boosts/Saps/Heals/ Etc
+
         #region Boosts & Saps
 
         public bool GeneralAttackBoost { get; set; }
@@ -106,9 +104,21 @@ namespace MedalViewer.Medal
         private int currentLowestRange = 1;
         private int currentHighestRange = 75;
 
-        private void Awake()
+
+        // Static singleton instance
+        private static MedalFilterManager instance;
+
+        // Static singleton property
+        public static MedalFilterManager Instance => instance ?? (instance = new MedalFilterManager());
+
+    //private void Awake()
+        //{
+        //    DefaultFilters();
+        //}
+
+        public MedalFilterManager()
         {
-            DefaultFilters();
+            this.DefaultFilters();
         }
 
         public void DefaultFilters()
@@ -146,7 +156,6 @@ namespace MedalViewer.Medal
         public string GenerateFilterQuery()
         {
             Tiers.Clear();
-            UIController.ResetViewWindow();//.OffsetY = 250;
 
             var selections = "MU.Id MUId, MU.Name MUName, MU.Image, MU.Star, CTL.Class Class, CTL.Type Type, AL.PSM PSM, AL.UR UR, MU.BaseAttack, MU.MaxAttack, MU.BaseDefense, MU.MaxDefense, MU.TraitSlots, " +
                 "PPL.BasePoints, PPL.MaxPoints, MU.Ability, MU.AbilityDescription, MU.Target MUTarget, MU.Gauge, MU.BaseMultiplierLow, MU.BaseMultiplierHigh, MU.MaxMultiplierLow, MU.MaxMultiplierHigh, " +

@@ -26,7 +26,7 @@ public class UIController : MonoBehaviour {
     private float min = 0.2f;
     private float max = 1.25f;
     private float zoomValue;
-    private float Test = 0.0f;
+    //private float Test = 0.0f;
 
 	void Awake()
     {
@@ -76,7 +76,8 @@ public class UIController : MonoBehaviour {
                 else
                     OffsetY += min;
 
-                ChangeYRowSize(OffsetY);
+                //this.ChangeYRowSize(OffsetY);
+                MedalGraphViewManager.UpdateYRows(OffsetY);
             }
             else if(Input.GetKeyDown(KeyCode.Minus))
             {
@@ -86,13 +87,15 @@ public class UIController : MonoBehaviour {
                 else
                     OffsetY -= min;
 
-                ChangeYRowSize(OffsetY);
+                //this.ChangeYRowSize(OffsetY);
+                MedalGraphViewManager.UpdateYRows(OffsetY);
             }
             else if(Input.GetKeyDown(KeyCode.Alpha0))
             {
                 print("Pressed R");
                 OffsetY = 250;
-                ChangeYRowSize(OffsetY);
+                //this.ChangeYRowSize(OffsetY);
+                MedalGraphViewManager.UpdateYRows(OffsetY);
             }
         }
 	}
@@ -121,13 +124,10 @@ public class UIController : MonoBehaviour {
         OverlayX.localScale = new Vector2(x, y);
     }
     
-	public void ChangeYRowSize(float changeValue)
-	{
-        MedalGraphViewManager.RowsY.ForEach(x => Destroy(x));
-        MedalGraphViewManager.RowsY.Clear();
+	//public void ChangeYRowSize(float changeValue)
+	//{
+        
 
-        MedalGraphViewManager.UpdateYRows(changeValue);
-
-        MedalGraphViewManager.PopulateMedals(false);
-	}
+ //       MedalGraphViewManager.UpdateYRows(changeValue);
+	//}
 }

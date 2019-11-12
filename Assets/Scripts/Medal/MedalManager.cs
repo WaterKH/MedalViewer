@@ -43,8 +43,8 @@ namespace MedalViewer.Medal
 
             #region Display Medals
 
-            StartCoroutine(MedalGraphViewManager.Display());
-
+            MedalGraphViewManager.StillRunning = StartCoroutine(MedalGraphViewManager.Display());
+            
             #endregion
         }
 

@@ -198,14 +198,14 @@ public class ImagePaths {
             "STR_DEF+", new Dictionary<string, string>()
             {
                 { "DEF+500", "StrDefPlus/def500" },{ "DEF+1000", "StrDefPlus/def1000" },{ "DEF+1500", "StrDefPlus/def1500" },{ "DEF+2000", "StrDefPlus/def2000" },
-                { "STR+500", "StrDefPlus/str500" },{ "STR+1000", "StrDefPlus/str1000" },{ "STR+1500", "StrDefPlus/str1500" },{ "STR+2000", "StrDefPlus/str2000" },{ "STR+4500", "StrDefPlus/str4500" },
+                { "STR+500", "StrDefPlus/str500" },{ "STR+1000", "StrDefPlus/str1000" },{ "STR+1500", "StrDefPlus/str1500" },{ "STR+2000", "StrDefPlus/str2000" },{ "STR+4500", "StrDefPlus/str4500" },{ "STR+5000", "StrDefPlus/str4500" },
 
-                { "STR+500U", "StrDefPlus/str500u" },{ "STR+1000U", "StrDefPlus/str1000u" },{ "STR+1500U", "StrDefPlus/str1500u" },{ "STR+2000U", "StrDefPlus/str2000u" },{ "STR+4500U", "StrDefPlus/str4500u" },
-                { "STR+500R", "StrDefPlus/str500r" },{ "STR+1000R", "StrDefPlus/str1000r" },{ "STR+1500R", "StrDefPlus/str1500r" },{ "STR+2000R", "StrDefPlus/str2000r" },{ "STR+4500R", "StrDefPlus/str4500r" },
+                { "STR+500U", "StrDefPlus/str500u" },{ "STR+1000U", "StrDefPlus/str1000u" },{ "STR+1500U", "StrDefPlus/str1500u" },{ "STR+2000U", "StrDefPlus/str2000u" },{ "STR+4000U", "StrDefPlus/str4500u" },{ "STR+4500U", "StrDefPlus/str4500u" },
+                { "STR+500R", "StrDefPlus/str500r" },{ "STR+1000R", "StrDefPlus/str1000r" },{ "STR+1500R", "StrDefPlus/str1500r" },{ "STR+2000R", "StrDefPlus/str2000r" },{ "STR+4000R", "StrDefPlus/str4500r" },{ "STR+4500R", "StrDefPlus/str4500r" },
 
-                { "STR+500P", "StrDefPlus/str500p" },{ "STR+1000P", "StrDefPlus/str1000p" },{ "STR+1500P", "StrDefPlus/str1500p" },{ "STR+2000P", "StrDefPlus/str2000p" },{ "STR+4500P", "StrDefPlus/str4500p" },
-                { "STR+500S", "StrDefPlus/str500s" },{ "STR+1000S", "StrDefPlus/str1000s" },{ "STR+1500S", "StrDefPlus/str1500s" },{ "STR+2000S", "StrDefPlus/str2000s" },{ "STR+4500S", "StrDefPlus/str4500s" },
-                { "STR+500M", "StrDefPlus/str500m" },{ "STR+1000M", "StrDefPlus/str1000m" },{ "STR+1500M", "StrDefPlus/str1500m" },{ "STR+2000M", "StrDefPlus/str2000m" },{ "STR+4500M", "StrDefPlus/str4500m" },
+                { "STR+300P", "StrDefPlus/str500p" },{ "STR+500P", "StrDefPlus/str500p" },{ "STR+1000P", "StrDefPlus/str1000p" },{ "STR+1500P", "StrDefPlus/str1500p" },{ "STR+2000P", "StrDefPlus/str2000p" },{ "STR+4500P", "StrDefPlus/str4500p" },
+                { "STR+300S", "StrDefPlus/str500s" },{ "STR+500S", "StrDefPlus/str500s" },{ "STR+1000S", "StrDefPlus/str1000s" },{ "STR+1500S", "StrDefPlus/str1500s" },{ "STR+2000S", "StrDefPlus/str2000s" },{ "STR+4500S", "StrDefPlus/str4500s" },
+                { "STR+300M", "StrDefPlus/str500m" },{ "STR+500M", "StrDefPlus/str500m" },{ "STR+1000M", "StrDefPlus/str1000m" },{ "STR+1500M", "StrDefPlus/str1500m" },{ "STR+2000M", "StrDefPlus/str2000m" },{ "STR+4500M", "StrDefPlus/str4500m" },
 
                 //{ "DEF-500", "StrDefPlus/def500" },{ "DEF-1500", "StrDefPlus/def1500" },{ "DEF-2000", "StrDefPlus/def2000" },
                 //{ "STR-500", "StrDefPlus/str500" },{ "STR-1500", "StrDefPlus/str1500" },{ "STR-2000", "StrDefPlus/str2000" },

@@ -27,6 +27,7 @@ namespace MedalViewer.Medal
         public Toggle Tier7;
         public Toggle Tier8;
         public Toggle Tier9;
+        public Toggle Tier10;
 
         public CanvasGroup Tier1Panel;
         public CanvasGroup Tier2Panel;
@@ -37,6 +38,7 @@ namespace MedalViewer.Medal
         public CanvasGroup Tier7Panel;
         public CanvasGroup Tier8Panel;
         public CanvasGroup Tier9Panel;
+        public CanvasGroup Tier10Panel;
 
         #endregion
 
@@ -118,6 +120,7 @@ namespace MedalViewer.Medal
             Tier7.onValueChanged.AddListener(value => SetPanelCanvasGroup(value, Tier7Panel));
             Tier8.onValueChanged.AddListener(value => SetPanelCanvasGroup(value, Tier8Panel));
             Tier9.onValueChanged.AddListener(value => SetPanelCanvasGroup(value, Tier9Panel));
+            //Tier10.onValueChanged.AddListener(value => SetPanelCanvasGroup(value, Tier10Panel));
 
             #endregion
 
@@ -251,6 +254,7 @@ namespace MedalViewer.Medal
             MedalFilterManager.Tier7 = Tier7.isOn;
             MedalFilterManager.Tier8 = Tier8.isOn;
             MedalFilterManager.Tier9 = Tier9.isOn;
+            MedalFilterManager.Tier10 = Tier10.isOn;
         }
 
         public void AssignRange()

@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\CreditsDisplayManager.cs" />
     <Compile Include="Assets\Scripts\DamoEasterEgg.cs" />
     <Compile Include="Assets\Scripts\GetDraggedView.cs" />
+    <Compile Include="Assets\Scripts\GraphOptions.cs" />
     <Compile Include="Assets\Scripts\ImagePaths.cs" />
     <Compile Include="Assets\Scripts\KHUtilitiesx.cs" />
     <Compile Include="Assets\Scripts\LoadManager.cs" />

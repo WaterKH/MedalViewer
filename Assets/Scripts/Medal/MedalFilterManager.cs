@@ -102,7 +102,7 @@ namespace MedalViewer.Medal
         #endregion
 
         private int currentLowestRange = 1;
-        private int currentHighestRange = 75;
+        private int currentHighestRange = 81;
 
 
         // Static singleton instance
@@ -136,7 +136,7 @@ namespace MedalViewer.Medal
 
             //Tier3 = true;
             //Tier5 = true;
-            Tier6 = true;
+            //Tier6 = true;
             Tier7 = true;
             Tier8 = true;
             Tier9 = true;
@@ -146,11 +146,11 @@ namespace MedalViewer.Medal
             All = true;
             Random = true;
 
-            LowRange = 16;
-            HighRange = 75;
+            LowRange = 30;
+            HighRange = 81;
 
             Tiers.Clear();
-            Tiers.AddRange(new int[] { 6, 7, 8, 9, 10 });
+            Tiers.AddRange(new int[] { 7, 8, 9, 10 });
         }
 
         public string GenerateFilterQuery()

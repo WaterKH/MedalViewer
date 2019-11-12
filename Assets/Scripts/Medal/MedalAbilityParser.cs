@@ -11,7 +11,7 @@ public class MedalAbilityParser : MonoBehaviour
 {
     // Static singleton instance
     private static MedalAbilityParser instance;
-    private Coroutine lastRoutine = null;
+    //private Coroutine lastRoutine = null;
 
     // Static singleton property
     public static MedalAbilityParser Instance
@@ -55,7 +55,7 @@ public class MedalAbilityParser : MonoBehaviour
 
     // To be used in conjunction with GeneralRaiseLower/Self/Target Regex - Not to be included in the list
     private static readonly string AddToRaiseLower = @"(?:(?:(Reversed? |Upright |PSM-|P-|S-|M-|R-|U-))?(STR|DEF)?(?: (?:by )?(\d+))?(?:, | & )?)?";
-    private static readonly Regex AddToRaiseLowerRegex = new Regex($@"(↑|R?r?aises|↓|L?l?owers)( target'?s'?)? {AddToRaiseLower}\s?{AddToRaiseLower}\s?{AddToRaiseLower}");
+    private static readonly Regex AddToRaiseLowerRegex = new Regex($@"(↑|R?r?aises|↓|L?l?owers)( target'?s'?)? {AddToRaiseLower}\s?{AddToRaiseLower}\s?{AddToRaiseLower}\s?{AddToRaiseLower}");
 
     // To be used in conjunction with GeneralRaiseLower/Self/Target Regex - Not to be included in the list
     private static readonly string SetRaiseLower = @"(?:(PSM-|P-|S-|M-|R-|U-))?(STR|DEF)?(?:, | & )?";
@@ -444,18 +444,21 @@ public class MedalAbilityParser : MonoBehaviour
                 var targetBool = string.IsNullOrEmpty(selfTarget) || selfTarget.Equals("self") ? true : false;
 
                 var index = 3;
-                for (int i = 0; i < 3; ++i)
+                for (int i = 0; i < 4; ++i)
                 {
                     var attribute = addResult.Groups[index].Value;
                     var strDef = addResult.Groups[index + 1].Value;
 
                     if (attribute != "" || strDef != "")
                     {
-                        var amount = !string.IsNullOrEmpty(addResult.Groups[index + 2].Value) ? addResult.Groups[index + 2].Value :
-                                     (index + 2) + 3 < addResult.Groups.Count && 
-                                     !string.IsNullOrEmpty(addResult.Groups[(index + 2) + 3].Value) ? addResult.Groups[(index + 2) + 3].Value :
-                                     (index + 2) + 6 < addResult.Groups.Count &&
-                                     !string.IsNullOrEmpty(addResult.Groups[(index + 2) + 6].Value) ? addResult.Groups[(index + 2) + 6].Value :
+                        var amount = !string.IsNullOrEmpty(addResult.Groups[index + 2].Value) 
+                                         ? addResult.Groups[index + 2].Value :
+                                     (index + 2) + 3 < addResult.Groups.Count && !string.IsNullOrEmpty(addResult.Groups[(index + 2) + 3].Value) 
+                                         ? addResult.Groups[(index + 2) + 3].Value :
+                                     (index + 2) + 6 < addResult.Groups.Count && !string.IsNullOrEmpty(addResult.Groups[(index + 2) + 6].Value) 
+                                         ? addResult.Groups[(index + 2) + 6].Value :
+                                     (index + 2) + 9 < addResult.Groups.Count && !string.IsNullOrEmpty(addResult.Groups[(index + 2) + 9].Value)
+                                         ? addResult.Groups[(index + 2) + 9].Value :
                                      "";
 
                         if (attribute == "")
@@ -465,6 +468,8 @@ public class MedalAbilityParser : MonoBehaviour
                             strDef = addResult.Groups[(index + 1) + 3].Value;
                         if (strDef == "" && (index + 1) + 6 < addResult.Groups.Count)
                             strDef = addResult.Groups[(index + 1) + 6].Value;
+                        if (strDef == "" && (index + 1) + 9 < addResult.Groups.Count)
+                            strDef = addResult.Groups[(index + 1) + 9].Value;
 
                         var medalCombatAbility = new MedalCombatAbility()
                         {

@@ -8,9 +8,7 @@ namespace MedalViewer.Medal
 {
     public class MedalSpotlight : MonoBehaviour
     {
-
         public MedalGraphViewManager MedalGraphViewManager;
-        //MedalLogic medalLogic;
 
         void Start()
         {
@@ -21,10 +19,5 @@ namespace MedalViewer.Medal
         {
             MedalGraphViewManager.HandleDisplay(gameObject);
         }
-
-        //public void DisplayCurrentMedal()
-        //{
-        //    StartCoroutine(MedalSpotlightDisplayManager.Display(gameObject));
-        //}
     }
 }

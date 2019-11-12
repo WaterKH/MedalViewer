@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
@@ -18,12 +19,12 @@ namespace MedalViewer.Medal
 
         private readonly float yOffset = 250;
         private bool cyclesOn = true;
-        private readonly string url = "https://medalviewer.blob.core.windows.net/thumbnails/";
+        //private readonly string urlThumbnails = "https://medalviewer.blob.core.windows.net/thumbnails/";
         private readonly string urlHighQuality = "https://medalviewer.blob.core.windows.net/images/";
 
         public Medal GetLatestMedal()
         {
-            return MedalManager.Medals.LastOrDefault().Value;
+            return MedalManager.Medals.LastOrDefault(x => x.Value.Id < 20000).Value;
         }
 
         public double GetHighestMultiplier(Medal medal)
@@ -36,9 +37,59 @@ namespace MedalViewer.Medal
                     medal.BaseMultiplierLow * medal.TierConversion[medal.Tier];
         }
 
-        public Dictionary<int, Dictionary<double, GameObject>> GenerateMedals(List<GameObject> YParents, List<GameObject> XParents, Transform MedalContentHolder)
+        public int GetHighestCalculatedStrengthRange()
+        {
+            var medal = MedalManager.Medals.OrderByDescending(x => x.Value.BaseAttack * x.Value.MaxMultiplierLow).FirstOrDefault().Value;
+            var attack = medal.BaseAttack != 0 ? medal.BaseAttack : medal.MaxAttack;
+
+            var result = Mathf.RoundToInt(attack * (float)medal.MaxMultiplierLow);
+
+            return result;
+        }
+
+        public int GetLowestCalculatedStrengthRange()
+        {
+            var medal = MedalManager.Medals.OrderBy(x => x.Value.BaseAttack * x.Value.MaxMultiplierLow).FirstOrDefault().Value;
+            print(medal.Name);
+            var attack = medal.BaseAttack != 0 ? medal.BaseAttack : medal.MaxAttack;
+
+            var result = Mathf.RoundToInt(attack * (float) medal.MaxMultiplierLow);
+
+            if (result == 0)
+                return result;
+            else
+                return result - 1;
+        }
+
+        public void SetRange(MedalFilterManager filters)
+        {
+            var highRange = MedalManager.Medals.Values.OrderByDescending(x => x.GuiltMultiplierHigh).FirstOrDefault()?.GuiltMultiplierHigh;
+            var highRangeAlt = MedalManager.Medals.Values.OrderByDescending(x => x.GuiltMultiplierLow).FirstOrDefault()?.GuiltMultiplierLow;
+            if (highRange < highRangeAlt && highRangeAlt < 1000)
+            {
+                highRange = highRangeAlt;
+            }
+
+            if (highRangeAlt.HasValue)
+            {
+                int value = (int) highRange.Value;
+                filters.HighRange = value + 1;
+                filters.LowRange = (value - 50) > 0 ? value - 50 : 0;
+            }
+        }
+
+        public void SetLatestTiers(MedalFilterManager filters)
+        {
+            var highestTier = MedalManager.Medals.Values.OrderByDescending(x => x.Tier).FirstOrDefault()?.Tier;
+
+            filters.Tiers = highestTier.HasValue ? new List<int> {highestTier.Value - 3, highestTier.Value - 2, highestTier.Value - 1, highestTier.Value } : new List<int> { 7, 8, 9, 10 };
+        }
+
+        public Dictionary<int, Dictionary<double, GameObject>> GenerateMedals(List<GameObject> yParents, List<GameObject> xParents, Transform medalContentHolder, GraphOptions currentGraphOptions/*, MedalFilterManager filters*/)
         {
             var medals = new Dictionary<int, Dictionary<double, GameObject>>();
+            //var queryMedals = MedalManager.Medals.Where(x => filters.Tiers.Contains(x.Value.Tier) && x.Value.GuiltMultiplierHigh <= filters.HighRange && x.Value.GuiltMultiplierLow <= filters.HighRange
+            //                                                                                      && x.Value.GuiltMultiplierLow >= filters.LowRange && x.Value.GuiltMultiplierHigh >= filters.LowRange);
 
             foreach (var kv in MedalManager.Medals.OrderBy(x => x.Value.GuiltMultiplierLow))
             {
@@ -50,10 +101,13 @@ namespace MedalViewer.Medal
                     medals.Add(medal.Tier, new Dictionary<double, GameObject>());
 
                 var multiplier = this.GetHighestMultiplier(medal);
+                var guiltIndex = (int)multiplier < 0 ? 0 : (int)multiplier;
+
+                if (currentGraphOptions == GraphOptions.CalculatedStrength)
+                    multiplier *= medal.MaxAttack > medal.BaseAttack ? medal.MaxAttack : medal.BaseAttack;
 
                 if (!medals[medal.Tier].ContainsKey(multiplier))
                 {
-                    var guiltIndex = (int)multiplier < 0 ? 0 : (int)multiplier;
 
                     GameObject tempObject = null;
                     if(cyclesOn)
@@ -62,11 +116,11 @@ namespace MedalViewer.Medal
                         tempObject = Instantiate(Resources.Load("MedalDisplay") as GameObject);
 
                     tempObject.name = multiplier.ToString("0.00");
-                    //print(medal.Name +  " " + medal.Tier + " " + guiltIndex);
-                    tempObject.transform.position = new Vector3(XParents.First(x => x.name == medal.Tier.ToString()).transform.position.x, 
-                                                                YParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
+                    print(medal.Name +  " " + medal.Tier + " " + guiltIndex);
+                    tempObject.transform.position = new Vector3(xParents.First(x => x.name == medal.Tier.ToString()).transform.position.x, 
+                                                                yParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
                     
-                    tempObject.transform.SetParent(MedalContentHolder, false);
+                    tempObject.transform.SetParent(medalContentHolder, false);
 
                     medals[medal.Tier].Add(multiplier, tempObject);
                 }
@@ -86,16 +140,16 @@ namespace MedalViewer.Medal
             #region Sort Base On Name
 
             List<Transform> children = new List<Transform>();
-            for (int i = MedalContentHolder.childCount - 1; i >= 0; i--)
+            for (int i = medalContentHolder.childCount - 1; i >= 0; i--)
             {
-                Transform child = MedalContentHolder.GetChild(i);
+                Transform child = medalContentHolder.GetChild(i);
                 children.Add(child);
                 child.SetParent(null);
             }
             children.Sort((Transform t1, Transform t2) => { return t1.name.CompareTo(t2.name); });
             foreach (Transform child in children)
             {
-                child.SetParent(MedalContentHolder);
+                child.SetParent(medalContentHolder);
             }
 
             #endregion
@@ -237,33 +291,33 @@ namespace MedalViewer.Medal
             }
         }
 
-        public List<GameObject> PlaceYRows(int lowRange, int highRange, Transform StartPositionY, Transform ParentY, float yOffset)
+        public List<GameObject> PlaceYRows(int lowRange, int highRange, Transform startPositionY, Transform parentY, float offset)
         {
-            var RowsY = new List<GameObject>();
+            var rowsY = new List<GameObject>();
             float tempYOffset = 300;
             var maxY = 0.0f;
 
             for (int i = lowRange; i <= highRange; ++i)
             {
-                var pos = new Vector2(StartPositionY.position.x, StartPositionY.position.y + tempYOffset);
-                var row = Instantiate(Resources.Load("NumberY") as GameObject, pos, Quaternion.identity, ParentY.parent);
+                var pos = new Vector2(startPositionY.position.x, startPositionY.position.y + tempYOffset);
+                var row = Instantiate(Resources.Load("NumberY") as GameObject, pos, Quaternion.identity, parentY.parent);
 
                 row.name = i.ToString();
                 row.GetComponent<Text>().text = i.ToString();
 
-                tempYOffset += yOffset;
-                RowsY.Add(row);
+                tempYOffset += offset;
+                rowsY.Add(row);
 
                 maxY = row.GetComponent<RectTransform>().offsetMax.y;
             }
 
-            ParentY.GetComponent<RectTransform>().offsetMax = new Vector2(ParentY.GetComponent<RectTransform>().offsetMax.x, maxY - 500);
+            parentY.GetComponent<RectTransform>().offsetMax = new Vector2(parentY.GetComponent<RectTransform>().offsetMax.x, maxY - 500);
 
-            ParentY.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" && x.name != "Content" && x.name != "InitialYPosition").ToList().ForEach(x => {
-                x.transform.SetParent(ParentY);
+            parentY.parent.GetComponentsInChildren<RectTransform>().Where(x => x.name != "Viewport" && x.name != "Content" && x.name != "InitialYPosition").ToList().ForEach(x => {
+                x.transform.SetParent(parentY);
             });
 
-            return RowsY;
+            return rowsY;
         }
 
         public List<GameObject> PlaceXColumns(List<int> tiers, Transform StartPositionX, Transform ParentX, int xOffset)

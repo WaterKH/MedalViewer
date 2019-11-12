@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -39,10 +40,11 @@ namespace MedalViewer.Medal
 
         public int GetHighestCalculatedStrengthRange()
         {
-            var medal = MedalManager.Medals.OrderByDescending(x => x.Value.BaseAttack * x.Value.MaxMultiplierLow).FirstOrDefault().Value;
-            var attack = medal.BaseAttack != 0 ? medal.BaseAttack : medal.MaxAttack;
+            var medal = MedalManager.Medals.OrderByDescending(x => x.Value.BaseAttack * x.Value.GuiltMultiplierLow).FirstOrDefault().Value;
+            var attack = medal.MaxAttack != 0 ? medal.MaxAttack : medal.BaseAttack;
+            var multiplier = medal.GuiltMultiplierHigh != 0.0f ? medal.GuiltMultiplierHigh : medal.GuiltMultiplierLow;
 
-            var result = Mathf.RoundToInt(attack * (float)medal.MaxMultiplierLow);
+            var result = Mathf.RoundToInt(attack * (float)multiplier);
 
             return result;
         }
@@ -101,10 +103,15 @@ namespace MedalViewer.Medal
                     medals.Add(medal.Tier, new Dictionary<double, GameObject>());
 
                 var multiplier = this.GetHighestMultiplier(medal);
-                var guiltIndex = (int)multiplier < 0 ? 0 : (int)multiplier;
 
                 if (currentGraphOptions == GraphOptions.CalculatedStrength)
                     multiplier *= medal.MaxAttack > medal.BaseAttack ? medal.MaxAttack : medal.BaseAttack;
+
+                var guiltIndex = (int)multiplier < 0 ? 0 : (int)multiplier;
+
+                if (currentGraphOptions == GraphOptions.CalculatedStrength)
+                    guiltIndex = guiltIndex % 100000 >= 50000 ? guiltIndex + 100000 - guiltIndex % 100000 : guiltIndex - guiltIndex % 100000;
+
 
                 if (!medals[medal.Tier].ContainsKey(multiplier))
                 {
@@ -116,9 +123,18 @@ namespace MedalViewer.Medal
                         tempObject = Instantiate(Resources.Load("MedalDisplay") as GameObject);
 
                     tempObject.name = multiplier.ToString("0.00");
-                    print(medal.Name +  " " + medal.Tier + " " + guiltIndex);
-                    tempObject.transform.position = new Vector3(xParents.First(x => x.name == medal.Tier.ToString()).transform.position.x, 
-                                                                yParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
+                    
+                    try
+                    {
+                        tempObject.transform.position = new Vector3(xParents.First(x => x.name == medal.Tier.ToString()).transform.position.x,
+                            yParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        print(medal.Name + " " + medal.Tier + " " + guiltIndex);
+                        
+                    }
                     
                     tempObject.transform.SetParent(medalContentHolder, false);
 
@@ -264,7 +280,7 @@ namespace MedalViewer.Medal
             }
         }
 
-        public void PlaceMedals(List<GameObject> Rows, List<GameObject> Columns, Dictionary<int, Dictionary<double, GameObject>> Medals)
+        public void PlaceMedals(List<GameObject> Rows, List<GameObject> Columns, Dictionary<int, Dictionary<double, GameObject>> Medals, GraphOptions currentGraphOptions)
         {
             foreach (var tier in Medals)
             {
@@ -274,6 +290,10 @@ namespace MedalViewer.Medal
 
                     var yIndex = (int)multiplier.Key;
                     double yAfterDecimal = multiplier.Key - yIndex;
+                    if (currentGraphOptions == GraphOptions.CalculatedStrength)
+                    {
+                        yIndex = yIndex % 100000 >= 50000 ? yIndex + 100000 - yIndex % 100000 : yIndex - yIndex % 100000;
+                    }
 
                     var yTransform = Rows.FirstOrDefault(x => x.name == yIndex.ToString()).transform.position;
                     var xPosition = Columns.FirstOrDefault(x => x.name == tier.Key.ToString()).transform.position;
@@ -291,13 +311,22 @@ namespace MedalViewer.Medal
             }
         }
 
-        public List<GameObject> PlaceYRows(int lowRange, int highRange, Transform startPositionY, Transform parentY, float offset)
+        public List<GameObject> PlaceYRows(int lowRange, int highRange, Transform startPositionY, Transform parentY, float offset, GraphOptions currentGraphOptions)
         {
             var rowsY = new List<GameObject>();
             float tempYOffset = 300;
             var maxY = 0.0f;
 
-            for (int i = lowRange; i <= highRange; ++i)
+            var incrementalValue = 1;
+            if (currentGraphOptions == GraphOptions.CalculatedStrength)
+            {
+                //incrementalValue = (highRange - lowRange) / 50;
+                incrementalValue = 100000; // 100,000
+                lowRange = lowRange % 100000 >= 50000 ? lowRange + 100000 - lowRange % 100000 : lowRange - lowRange % 100000;
+                highRange = highRange % 100000 >= 50000 ? highRange + 100000 - highRange % 100000 : highRange - highRange % 100000;
+            }
+
+            for (int i = lowRange; i <= highRange; i += incrementalValue)
             {
                 var pos = new Vector2(startPositionY.position.x, startPositionY.position.y + tempYOffset);
                 var row = Instantiate(Resources.Load("NumberY") as GameObject, pos, Quaternion.identity, parentY.parent);

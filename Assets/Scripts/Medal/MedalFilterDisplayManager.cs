@@ -120,7 +120,7 @@ namespace MedalViewer.Medal
             Tier7.onValueChanged.AddListener(value => SetPanelCanvasGroup(value, Tier7Panel));
             Tier8.onValueChanged.AddListener(value => SetPanelCanvasGroup(value, Tier8Panel));
             Tier9.onValueChanged.AddListener(value => SetPanelCanvasGroup(value, Tier9Panel));
-            //Tier10.onValueChanged.AddListener(value => SetPanelCanvasGroup(value, Tier10Panel));
+            Tier10.onValueChanged.AddListener(value => SetPanelCanvasGroup(value, Tier10Panel));
 
             #endregion
 

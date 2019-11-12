@@ -9,6 +9,8 @@ public class LoadManager : MonoBehaviour
     public RawImage Image;
     public bool IsLoading;
 
+    //private Coroutine lastCoroutine;
+
     float framesPerSecond = 40.0f;
 
     void Update()
@@ -29,6 +31,8 @@ public class LoadManager : MonoBehaviour
             Image.texture = frames[index];
             yield return null;
         }
+
+        //StopCoroutine(lastCoroutine);
     }
 
     public void StartLoading()
@@ -39,6 +43,10 @@ public class LoadManager : MonoBehaviour
 
         IsLoading = true;
         StartCoroutine(InitiateLoading());
+        //if(lastCoroutine != null)
+        //    lastCoroutine = StartCoroutine(InitiateLoading());
+        //else
+        //    print("Still Loading");
     }
 
     public void FinishLoading()

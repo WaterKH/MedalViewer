@@ -335,7 +335,7 @@ namespace MedalViewer.Medal
 
         private void AssignMedalName(MedalDisplay medalDisplay)
         {
-            MedalName.text = medalDisplay.Name;
+            MedalName.text = medalDisplay.Name.Replace("é", "e").Replace("ï", "i");
         }
 
         private void AssignContent(MedalDisplay medalDisplay, MedalAbility medalAbility)

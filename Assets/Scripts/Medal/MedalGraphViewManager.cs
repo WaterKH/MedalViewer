@@ -111,8 +111,8 @@ namespace MedalViewer.Medal
 
             var tiers = MedalFilterManager.Tiers;
 
-            print(lowRange + " " + highRange);
-            RowsY = MedalLogicManager.PlaceYRows(lowRange, highRange, StartPositionY, ParentY, yOffset);
+            //print(lowRange + " " + highRange);
+            RowsY = MedalLogicManager.PlaceYRows(lowRange, highRange, StartPositionY, ParentY, yOffset, CurrentGraphOption);
             ColumnsX = MedalLogicManager.PlaceXColumns(tiers, StartPositionX, ParentX, xOffset);
 
             MedalContent.GetComponent<RectTransform>().offsetMax = new Vector2(ParentX.GetComponent<RectTransform>().offsetMax.x, ParentY.GetComponent<RectTransform>().offsetMax.y);
@@ -133,8 +133,8 @@ namespace MedalViewer.Medal
             LoadManager.FinishLoading();
 
             // TODO Find a better way to stop this coroutine so we can call a new display coroutine when it's done
-            print("Stopping Coroutine");
-            StopCoroutine(StillRunning);
+            //print("Stopping Coroutine");
+            //StopCoroutine(StillRunning);
         }
 
         #region Display Helper Methods
@@ -146,7 +146,7 @@ namespace MedalViewer.Medal
                 MedalGameObjects = MedalLogicManager.GenerateMedals(RowsY, ColumnsX, MedalContent, this.CurrentGraphOption/*, MedalFilterManager*/);
 
                 
-            MedalLogicManager.PlaceMedals(RowsY, ColumnsX, MedalGameObjects);
+            MedalLogicManager.PlaceMedals(RowsY, ColumnsX, MedalGameObjects, CurrentGraphOption);
 
             //this.PlaceGraphLines();
             //UIMovement.UpdateViewWindow();
@@ -357,7 +357,7 @@ namespace MedalViewer.Medal
                 highRange = MedalLogicManager.GetHighestCalculatedStrengthRange();
             }
             
-            RowsY = MedalLogicManager.PlaceYRows(lowRange, highRange, StartPositionY, ParentY, changeValue);
+            RowsY = MedalLogicManager.PlaceYRows(lowRange, highRange, StartPositionY, ParentY, changeValue, CurrentGraphOption);
 
             this.PopulateMedals(false);
         }
@@ -395,8 +395,9 @@ namespace MedalViewer.Medal
         {
             if (StillRunning != null)
             {
-                print("Display Enumerator still running...");
-                return;
+                StopCoroutine(StillRunning);
+                //print("Display Enumerator still running...");
+                //return;
             }
 
             CurrentGraphOption = (CurrentGraphOption == GraphOptions.Multiplier) ? GraphOptions.CalculatedStrength : GraphOptions.Multiplier;

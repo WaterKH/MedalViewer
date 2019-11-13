@@ -127,6 +127,9 @@ namespace MedalViewer.Medal
 
             var multiplier = MedalLogicManager.GetHighestMultiplier(latestMedal);
 
+            if (CurrentGraphOption == GraphOptions.CalculatedStrength)
+                multiplier *= latestMedal.MaxAttack > latestMedal.BaseAttack ? latestMedal.MaxAttack : latestMedal.BaseAttack;
+
             var medalObject = MedalGameObjects[latestMedal.Tier][multiplier].GetComponent<RectTransform>();
             MedalView.content.localPosition = this.CenterToItem(medalObject);
 
@@ -247,6 +250,7 @@ namespace MedalViewer.Medal
             {
                 var p = Instantiate(Resources.Load("RowTemplate") as GameObject);
                 p.transform.SetParent(GraphElementsY, false);
+                p.name = x.name;
 
                 p.GetComponent<RectTransform>().position = x.GetComponent<RectTransform>().position;
 

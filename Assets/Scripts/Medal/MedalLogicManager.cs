@@ -40,7 +40,7 @@ namespace MedalViewer.Medal
 
         public int GetHighestCalculatedStrengthRange()
         {
-            var medal = MedalManager.Medals.OrderByDescending(x => x.Value.BaseAttack * x.Value.GuiltMultiplierLow).FirstOrDefault().Value;
+            var medal = MedalManager.Medals.OrderByDescending(x => x.Value.MaxAttack * x.Value.GuiltMultiplierHigh).FirstOrDefault().Value;
             var attack = medal.MaxAttack != 0 ? medal.MaxAttack : medal.BaseAttack;
             var multiplier = medal.GuiltMultiplierHigh != 0.0f ? medal.GuiltMultiplierHigh : medal.GuiltMultiplierLow;
 
@@ -52,7 +52,6 @@ namespace MedalViewer.Medal
         public int GetLowestCalculatedStrengthRange()
         {
             var medal = MedalManager.Medals.OrderBy(x => x.Value.BaseAttack * x.Value.MaxMultiplierLow).FirstOrDefault().Value;
-            print(medal.Name);
             var attack = medal.BaseAttack != 0 ? medal.BaseAttack : medal.MaxAttack;
 
             var result = Mathf.RoundToInt(attack * (float) medal.MaxMultiplierLow);
@@ -127,12 +126,12 @@ namespace MedalViewer.Medal
                     try
                     {
                         tempObject.transform.position = new Vector3(xParents.First(x => x.name == medal.Tier.ToString()).transform.position.x,
-                            yParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
+                                                                    yParents.First(x => x.name == guiltIndex.ToString()).transform.position.y);
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
-                        print(medal.Name + " " + medal.Tier + " " + guiltIndex);
+                        print(medal.Name + " " + medal.Tier + " " + guiltIndex + " " + medal.MaxAttack + " " + medal.BaseAttack);
                         
                     }
                     
@@ -162,7 +161,7 @@ namespace MedalViewer.Medal
                 children.Add(child);
                 child.SetParent(null);
             }
-            children.Sort((Transform t1, Transform t2) => { return t1.name.CompareTo(t2.name); });
+            children.Sort((Transform t1, Transform t2) => string.Compare(t1.name, t2.name, StringComparison.Ordinal));
             foreach (Transform child in children)
             {
                 child.SetParent(medalContentHolder);

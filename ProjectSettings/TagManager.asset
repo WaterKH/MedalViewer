@@ -18,6 +18,7 @@ TagManager:
   - Loading
   - RemoveMedal
   - SlotHolder
+  - SubContent
   layers:
   - Default
   - TransparentFX

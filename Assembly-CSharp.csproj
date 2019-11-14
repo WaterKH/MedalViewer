@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\Medal\SlotDisplay.cs" />
     <Compile Include="Assets\Scripts\PresenterManager.cs" />
     <Compile Include="Assets\Scripts\SearchManager.cs" />
+    <Compile Include="Assets\Scripts\ToolTipManager.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

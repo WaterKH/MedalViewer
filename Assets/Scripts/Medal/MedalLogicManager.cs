@@ -18,7 +18,7 @@ namespace MedalViewer.Medal
         public List<Vector3> VerticalPositions = new List<Vector3>();
         public List<Vector3> HorizontalPositions = new List<Vector3>();
 
-        private readonly float yOffset = 250;
+        private float yOffset = 250;
         private bool cyclesOn = true;
         //private readonly string urlThumbnails = "https://medalviewer.blob.core.windows.net/thumbnails/";
         private readonly string urlHighQuality = "https://medalviewer.blob.core.windows.net/images/";
@@ -279,23 +279,38 @@ namespace MedalViewer.Medal
             }
         }
 
-        public void PlaceMedals(List<GameObject> Rows, List<GameObject> Columns, Dictionary<int, Dictionary<double, GameObject>> Medals, GraphOptions currentGraphOptions)
+        public void PlaceMedals(List<GameObject> rows, List<GameObject> columns, Dictionary<int, Dictionary<double, GameObject>> medals, GraphOptions currentGraphOptions)
         {
-            foreach (var tier in Medals)
+            //yOffset = currentGraphOptions == GraphOptions.CalculatedStrength ? 100000 : 250;
+
+            foreach (var tier in medals)
             {
                 foreach (var multiplier in tier.Value)
                 {
+
+                    // TODO Rework this!!!! It is not working with calculated strength
                     var medal = multiplier.Value;
 
                     var yIndex = (int)multiplier.Key;
-                    double yAfterDecimal = multiplier.Key - yIndex;
+                    double yAfterDecimal;
+
                     if (currentGraphOptions == GraphOptions.CalculatedStrength)
                     {
-                        yIndex = yIndex % 100000 >= 50000 ? yIndex + 100000 - yIndex % 100000 : yIndex - yIndex % 100000;
+                        var tempValue = yIndex;
+                        //if (yIndex % 100000 >= 50000)
+                        //    yIndex = yIndex + 100000 - yIndex % 100000;
+                        //else
+                            yIndex = yIndex - yIndex % 100000;
+
+                        yAfterDecimal = (tempValue - yIndex) / 100000.0;
+                    }
+                    else
+                    {
+                        yAfterDecimal = multiplier.Key - yIndex;
                     }
 
-                    var yTransform = Rows.FirstOrDefault(x => x.name == yIndex.ToString()).transform.position;
-                    var xPosition = Columns.FirstOrDefault(x => x.name == tier.Key.ToString()).transform.position;
+                    var yTransform = rows.FirstOrDefault(x => x.name == yIndex.ToString()).transform.position;
+                    var xPosition = columns.FirstOrDefault(x => x.name == tier.Key.ToString()).transform.position;
 
                     var nextY = yOffset;
 
